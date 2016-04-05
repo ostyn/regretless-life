@@ -1,0 +1,144 @@
+body {
+  margin: 0;
+  font-size: 20px;
+  font-family: sans-serif;
+  line-height: 1.5;
+}
+#material-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+#material-button>button{
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    background-color: white;
+    border: 2px solid;
+    border-radius: 25px;
+}
+#material-button>button:focus{
+    outline:0px;
+}
+.posts {
+   width: 70%; 
+   float: left; 
+}
+.postsFull {
+   width: 100%; 
+   float: left; 
+}
+.sidebar {
+    float: right;
+    width: 30%;
+}
+.sidebar-content {
+    position: fixed;
+    border: 1px dashed lightseagreen;
+    width: 28.5%;
+    height: 60%;
+    margin-top: 20px;
+}
+.sidebar-header {
+    position: fixed;
+    width: 27%;
+    height: 5%;
+    margin-top: 0px;
+    font-size: .6em;
+    text-align: right;
+}
+.content{
+    margin-left: auto;
+    margin-right: auto;
+}
+.card, flight{
+    margin: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    background-color: beige;
+    border: 1px dashed lightseagreen;
+    max-width: 40%;
+}
+.menuItem>a{
+	text-decoration: none;
+	color: black;
+}
+.active{
+	opacity: .25;
+}
+.menuItem{
+  font-size: 32px;
+  display: inline-block;
+  text-decoration: none;
+  margin-right: 40px;
+}
+.script{
+    font-family: 'Bad Script', cursive;
+}
+.logo{
+	border: 1px dashed black;
+	padding-right: 10px;
+	padding-left: 10px;
+	margin-right: 40px;
+	margin-left: 20px;
+}
+.menu{
+	background-color: beige;
+	margin: 0px;
+	height: 64px;
+	padding: 10px;
+	line-height: 64px;
+}
+.search{
+	padding: 3px;
+	height: 40px;
+	max-width: 200px;
+	font-size: 16px;
+	padding-left: 15px;
+	margin-right: 20px;
+}
+.submenu{
+	float:right;
+}
+h2{
+    font-weight: 400;
+}
+.postMap{
+	/*float: right;*/
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.post {
+	width: 86%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 5%;
+	padding-right: 5%;
+	margin-bottom: 20px;
+	margin-top: 20px;
+    border: 1px dashed lightseagreen;
+}
+map-embed{
+	margin: 5px;
+}
+.small{
+	font: 10px;
+}
+.grey{
+	color: #555;
+}
+.place-picker-map {
+  height: 300px;
+}
+
+.place-picker-autocomplete {
+  margin-top: 10px;
+  width: 200px;
+}

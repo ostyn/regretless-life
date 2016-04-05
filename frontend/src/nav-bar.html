@@ -1,0 +1,15 @@
+<template bindable="router">
+  <ul class="menu">
+	<li class="menuItem script logo">
+	  <a href="#">${router.title}</a>
+	</li>
+	<li repeat.for="row of router.navigation" class="menuItem script ${row.isActive ? 'active' : ''}">
+	  <a href.bind="row.href">${row.title}</a>
+	</li>
+	  <ul class="submenu">
+		<li class="menuItem script">
+		  <input class="search" type="text" placeholder="search site..."></input>
+		</li>
+	  </ul>
+  </ul>
+</template>

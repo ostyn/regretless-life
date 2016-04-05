@@ -1,0 +1,13 @@
+<template>
+    <input type="text" value.bind="query & debounce:500"></input>
+    <ul>
+        <li click.trigger="selectAirport(place)" style="cursor: pointer" repeat.for="place of data.Places">
+            ${getAirportName(place)}
+        </li>
+    </ul>
+    <p>
+        <div if.bind="data.Places.length == 0">I've got nothing. Try a different search</div>
+        <div if.bind="!data || !data.Places">Find an airport by its name, code, country, or city</div>
+        <div if.bind="data.Places.length > 0">Click an airport to see flights</div>
+    </p>
+</template>

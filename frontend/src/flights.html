@@ -1,0 +1,19 @@
+<template>
+    <require from="./airport-picker"></require>
+    <div class="card">
+        <h2>Cheap flights</h2>
+        <p>Find the cheapest flights from an airport</p>
+        <input value.bind="date & debounce:500"></input>
+        <airport-picker select-action.bind="selectAirport"></airport-picker>
+        <div>
+            <h4>${getAirportName(selectedAirport)}</h4>
+            <ul>
+                <li repeat.for="quote of selectedAirport.routes.Quotes">
+                    $${quote.MinPrice} to ${mapCodeToInfo(quote.OutboundLeg.DestinationId).Name}, ${mapCodeToInfo(quote.OutboundLeg.DestinationId).CountryName}
+                    on ${quote.OutboundLeg.DepartureDate.substring(0,10)}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="disqus_thread"></div>
+</template>
