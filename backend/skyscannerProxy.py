@@ -8,7 +8,7 @@ from tinydb import TinyDB, Query
 
 app = Flask(__name__)
 CORS(app)
-access_token = "ja851974568456353410392187861447"
+access_token = "YOUR_TOKEN_HERE"
 db = TinyDB('db.json')
 
 @app.route("/airportQuery", methods=['GET'])
