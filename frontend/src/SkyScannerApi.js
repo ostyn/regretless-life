@@ -35,7 +35,7 @@ export class SkyScannerApi {
             });
     }
     getAllPosts() {
-        return this.http.fetch('getAllPosts')
+        return this.http.fetch('findAllPosts')
             .then(response => {
                 return response.json();
             })
