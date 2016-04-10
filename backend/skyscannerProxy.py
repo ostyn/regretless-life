@@ -66,12 +66,48 @@ def testPost():
         return "Binary message written!"
     else:
         return "415 Unsupported Media Type ;)" + request.headers['Content-Type']
+    
+@app.route("/findAllPosts", methods=['GET'])
+def findAllPosts():
+    query = request.args.get('query')
+    posts = db.all()
+    posts.reverse()
+    if query is not None:
+        posts = filter_posts(posts, query)
+    return jsonify({'resp':posts})
+    
+@app.route("/findNPosts", methods=['GET'])
+def findNPosts():
+    start = request.args.get('start', 0)
+    num = request.args.get('num')
+    query = request.args.get('query')
+    if not(check_int(start)) or not(check_int(num)):
+        return jsonify({'error':"One of the params is not a number"})
+    start = int(start)
+    num = int(num)
+    
+    posts = db.all()
+    posts.reverse()
+    if query is not None:
+        posts = filter_posts(posts, query)
+    posts = posts[start:start+num]
+    return jsonify({'resp':posts})
 
-@app.route("/getAllPosts", methods=['GET'])
-def getAllPosts():
-    x = db.all()
-    x.reverse()
-    return jsonify({'resp':x})
+def filter_posts(posts, query):
+    filtered = []
+    for post in posts:
+        if query in post['content'] or query in post['title']:
+            filtered.append(post)
+    return filtered
+
+def check_int(s):
+    if s is None:
+        return False
+    if isinstance(s, int):
+        return True
+    if s[0] in ('-', '+'):
+    	return s[1:].isdigit()
+    return s.isdigit()
 
 if __name__ == "__main__":
     app.run(debug = True, port = 5000)
