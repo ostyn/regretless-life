@@ -8,6 +8,8 @@ export class MarkdownComponent {
   constructor(element) {
     this.element = element;
     // An instance of the converter
+    showdown.setOption('tables', 'true');
+    showdown.setOption('simplifiedAutoLink', 'true');
     this.converter = new showdown.Converter();
   }
 
