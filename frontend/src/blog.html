@@ -5,15 +5,8 @@
             <h2>${post.title}</h2>
             <p class="small grey">By ${post.author}, ${post.date}</p>
             <p>
-                <button click.trigger="setLocation(post.place)">Move map to location</button>
                 <div markdown-component.bind="post.content"></div>
-
             </p>
         </div>
     </section>
-    <require from="./sidebar.html"></require>
-    <sidebar if.bind="sidebarOpen" longitude.bind="longitude" latitude.bind="latitude" zoom.bind="zoom"></sidebar>
-    <div id="material-button">
-        <button click.trigger="toggleSidebar()">&#9776;</button>
-    </div>
 </template>

@@ -4,24 +4,6 @@ body {
   font-family: sans-serif;
   line-height: 1.5;
 }
-#material-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-}
-#material-button>button{
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-    line-height: 20px;
-    text-align: center;
-    background-color: white;
-    border: 2px solid;
-    border-radius: 25px;
-}
-#material-button>button:focus{
-    outline:0px;
-}
 .posts {
    width: 70%; 
    float: left; 
@@ -75,6 +57,9 @@ body {
   text-decoration: none;
   margin-right: 40px;
 }
+.menuItem:nth-last-child(2), .menuItem:nth-last-child(1){
+  margin-right: 10px;
+}
 .script{
     font-family: 'Bad Script', cursive;
 }
@@ -85,12 +70,19 @@ body {
 	margin-right: 40px;
 	margin-left: 20px;
 }
-.menu{
-	background-color: beige;
-	margin: 0px;
-	height: 64px;
-	padding: 10px;
-	line-height: 64px;
+@media (max-width: 915px) {
+    .menu{
+        display: none;
+    }
+}
+@media (min-width: 915px) {
+    .menu{
+        background-color: beige;
+        margin: 0px;
+        height: 64px;
+        padding: 10px;
+        line-height: 64px;
+    }
 }
 .search{
 	padding: 3px;
@@ -125,20 +117,9 @@ h2{
 	margin-top: 20px;
     border: 1px dashed lightseagreen;
 }
-map-embed{
-	margin: 5px;
-}
 .small{
 	font: 10px;
 }
 .grey{
 	color: #555;
-}
-.place-picker-map {
-  height: 300px;
-}
-
-.place-picker-autocomplete {
-  margin-top: 10px;
-  width: 200px;
 }
