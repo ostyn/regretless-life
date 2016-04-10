@@ -1,0 +1,5 @@
+frontend/dist
+frontend/node_modules
+frontend/jspm_packages
+backend/db.json
+.vscode
