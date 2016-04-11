@@ -46,6 +46,18 @@ export class SkyScannerApi {
                 console.log(ex);
             });
     }
+    findAllPosts(query) {
+        return this.http.fetch('findAllPosts?query=' + query)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                this.posts = data.resp;
+            })
+            .catch(ex => {
+                console.log(ex);
+            });
+    }
     submitPost(title, author, location, content, date) {
         this.http
             .fetch('submitPost', {
