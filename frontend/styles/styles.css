@@ -84,13 +84,16 @@ body {
         line-height: 64px;
     }
 }
-.search{
+.textbox{
 	padding: 3px;
 	height: 40px;
-	max-width: 200px;
 	font-size: 16px;
 	padding-left: 15px;
 	margin-right: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#searchbox {
+    max-width: 200px;
 }
 .submenu{
 	float:right;
@@ -122,4 +125,11 @@ h2{
 }
 .grey{
 	color: #555;
+}
+#postEditor {
+    width: 60%;
+    height: 300px; 
+}
+.borderless {
+    border: 0px;
 }
