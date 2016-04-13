@@ -71,7 +71,7 @@ def testPost():
 def findAllPosts():
     query = request.args.get('query')
     posts = db.all()
-    posts.reverse()
+    posts = reverse_and_id_posts(posts)
     if query is not None:
         posts = filter_posts(posts, query)
     return jsonify({'resp':posts})
@@ -87,7 +87,7 @@ def findNPosts():
     num = int(num)
     
     posts = db.all()
-    posts.reverse()
+    posts = reverse_and_id_posts(posts)
     if query is not None:
         posts = filter_posts(posts, query)
     posts = posts[start:start+num]
@@ -108,6 +108,13 @@ def check_int(s):
     if s[0] in ('-', '+'):
     	return s[1:].isdigit()
     return s.isdigit()
+
+def reverse_and_id_posts(posts):
+    alteredPosts = []
+    for post in posts:
+        post['id'] = post.eid
+        alteredPosts.insert(0, post)
+    return alteredPosts
 
 if __name__ == "__main__":
     app.run(debug = True, port = 5000)
