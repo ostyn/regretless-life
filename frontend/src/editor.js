@@ -1,15 +1,20 @@
 import {inject} from 'aurelia-framework';
 import {SkyScannerApi} from 'SkyScannerApi.js';
-@inject(SkyScannerApi)
+import {Router} from 'aurelia-router';
+@inject(SkyScannerApi, Router)
 export class Editor {
     title = "";
     author = "";
     location = "";
     content = "";
-    constructor(skyApi) {
+    constructor(skyApi, router) {
         this.skyApi = skyApi;
+        this.router = router;
     }
     submit(){
-        this.skyApi.submitPost(this.title, this.author, this.location, this.content, new Date().getTime());
+        this.skyApi.submitPost(this.title, this.author, this.location, this.content, new Date().getTime())
+        .then(id => {
+            this.router.navigateToRoute('blog');
+        });
     }
 }

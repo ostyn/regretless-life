@@ -2,7 +2,7 @@ export class App {
   configureRouter(config, router) {
     config.title = 'regretless.life';
     config.map([
-      { route: ['', 'blog'], moduleId: 'blog',nav: false, title: 'blog' },
+      { route: ['', 'blog'], moduleId: 'blog',nav: false, title: 'blog', name:['', 'blog'] },
       { route: ['search'], moduleId: 'blog',nav: false, title: 'blog', name:'search' },
       { route: 'editor', moduleId: 'editor',nav: false, title: 'editor' },
       { route: 'flights', moduleId: 'flights', nav: true, title: 'flights' },

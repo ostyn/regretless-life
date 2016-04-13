@@ -59,7 +59,7 @@ export class SkyScannerApi {
             });
     }
     submitPost(title, author, location, content, date) {
-        this.http
+        return this.http
             .fetch('submitPost', {
                 method: 'post',
                 body: json({
@@ -71,11 +71,11 @@ export class SkyScannerApi {
                 }),
             })
             .then(response => response.json())
-            .then(savedComment => {
-                alert(`Saved comment! ID: ${savedComment.id}`);
+            .then(submittedPost => {
+                return submittedPost.id
             })
             .catch(error => {
-                alert('Error saving comment!');
+                return 'Error submitting post!';
             });
     }
 }
