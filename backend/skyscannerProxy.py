@@ -53,19 +53,6 @@ def submitPost():
 		'content': content
 	})
     return json.dumps({'id':id})
-@app.route("/testPost", methods=['POST'])
-def testPost():
-    if request.headers['Content-Type'] == 'text/plain':
-        return "Text Message: " + request.data
-    elif request.headers['Content-Type'] == 'application/json':
-        return "JSON Message: " + json.dumps(request.json)
-    elif request.headers['Content-Type'] == 'application/octet-stream':
-        f = open('./binary', 'wb')
-        f.write(request.data)
-        f.close()
-        return "Binary message written!"
-    else:
-        return "415 Unsupported Media Type ;)" + request.headers['Content-Type']
     
 @app.route("/findAllPosts", methods=['GET'])
 def findAllPosts():
