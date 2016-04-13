@@ -96,7 +96,7 @@ def findNPosts():
 def filter_posts(posts, query):
     filtered = []
     for post in posts:
-        if query in post['content'] or query in post['title']:
+        if query.lower() in post['content'].lower()  or query.lower() in post['title'].lower():
             filtered.append(post)
     return filtered
 
