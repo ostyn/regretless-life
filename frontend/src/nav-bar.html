@@ -14,4 +14,24 @@
             </li>
         </ul>
     </ul>
+    <ul class="mobile-menu">
+        <li class="menuItem script logo">
+            <a href="#">${router.title}</a>
+        </li>
+        <ul class="submenu">
+            <li class="menuItem script menubutton">
+                &equiv;
+            </li>
+        </ul>
+    </ul>
+    <ul class="mobile-menu-dropdown">
+        <li repeat.for="row of router.navigation" class="subMenuItem script ${row.isActive ? 'active' : ''}">
+            <a href.bind="row.href">${row.title}</a>
+        </li>
+        <li class="script subMenuItem right">
+            <form submit.trigger="router.navigateToRoute('search', { query: query })">
+                <input class="textbox" id="searchbox" type="text" placeholder="search blog..." value.bind="query"></input>
+            </form>
+        </li>
+    </ul>
 </template>
