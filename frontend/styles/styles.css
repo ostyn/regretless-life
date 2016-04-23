@@ -55,17 +55,17 @@ body {
   font-size: 32px;
   display: inline-block;
   text-decoration: none;
-  margin-right: 40px;
+  margin-left: 40px;
 }
 .subMenuItem{
   font-size: 24px;
   display: inline-block;
   text-decoration: none;
   margin-right: 40px;
-  margin-top: 0px;
+  margin-bottom: 20px;
 }
-.menuItem:nth-last-child(1), .subMenuItem:nth-last-child(1) {
-  margin-right: 0px;
+.menuItem:first-child {
+  margin-left: 0px;
 }
 .script{
     font-family: 'Bad Script', cursive;
@@ -74,6 +74,7 @@ body {
 	border: 1px dashed black;
 	padding-right: 10px;
 	padding-left: 10px;
+    margin-right: 0px;
 }
 .menubutton {
     font-size: 60px;
@@ -126,6 +127,7 @@ body {
 }
 .submenu{
 	float:right;
+    -webkit-padding-start: 0px;
 }
 h2{
     font-weight: 400;

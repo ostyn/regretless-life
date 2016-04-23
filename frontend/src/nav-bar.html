@@ -28,7 +28,7 @@
         <li repeat.for="row of router.navigation" class="subMenuItem script ${row.isActive ? 'active' : ''}">
             <a href.bind="row.href">${row.title}</a>
         </li>
-        <li class="script subMenuItem right">
+        <li class="script subMenuItem">
             <form submit.trigger="router.navigateToRoute('search', { query: query })">
                 <input class="textbox" id="searchbox" type="text" placeholder="search blog..." value.bind="query"></input>
             </form>
