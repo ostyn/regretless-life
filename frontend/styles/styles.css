@@ -67,6 +67,9 @@ body {
 .menuItem:first-child {
   margin-left: 0px;
 }
+.subMenuItem:last-child {
+  margin-right: 0px;
+}
 .script{
     font-family: 'Bad Script', cursive;
 }
@@ -80,7 +83,7 @@ body {
     font-size: 60px;
     cursor: pointer;
 }
-@media (max-width: 750px) {
+@media (max-width: 700px) {
     .menu{
         display: none;
     }
@@ -98,7 +101,7 @@ body {
         padding-left: 40px;
     }
 }
-@media (min-width: 750px) {
+@media (min-width: 700px) {
     .menu{
         background-color: beige;
         margin: 0px;
