@@ -1,9 +1,3 @@
-body {
-  margin: 0;
-  font-size: 20px;
-  font-family: sans-serif;
-  line-height: 1.5;
-}
 .posts {
    width: 70%; 
    float: left; 
@@ -113,11 +107,18 @@ body {
         display: none;
     }
 }
+.textarea{
+	padding: 15px;
+	height: 40px;
+	font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
 .textbox{
 	padding: 3px;
 	height: 40px;
 	font-size: 16px;
 	padding-left: 15px;
+	padding-right: 15px;
     font-family: Arial, Helvetica, sans-serif;
 }
 .mobile-menu-dropdown .textbox {
@@ -155,10 +156,10 @@ h2{
     border: 1px dashed lightseagreen;
 }
 .small{
-	font: 10px;
+	font-size: 14px;
 }
 .grey{
-	color: #555;
+	color: #777;
 }
 #postEditor {
     width: 60%;
@@ -169,4 +170,9 @@ h2{
 }
 .right {
     float: right;
+}
+body {
+  margin: 0;
+  font-family: sans-serif;
+  line-height: 1.5;
 }

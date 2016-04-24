@@ -3,7 +3,7 @@
     <section class="au-animate ${postsClass}">
         <div class="post" repeat.for="post of skyApi.posts">
             <h2>${post.title}</h2>
-            <p class="small grey">By ${post.author}, ${post.date}</p>
+            <p class="grey">by ${post.author}, ${secondsToDate(post.date)} at ${secondsToTime(post.date)}</p>
             <p>
                 <div markdown-component.bind="post.content"></div>
             </p>

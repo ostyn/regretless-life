@@ -14,4 +14,10 @@ export class Blog {
     constructor(skyApi) {
         this.skyApi = skyApi;
     }
+    secondsToDate(seconds) {
+        return new Date(seconds).toLocaleDateString();
+    }
+    secondsToTime(seconds) {
+        return new Date(seconds).toLocaleTimeString();
+    }
 }
