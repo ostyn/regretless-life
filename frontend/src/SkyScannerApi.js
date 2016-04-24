@@ -64,7 +64,10 @@ export class SkyScannerApi {
                 return response.json();
             })
             .then(data => {
-                this.post = data.resp;
+                if(data.resp != null)
+                    this.post = data.resp;
+                else
+                    this.post = undefined;
             })
             .catch(ex => {
                 console.log(ex);
