@@ -10,4 +10,10 @@ export class Post {
             return this.skyApi.getPost(params.id);
         routeConfig.navModel.title = "Post number " + params.id;
     }
+    secondsToDate(seconds) {
+        return new Date(seconds).toLocaleDateString();
+    }
+    secondsToTime(seconds) {
+        return new Date(seconds).toLocaleTimeString();
+    }
 }
