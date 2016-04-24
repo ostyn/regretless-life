@@ -8,5 +8,8 @@
                 <div markdown-component.bind="post.content"></div>
             </p>
         </div>
+        <div class="post" show.bind="skyApi.posts.length == 0">
+            Couldn't find any posts. Sorry :(
+        </div>
     </section>
 </template>
