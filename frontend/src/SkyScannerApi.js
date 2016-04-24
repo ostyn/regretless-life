@@ -58,6 +58,18 @@ export class SkyScannerApi {
                 console.log(ex);
             });
     }
+    getPost(id) {
+        return this.http.fetch('getPost?id=' + id)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                this.post = data.resp;
+            })
+            .catch(ex => {
+                console.log(ex);
+            });
+    }
     submitPost(title, author, location, content, date) {
         return this.http
             .fetch('submitPost', {

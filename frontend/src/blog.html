@@ -1,8 +1,8 @@
 <template>
     <require from="./markdown-component"></require>
-    <section class="au-animate ${postsClass}">
+    <section>
         <div class="post" repeat.for="post of skyApi.posts">
-            <h2>${post.title}</h2>
+            <a route-href="route: post; params.bind: { id: post.id }"><h2>${post.title}</h2></a>
             <p class="grey">by ${post.author}, ${secondsToDate(post.date)} at ${secondsToTime(post.date)}</p>
             <p>
                 <div markdown-component.bind="post.content"></div>

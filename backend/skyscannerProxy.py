@@ -80,6 +80,12 @@ def findNPosts():
     posts = posts[start:start+num]
     return jsonify({'resp':posts})
 
+@app.route("/getPost", methods=['GET'])
+def getPost():
+    id = request.args.get('id')
+    post = db.get(eid=int(id))
+    return jsonify({'resp':post})
+
 def filter_posts(posts, query):
     filtered = []
     for post in posts:
