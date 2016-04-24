@@ -2,11 +2,11 @@ import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
 @inject(HttpClient)
 export class SkyScannerApi {
-    posts = ['a', 'b', 'c'];
+    posts = [];
     constructor(http) {
         http.configure(config => {
             config
-                .withBaseUrl('http://localhost:5000/')
+                .withBaseUrl('http://' + window.location.hostname + ':5000/')
                 .withDefaults({
                     headers: {
                         'Accept': 'application/json',
