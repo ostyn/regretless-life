@@ -1,11 +1,11 @@
 <template>
-    <require from="./markdown-component"></require>
+    <require from="./markdown-format"></require>
     <section>
         <div class="post" show.bind="skyApi.post != undefined"> 
             <h2>${skyApi.post.title}</h2>
             <p class="grey">by ${skyApi.post.author}, ${secondsToDate(skyApi.post.date)} at ${secondsToTime(skyApi.post.date)}</p>
             <p>
-                <div markdown-component.bind="skyApi.post.content"></div>
+                <div innerhtml.bind="skyApi.post.content | markdownFormat"></div>
             </p>
         </div>
         <div class="post" show.bind="skyApi.post == undefined">

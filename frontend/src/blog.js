@@ -3,6 +3,7 @@ import {SkyScannerApi} from 'SkyScannerApi.js';
 import {activationStrategy} from 'aurelia-router';
 @inject(SkyScannerApi)
 export class Blog {
+    previewLength = 200;
     determineActivationStrategy(){
         return activationStrategy.replace;
     }
