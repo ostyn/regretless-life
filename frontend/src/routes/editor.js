@@ -1,5 +1,5 @@
 import {inject} from 'aurelia-framework';
-import {SkyScannerApi} from 'SkyScannerApi.js';
+import {SkyScannerApi} from '/dist/dao/SkyScannerApi.js';
 import {Router} from 'aurelia-router';
 @inject(SkyScannerApi, Router)
 export class Editor {
