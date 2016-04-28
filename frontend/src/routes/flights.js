@@ -1,5 +1,5 @@
 import {inject, bindable, customElement} from 'aurelia-framework';
-import {SkyScannerApi} from '/dist/dao/SkyScannerApi.js';
+import {SkyScannerApi} from '/dist/dao/SkyScannerDao.js';
 @inject(SkyScannerApi)
 @customElement('flights')
 export class Flights {

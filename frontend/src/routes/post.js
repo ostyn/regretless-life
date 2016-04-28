@@ -1,5 +1,5 @@
 import {inject} from 'aurelia-framework';
-import {SkyScannerApi} from '/dist/dao/SkyScannerApi.js';
+import {SkyScannerApi} from '/dist/dao/BlogDao.js';
 @inject(SkyScannerApi)
 export class Post {
     constructor(skyApi) {

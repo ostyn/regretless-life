@@ -16,24 +16,6 @@ export class SkyScannerApi {
         });
         this.http = http;
     }
-    getAirports(query) {
-        return this.http.fetch('airportQuery?query=' + query)
-            .then(response => {
-                return response.json();
-            })
-            .catch(ex => {
-                console.log(ex);
-            });
-    }
-    getCheapestFlightsForDate(date, start, end = 'anywhere') {
-        return this.http.fetch('routeQuery?date=' + date + '&start=' + start + '&end=' + end)
-            .then(response => {
-                return response.json();
-            })
-            .catch(ex => {
-                console.log(ex);
-            });
-    }
     getAllPosts() {
         return this.http.fetch('findAllPosts')
             .then(response => {

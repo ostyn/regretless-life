@@ -1,4 +1,4 @@
-import {City} from 'City.js'
+import {City} from '/dist/routes/city.js'
 export class CityPage {
     activate(params, routeConfig, navigationInstruction) {
         this.city = new City(params.name);
