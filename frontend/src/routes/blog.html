@@ -1,6 +1,6 @@
 <template>
-    <require from="/dist/attributes/markdown-format"></require>
-    <require from="/dist/attributes/trim-html-converter"></require>
+    <require from="/dist/converters/markdown-format"></require>
+    <require from="/dist/converters/trim-html-converter"></require>
     <section>
         <div class="post" repeat.for="post of skyApi.posts">
             <a class="title" route-href="route: post; params.bind: { id: post.id }"><h2>${post.title}</h2></a>
