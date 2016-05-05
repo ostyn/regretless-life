@@ -1,15 +1,16 @@
 from flask import Flask
 from flask import request
 from flask.ext.cors import CORS, cross_origin
+from flask import jsonify
 import json
 import requests
-from flask import jsonify
-from tinydb import TinyDB, Query
-
+import pymongo
+import re
 app = Flask(__name__)
 CORS(app)
 access_token = "YOUR_TOKEN_HERE"
-db = TinyDB('db.json')
+connection = pymongo.MongoClient("mongodb://localhost")
+postsCollection = connection.blog.posts
 
 @app.route("/airportQuery", methods=['GET'])
 def autocomplete():
@@ -40,28 +41,22 @@ def routeQuery():
 @app.route("/submitPost", methods=['POST', 'OPTION'])
 def submitPost():
     jsonData = request.json
-    title=jsonData['title']
-    author=jsonData['author']
-    date=jsonData['date']
-    location=jsonData['location']
-    content=jsonData['content']
-    id = db.insert({
-		'title': title, 
-		'author': author,
-		'date': date, 
-		'place': location,
-		'content': content
-	})
-    return json.dumps({'id':id})
+    post = {
+        '_id': createSlug(jsonData['title']),
+        'title': jsonData['title'],
+        'author': jsonData['author'],
+        'date': jsonData['date'],
+        'location': jsonData['location'],
+        'content': jsonData['content'],
+    }
+    postsCollection.insert_one(post)
+    return json.dumps({'id':slug})
     
 @app.route("/findAllPosts", methods=['GET'])
 def findAllPosts():
     query = request.args.get('query')
-    posts = db.all()
-    posts = reverse_and_id_posts(posts)
-    if query is not None:
-        posts = filter_posts(posts, query)
-    return jsonify({'resp':posts})
+    posts = postsCollection.find(buildQueryObject(query)).sort('date', direction=-1)
+    return jsonify({'resp':list(posts)})
     
 @app.route("/findNPosts", methods=['GET'])
 def findNPosts():
@@ -72,26 +67,14 @@ def findNPosts():
         return jsonify({'error':"One of the params is not a number"})
     start = int(start)
     num = int(num)
-    
-    posts = db.all()
-    posts = reverse_and_id_posts(posts)
-    if query is not None:
-        posts = filter_posts(posts, query)
-    posts = posts[start:start+num]
-    return jsonify({'resp':posts})
+    posts = postsCollection.find(buildQueryObject(query)).sort('date', direction=-1).limit(num).skip(start)
+    return jsonify({'resp':list(posts)})
 
 @app.route("/getPost", methods=['GET'])
 def getPost():
     id = request.args.get('id')
-    post = db.get(eid=int(id))
+    post = postsCollection.find_one({'_id':id})
     return jsonify({'resp':post})
-
-def filter_posts(posts, query):
-    filtered = []
-    for post in posts:
-        if query.lower() in post['content'].lower()  or query.lower() in post['title'].lower():
-            filtered.append(post)
-    return filtered
 
 def check_int(s):
     if s is None:
@@ -102,12 +85,31 @@ def check_int(s):
     	return s[1:].isdigit()
     return s.isdigit()
 
-def reverse_and_id_posts(posts):
-    alteredPosts = []
-    for post in posts:
-        post['id'] = post.eid
-        alteredPosts.insert(0, post)
-    return alteredPosts
+def buildQueryObject(query):
+    query = query or ""
+    return {
+            '$or':
+            [
+                {
+                    'content':
+                    {
+                        '$regex':query, '$options':'i'
+                    }
+                }, 
+                {
+                    'title':
+                    {
+                        '$regex':query, '$options':'i'
+                    }
+                }
+            ]
+        }
+
+def createSlug(title):
+    exp = re.compile('\W')
+    whitespace = re.compile('\s')
+    temp_title = whitespace.sub("_", title)
+    return exp.sub('', temp_title).lower()
 
 if __name__ == "__main__":
     app.run(debug = True, port = 5000, host='0.0.0.0')

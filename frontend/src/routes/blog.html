@@ -3,7 +3,7 @@
     <require from="/dist/converters/trim-html-converter"></require>
     <section>
         <div class="post" repeat.for="post of skyApi.posts">
-            <a class="title" route-href="route: post; params.bind: { id: post.id }"><h2>${post.title}</h2></a>
+            <a class="title" route-href="route: post; params.bind: { id: post._id }"><h2>${post.title}</h2></a>
             <p class="grey">by ${post.author}, ${secondsToDate(post.date)} at ${secondsToTime(post.date)}</p>
             <p>
                 <div innerhtml.bind="post.content | markdownFormat | trimHtml : previewLength"></div>
