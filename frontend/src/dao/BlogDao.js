@@ -67,12 +67,13 @@ export class SkyScannerApi {
                     'date': date,
                 }),
             })
-            .then(response => response.json())
-            .then(submittedPost => {
-                return submittedPost.id
+            .then(response => {
+                if(response.status > 400)
+                    throw response;
+                return response.json();
             })
-            .catch(error => {
-                return 'Error submitting post!';
+            .then((submittedPost) => {
+                return submittedPost.id
             });
     }
 }

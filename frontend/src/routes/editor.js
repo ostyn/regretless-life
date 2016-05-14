@@ -14,7 +14,13 @@ export class Editor {
     submit(){
         this.skyApi.submitPost(this.title, this.author, this.location, this.content, new Date().getTime())
         .then(id => {
-            this.router.navigateToRoute('blog');
+            this.router.navigateToRoute('post', {'id' : id});
+        })
+        .catch(response => {
+            if(response.status == 409)
+                alert('A post with that name already exists. Please be more original!');
+            else
+                alert('Something went very, very wrong. Head for the hills')
         });
     }
 }
