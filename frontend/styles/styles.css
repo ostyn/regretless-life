@@ -24,18 +24,20 @@ a:active {
    float: left; 
 }
 .content{
-    display: table-cell;
+    width:100%;
+    float:left;
+    margin-right:-200px;
 }
 .sidebar{
-    display: table-cell;
+    margin-top: 20px;
+    width:178px;
+    float:left;
+    padding: 10px;
     border: 1px dashed lightseagreen;
-    padding: 20px;
-    width: 180px;
 }
 .container {
     margin-left: 20px;
     margin-right: 20px;
-    display: table;
 }
 .card, flight{
     margin: 20px;
@@ -152,7 +154,7 @@ h2{
 .post {
 	width: 100% - 40px;
 	margin-left: auto;
-	margin-right: auto;
+    margin-right:220px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 5%;
