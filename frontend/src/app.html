@@ -1,11 +1,12 @@
 <template>
   <require from="./widgets/nav-bar"></require>
+  <require from="./widgets/info-section.html"></require>
 
   <nav-bar class="navbar"></nav-bar>
   <div class="container">
     <div class="content">
       <router-view></router-view>
     </div>
-    <div class="info sidebar">This is my sidebar </div>
+    <info-section class="sidebar"></info-section>
   </div>
 </template>

@@ -1,4 +1,5 @@
 <template>
+    <require from="./info-section.html"></require>
     <ul class="menu">
         <li class="menuItem script logo">
             <a href="#">${router.title}</a>
@@ -34,7 +35,7 @@
             </form>
         </li>
         <li class="subMenuItem">
-            <div class="info">This is my sidebar </div>
+            <info-section></info-section>
         </li>
     </ul>
 </template>
