@@ -23,28 +23,19 @@ a:active {
    width: 100%; 
    float: left; 
 }
-.sidebar {
-    float: right;
-    width: 30%;
-}
-.sidebar-content {
-    position: fixed;
-    border: 1px dashed lightseagreen;
-    width: 28.5%;
-    height: 60%;
-    margin-top: 20px;
-}
-.sidebar-header {
-    position: fixed;
-    width: 27%;
-    height: 5%;
-    margin-top: 0px;
-    font-size: .6em;
-    text-align: right;
-}
 .content{
+    display: table-cell;
+}
+.sidebar{
+    display: table-cell;
+    border: 1px dashed lightseagreen;
+    padding: 20px;
+    width: 180px;
+}
+.container {
     margin-left: 20px;
     margin-right: 20px;
+    display: table;
 }
 .card, flight{
     margin: 20px;
@@ -153,7 +144,6 @@ h2{
     font-weight: 400;
 }
 .postMap{
-	/*float: right;*/
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 20px;
