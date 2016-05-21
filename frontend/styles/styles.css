@@ -24,9 +24,9 @@ a:active {
     width:178px;
     float:left;
     padding: 10px;
-    border: 1px dashed lightseagreen;
 }
 .sidebar{
+    padding-top: 20px;
     margin-top: 20px;
 }
 .container {
