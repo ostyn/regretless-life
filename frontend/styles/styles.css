@@ -20,12 +20,14 @@ a:active {
     float:left;
     margin-right:-200px;
 }
-.sidebar{
-    margin-top: 20px;
+.info{
     width:178px;
     float:left;
     padding: 10px;
     border: 1px dashed lightseagreen;
+}
+.sidebar{
+    margin-top: 20px;
 }
 .container {
     margin-left: 20px;
@@ -41,6 +43,7 @@ a:active {
     max-width: 40%;
 }
 .menuItem>a, .subMenuItem>a{
+    font-size: 24px;
 	text-decoration: none;
 }
 .active{
@@ -53,17 +56,18 @@ a:active {
   margin-left: 40px;
 }
 .subMenuItem{
-  font-size: 24px;
   display: inline-block;
   text-decoration: none;
-  margin-right: 40px;
+  margin-right: 20px;
   margin-bottom: 20px;
+  vertical-align: top;
 }
 .menuItem:first-child {
   margin-left: 0px;
 }
 .subMenuItem:last-child {
   margin-right: 0px;
+  margin-bottom: 0px;
 }
 .script{
     font-family: 'Bad Script', cursive;
@@ -78,9 +82,24 @@ a:active {
     font-size: 60px;
     cursor: pointer;
 }
+.post {
+	width: 100% - 40px;
+	margin-left: auto;
+    margin-right:220px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 5%;
+	padding-right: 5%;
+	margin-bottom: 20px;
+	margin-top: 20px;
+    border: 1px dashed lightseagreen;
+}
 @media (max-width: 700px) {
-    .menu{
+    .menu, .sidebar{
         display: none;
+    }
+    .post {
+        margin-right: 0px;
     }
     .mobile-menu{
         background-color: beige;
@@ -128,7 +147,7 @@ a:active {
 	font-size: 16px;
 }
 #searchbox {
-    max-width: 200px;
+    width: 166px;
 }
 .submenu{
 	float:right;
@@ -136,18 +155,6 @@ a:active {
 }
 h2{
     font-weight: 400;
-}
-.post {
-	width: 100% - 40px;
-	margin-left: auto;
-    margin-right:220px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 5%;
-	padding-right: 5%;
-	margin-bottom: 20px;
-	margin-top: 20px;
-    border: 1px dashed lightseagreen;
 }
 .small{
 	font-size: 14px;
