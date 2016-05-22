@@ -17,18 +17,9 @@ export class SkyScannerApi {
         this.http = http;
     }
     getAllPosts() {
-        return this.http.fetch('findAllPosts')
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                this.posts = data.resp;
-            })
-            .catch(ex => {
-                console.log(ex);
-            });
+        return this.findAllPosts();
     }
-    findAllPosts(query) {
+    findAllPosts(query = "") {
         return this.http.fetch('findAllPosts?query=' + query)
             .then(response => {
                 return response.json();
