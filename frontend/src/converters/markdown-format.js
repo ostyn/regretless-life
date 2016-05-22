@@ -7,6 +7,8 @@ export class MarkdownFormatValueConverter {
     this.converter = new showdown.Converter();
   }
   toView(value) {
+    if(!value)
+      value = "";
     return this.converter.makeHtml(
       value.split('\n').map((line) => line.trim()).join('\n')
     );
