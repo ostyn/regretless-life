@@ -3,6 +3,7 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 @inject(HttpClient)
 export class SkyScannerApi {
     posts = [];
+    remaining = 0;
     constructor(http) {
         http.configure(config => {
             config
@@ -19,13 +20,20 @@ export class SkyScannerApi {
     getAllPosts() {
         return this.findAllPosts();
     }
+    getNPosts(start, num) {
+        return this.findNPosts("", start, num);
+    }
     findAllPosts(query = "") {
-        return this.http.fetch('findAllPosts?query=' + query)
+        return this.findNPosts(query);
+    }
+    findNPosts(query = "", start = 0, num = 0) {
+        return this.http.fetch('findNPosts?query=' + query + "&start=" + start + "&num=" + num)
             .then(response => {
                 return response.json();
             })
             .then(data => {
-                this.posts = data.resp;
+                this.posts = data.resp.posts;
+                this.remaining = data.resp.remainingPosts;
             })
             .catch(ex => {
                 console.log(ex);

@@ -4,13 +4,19 @@ import {activationStrategy} from 'aurelia-router';
 @inject(SkyScannerApi)
 export class Blog {
     previewLength = 200;
+    start = 0;
+    num = 5;
     determineActivationStrategy(){
         return activationStrategy.replace;
     }
     activate(params) {
-        if(params.query)
-            return this.skyApi.findAllPosts(params.query);
-        return this.skyApi.getAllPosts();
+        if(params.start)
+            this.start = params.start
+        if(params.query) {
+            this.query = params.query;
+            return this.skyApi.findNPosts(params.query, this.start, this.num);
+        }
+        return this.skyApi.getNPosts(this.start, this.num);
     }
     constructor(skyApi) {
         this.skyApi = skyApi;

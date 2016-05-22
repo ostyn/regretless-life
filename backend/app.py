@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask.ext.cors import CORS, cross_origin
 from flask import jsonify
+from bson.objectid import ObjectId
 import json
 import requests
 import pymongo
@@ -73,25 +74,30 @@ def updatePost():
 def findAllPosts():
     query = request.args.get('query')
     posts = postsCollection.find(buildQueryObject(query)).sort('date', direction=-1)
-    return jsonify({'resp':list(posts)})
+    return jsonify({'resp':{'posts': list(posts), 'remainingPosts': 0}})
     
 @app.route("/findNPosts", methods=['GET'])
 def findNPosts():
+    query = request.args.get('query')
     start = request.args.get('start', 0)
     num = request.args.get('num')
-    query = request.args.get('query')
     if not(check_int(start)) or not(check_int(num)):
         return jsonify({'error':"One of the params is not a number"})
     start = int(start)
     num = int(num)
     posts = postsCollection.find(buildQueryObject(query)).sort('date', direction=-1).limit(num).skip(start)
-    return jsonify({'resp':list(posts)})
+    return jsonify({'resp':{'posts': list(posts), 'remainingPosts': getNumberOfPosts(query)-num-start}})
 
 @app.route("/getPost", methods=['GET'])
 def getPost():
     id = request.args.get('id')
     post = postsCollection.find_one({'_id':id})
     return jsonify({'resp':post})
+
+def getNumberOfPosts(query):
+    id = request.args.get('id')
+    count = postsCollection.find(buildQueryObject(query)).count()
+    return count
 
 def check_int(s):
     if s is None:
