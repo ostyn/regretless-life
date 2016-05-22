@@ -2,11 +2,14 @@
     <require from="/dist/converters/markdown-format"></require>
     <section>
         <div class="post" show.bind="skyApi.post != undefined"> 
-            <h2 class="script">${skyApi.post.title}</h2>
-            <p class="grey">by ${skyApi.post.author}, ${secondsToDate(skyApi.post.date)} at ${secondsToTime(skyApi.post.date)}</p>
+            <h2 class="script">${skyApi.post.title}</h2> <a route-href="route: editor; params.bind: { id: skyApi.post._id }">edit</a>
+            <p class="grey">by ${skyApi.post.author} on ${secondsToDate(skyApi.post.date)} at ${secondsToTime(skyApi.post.date)}</p>
             <p>
                 <div innerhtml.bind="skyApi.post.content | markdownFormat"></div>
             </p>
+            <div show.bind="skyApi.post.dateLastEdited != undefined"> 
+                <p class="grey">Updated on ${secondsToDate(skyApi.post.dateLastEdited)} at ${secondsToTime(skyApi.post.dateLastEdited)}</p>
+            </div>
         </div>
         <div class="post" show.bind="skyApi.post == undefined">
             Couldn't find that post. Sorry :(

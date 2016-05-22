@@ -4,7 +4,7 @@ export class App {
     config.map([
       { route: ['', 'blog'], moduleId: './routes/blog',nav: false, title: 'blog', name:['', 'blog'] },
       { route: ['search'], moduleId: './routes/blog',nav: false, title: 'blog', name:'search' },
-      { route: 'editor', moduleId: './routes/editor',nav: false, title: 'editor' },
+      { route: 'editor', moduleId: './routes/editor',nav: false, title: 'editor', name:'editor' },
       { route: 'flights', moduleId: './routes/flights', nav: true, title: 'flights' },
       { route: 'city/:name/explore', moduleId: './routes/city-page', nav: false, title: config.title },
       { route: 'post/:id', moduleId: './routes/post', name:'post', nav: false, title: config.title },
