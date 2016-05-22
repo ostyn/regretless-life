@@ -8,7 +8,6 @@ export class Post {
     activate(params, routeConfig, navigationInstruction) {
         if(params.id)
             return this.skyApi.getPost(params.id);
-        routeConfig.navModel.title = "Post number " + params.id;
     }
     secondsToDate(seconds) {
         return new Date(seconds).toLocaleDateString();
