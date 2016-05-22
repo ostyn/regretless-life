@@ -41,20 +41,18 @@ def routeQuery():
 @app.route("/submitPost", methods=['POST', 'OPTION'])
 def submitPost():
     jsonData = request.json
-    slug = createSlug(jsonData['title']);
+    slug = createSlug(jsonData['title'])
     post = {
-        '_id': slug,
+        '_id': str(ObjectId()),
+        'slug': slug,
         'title': jsonData['title'],
         'author': jsonData['author'],
         'date': jsonData['date'],
         'location': jsonData['location'],
         'content': jsonData['content'],
     }
-    try:
-        postsCollection.insert_one(post)
-        return json.dumps({'id':slug})
-    except (pymongo.errors.DuplicateKeyError):  
-        return json.dumps({'error':"Post name already used"}), 409
+    id = postsCollection.insert_one(post).inserted_id
+    return jsonify({'id':id})
     
 @app.route("/findAllPosts", methods=['GET'])
 def findAllPosts():
