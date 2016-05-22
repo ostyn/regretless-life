@@ -83,7 +83,6 @@ a:active {
     cursor: pointer;
 }
 .post {
-	width: 100% - 40px;
 	margin-left: auto;
     margin-right:220px;
 	padding-top: 10px;
@@ -162,9 +161,17 @@ h2{
 .grey{
 	color: #777;
 }
-#postEditor {
-    width: 60%;
-    height: 300px; 
+.postEditor {
+    display: inline-block;
+    width: 40%;
+    height: 600px;
+}
+.postPreview {
+    vertical-align: top;
+    float: right;
+    background-color: beige;
+    padding: 20px;
+    overflow: scroll;
 }
 .borderless {
     border: 0px;
