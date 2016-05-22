@@ -53,7 +53,22 @@ def submitPost():
     }
     id = postsCollection.insert_one(post).inserted_id
     return jsonify({'id':id})
-    
+
+@app.route("/updatePost", methods=['POST', 'OPTION'])
+def updatePost():
+    jsonData = request.json
+    slug = createSlug(jsonData['title'])
+    postsCollection.update_one({"_id":jsonData['id']},{"$set":
+    {
+        "title":jsonData['title'],
+        "slug":slug,
+        "author":jsonData['author'],
+        "location":jsonData['location'],
+        "content":jsonData['content'],
+        "dateLastEdited":jsonData['date'],
+    }})
+    return jsonify({'id':jsonData['id']})
+
 @app.route("/findAllPosts", methods=['GET'])
 def findAllPosts():
     query = request.args.get('query')

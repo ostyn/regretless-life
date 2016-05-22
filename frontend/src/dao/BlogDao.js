@@ -76,4 +76,26 @@ export class SkyScannerApi {
                 return submittedPost.id
             });
     }
+    updatePost(id, title, author, location, content, date) {
+        return this.http
+            .fetch('updatePost', {
+                method: 'post',
+                body: json({
+                    'id': id,
+                    'title': title,
+                    'author': author,
+                    'location': location,
+                    'content': content,
+                    'date': date,
+                }),
+            })
+            .then(response => {
+                if(response.status > 400)
+                    throw response;
+                return response.json();
+            })
+            .then((submittedPost) => {
+                return submittedPost.id
+            });
+    }
 }

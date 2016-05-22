@@ -1,16 +1,16 @@
 <template>
     <div class="post">
         <p>
-            <input class="textbox borderless" type="text" placeholder="title" value.bind="title"></input>
+            <input class="textbox borderless" type="text" placeholder="title" value.bind="skyApi.post.title"></input>
         </p>
         <p>
-            <input class="textbox borderless" type="text" placeholder="author" value.bind="author"></input>  
+            <input class="textbox borderless" type="text" placeholder="author" value.bind="skyApi.post.author"></input>  
         </p>
         <p>
-            <input class="textbox borderless" type="text" placeholder="place" value.bind="place"></input>
+            <input class="textbox borderless" type="text" placeholder="place" value.bind="skyApi.post.location"></input>
         </p>
         <p>
-            <textarea class="textarea borderless" id="postEditor" placeholder="content" value.bind="content"></textarea>
+            <textarea class="textarea borderless" id="postEditor" placeholder="content" value.bind="skyApi.post.content"></textarea>
         </p>
         <button click.trigger="submit()">Submit</button>
     </div>
