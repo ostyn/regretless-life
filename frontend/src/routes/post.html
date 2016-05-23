@@ -15,15 +15,16 @@
             Couldn't find that post. Sorry :(
         </div>
     </section>
-    <section>
-        <h1>Comments</h1>
+    <section class="comments">
+        <p class="small">Talk in the boxes down there. We'll talk back!</p>
+        <h3>${skyApi.post.comments.length} comments</h3>
         <div class="comment" repeat.for="comment of skyApi.post.comments">
             <div class="grey script">#${$index+1} ${comment.name}</div>
             <div class="grey">${secondsToDate(comment.date)} at ${secondsToTime(comment.date)}</div>
             <div>${comment.content}</div>
         </div>
     </section>
-    <section>
+    <section class="postComment">
         <p><input class="textbox borderless" placeholder="Name" value.bind=comment.name></input></p>
         <p><input class="textbox borderless" placeholder="Email(optional)" value.bind="comment.email"></input></p>
         <p><textarea class="textarea borderless" placeholder="Comment" value.bind="comment.content"></textarea></p>

@@ -133,6 +133,7 @@ a:active {
     font-family: Arial, Helvetica, sans-serif;
 }
 .textbox{
+    width: 150px;
 	padding: 3px;
 	height: 40px;
 	font-size: 16px;
@@ -186,4 +187,19 @@ body {
 }
 .title:visited, .title:hover, .title:active, .title:link {
     text-decoration: none;
+}
+.comment {
+    padding-bottom: 20px;
+}
+.comments {
+    max-width: 200px;
+    padding: 20px;
+    border: 1px dashed lightseagreen;
+    margin-bottom: 20px;
+}
+.postComment {
+    max-width: 200px;
+    padding: 20px;
+    border: 1px dashed lightseagreen;
+    margin-bottom: 20px;
 }
