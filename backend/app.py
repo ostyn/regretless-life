@@ -51,6 +51,7 @@ def submitPost():
         'date': jsonData['date'],
         'location': jsonData['location'],
         'content': jsonData['content'],
+        "comments": [],
     }
     id = postsCollection.insert_one(post).inserted_id
     return jsonify({'id':id})
@@ -69,6 +70,18 @@ def updatePost():
         "dateLastEdited":jsonData['date'],
     }})
     return jsonify({'id':jsonData['id']})
+
+@app.route("/submitComment", methods=['POST', 'OPTION'])
+def submitComment():
+    jsonData = request.json
+    postsCollection.update_one({"_id":jsonData['postId']},{"$push":
+    {"comments":{
+        "name":jsonData['name'],
+        "email":jsonData['email'],
+        "date":jsonData['date'],
+        "content":jsonData['content'],
+    }}})
+    return jsonify({'id':jsonData['postId']})
 
 @app.route("/findAllPosts", methods=['GET'])
 def findAllPosts():

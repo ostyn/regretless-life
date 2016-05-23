@@ -24,10 +24,10 @@ export class Editor {
     submit(){
         let promising;
         if(this.editing){
-            promising = this.skyApi.updatePost(this.skyApi.post._id, this.skyApi.post.title, this.skyApi.post.author, this.skyApi.post.location, this.skyApi.post.content, new Date().getTime())
+            promising = this.skyApi.updatePost(this.skyApi.post._id, this.skyApi.post.title, this.skyApi.post.author, this.skyApi.post.location, this.skyApi.post.content)
         }
         else {
-           promising = this.skyApi.submitPost(this.skyApi.post.title, this.skyApi.post.author, this.skyApi.post.location, this.skyApi.post.content, new Date().getTime())
+           promising = this.skyApi.submitPost(this.skyApi.post.title, this.skyApi.post.author, this.skyApi.post.location, this.skyApi.post.content)
         }
         promising.then(id => {
             this.router.navigateToRoute('post', {'id' : id});

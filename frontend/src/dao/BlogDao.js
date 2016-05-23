@@ -54,7 +54,7 @@ export class SkyScannerApi {
                 console.log(ex);
             });
     }
-    submitPost(title, author, location, content, date) {
+    submitPost(title, author, location, content) {
         return this.http
             .fetch('submitPost', {
                 method: 'post',
@@ -63,7 +63,7 @@ export class SkyScannerApi {
                     'author': author,
                     'location': location,
                     'content': content,
-                    'date': date,
+                    'date': new Date().getTime(),
                 }),
             })
             .then(response => {
@@ -75,7 +75,7 @@ export class SkyScannerApi {
                 return submittedPost.id
             });
     }
-    updatePost(id, title, author, location, content, date) {
+    updatePost(id, title, author, location, content) {
         return this.http
             .fetch('updatePost', {
                 method: 'post',
@@ -85,7 +85,7 @@ export class SkyScannerApi {
                     'author': author,
                     'location': location,
                     'content': content,
-                    'date': date,
+                    'date': new Date().getTime(),
                 }),
             })
             .then(response => {
@@ -95,6 +95,27 @@ export class SkyScannerApi {
             })
             .then((submittedPost) => {
                 return submittedPost.id
+            });
+    }
+    submitComment(postId, name, content, email = "") {
+        return this.http
+            .fetch('submitComment', {
+                method: 'post',
+                body: json({
+                    'postId': postId,
+                    'name': name,
+                    'email': email,
+                    'content': content,
+                    'date': new Date().getTime(),
+                }),
+            })
+            .then(response => {
+                if(response.status > 400)
+                    throw response;
+                return response.json();
+            })
+            .then((post) => {
+                return post.id
             });
     }
 }
