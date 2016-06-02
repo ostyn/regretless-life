@@ -1,4 +1,5 @@
 import {inject} from 'aurelia-framework';
+import 'fetch';
 import {HttpClient, json} from 'aurelia-fetch-client';
 @inject(HttpClient)
 export class BlogDao {
