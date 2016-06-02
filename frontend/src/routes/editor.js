@@ -1,33 +1,35 @@
 import {inject} from 'aurelia-framework';
-import {SkyScannerApi} from '/dist/dao/BlogDao.js';
+import {BlogDao} from '/dist/dao/BlogDao.js';
 import {Router} from 'aurelia-router';
 import {activationStrategy} from 'aurelia-router';
-@inject(SkyScannerApi, Router)
+@inject(BlogDao, Router)
 export class Editor {
     editing = false;
     determineActivationStrategy(){
         return activationStrategy.replace;
     }
-    constructor(skyApi, router) {
-        this.skyApi = skyApi;
+    constructor(blogDao, router) {
+        this.blogDao = blogDao;
         this.router = router;
     }
     activate(params, routeConfig, navigationInstruction) {
         if(params.id) {
             this.editing = true;
-            return this.skyApi.getPost(params.id);
+            return this.blogDao.getPost(params.id).then((post) => {
+                this.post = post;
+            });
         }
         else {
-            this.skyApi.post = {};
+            this.post = {};
         }
     }
     submit(){
         let promising;
         if(this.editing){
-            promising = this.skyApi.updatePost(this.skyApi.post._id, this.skyApi.post.title, this.skyApi.post.author, this.skyApi.post.location, this.skyApi.post.content)
+            promising = this.blogDao.updatePost(this.post._id, this.post.title, this.post.author, this.post.location, this.post.content)
         }
         else {
-           promising = this.skyApi.submitPost(this.skyApi.post.title, this.skyApi.post.author, this.skyApi.post.location, this.skyApi.post.content)
+           promising = this.blogDao.submitPost(this.post.title, this.post.author, this.post.location, this.post.content)
         }
         promising.then(id => {
             this.router.navigateToRoute('post', {'id' : id});

@@ -1,7 +1,7 @@
 import {inject} from 'aurelia-framework';
-import {SkyScannerApi} from '/dist/dao/BlogDao.js';
+import {BlogDao} from '/dist/dao/BlogDao.js';
 import {activationStrategy} from 'aurelia-router';
-@inject(SkyScannerApi)
+@inject(BlogDao)
 export class Blog {
     previewLength = 200;
     start = 0;
@@ -11,15 +11,23 @@ export class Blog {
     }
     activate(params) {
         if(params.start)
-            this.start = params.start
+            this.start = parseInt(params.start);
         if(params.query) {
             this.query = params.query;
-            return this.skyApi.findNPosts(params.query, this.start, this.num);
+            return this.blogDao.findNPosts(params.query, this.start, this.num)
+                .then((postsData) => {
+                    this.posts = postsData.posts;
+                    this.remainingPosts = postsData.remainingPosts;
+                });
         }
-        return this.skyApi.getNPosts(this.start, this.num);
+        return this.blogDao.getNPosts(this.start, this.num)
+            .then((postsData) => {
+                this.posts = postsData.posts;
+                this.remainingPosts = postsData.remainingPosts;
+            });
     }
-    constructor(skyApi) {
-        this.skyApi = skyApi;
+    constructor(blogDao) {
+        this.blogDao = blogDao;
     }
     secondsToDate(seconds) {
         return new Date(seconds).toLocaleDateString();

@@ -5,7 +5,7 @@
         <div class="post" show.bind="query != undefined">
             Search Results for "${query}"
         </div>
-        <div class="post" repeat.for="post of skyApi.posts">
+        <div class="post" repeat.for="post of posts">
             <a class="title script" route-href="route: post; params.bind: { id: post._id }"><h2>${post.title}</h2></a>
             <p class="grey">by ${post.author}, ${secondsToDate(post.date)}</p>
             <p>
@@ -13,23 +13,23 @@
             </p>
             <div class="grey small"><a route-href="route: post; params.bind: { id: post._id }">${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</a></div>
         </div>
-        <div class="post" show.bind="skyApi.posts.length == 0">
+        <div class="post" show.bind="posts.length == 0">
             Couldn't find any posts. Sorry :(
         </div>
         <div show.bind="query == undefined">
             <div show.bind="start != 0">
                 <a class="title script" route-href="route: blog; params.bind: { start: (start-num<0)?0:start-num }"><h2>newer posts</h2></a>
             </div>
-            <div show.bind="skyApi.remaining > 0">
-                <a class="title script" route-href="route: blog; params.bind: { start: num }"><h2>older posts</h2></a>
+            <div show.bind="remainingPosts > 0">
+                <a class="title script" route-href="route: blog; params.bind: { start: start+num }"><h2>older posts</h2></a>
             </div>
         </div>
         <div show.bind="query != undefined">
             <div show.bind="start != 0">
                 <a class="title script" route-href="route: search; params.bind: {query: query, start: (start-num<0)?0:start-num }"><h2>previous results</h2></a>
             </div>
-            <div show.bind="skyApi.remaining > 0">
-                <a class="title script" route-href="route: search; params.bind: {query: query, start: num }"><h2>more results</h2></a>
+            <div show.bind="remainingPosts > 0">
+                <a class="title script" route-href="route: search; params.bind: {query: query, start: start+num }"><h2>more results</h2></a>
             </div>
         </div>
     </section>

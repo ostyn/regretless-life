@@ -2,17 +2,17 @@
     <require from="/dist/converters/markdown-format"></require>
     <div class="post">
         <p>
-            <input class="textbox borderless" type="text" placeholder="title" value.bind="skyApi.post.title"></input>
+            <input class="textbox borderless" type="text" placeholder="title" value.bind="post.title"></input>
         </p>
         <p>
-            <input class="textbox borderless" type="text" placeholder="author" value.bind="skyApi.post.author"></input>  
+            <input class="textbox borderless" type="text" placeholder="author" value.bind="post.author"></input>  
         </p>
         <p>
-            <input class="textbox borderless" type="text" placeholder="place" value.bind="skyApi.post.location"></input>
+            <input class="textbox borderless" type="text" placeholder="place" value.bind="post.location"></input>
         </p>
         <p>
-            <textarea class="textarea borderless postEditor" placeholder="content" value.bind="skyApi.post.content"></textarea>
-            <span class="postEditor postPreview" innerhtml.bind="skyApi.post.content | markdownFormat"></span>
+            <textarea class="textarea borderless postEditor" placeholder="content" value.bind="post.content"></textarea>
+            <span class="postEditor postPreview" innerhtml.bind="post.content | markdownFormat"></span>
         </p>
         <button click.trigger="submit()">Submit</button>
     </div>

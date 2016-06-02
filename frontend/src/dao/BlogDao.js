@@ -1,7 +1,7 @@
 import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
 @inject(HttpClient)
-export class SkyScannerApi {
+export class BlogDao {
     posts = [];
     remaining = 0;
     constructor(http) {
@@ -32,8 +32,7 @@ export class SkyScannerApi {
                 return response.json();
             })
             .then(data => {
-                this.posts = data.resp.posts;
-                this.remaining = data.resp.remainingPosts;
+                return data.resp;
             })
             .catch(ex => {
                 console.log(ex);
@@ -45,10 +44,7 @@ export class SkyScannerApi {
                 return response.json();
             })
             .then(data => {
-                if(data.resp != null)
-                    this.post = data.resp;
-                else
-                    this.post = undefined;
+                return data.resp;
             })
             .catch(ex => {
                 console.log(ex);
