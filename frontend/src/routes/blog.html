@@ -7,10 +7,11 @@
         </div>
         <div class="post" repeat.for="post of skyApi.posts">
             <a class="title script" route-href="route: post; params.bind: { id: post._id }"><h2>${post.title}</h2></a>
-            <p class="grey">by ${post.author}, ${secondsToDate(post.date)} at ${secondsToTime(post.date)}</p>
+            <p class="grey">by ${post.author}, ${secondsToDate(post.date)}</p>
             <p>
                 <div innerhtml.bind="post.content | markdownFormat | trimHtml : previewLength"></div>
             </p>
+            <div class="grey small"><a route-href="route: post; params.bind: { id: post._id }">${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</a></div>
         </div>
         <div class="post" show.bind="skyApi.posts.length == 0">
             Couldn't find any posts. Sorry :(
