@@ -10,6 +10,10 @@
             <div show.bind="skyApi.post.dateLastEdited != undefined"> 
                 <p class="grey">Updated on ${secondsToDate(skyApi.post.dateLastEdited)} at ${secondsToTime(skyApi.post.dateLastEdited)}</p>
             </div>
+            <div class="nextPrevLinks">
+                <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="left"><< ${prevPost.title}</a>
+                <a if.bind="nextPost" route-href="route: post; params.bind: { id: nextPost.id }" class="right">${nextPost.title} >></a>
+            </div>
         </div>
         <div class="post" show.bind="skyApi.post == undefined">
             Couldn't find that post. Sorry :(

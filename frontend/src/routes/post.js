@@ -7,8 +7,14 @@ export class Post {
         this.skyApi = skyApi;
     }
     activate(params, routeConfig, navigationInstruction) {
-        if(params.id)
-            return this.skyApi.getPost(params.id);
+        if(params.id) {
+            return this.skyApi.getPost(params.id).then(() => {
+                this.skyApi.getSurroundingPosts(this.skyApi.post.date).then((surroundingPosts) => {
+                    this.nextPost = surroundingPosts.next;
+                    this.prevPost = surroundingPosts.prev;
+                })
+            });
+        }
     }
     secondsToDate(seconds) {
         return new Date(seconds).toLocaleDateString();

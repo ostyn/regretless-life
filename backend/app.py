@@ -107,6 +107,21 @@ def getPost():
     post = postsCollection.find_one({'_id':id})
     return jsonify({'resp':post})
 
+@app.route("/getSurroundingPosts", methods=['GET'])
+def getSurroundingPosts():
+    date = int(request.args.get('date'))
+    nextPost = list(postsCollection.aggregate([{'$match':{'date': {'$gt':date}}}, {'$sort':{'date':1}}, {'$limit':1},{'$project':{'id':'$_id', 'title':1}}]))
+    prevPost = list(postsCollection.aggregate([{'$match':{'date': {'$lt':date}}}, {'$sort':{'date':-1}}, {'$limit':1},{'$project':{'id':'$_id', 'title':1}}]))
+    if (len(nextPost) > 0):
+        nextPost = nextPost[0]
+    else:
+        nextPost = None
+    if (len(prevPost) > 0):
+        prevPost = prevPost[0]
+    else:
+        prevPost = None
+    return jsonify({'resp':{'next':nextPost,'prev':prevPost}})
+
 def getNumberOfPosts(query):
     id = request.args.get('id')
     count = postsCollection.find(buildQueryObject(query)).count()

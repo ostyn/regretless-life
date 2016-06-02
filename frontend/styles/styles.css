@@ -180,6 +180,9 @@ h2{
 .right {
     float: right;
 }
+.left {
+    float: left;
+}
 body {
   margin: 0;
   font-family: sans-serif;
@@ -201,5 +204,9 @@ body {
     max-width: 200px;
     padding: 20px;
     border: 1px dashed lightseagreen;
+    margin-bottom: 20px;
+}
+.nextPrevLinks {
+    padding-bottom: 20px;
     margin-bottom: 20px;
 }

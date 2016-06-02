@@ -54,6 +54,23 @@ export class SkyScannerApi {
                 console.log(ex);
             });
     }
+
+    getSurroundingPosts(date) {
+        return this.http.fetch('getSurroundingPosts?date=' + date)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                if(data.resp != null)
+                    return data.resp;
+                else
+                    return;
+            })
+            .catch(ex => {
+                console.log(ex);
+            });
+    }
+
     submitPost(title, author, location, content) {
         return this.http
             .fetch('submitPost', {
