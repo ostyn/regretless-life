@@ -210,3 +210,11 @@ body {
     padding-bottom: 20px;
     margin-bottom: 20px;
 }
+#nprogress .spinner {
+  top: 10px !important;
+  right: 20px !important;
+}
+#nprogress .spinner-icon {
+  width: 15px !important;
+  height: 15px !important;
+}

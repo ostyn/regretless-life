@@ -83,6 +83,7 @@
       "bootstrap": "github:twbs/bootstrap@^3.3.5",
       "fetch": "github:github/fetch@^0.11.0",
       "font-awesome": "npm:font-awesome@^4.5.0",
+      "nprogress": "github:rstacruz/nprogress@^0.2.0",
       "prismjs": "npm:prismjs@^1.4.1",
       "showdown": "npm:showdown@^1.3.0",
       "text": "github:systemjs/plugin-text@^0.0.3",
