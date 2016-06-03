@@ -1,6 +1,7 @@
 export class App {
   configureRouter(config, router) {
     config.title = 'regretless.life';
+    config.addPipelineStep('postcomplete', PostCompleteStep);
     config.map([
       { route: ['', 'blog'], moduleId: './routes/blog',nav: false, title: 'blog', name:['', 'blog'] },
       { route: ['search'], moduleId: './routes/blog',nav: false, title: 'blog', name:'search' },
@@ -12,5 +13,12 @@ export class App {
     ]);
 
     this.router = router;
+  }
+  
+}
+class PostCompleteStep {
+  run(routingContext, next) {
+      window.scrollTo(0, 0);
+      return next();
   }
 }
