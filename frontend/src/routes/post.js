@@ -1,5 +1,5 @@
 import {inject} from 'aurelia-framework';
-import {BlogDao} from '/dist/dao/BlogDao.js';
+import {BlogDao} from '../dao/BlogDao.js';
 @inject(BlogDao)
 export class Post {
     comment = {};
