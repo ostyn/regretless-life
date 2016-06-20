@@ -1,5 +1,5 @@
 <template>
-    <require from="/dist/converters/markdown-format"></require>
+    <require from="../converters/markdown-format"></require>
     <section>
         <div class="post" show.bind="post != undefined"> 
             <h2 class="script">${post.title}</h2> <a route-href="route: editor; params.bind: { id: post._id }">edit</a>
