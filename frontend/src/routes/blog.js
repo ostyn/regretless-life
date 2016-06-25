@@ -6,8 +6,8 @@ export class Blog {
     previewLength = 200;
     start = 0;
     num = 5;
-	posts = {};
-	remainingPosts = 0;
+    posts = [];
+    remainingPosts = 0;
     determineActivationStrategy(){
         return activationStrategy.replace;
     }
