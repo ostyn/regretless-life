@@ -16,14 +16,18 @@ export class Blog {
             this.query = params.query;
             return this.blogDao.findNPosts(params.query, this.start, this.num)
                 .then((postsData) => {
-                    this.posts = postsData.posts;
-                    this.remainingPosts = postsData.remainingPosts;
+                    if(postsData) {
+                        this.posts = postsData.posts;
+                        this.remainingPosts = postsData.remainingPosts;
+                    }
                 });
         }
         return this.blogDao.getNPosts(this.start, this.num)
             .then((postsData) => {
-                this.posts = postsData.posts;
-                this.remainingPosts = postsData.remainingPosts;
+                if(postsData) {
+                    this.posts = postsData.posts;
+                    this.remainingPosts = postsData.remainingPosts;
+                }
             });
     }
     constructor(blogDao) {
