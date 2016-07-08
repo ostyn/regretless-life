@@ -3,11 +3,5 @@ export function configure(aurelia) {
     .standardConfiguration()
     .developmentLogging()
 	
-  aurelia.use
-    .plugin('aurelia-google-maps', config => {
-        config.options({
-            apiKey: 'APICODEHERE'
-        });
-    });
   aurelia.start().then(a => a.setRoot());
 }
