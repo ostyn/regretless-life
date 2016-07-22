@@ -1,14 +1,14 @@
 <template>
     <require from="./info-section.html"></require>
     <ul class="menu">
-        <li class="menuItem script logo">
+        <li class="menuItem logo">
             <a href="#">${router.title}</a>
         </li>
-        <li repeat.for="row of router.navigation" class="menuItem script ${row.isActive ? 'active' : ''}">
+        <li repeat.for="row of router.navigation" class="menuItem ${row.isActive ? 'active' : ''}">
             <a href.bind="row.href">${row.title}</a>
         </li>
         <ul class="submenu">
-            <li class="menuItem script">
+            <li class="menuItem">
                 <form submit.trigger="search(query)">
                     <input class="textbox" id="searchbox" type="text" placeholder="search blog..." value.bind="query"></input>
                 </form>
@@ -16,20 +16,20 @@
         </ul>
     </ul>
     <ul class="mobile-menu">
-        <li class="menuItem script logo">
+        <li class="menuItem logo">
             <a href="#">${router.title}</a>
         </li>
         <ul class="submenu">
-            <li class="menuItem script menubutton" click.trigger="toggleDropdown()">
+            <li class="menuItem menubutton" click.trigger="toggleDropdown()">
                 &equiv;
             </li>
         </ul>
     </ul>
     <ul show.bind="isOut" class="mobile-menu-dropdown">
-        <li repeat.for="row of router.navigation" class="subMenuItem script ${row.isActive ? 'active' : ''}">
+        <li repeat.for="row of router.navigation" class="subMenuItem ${row.isActive ? 'active' : ''}">
             <a href.bind="row.href">${row.title}</a>
         </li>
-        <li class="script subMenuItem">
+        <li class="subMenuItem">
             <form submit.trigger="search(query)">
                 <input class="textbox" id="searchbox" type="text" placeholder="search blog..." value.bind="query"></input>
             </form>

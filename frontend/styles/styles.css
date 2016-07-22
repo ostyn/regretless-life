@@ -15,6 +15,12 @@ a:active {
     color: gray;
     text-decoration: underline;
 }
+body {
+    background-color: #FDFCFD;
+    margin: 0;
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.5;
+}
 .content{
     width:100%;
     float:left;
@@ -38,8 +44,6 @@ a:active {
     margin-left: auto;
     margin-right: auto;
     padding: 10px;
-    background-color: beige;
-    border: 1px dashed lightseagreen;
     max-width: 40%;
 }
 .menuItem>a, .subMenuItem>a{
@@ -50,10 +54,11 @@ a:active {
 	opacity: .25;
 }
 .menuItem{
-  font-size: 32px;
-  display: inline-block;
-  text-decoration: none;
-  margin-left: 40px;
+    font-weight: 300;
+    font-size: 32px;
+    display: inline-block;
+    text-decoration: none;
+    margin-left: 40px;
 }
 .subMenuItem{
   display: inline-block;
@@ -69,15 +74,6 @@ a:active {
   margin-right: 0px;
   margin-bottom: 0px;
 }
-.script{
-    font-family: 'Bad Script', cursive;
-}
-.logo{
-	border: 1px dashed black;
-	padding-right: 10px;
-	padding-left: 10px;
-    margin-right: 0px;
-}
 .menubutton {
     font-size: 60px;
     cursor: pointer;
@@ -91,7 +87,6 @@ a:active {
 	padding-right: 5%;
 	margin-bottom: 20px;
 	margin-top: 20px;
-    border: 1px dashed lightseagreen;
 }
 @media (max-width: 700px) {
     .menu, .sidebar{
@@ -101,14 +96,12 @@ a:active {
         margin-right: 0px;
     }
     .mobile-menu{
-        background-color: beige;
         margin: 0px;
         height: 64px;
         line-height: 64px;
         padding: 20px;
     }
     .mobile-menu-dropdown {
-        background-color: beige;
         margin: 0px;
         padding: 20px;
         padding-left: 40px;
@@ -116,7 +109,6 @@ a:active {
 }
 @media (min-width: 700px) {
     .menu{
-        background-color: beige;
         margin: 0px;
         height: 64px;
         padding: 20px;
@@ -126,20 +118,32 @@ a:active {
         display: none;
     }
 }
-.textarea{
+.textarea {
+    background-color: inherit;
+    border: none;
+    border-left: 2px solid black;
 	padding: 15px;
 	height: 40px;
 	font-size: 16px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .textbox{
+    background-color: inherit;
+    border: none;
+    border-left: 2px solid black;
     width: 150px;
 	padding: 3px;
 	height: 40px;
 	font-size: 16px;
 	padding-left: 15px;
 	padding-right: 15px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.textarea:focus, .textbox:focus{
+    outline: none;
+}
+img {
+    border-radius: 4px;
 }
 .mobile-menu-dropdown .textbox {
     padding-bottom: 5px;
@@ -161,6 +165,7 @@ h2{
 }
 .grey{
 	color: #777;
+    font-weight: 300;
 }
 .postEditor {
     display: inline-block;
@@ -170,12 +175,8 @@ h2{
 .postPreview {
     vertical-align: top;
     float: right;
-    background-color: beige;
     padding: 20px;
     overflow: scroll;
-}
-.borderless {
-    border: 0px;
 }
 .right {
     float: right;
@@ -183,12 +184,17 @@ h2{
 .left {
     float: left;
 }
-body {
-  margin: 0;
-  font-family: sans-serif;
-  line-height: 1.5;
+.title {
+    background-color: rgba(120, 120, 120, 0.35);
+    color: rgba(255,255,255,0.8);
+    padding:20px;
+    font-size: 24px;
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    border-top-left-radius: 4px;
+    display: inline-block
 }
-.title:visited, .title:hover, .title:active, .title:link {
+.titleLink:visited, .titleLink:hover, .titleLinktitle:active, .titleLink:link {
     text-decoration: none;
 }
 .comment {
@@ -197,13 +203,11 @@ body {
 .comments {
     max-width: 200px;
     padding: 20px;
-    border: 1px dashed lightseagreen;
     margin-bottom: 20px;
 }
 .postComment {
     max-width: 200px;
     padding: 20px;
-    border: 1px dashed lightseagreen;
     margin-bottom: 20px;
 }
 .nextPrevLinks {
@@ -217,4 +221,35 @@ body {
 #nprogress .spinner-icon {
   width: 15px !important;
   height: 15px !important;
+}
+.loadingMessage {
+    font-family: "Bad Script";
+    font-size: 24px;
+}
+.logo>a {
+    font-weight: 400;
+    font-size: 30px;
+	padding-right: 10px;
+	padding-left: 10px;
+    margin-right: 0px;
+}
+.titleBox {
+    margin-top:10px;
+    background-image: url("https://sfrl7g-bn1ap000.files.1drv.com/y3mnxWcqc8-2wgPyq9BTs50FaPWMo7hkB8DwGqdw4Xo5CZfZGGINn8XgggdX_ue5jKWY6O7NEH9ju0uPpDV_z0ehruiaSt4qxHRFiYjyLeBGu3_6PLhnq3foHrgA9vEOWSvkIJQ4YZM9YV3rj6vlfgnqg?width=1024&height=576&cropmode=none");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+    height: 300px;
+    width: 100%;
+}
+.infoSectionTitle {
+    font-size: 24px;
+    font-weight: 500;
+}
+.nextPrevLink {
+    font-weight: 300;
+    font-size: 24px;
+    text-decoration: none;
+    padding-bottom: 20px;
 }

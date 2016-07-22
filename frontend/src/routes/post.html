@@ -2,8 +2,11 @@
     <require from="converters/markdown-format"></require>
     <section>
         <div class="post" show.bind="post != undefined"> 
-            <h2 class="script">${post.title}</h2> <a route-href="route: editor; params.bind: { id: post._id }">edit</a>
+            <div class="titleBox">
+                <div class="title">${post.title}</div> 
+            </div>
             <p class="grey">by ${post.author} on ${secondsToDate(post.date)} at ${secondsToTime(post.date)}</p>
+            <a route-href="route: editor; params.bind: { id: post._id }">edit</a>
             <p>
                 <div innerhtml.bind="post.content | markdownFormat"></div>
             </p>
@@ -23,15 +26,15 @@
         <p class="small">Talk in the boxes down there. We'll talk back!</p>
         <h3>${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</h3>
         <div class="comment" repeat.for="comment of post.comments">
-            <div class="grey script">#${$index+1} ${comment.name}</div>
+            <div class="grey">#${$index+1} ${comment.name}</div>
             <div class="grey">${secondsToDate(comment.date)} at ${secondsToTime(comment.date)}</div>
             <div>${comment.content}</div>
         </div>
     </section>
     <section class="postComment">
-        <p><input class="textbox borderless" placeholder="Name" value.bind=comment.name></input></p>
-        <p><input class="textbox borderless" placeholder="Email(optional)" value.bind="comment.email"></input></p>
-        <p><textarea class="textarea borderless" placeholder="Comment" value.bind="comment.content"></textarea></p>
+        <p><input class="textbox" placeholder="Name" value.bind=comment.name></input></p>
+        <p><input class="textbox" placeholder="Email(optional)" value.bind="comment.email"></input></p>
+        <p><textarea class="textarea" placeholder="Comment" value.bind="comment.content"></textarea></p>
         <p><button click.trigger="submitComment()">Submit Comment</button></p>
     </section>
 </template>

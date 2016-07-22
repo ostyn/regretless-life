@@ -41,4 +41,7 @@ export class Blog {
     secondsToTime(seconds) {
         return new Date(seconds).toLocaleTimeString();
     }
+    isSearchPage(){
+        return this.query != undefined;
+    }
 }

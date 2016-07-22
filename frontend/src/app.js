@@ -9,7 +9,8 @@ export class App {
       { route: 'flights', moduleId: './routes/flights', nav: false, title: 'flights' },
       { route: 'city/:name/explore', moduleId: './routes/city-page', nav: false, title: config.title },
       { route: 'post/:id', moduleId: './routes/post', name:'post', nav: false, title: config.title },
-      { route: 'about', moduleId: './routes/about', nav: true, title: 'about' }
+      { route: 'questions', moduleId: './routes/questions', nav: true, title: 'q + a' },
+      { route: 'about', moduleId: './routes/about', nav: true, title: 'about us'},
     ]);
 
     this.router = router;
