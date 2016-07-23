@@ -68,7 +68,7 @@ export class BlogDao {
             });
     }
 
-    submitPost(title, author, location, content) {
+    submitPost(title, author, location, content, heroPhotoUrl) {
         return this.http
             .fetch('submitPost', {
                 method: 'post',
@@ -77,6 +77,7 @@ export class BlogDao {
                     'author': author,
                     'location': location,
                     'content': content,
+                    'heroPhotoUrl': heroPhotoUrl,
                     'date': new Date().getTime(),
                 }),
             })
@@ -89,7 +90,7 @@ export class BlogDao {
                 return submittedPost.id
             });
     }
-    updatePost(id, title, author, location, content) {
+    updatePost(id, title, author, location, content, heroPhotoUrl) {
         return this.http
             .fetch('updatePost', {
                 method: 'post',
@@ -99,6 +100,7 @@ export class BlogDao {
                     'author': author,
                     'location': location,
                     'content': content,
+                    'heroPhotoUrl': heroPhotoUrl,
                     'date': new Date().getTime(),
                 }),
             })

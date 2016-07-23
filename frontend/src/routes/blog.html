@@ -7,7 +7,7 @@
         </div>
         <div class="post" repeat.for="post of posts">
             <a class="titleLink" route-href="route: post; params.bind: { id: post._id }">
-                <div class="titleBox">
+                <div class="titleBox"  css='background-image: url("${post.heroPhotoUrl}")'>
                     <div class="title">${post.title}</div>
                 </div>
             </a>

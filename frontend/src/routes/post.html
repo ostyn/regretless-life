@@ -1,10 +1,12 @@
 <template>
     <require from="converters/markdown-format"></require>
     <section>
-        <div class="post" show.bind="post != undefined"> 
-            <div class="titleBox">
-                <div class="title">${post.title}</div> 
-            </div>
+        <div class="post" show.bind="post != undefined">
+            <a class="titleLink" href.bind="post.heroPhotoUrl" target="#">
+                <div class="titleBox" css='background-image: url("${post.heroPhotoUrl}")'>
+                    <div class="title">${post.title}</div> 
+                </div>
+            </a>
             <p class="grey">by ${post.author} on ${secondsToDate(post.date)} at ${secondsToTime(post.date)}</p>
             <a route-href="route: editor; params.bind: { id: post._id }">edit</a>
             <p>

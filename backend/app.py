@@ -50,6 +50,7 @@ def submitPost():
         'author': jsonData['author'],
         'date': jsonData['date'],
         'location': jsonData['location'],
+        'heroPhotoUrl': jsonData['heroPhotoUrl'],
         'content': jsonData['content'],
         "comments": [],
     }
@@ -66,6 +67,7 @@ def updatePost():
         "slug":slug,
         "author":jsonData['author'],
         "location":jsonData['location'],
+        "heroPhotoUrl":jsonData['heroPhotoUrl'],
         "content":jsonData['content'],
         "dateLastEdited":jsonData['date'],
     }})

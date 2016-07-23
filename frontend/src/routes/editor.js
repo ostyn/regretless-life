@@ -26,10 +26,10 @@ export class Editor {
     submit(){
         let promising;
         if(this.editing){
-            promising = this.blogDao.updatePost(this.post._id, this.post.title, this.post.author, this.post.location, this.post.content)
+            promising = this.blogDao.updatePost(this.post._id, this.post.title, this.post.author, this.post.location, this.post.content, this.post.heroPhotoUrl)
         }
         else {
-           promising = this.blogDao.submitPost(this.post.title, this.post.author, this.post.location, this.post.content)
+           promising = this.blogDao.submitPost(this.post.title, this.post.author, this.post.location, this.post.content, this.post.heroPhotoUrl)
         }
         promising.then(id => {
             this.router.navigateToRoute('post', {'id' : id});

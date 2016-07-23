@@ -11,6 +11,9 @@
             <input class="textbox" type="text" placeholder="place" value.bind="post.location"></input>
         </p>
         <p>
+            <input class="textbox" type="text" placeholder="hero photo url" value.bind="post.heroPhotoUrl"></input>
+        </p>
+        <p>
             <textarea class="textarea postEditor" placeholder="content" value.bind="post.content"></textarea>
             <span class="postEditor postPreview" innerhtml.bind="post.content | markdownFormat"></span>
         </p>
