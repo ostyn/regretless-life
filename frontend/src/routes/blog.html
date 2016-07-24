@@ -22,18 +22,18 @@
         </div>
         <div show.bind="!isSearchPage()">
             <div show.bind="start != 0">
-                <a class="nextPrevLink" route-href="route: blog; params.bind: { start: (start-num<0)?0:start-num }">newer posts</a>
+                <a class="nextPrevPageLink" route-href="route: blog; params.bind: { start: (start-num<0)?0:start-num }">newer posts</a>
             </div>
             <div show.bind="remainingPosts > 0">
-                <a class="nextPrevLink" route-href="route: blog; params.bind: { start: start+num }">older posts</a>
+                <a class="nextPrevPageLink" route-href="route: blog; params.bind: { start: start+num }">older posts</a>
             </div>
         </div>
         <div show.bind="isSearchPage()">
             <div show.bind="start != 0">
-                <a class="nextPrevLink" route-href="route: search; params.bind: {query: query, start: (start-num<0)?0:start-num }">previous results</a>
+                <a class="nextPrevPageLink" route-href="route: search; params.bind: {query: query, start: (start-num<0)?0:start-num }">previous results</a>
             </div>
             <div show.bind="remainingPosts > 0">
-                <a class="nextPrevLink" route-href="route: search; params.bind: {query: query, start: start+num }">more results</a>
+                <a class="nextPrevPageLink" route-href="route: search; params.bind: {query: query, start: start+num }">more results</a>
             </div>
         </div>
     </section>

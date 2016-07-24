@@ -39,7 +39,7 @@ body {
     margin-left: 20px;
     margin-right: 20px;
 }
-.card, flight{
+.card{
     margin: 20px;
     margin-left: auto;
     margin-right: auto;
@@ -75,11 +75,10 @@ body {
   margin-bottom: 0px;
 }
 .menubutton {
-    font-size: 60px;
+    font-size: 50px;
     cursor: pointer;
 }
 .post {
-	margin-left: auto;
     margin-right:220px;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -97,8 +96,8 @@ body {
     }
     .mobile-menu{
         margin: 0px;
-        height: 64px;
-        line-height: 64px;
+        height: 32px;
+        line-height: 72px;
         padding: 20px;
     }
     .mobile-menu-dropdown {
@@ -110,9 +109,9 @@ body {
 @media (min-width: 700px) {
     .menu{
         margin: 0px;
-        height: 64px;
+        height: 32px;
         padding: 20px;
-        line-height: 64px;
+        line-height: 72px;
     }
     .mobile-menu, .mobile-menu-dropdown{
         display: none;
@@ -210,7 +209,7 @@ h2{
     padding: 20px;
     margin-bottom: 20px;
 }
-.nextPrevLinks {
+.nextPrevLink {
     padding-bottom: 20px;
     margin-bottom: 20px;
 }
@@ -246,7 +245,7 @@ h2{
     font-size: 24px;
     font-weight: 500;
 }
-.nextPrevLink {
+.nextPrevPageLink {
     font-weight: 300;
     font-size: 24px;
     text-decoration: none;

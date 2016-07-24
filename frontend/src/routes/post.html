@@ -15,7 +15,7 @@
             <div show.bind="post.dateLastEdited != undefined"> 
                 <p class="grey">Updated on ${secondsToDate(post.dateLastEdited)} at ${secondsToTime(post.dateLastEdited)}</p>
             </div>
-            <div class="nextPrevLinks">
+            <div class="nextPrevLink">
                 <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="left"><< ${prevPost.title}</a>
                 <a if.bind="nextPost" route-href="route: post; params.bind: { id: nextPost.id }" class="right">${nextPost.title} >></a>
             </div>
