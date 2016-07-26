@@ -1,17 +1,9 @@
-a:link {
+a:link, a:visited {
     text-decoration: underline;
     color: black;
     
 }
-a:visited {
-    text-decoration: underline;
-    color: black;
-}
-a:hover {
-    color: gray;
-    text-decoration: underline;
-}
-a:active {
+a:hover, a:active {
     color: gray;
     text-decoration: underline;
 }
@@ -19,7 +11,6 @@ body {
     background-color: #FDFCFD;
     margin: 0;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.5;
 }
 .content{
     width:100%;
@@ -31,23 +22,10 @@ body {
     float:left;
     padding: 10px;
 }
-.sidebar{
-    padding-top: 20px;
-    margin-top: 20px;
-}
 .container {
-    margin-left: 20px;
     margin-right: 20px;
 }
-.card{
-    margin: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 10px;
-    max-width: 40%;
-}
 .menuItem>a, .subMenuItem>a{
-    font-size: 24px;
 	text-decoration: none;
 }
 .active{
@@ -55,27 +33,25 @@ body {
 }
 .menuItem{
     font-weight: 300;
-    font-size: 32px;
+    font-size: 24px;
     display: inline-block;
-    text-decoration: none;
     margin-left: 40px;
 }
 .subMenuItem{
-  display: inline-block;
-  text-decoration: none;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  vertical-align: top;
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    vertical-align: top;
 }
 .menuItem:first-child {
-  margin-left: 0px;
+    margin-left: 0px;
 }
 .subMenuItem:last-child {
-  margin-right: 0px;
-  margin-bottom: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
 }
 .menubutton {
-    font-size: 50px;
+    font-size: 48px;
     cursor: pointer;
 }
 .post {
@@ -214,20 +190,20 @@ h2{
     margin-bottom: 20px;
 }
 #nprogress .spinner {
-  top: 10px !important;
-  right: 20px !important;
+    top: 10px !important;
+    right: 20px !important;
 }
 #nprogress .spinner-icon {
-  width: 15px !important;
-  height: 15px !important;
+    width: 15px !important;
+    height: 15px !important;
 }
 .loadingMessage {
     font-family: "Bad Script";
     font-size: 24px;
 }
-.logo>a {
+.logo {
     font-weight: 400;
-    font-size: 30px;
+    font-size: 32px;
 	padding-right: 10px;
 	padding-left: 10px;
     margin-right: 0px;
@@ -250,4 +226,7 @@ h2{
     font-size: 24px;
     text-decoration: none;
     padding-bottom: 20px;
+}
+.textPreview {
+    overflow: hidden;
 }
