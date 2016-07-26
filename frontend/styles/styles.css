@@ -23,6 +23,7 @@ body {
     padding: 10px;
 }
 .container {
+    margin-left: 20px;
     margin-right: 20px;
 }
 .menuItem>a, .subMenuItem>a{
@@ -55,13 +56,8 @@ body {
     cursor: pointer;
 }
 .post {
+    margin-bottom: 48px;
     margin-right:220px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 5%;
-	padding-right: 5%;
-	margin-bottom: 20px;
-	margin-top: 20px;
 }
 @media (max-width: 700px) {
     .menu, .sidebar{
@@ -174,6 +170,9 @@ h2{
 }
 .comment {
     padding-bottom: 20px;
+}
+.areaForHoldingBlogPosts {
+    padding: 20px;
 }
 .comments {
     max-width: 200px;
