@@ -229,3 +229,11 @@ h2{
 .textPreview {
     overflow: hidden;
 }
+.post * img {
+    margin-top: 10px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+    width: 100%;
+}
