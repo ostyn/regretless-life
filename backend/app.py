@@ -1,17 +1,49 @@
 from flask import Flask
 from flask import request
 from flask.ext.cors import CORS, cross_origin
+from flask.ext.bcrypt import Bcrypt
 from flask import jsonify
 from bson.objectid import ObjectId
 import json
 import requests
 import pymongo
 import re
+from flask_jwt import JWT, jwt_required, current_identity
+from datetime import datetime
+from datetime import timedelta
+from werkzeug.security import safe_str_cmp
+
+class User(object):
+    def __init__(self, id, username, password, name):
+        self.id = username
+        self.username = username
+        self.name = name
+        self.password = password
+
+    def __str__(self):
+        return "User(id='%s')" % self.id
+
+def authenticate(username, password):
+    user = list(usersCollection.find({"_id":username})).pop()
+    if user and bcrypt.check_password_hash(user.get("password"), password):
+        return User(user.get("_id"), user.get("_id"), user.get("password"), user.get("name"))
+    return
+
+def identity(payload):
+    user_id = payload['identity']
+    user = list(usersCollection.find({"_id":user_id})).pop()
+    return User(user.get("_id"), user.get("_id"), user.get("password"), user.get("name"))
+
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'super-secret'
+jwt = JWT(app, authenticate, identity)
+
 CORS(app)
+bcrypt = Bcrypt(app)
 access_token = "YOUR_TOKEN_HERE"
 connection = pymongo.MongoClient("mongodb://localhost")
 postsCollection = connection.blog.posts
+usersCollection = connection.blog.users
 
 @app.route("/airportQuery", methods=['GET'])
 def autocomplete():
@@ -40,6 +72,7 @@ def routeQuery():
     return jsonify(response)
 
 @app.route("/submitPost", methods=['POST', 'OPTION'])
+@jwt_required()
 def submitPost():
     jsonData = request.json
     slug = createSlug(jsonData['title'])
@@ -58,6 +91,7 @@ def submitPost():
     return jsonify({'id':id})
 
 @app.route("/updatePost", methods=['POST', 'OPTION'])
+@jwt_required()
 def updatePost():
     jsonData = request.json
     slug = createSlug(jsonData['title'])
@@ -72,6 +106,20 @@ def updatePost():
         "dateLastEdited":jsonData['date'],
     }})
     return jsonify({'id':jsonData['id']})
+
+@app.route("/register", methods=['POST', 'OPTION'])
+def registerUser():
+    jsonData = request.json    
+    email = jsonData['email']
+    password = jsonData['password']
+    name = jsonData['displayName']
+    user = {
+        '_id': email,
+        'password': bcrypt.generate_password_hash(password),
+        'name': name
+    }
+    id = usersCollection.insert_one(user).inserted_id
+    return jsonify({'id':id})
 
 @app.route("/submitComment", methods=['POST', 'OPTION'])
 def submitComment():
