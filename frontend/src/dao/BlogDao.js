@@ -8,7 +8,7 @@ export class BlogDao {
     constructor(http) {
         http.configure(config => {
             config
-                .withBaseUrl('http://' + window.location.hostname + '/data/')
+                .withBaseUrl('http://' + window.location.hostname + ':5000/')
                 .withDefaults({
                     headers: {
                         'Accept': 'application/json',
@@ -68,13 +68,12 @@ export class BlogDao {
             });
     }
 
-    submitPost(title, author, location, content, heroPhotoUrl) {
+    submitPost(title, location, content, heroPhotoUrl) {
         return this.http
             .fetch('submitPost', {
                 method: 'post',
                 body: json({
                     'title': title,
-                    'author': author,
                     'location': location,
                     'content': content,
                     'heroPhotoUrl': heroPhotoUrl,
@@ -90,14 +89,13 @@ export class BlogDao {
                 return submittedPost.id
             });
     }
-    updatePost(id, title, author, location, content, heroPhotoUrl) {
+    updatePost(id, title, location, content, heroPhotoUrl) {
         return this.http
             .fetch('updatePost', {
                 method: 'post',
                 body: json({
                     'id': id,
                     'title': title,
-                    'author': author,
                     'location': location,
                     'content': content,
                     'heroPhotoUrl': heroPhotoUrl,

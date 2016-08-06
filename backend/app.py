@@ -82,7 +82,7 @@ def submitPost():
         '_id': str(ObjectId()),
         'slug': slug,
         'title': jsonData['title'],
-        'author': jsonData['author'],
+        'author': current_identity.name,
         'date': jsonData['date'],
         'location': jsonData['location'],
         'heroPhotoUrl': jsonData['heroPhotoUrl'],
@@ -101,7 +101,7 @@ def updatePost():
     {
         "title":jsonData['title'],
         "slug":slug,
-        "author":jsonData['author'],
+        "author":current_identity.name,
         "location":jsonData['location'],
         "heroPhotoUrl":jsonData['heroPhotoUrl'],
         "content":jsonData['content'],
