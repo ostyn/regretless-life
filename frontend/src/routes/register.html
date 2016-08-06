@@ -1,6 +1,7 @@
 <template>
     <section class="contentArea">
-        <form submit.click="login()">
+        Register
+        <form submit.click="register()">
             <p>
                 <input class="textbox" type="text" value.bind="email" placeholder="email"></input>
             </p>
@@ -8,7 +9,10 @@
                 <input class="textbox" type="password" value.bind="password" placeholder="password"></input>
             </p>
             <p>
-                <button name="submit" click.trigger='login()'>login</button>
+                <input class="textbox" type="name" value.bind="name" placeholder="name"></input>
+            </p>
+            <p>
+                <button name="submit" click.trigger='register()'>register</button>
             </p>
         </form>
     </section>

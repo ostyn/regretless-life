@@ -171,7 +171,7 @@ h2{
 .comment {
     padding-bottom: 20px;
 }
-.areaForHoldingBlogPosts {
+.contentArea {
     padding: 20px;
 }
 .comments {
@@ -220,6 +220,10 @@ h2{
     font-size: 24px;
     font-weight: 500;
 }
+.infoSectionContent{
+    font-size: 14px;
+    line-height: 22px;
+}
 .nextPrevPageLink {
     font-weight: 300;
     font-size: 24px;
@@ -236,4 +240,16 @@ h2{
     background-repeat: no-repeat;
     border-radius: 4px;
     width: 100%;
+}
+button {
+    outline: none;
+    min-width: 80px;
+    border: black solid 1px;
+    padding: 10px;
+    margin: 5px;
+    font-family: "Open Sans";
+    background-color: #FDFCFD;
+}
+button:hover {
+    background-color: lightgray;
 }

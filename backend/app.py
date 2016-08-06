@@ -36,6 +36,8 @@ def identity(payload):
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'super-secret'
+app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1*60*60) # 1 hour
+
 jwt = JWT(app, authenticate, identity)
 
 CORS(app)
@@ -108,6 +110,8 @@ def updatePost():
     return jsonify({'id':jsonData['id']})
 
 @app.route("/register", methods=['POST', 'OPTION'])
+# TODO uncomment the line below once all initial users are created
+#@jwt_required()
 def registerUser():
     jsonData = request.json    
     email = jsonData['email']

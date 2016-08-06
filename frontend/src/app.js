@@ -9,13 +9,14 @@ export class App {
     config.map([
       { route: ['', 'blog'], moduleId: './routes/blog',nav: false, title: 'blog', name:['', 'blog'] },
       { route: ['search'], moduleId: './routes/blog',nav: false, title: 'blog', name:'search' },
-      { route: 'editor', moduleId: './routes/editor',nav: false, title: 'editor', name:'editor' },
+      { route: 'editor', moduleId: './routes/editor',nav: false, title: 'editor', name:'editor', auth:true},
       { route: 'flights', moduleId: './routes/flights', nav: false, title: 'flights' },
       { route: 'city/:name/explore', moduleId: './routes/city-page', nav: false, title: config.title },
       { route: 'post/:id', moduleId: './routes/post', name:'post', nav: false, title: config.title },
-      { route: 'questions', moduleId: './routes/questions', nav: true, title: 'q + a' },
-      { route: 'about', moduleId: './routes/about', nav: true, title: 'about us', auth:true},
-      { route: 'login', moduleId: './routes/login', nav: true, title: 'login'},
+      { route: 'questions', moduleId: './routes/questions', nav: false, title: 'q + a' },
+      { route: 'about', moduleId: './routes/about', nav: true, title: 'about us'},
+      { route: 'login', moduleId: './routes/login', nav: false, title: 'login'},
+      { route: 'register', moduleId: './routes/register', nav: false, title: 'register', auth:false},
     ]);
 
     this.router = router;

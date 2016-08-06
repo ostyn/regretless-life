@@ -8,4 +8,7 @@ export class InfoSection{
     logout(){
         this.auth.logout();
     }
+    get isAuthenticated() {
+        return this.auth.isAuthenticated();
+    }
 }

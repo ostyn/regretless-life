@@ -1,6 +1,6 @@
 <template>
     <require from="converters/markdown-format"></require>
-    <section class="areaForHoldingBlogPosts">
+    <section class="contentArea">
         <div class="post" show.bind="post != undefined">
             <a class="titleLink" href.bind="post.heroPhotoUrl" target="#">
                 <div class="titleBox" css='background-image: url("${post.heroPhotoUrl}")'>
@@ -8,7 +8,7 @@
                 </div>
             </a>
             <p class="grey">by ${post.author} on ${secondsToDate(post.date)} at ${secondsToTime(post.date)}</p>
-            <a route-href="route: editor; params.bind: { id: post._id }">edit</a>
+            <a if.bind="isAuthenticated" route-href="route: editor; params.bind: { id: post._id }">edit</a>
             <p>
                 <div innerhtml.bind="post.content | markdownFormat"></div>
             </p>

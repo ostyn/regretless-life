@@ -1,13 +1,15 @@
 import {inject} from 'aurelia-framework';
 import {BlogDao} from '../dao/BlogDao.js';
-@inject(BlogDao)
+import {AuthService} from 'aurelia-auth';
+@inject(BlogDao, AuthService)
 export class Post {
     comment = {};
     post = undefined;
     nextPost = undefined;
     prevPost = undefined;
-    constructor(blogDao) {
+    constructor(blogDao, auth) {
         this.blogDao = blogDao;
+        this.auth = auth;
     }
     activate(params, routeConfig, navigationInstruction) {
         if(params.id) {
@@ -19,6 +21,9 @@ export class Post {
                 })
             });
         }
+    }
+    get isAuthenticated() {
+        return this.auth.isAuthenticated();
     }
     secondsToDate(seconds) {
         return new Date(seconds).toLocaleDateString();
