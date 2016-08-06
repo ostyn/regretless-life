@@ -125,6 +125,11 @@ def registerUser():
     id = usersCollection.insert_one(user).inserted_id
     return jsonify({'id':id})
 
+@app.route("/auth/me", methods=['GET', 'OPTION'])
+@jwt_required()
+def getMe():
+    return jsonify({'name':current_identity.name, 'id':current_identity.id})
+
 @app.route("/submitComment", methods=['POST', 'OPTION'])
 def submitComment():
     jsonData = request.json
