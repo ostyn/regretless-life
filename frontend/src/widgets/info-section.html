@@ -1,6 +1,7 @@
 <template class="info">
     <center><img width=150 height=150 src="https://tcdn.couchsurfing.com/LOTpRooB20PoSgNWBIt0IHOzdYk=/300x300/smart/https://s3.amazonaws.com/ht-images.couchsurfing.com/u/2000124344/79ee424a-caef-49e6-9ca1-8220d6a7f26b"></center>
     <div class="infoSectionTitle">Who are we?</div>
-    <div class="infoSectionContent">Jared + Erika. AKA, Jerika. AKA, just a couple kids trying to see it all.</div>
+    <div class="infoSectionContent">Jared + Erika. AKA, Jerika. AKA, just a couple kids trying to see it all</div>
+    <div><button if.bind="isAuthenticated" click.trigger="newPost()">new post</button></div>
     <div><button if.bind="isAuthenticated" click.trigger="logout()">logout</button></div>
 </template>
