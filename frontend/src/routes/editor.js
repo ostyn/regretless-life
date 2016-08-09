@@ -15,9 +15,14 @@ export class Editor {
     activate(params, routeConfig, navigationInstruction) {
         if(params.id) {
             this.editing = true;
-            return this.blogDao.getPost(params.id).then((post) => {
-                this.post = post;
-            });
+            if(params.isDraft === 'true')
+                return this.blogDao.getDraftPost(params.id).then((post) => {
+                    this.post = post;
+                });
+            else
+                return this.blogDao.getPost(params.id).then((post) => {
+                    this.post = post;
+                });
         }
         else {
             this.post = {};
@@ -26,13 +31,13 @@ export class Editor {
     submit(){
         let promising;
         if(this.editing){
-            promising = this.blogDao.updatePost(this.post._id, this.post.title, this.post.location, this.post.content, this.post.heroPhotoUrl)
+            promising = this.blogDao.updatePost(this.post)
         }
         else {
-           promising = this.blogDao.submitPost(this.post.title, this.post.location, this.post.content, this.post.heroPhotoUrl)
+           promising = this.blogDao.submitPost(this.post)
         }
         promising.then(id => {
-            this.router.navigateToRoute('post', {'id' : id});
+            this.router.navigateToRoute('post', {'id' : id, 'isDraft': (this.post.isDraft)?this.post.isDraft:undefined});
         })
         .catch(response => {
             alert('Something went very, very wrong. Head for the hills')

@@ -8,7 +8,8 @@ export class App {
     config.addPipelineStep('postcomplete', PostCompleteStep);
     config.map([
       { route: ['', 'blog'], moduleId: './routes/blog',nav: false, title: 'blog', name:['', 'blog'] },
-      { route: ['search'], moduleId: './routes/blog',nav: false, title: 'blog', name:'search' },
+      { route: 'drafts', moduleId: './routes/blog',nav: false, title: 'drafts', name:'drafts', auth: true },
+      { route: 'search', moduleId: './routes/blog',nav: false, title: 'search', name:'search' },
       { route: 'editor', moduleId: './routes/editor',nav: false, title: 'editor', name:'editor', auth:true},
       { route: 'flights', moduleId: './routes/flights', nav: false, title: 'flights' },
       { route: 'city/:name/explore', moduleId: './routes/city-page', nav: false, title: config.title },

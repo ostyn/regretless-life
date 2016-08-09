@@ -39,8 +39,36 @@ export class BlogDao {
                 console.log(ex);
             });
     }
+    getNDraftPosts(start, num) {
+        return this.findNDraftPosts("", start, num);
+    }
+    findNDraftPosts(query = "", start = 0, num = 0) {
+        return this.http.fetch('findNDraftPosts?query=' + query + "&start=" + start + "&num=" + num)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data.resp;
+            })
+            .catch(ex => {
+                console.log(ex);
+            });
+    }
     getPost(id) {
         return this.http.fetch('getPost?id=' + id)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data.resp;
+            })
+            .catch(ex => {
+                console.log(ex);
+            });
+    }
+
+    getDraftPost(id) {
+        return this.http.fetch('getDraftPost?id=' + id)
             .then(response => {
                 return response.json();
             })
@@ -68,15 +96,16 @@ export class BlogDao {
             });
     }
 
-    submitPost(title, location, content, heroPhotoUrl) {
+    submitPost(post) {
         return this.http
             .fetch('submitPost', {
                 method: 'post',
                 body: json({
-                    'title': title,
-                    'location': location,
-                    'content': content,
-                    'heroPhotoUrl': heroPhotoUrl,
+                    'title': post.title,
+                    'location': post.location,
+                    'content': post.content,
+                    'heroPhotoUrl': post.heroPhotoUrl,
+                    'isDraft':post.isDraft,
                     'date': new Date().getTime(),
                 }),
             })
@@ -89,16 +118,17 @@ export class BlogDao {
                 return submittedPost.id
             });
     }
-    updatePost(id, title, location, content, heroPhotoUrl) {
+    updatePost(post) {
         return this.http
             .fetch('updatePost', {
                 method: 'post',
                 body: json({
-                    'id': id,
-                    'title': title,
-                    'location': location,
-                    'content': content,
-                    'heroPhotoUrl': heroPhotoUrl,
+                    'id': post._id,
+                    'title': post.title,
+                    'location': post.location,
+                    'content': post.content,
+                    'heroPhotoUrl': post.heroPhotoUrl,
+                    'isDraft':post.isDraft,
                     'date': new Date().getTime(),
                 }),
             })
@@ -111,15 +141,15 @@ export class BlogDao {
                 return submittedPost.id
             });
     }
-    submitComment(postId, name, content, email = "") {
+    submitComment(postId, comment) {
         return this.http
             .fetch('submitComment', {
                 method: 'post',
                 body: json({
                     'postId': postId,
-                    'name': name,
-                    'email': email,
-                    'content': content,
+                    'name': comment.name,
+                    'email': comment.email,
+                    'content': comment.content,
                     'date': new Date().getTime(),
                 }),
             })

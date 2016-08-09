@@ -87,7 +87,8 @@ def submitPost():
         'location': jsonData['location'],
         'heroPhotoUrl': jsonData['heroPhotoUrl'],
         'content': jsonData['content'],
-        "comments": [],
+        'comments': [],
+        'isDraft': jsonData['isDraft'],
     }
     id = postsCollection.insert_one(post).inserted_id
     return jsonify({'id':id})
@@ -106,6 +107,7 @@ def updatePost():
         "heroPhotoUrl":jsonData['heroPhotoUrl'],
         "content":jsonData['content'],
         "dateLastEdited":jsonData['date'],
+        "isDraft": jsonData['isDraft'],
     }})
     return jsonify({'id':jsonData['id']})
 
@@ -142,14 +144,24 @@ def submitComment():
     }}})
     return jsonify({'id':jsonData['postId']})
 
+@app.route("/findAllDraftPosts", methods=['GET'])
+@jwt_required()
+def findAllDraftPosts():
+    return findAllPosts(True)
+
 @app.route("/findAllPosts", methods=['GET'])
-def findAllPosts():
+def findAllPosts(isDraft = False):
     query = request.args.get('query')
-    posts = postsCollection.find(buildQueryObject(query)).sort('date', direction=-1)
+    posts = postsCollection.find(buildQueryObject(query, isDraft)).sort('date', direction=-1)
     return jsonify({'resp':{'posts': list(posts), 'remainingPosts': 0}})
-    
+
+@app.route("/findNDraftPosts", methods=['GET'])
+@jwt_required()
+def findNDraftPosts():
+    return findNPosts(True)
+
 @app.route("/findNPosts", methods=['GET'])
-def findNPosts():
+def findNPosts(isDraft = False):
     query = request.args.get('query')
     start = request.args.get('start', 0)
     num = request.args.get('num')
@@ -157,13 +169,18 @@ def findNPosts():
         return jsonify({'error':"One of the params is not a number"})
     start = int(start)
     num = int(num)
-    posts = postsCollection.find(buildQueryObject(query)).sort('date', direction=-1).limit(num).skip(start)
+    posts = postsCollection.find(buildQueryObject(query, isDraft)).sort('date', direction=-1).limit(num).skip(start)
     return jsonify({'resp':{'posts': list(posts), 'remainingPosts': getNumberOfPosts(query)-num-start}})
 
+@app.route("/getDraftPost", methods=['GET'])
+@jwt_required()
+def getDraftPost():
+    return getPost(True)
+
 @app.route("/getPost", methods=['GET'])
-def getPost():
+def getPost(isDraft = False):
     id = request.args.get('id')
-    post = postsCollection.find_one({'_id':id})
+    post = postsCollection.find_one({'_id':id, "isDraft":isDraft})
     return jsonify({'resp':post})
 
 @app.route("/getSurroundingPosts", methods=['GET'])
@@ -181,9 +198,9 @@ def getSurroundingPosts():
         prevPost = None
     return jsonify({'resp':{'next':nextPost,'prev':prevPost}})
 
-def getNumberOfPosts(query):
+def getNumberOfPosts(query, isDraft = False):
     id = request.args.get('id')
-    count = postsCollection.find(buildQueryObject(query)).count()
+    count = postsCollection.find(buildQueryObject(query, isDraft)).count()
     return count
 
 def check_int(s):
@@ -195,11 +212,11 @@ def check_int(s):
     	return s[1:].isdigit()
     return s.isdigit()
 
-def buildQueryObject(query):
+def buildQueryObject(query, isDraft):
     query = query or ""
     return {
-            '$or':
-            [
+        '$and': [
+            {'$or': [
                 {
                     'content':
                     {
@@ -212,8 +229,13 @@ def buildQueryObject(query):
                         '$regex':query, '$options':'i'
                     }
                 }
-            ]
-        }
+            ]},
+            {'isDraft': 
+            {
+                '$eq': isDraft
+            }}
+        ]
+    }
 
 def createSlug(title):
     exp = re.compile('\W')

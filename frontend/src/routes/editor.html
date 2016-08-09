@@ -14,6 +14,9 @@
             <textarea class="textarea postEditor" placeholder="content" value.bind="post.content"></textarea>
             <span class="postEditor postPreview" innerhtml.bind="post.content | markdownFormat"></span>
         </p>
+        <p>
+            <input type="checkbox" checked.bind="post.isDraft">Save as draft?</input>
+        </p>
         <button click.trigger="submit()">Submit</button>
     </div>
 </template>

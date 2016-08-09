@@ -13,13 +13,20 @@ export class Post {
     }
     activate(params, routeConfig, navigationInstruction) {
         if(params.id) {
-            return this.blogDao.getPost(params.id).then((post) => {
-                this.post = post;
-                this.blogDao.getSurroundingPosts(this.post.date).then((surroundingPosts) => {
-                    this.nextPost = surroundingPosts.next;
-                    this.prevPost = surroundingPosts.prev;
-                })
-            });
+            if(params.isDraft === 'true') {
+                return this.blogDao.getDraftPost(params.id).then((post) => {
+                    this.post = post;
+                });
+            }
+            else {
+                return this.blogDao.getPost(params.id).then((post) => {
+                    this.post = post;
+                    this.blogDao.getSurroundingPosts(this.post.date).then((surroundingPosts) => {
+                        this.nextPost = surroundingPosts.next;
+                        this.prevPost = surroundingPosts.prev;
+                    })
+                });
+            }
         }
     }
     get isAuthenticated() {
@@ -32,7 +39,7 @@ export class Post {
         return new Date(seconds).toLocaleTimeString();
     }
     submitComment() {
-        this.blogDao.submitComment(this.post._id, this.comment.name, this.comment.content, this.comment.email)
+        this.blogDao.submitComment(this.post._id, this.comment)
         .then(id => {
             this.blogDao.getPost(id)
                 .then((post) => {
@@ -43,5 +50,11 @@ export class Post {
         .catch(response => {
             alert('Something went very, very wrong. Head for the hills')
         });
+    }
+    getLinkParams(post){
+        return { 
+            'id': post._id, 
+            'isDraft': (post.isDraft) ? post.isDraft : undefined 
+        };
     }
 }

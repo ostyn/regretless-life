@@ -8,7 +8,7 @@
                 </div>
             </a>
             <p class="grey">by ${post.author} on ${secondsToDate(post.date)} at ${secondsToTime(post.date)}</p>
-            <a if.bind="isAuthenticated" route-href="route: editor; params.bind: { id: post._id }">edit</a>
+            <a if.bind="isAuthenticated" route-href="route: editor; params.bind: getLinkParams(post)">edit</a>
             <p>
                 <div innerhtml.bind="post.content | markdownFormat"></div>
             </p>
