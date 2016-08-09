@@ -29,6 +29,7 @@
         <h3>${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</h3>
         <div class="comment" repeat.for="comment of post.comments">
             <div class="grey">#${$index+1} ${comment.name}</div>
+            <div><button if.bind="isAuthenticated" click.trigger="deleteComment(comment)">delete</button></div>
             <div class="grey">${secondsToDate(comment.date)} at ${secondsToTime(comment.date)}</div>
             <div>${comment.content}</div>
         </div>

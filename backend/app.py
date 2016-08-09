@@ -144,6 +144,19 @@ def submitComment():
     }}})
     return jsonify({'id':jsonData['postId']})
 
+@app.route("/deleteComment", methods=['DELETE'])
+@jwt_required()
+def deleteComment():
+    jsonData = request.json
+    postsCollection.update_one({"_id":jsonData['postId']},{"$pull":
+    {"comments":{
+        "name":jsonData['name'],
+        "email":jsonData['email'],
+        "date":jsonData['date'],
+        "content":jsonData['content'],
+    }}})
+    return jsonify({'id':jsonData['postId']})
+
 @app.route("/findAllDraftPosts", methods=['GET'])
 @jwt_required()
 def findAllDraftPosts():

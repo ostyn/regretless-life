@@ -51,6 +51,18 @@ export class Post {
             alert('Something went very, very wrong. Head for the hills')
         });
     }
+    deleteComment(comment) {
+        this.blogDao.deleteComment(this.post._id, comment)
+        .then(id => {
+            this.blogDao.getPost(id)
+                .then((post) => {
+                    this.post = post;
+                });
+        })
+        .catch(response => {
+            alert('Something went very, very wrong. Head for the hills')
+        });
+    }
     getLinkParams(post){
         return { 
             'id': post._id, 
