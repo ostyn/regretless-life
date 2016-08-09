@@ -88,7 +88,7 @@ def submitPost():
         'heroPhotoUrl': jsonData['heroPhotoUrl'],
         'content': jsonData['content'],
         'comments': [],
-        'isDraft': jsonData['isDraft'],
+        'isDraft': jsonData.get('isDraft', False),
     }
     id = postsCollection.insert_one(post).inserted_id
     return jsonify({'id':id})
