@@ -2,7 +2,7 @@ var config = {
   authHeader: 'Authorization',
   authToken: 'JWT',
   // Our Node API is being served from localhost:3001
-  baseUrl: 'http://localhost/data',
+  baseUrl: 'http://regretless.life/data',
   // The API specifies that new users register at the POST /users enpoint.
   signupUrl: 'register',
   signupRedirect: '#/login',
