@@ -17,3 +17,4 @@ groupadd www-data
 and
 
 https://dykang852.wordpress.com/2014/11/01/how-to-deploy-a-flask-application-on-an-ubuntu-vps/
+http://askubuntu.com/questions/569550/assertionerror-using-apache2-and-libapache2-mod-wsgi-py3-on-ubuntu-14-04-python
