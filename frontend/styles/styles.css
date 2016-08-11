@@ -168,6 +168,18 @@ h2{
 .titleLink:visited, .titleLink:hover, .titleLinktitle:active, .titleLink:link {
     text-decoration: none;
 }
+.postTitle {
+    position: absolute;
+    top: 102px;
+    background-color: rgba(120, 120, 120, 0.35);
+    color: rgba(255,255,255,0.8);
+    padding:20px;
+    font-size: 24px;
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    border-top-left-radius: 4px;
+    display: inline-block
+}
 .comment {
     padding-bottom: 20px;
 }
