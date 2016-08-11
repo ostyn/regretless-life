@@ -199,8 +199,8 @@ def getPost(isDraft = False):
 @app.route("/getSurroundingPosts", methods=['GET'])
 def getSurroundingPosts():
     date = int(request.args.get('date'))
-    nextPost = list(postsCollection.aggregate([{'$match':{'date': {'$gt':date}}}, {'$sort':{'date':1}}, {'$limit':1},{'$project':{'id':'$_id', 'title':1}}]))
-    prevPost = list(postsCollection.aggregate([{'$match':{'date': {'$lt':date}}}, {'$sort':{'date':-1}}, {'$limit':1},{'$project':{'id':'$_id', 'title':1}}]))
+    nextPost = list(postsCollection.aggregate([{'$match':{'date': {'$gt':date}, 'isDraft':False}}, {'$sort':{'date':1}}, {'$limit':1},{'$project':{'id':'$_id', 'title':1}}]))
+    prevPost = list(postsCollection.aggregate([{'$match':{'date': {'$lt':date}, 'isDraft':False}}, {'$sort':{'date':-1}}, {'$limit':1},{'$project':{'id':'$_id', 'title':1}}]))
     if (len(nextPost) > 0):
         nextPost = nextPost[0]
     else:
