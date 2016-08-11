@@ -113,8 +113,7 @@ def updatePost():
     return jsonify({'id':jsonData['id']})
 
 @app.route("/register", methods=['POST', 'OPTION'])
-# TODO uncomment the line below once all initial users are created
-#@jwt_required()
+@jwt_required()
 def registerUser():
     jsonData = request.json    
     email = jsonData['email']
