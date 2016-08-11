@@ -17,7 +17,7 @@ export class App {
       { route: 'questions', moduleId: './routes/questions', nav: false, title: 'q + a' },
       { route: 'about', moduleId: './routes/about', nav: true, title: 'about us'},
       { route: 'login', moduleId: './routes/login', nav: false, title: 'login'},
-      { route: 'register', moduleId: './routes/register', nav: false, title: 'register', auth:false},
+      { route: 'register', moduleId: './routes/register', nav: false, title: 'register', auth:true},
     ]);
 
     this.router = router;
