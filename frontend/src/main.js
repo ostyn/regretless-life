@@ -1,4 +1,4 @@
-import config from './authConfig'; 
+import config from 'authConfig'; 
 export function configure(aurelia) {
   aurelia.use
     .standardConfiguration()

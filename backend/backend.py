@@ -36,6 +36,7 @@ def identity(payload):
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'super-secret'
+app.config['JWT_AUTH_USERNAME_KEY'] = 'email'
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1*60*60) # 1 hour
 
 jwt = JWT(app, authenticate, identity)
