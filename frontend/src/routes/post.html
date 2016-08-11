@@ -4,7 +4,7 @@
         <div class="post" show.bind="post != undefined">
             <a class="titleLink" href.bind="post.heroPhotoUrl" target="#">
                 <div class="postTitle">${post.title}</div> 
-                <img src="${post.heroPhotoUrl}">
+                <img class="headerImage" src="${post.heroPhotoUrl}">
             </a>
             <p class="grey">by ${post.author} on ${secondsToDate(post.date)} at ${secondsToTime(post.date)}</p>
             <a if.bind="isAuthenticated" route-href="route: editor; params.bind: getLinkParams(post)">edit</a>

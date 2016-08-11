@@ -180,6 +180,9 @@ h2{
     border-top-left-radius: 4px;
     display: inline-block
 }
+.headerImage {
+    min-height: 100px;
+}
 .comment {
     padding-bottom: 20px;
 }
