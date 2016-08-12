@@ -40,6 +40,7 @@ System.config({
     "text": "github:systemjs/plugin-text@0.0.3",
     "trim-html": "npm:trim-html@0.1.7",
     "vheissu/aurelia-google-maps": "github:vheissu/aurelia-google-maps@1.0.1",
+    "whatwg-fetch": "npm:whatwg-fetch@1.0.0",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },
@@ -116,14 +117,7 @@ System.config({
       "aurelia-metadata": "npm:aurelia-metadata@1.0.0",
       "aurelia-pal": "npm:aurelia-pal@1.0.0"
     },
-    "npm:aurelia-dependency-injection@1.0.0-rc.1.0.0": {
-      "aurelia-metadata": "npm:aurelia-metadata@1.0.0",
-      "aurelia-pal": "npm:aurelia-pal@1.0.0"
-    },
     "npm:aurelia-event-aggregator@1.0.0": {
-      "aurelia-logging": "npm:aurelia-logging@1.0.0"
-    },
-    "npm:aurelia-event-aggregator@1.0.0-rc.1.0.0": {
       "aurelia-logging": "npm:aurelia-logging@1.0.0"
     },
     "npm:aurelia-framework@1.0.0-rc.1.0.1": {
@@ -154,9 +148,6 @@ System.config({
       "aurelia-logging": "npm:aurelia-logging@1.0.0"
     },
     "npm:aurelia-metadata@1.0.0": {
-      "aurelia-pal": "npm:aurelia-pal@1.0.0"
-    },
-    "npm:aurelia-metadata@1.0.0-rc.1.0.0": {
       "aurelia-pal": "npm:aurelia-pal@1.0.0"
     },
     "npm:aurelia-pal-browser@1.0.0-rc.1.0.0": {
