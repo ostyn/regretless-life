@@ -17,6 +17,7 @@
         <p>
             <input type="checkbox" checked.bind="post.isDraft">Save as draft?</input>
         </p>
+        <button if.bind="editing" click.trigger="delete()">Delete Post</button>
         <button click.trigger="submit()">Submit</button>
     </div>
 </template>

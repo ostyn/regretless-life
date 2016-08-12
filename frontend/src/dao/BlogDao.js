@@ -141,6 +141,23 @@ export class BlogDao {
                 return submittedPost.id
             });
     }
+    deletePost(id) {
+        return this.http
+            .fetch('deletePost', {
+                method: 'delete',
+                body: json({
+                    'id': id,
+                }),
+            })
+            .then(response => {
+                if(response.status > 400)
+                    throw response;
+                return response.json();
+            })
+            .then((resp) => {
+                return resp;
+            });
+    }
     submitComment(postId, comment) {
         return this.http
             .fetch('submitComment', {

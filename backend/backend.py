@@ -112,6 +112,13 @@ def updatePost():
     }})
     return jsonify({'id':jsonData['id']})
 
+@app.route("/deletePost", methods=['DELETE', 'OPTION'])
+@jwt_required()
+def deletePost():
+    id = request.json['id']
+    postsCollection.delete_one({"_id":id})
+    return jsonify({'resp':True})
+
 @app.route("/register", methods=['POST', 'OPTION'])
 @jwt_required()
 def registerUser():
