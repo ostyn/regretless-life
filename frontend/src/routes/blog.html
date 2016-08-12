@@ -7,9 +7,9 @@
         </div>
         <div class="post" repeat.for="post of posts">
             <a class="titleLink" route-href="route: post; params.bind: getLinkParams(post)">
-                <div class="titleBox"  css='background-image: url("${post.heroPhotoUrl}")'>
-                    <div class="title">${post.title}</div>
-                </div>
+                <img class="headerImage" src="${post.heroPhotoUrl}">
+                    <div class="postTitle">${post.title}</div>
+                </img>
             </a>
             <p class="grey">by ${post.author}, ${secondsToDate(post.date)}</p>
             <p>
