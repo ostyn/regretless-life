@@ -40,7 +40,6 @@ System.config({
     "showdown": "npm:showdown@1.4.2",
     "text": "github:systemjs/plugin-text@0.0.3",
     "trim-html": "npm:trim-html@0.1.7",
-    "vheissu/aurelia-google-maps": "github:vheissu/aurelia-google-maps@1.0.1",
     "whatwg-fetch": "npm:whatwg-fetch@1.0.0",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
@@ -68,12 +67,6 @@ System.config({
     },
     "github:twbs/bootstrap@3.3.7": {
       "jquery": "npm:jquery@2.2.4"
-    },
-    "github:vheissu/aurelia-google-maps@1.0.1": {
-      "aurelia-binding": "npm:aurelia-binding@1.0.1",
-      "aurelia-dependency-injection": "npm:aurelia-dependency-injection@1.0.0",
-      "aurelia-task-queue": "npm:aurelia-task-queue@1.0.0",
-      "aurelia-templating": "npm:aurelia-templating@1.0.0"
     },
     "npm:assert@1.4.1": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
