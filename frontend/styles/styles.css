@@ -267,3 +267,15 @@ button {
 button:hover {
     background-color: lightgray;
 }
+google-map {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.mapButton {
+    margin-left: 10px;
+    margin-right:0px;
+    float: right;
+    padding:5px;
+    background-color:lightgrey;
+    cursor: pointer;
+}
