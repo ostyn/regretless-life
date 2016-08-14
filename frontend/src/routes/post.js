@@ -21,6 +21,7 @@ export class Post {
             else {
                 return this.blogDao.getPost(params.id).then((post) => {
                     this.post = post;
+                    routeConfig.navModel.title = post.title;
                     this.blogDao.getSurroundingPosts(this.post.date).then((surroundingPosts) => {
                         this.nextPost = surroundingPosts.next;
                         this.prevPost = surroundingPosts.prev;
