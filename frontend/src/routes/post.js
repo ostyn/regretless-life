@@ -4,6 +4,8 @@ import {AuthService} from 'aurelia-auth';
 @inject(BlogDao, AuthService)
 export class Post {
     comment = {};
+    mapLoaded = false;
+    mapShown = false;
     post = undefined;
     nextPost = undefined;
     prevPost = undefined;
@@ -12,6 +14,7 @@ export class Post {
         this.auth = auth;
     }
     activate(params, routeConfig, navigationInstruction) {
+        this.mapShown = false;
         if(params.id) {
             if(params.isDraft === 'true') {
                 return this.blogDao.getDraftPost(params.id).then((post) => {
@@ -28,6 +31,15 @@ export class Post {
                     })
                 });
             }
+        }
+    }
+    toggleMap(){
+        if(!this.mapLoaded) {
+            this.mapLoaded = true;
+            this.mapShown = true;
+        }
+        else {
+            this.mapShown = !this.mapShown;
         }
     }
     get isAuthenticated() {
