@@ -3,3 +3,5 @@ frontend/node_modules
 frontend/jspm_packages
 backend/db.json
 .vscode
+backend/configMaster.py
+backend/__pycach__
