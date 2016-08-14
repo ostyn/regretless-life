@@ -12,6 +12,7 @@ from flask_jwt import JWT, jwt_required, current_identity
 from datetime import datetime
 from datetime import timedelta
 from werkzeug.security import safe_str_cmp
+from configMaster import SECRET
 
 class User(object):
     def __init__(self, id, username, password, name):
@@ -35,7 +36,7 @@ def identity(payload):
     return User(user.get("_id"), user.get("_id"), user.get("password"), user.get("name"))
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'super-secret'
+app.config['SECRET_KEY'] = SECRET
 app.config['JWT_AUTH_USERNAME_KEY'] = 'email'
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1*60*60) # 1 hour
 
