@@ -5,3 +5,4 @@ backend/db.json
 .vscode
 backend/configMaster.py
 backend/__pycach__
+*.pyc
