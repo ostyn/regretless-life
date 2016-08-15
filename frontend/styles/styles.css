@@ -168,20 +168,33 @@ h2{
 .titleLink:visited, .titleLink:hover, .titleLinktitle:active, .titleLink:link {
     text-decoration: none;
 }
+.titleLink{
+    display: table-row;
+}
 .postTitle {
-    top: -57px;
-    position: relative;
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    z-index: 2;
+    text-align: center;
     background-color: rgba(120, 120, 120, 0.35);
     color: rgba(255,255,255,0.8);
-    padding:20px;
+    padding: 20px;
     font-size: 24px;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
-    border-bottom-left-radius: 4px;
-    display: inline;
+    border-top-left-radius: 4px;
 }
 .headerImage {
+    position:relative;
     min-height: 100px;
+}
+.header{
+    position:relative;
+    float:left;
+    clear:none;
+    overflow:hidden;
 }
 .comment {
     padding-bottom: 20px;
@@ -249,9 +262,8 @@ h2{
 }
 .post * img {
     margin-top: 10px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    margin-bottom: 10px;
+    display: table-row;
     border-radius: 4px;
     width: auto;
     max-width: 100%;

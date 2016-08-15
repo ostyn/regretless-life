@@ -2,11 +2,12 @@
     <require from="converters/markdown-format"></require>
     <section class="contentArea">
         <div class="post" show.bind="post != undefined">
-            <a class="titleLink" href.bind="post.heroPhotoUrl" target="#">
-                <img class="headerImage" src="${post.heroPhotoUrl}">
+            <center><a class="titleLink" href.bind="post.heroPhotoUrl" target="#">
+                <div class="header">
+                    <img class="headerImage" src="${post.heroPhotoUrl}"></img>
                     <div class="postTitle">${post.title}</div>
-                </img>
-            </a>
+                </div>
+            </a></center>
             <p class="grey">by ${post.author} on ${secondsToDate(post.date)} at ${secondsToTime(post.date)}</p>
             <a if.bind="isAuthenticated" route-href="route: editor; params.bind: getLinkParams(post)">edit</a>
             <div>
