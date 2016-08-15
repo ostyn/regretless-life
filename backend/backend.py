@@ -104,7 +104,6 @@ def updatePost():
     {
         "title":jsonData['title'],
         "slug":slug,
-        "author":current_identity.name,
         "location":jsonData['location'],
         "heroPhotoUrl":jsonData['heroPhotoUrl'],
         "content":jsonData['content'],
