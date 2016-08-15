@@ -87,6 +87,7 @@
       "nprogress": "github:rstacruz/nprogress@^0.2.0",
       "prismjs": "npm:prismjs@^1.4.1",
       "showdown": "npm:showdown@^1.3.0",
+      "strip-tags": "npm:strip-tags@^0.1.1",
       "text": "github:systemjs/plugin-text@^0.0.3",
       "trim-html": "npm:trim-html@^0.1.7",
       "whatwg-fetch": "npm:whatwg-fetch@^1.0.0"

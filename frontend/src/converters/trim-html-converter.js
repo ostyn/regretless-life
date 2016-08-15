@@ -1,6 +1,7 @@
 import trimHtml from 'trim-html';
+import stripTags from 'strip-tags';
 export class TrimHtmlValueConverter {
   toView(value, length, suffix = " <span class='grey small'>[…]</span>") {
-    return trimHtml(value, { limit: length, suffix: suffix }).html;
+    return stripTags(trimHtml(value, { limit: length, suffix: suffix }).html, 'img');
   }
 }
