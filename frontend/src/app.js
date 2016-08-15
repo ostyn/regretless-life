@@ -15,7 +15,6 @@ export class App {
       { route: 'city/:name/explore', moduleId: './routes/city-page', nav: false, title: config.title },
       { route: 'post/:id', moduleId: './routes/post', name:'post', nav: false, title: config.title },
       { route: 'questions', moduleId: './routes/questions', nav: false, title: 'q + a' },
-      { route: 'about', moduleId: './routes/about', nav: true, title: 'about us'},
       { route: 'login', moduleId: './routes/login', nav: false, title: 'login'},
       { route: 'register', moduleId: './routes/register', nav: false, title: 'register', auth:true},
     ]);

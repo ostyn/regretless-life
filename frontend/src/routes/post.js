@@ -32,6 +32,12 @@ export class Post {
                 });
             }
         }
+        else {
+            //let's load up the about page here
+            return this.blogDao.getPost('57ab6b3acf1e8c1be5bc7b10').then((post) => {
+                this.post = post;
+            });
+        }
     }
     toggleMap(){
         if(!this.mapLoaded) {
