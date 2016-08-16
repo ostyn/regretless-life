@@ -155,7 +155,7 @@ def submitComment():
     msg = Message("New Comment",
                 sender="our@regretless.life",
                 recipients=["ostyn@live.com"],
-                body="<html>You just got a new comment from "
+                html="<html>You just got a new comment from "
                 +jsonData['name']
                 + " on a post.<br><br> View it <a href=\"http://regretless.life/#/post/" 
                 + jsonData['postId'] + "\">here</a>")
