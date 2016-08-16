@@ -43,4 +43,12 @@ export class Editor {
             alert('Something went very, very wrong. Head for the hills')
         });
     }
+    delete(){
+        this.blogDao.deletePost(this.post._id).then(id => {
+            this.router.navigateToRoute('');
+        })
+        .catch(response => {
+            alert('Something went very, very wrong. Head for the hills')
+        });
+    }
 }
