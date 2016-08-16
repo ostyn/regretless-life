@@ -9,6 +9,8 @@ import requests
 import pymongo
 import re
 from flask_jwt import JWT, jwt_required, current_identity
+from flask.ext.mail import Mail
+from flask.ext.mail import Message
 from datetime import datetime
 from datetime import timedelta
 from werkzeug.security import safe_str_cmp
@@ -41,9 +43,10 @@ app.config['JWT_AUTH_USERNAME_KEY'] = 'email'
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1*60*60) # 1 hour
 
 jwt = JWT(app, authenticate, identity)
-
+mail = Mail(app)
 CORS(app)
 bcrypt = Bcrypt(app)
+
 access_token = "YOUR_TOKEN_HERE"
 connection = pymongo.MongoClient("mongodb://localhost")
 postsCollection = connection.blog.posts
@@ -149,6 +152,14 @@ def submitComment():
         "date":jsonData['date'],
         "content":jsonData['content'],
     }}})
+    msg = Message("New Comment",
+                sender="our@regretless.life",
+                recipients=["ostyn@live.com"],
+                body="<html>You just got a new comment from "
+                +jsonData['name']
+                + " on a post.<br><br> View it <a href=\"http://regretless.life/#/post/" 
+                + jsonData['postId'] + "\">here</a>")
+    mail.send(msg)
     return jsonify({'id':jsonData['postId']})
 
 @app.route("/deleteComment", methods=['DELETE'])
