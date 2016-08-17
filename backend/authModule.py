@@ -31,6 +31,12 @@ class AuthModule():
         user = list(self.usersCollection.find({"_id":user_id})).pop()
         return self.User(user.get("_id"), user.get("_id"), user.get("password"), user.get("name"))
     
-    def registerUser(self, user):
-        user.set("password", self.bcrypt.generate_password_hash(user.get("password")))
-        return self.usersCollection.insert_one(user).inserted_id
+    def registerUser(self, request):
+        jsonData = request.json
+        user = {
+            '_id': jsonData['email'],
+            'password': self.bcrypt.generate_password_hash(jsonData['password']),
+            'name': jsonData['displayName']
+        }
+        id = self.usersCollection.insert_one(user).inserted_id
+        return jsonify({'id':id})

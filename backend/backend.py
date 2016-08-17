@@ -176,14 +176,7 @@ def getSurroundingPosts():
 @app.route("/register", methods=['POST', 'OPTION'])
 @jwt_required()
 def registerUser():
-    jsonData = request.json
-    user = {
-        '_id': jsonData['email'],
-        'password': jsonData['password'],
-        'name': jsonData['displayName']
-    }
-    id = authModule.registerUser(user)
-    return jsonify({'id':id})
+    return authModule.registerUser(user)
 
 @app.route("/subscribe", methods=['POST', 'OPTION'])
 def subscribe():   
