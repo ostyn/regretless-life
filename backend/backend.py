@@ -176,7 +176,7 @@ def getSurroundingPosts():
 @app.route("/register", methods=['POST', 'OPTION'])
 @jwt_required()
 def registerUser():
-    return authModule.registerUser(user)
+    return authModule.registerUser(request)
 
 @app.route("/subscribe", methods=['POST', 'OPTION'])
 def subscribe():   
