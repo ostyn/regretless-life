@@ -51,6 +51,7 @@ access_token = "YOUR_TOKEN_HERE"
 connection = pymongo.MongoClient("mongodb://localhost")
 postsCollection = connection.blog.posts
 usersCollection = connection.blog.users
+emailsCollection = connection.blog.emails
 
 @app.route("/airportQuery", methods=['GET'])
 def autocomplete():
@@ -96,6 +97,11 @@ def submitPost():
         'isDraft': jsonData.get('isDraft', False),
     }
     id = postsCollection.insert_one(post).inserted_id
+    if (not(post.get('isDraft'))):
+        messages = createMessages(post)
+        with mail.connect() as conn:
+            for message in messages:
+                conn.send(message)
     return jsonify({'id':id})
 
 @app.route("/updatePost", methods=['POST', 'OPTION'])
@@ -229,6 +235,28 @@ def getSurroundingPosts():
         prevPost = None
     return jsonify({'resp':{'next':nextPost,'prev':prevPost}})
 
+@app.route("/subscribe", methods=['POST', 'OPTION'])
+def subscribe():   
+    email = request.json['email']
+    user = {
+        'email': email
+    }
+    id = emailsCollection.insert_one(user).inserted_id
+    unsub = '<br><a href="http://regretless.life/data/unsubscribe?id='+str(id)+'">unsubscribe</a><br>'
+    subject = "You have been subscribed"
+    msg = Message(recipients=[email],
+                    sender="our@regretless.life",
+                    html= "You have been subscribed to <a href='https://regretless.life'>regretless.life</a>. Unsubscribe if you didn't mean to do this." + unsub,
+                    subject=subject)
+    mail.send(msg)
+    return jsonify({'resp':True})
+
+@app.route("/unsubscribe", methods=['GET'])
+def unsubscribe():
+    id = request.args.get('id')
+    emailsCollection.delete_one({'_id': ObjectId(id)})
+    return "Unsubscribed"
+
 def getNumberOfPosts(query, isDraft = False):
     id = request.args.get('id')
     count = postsCollection.find(buildQueryObject(query, isDraft)).count()
@@ -273,6 +301,21 @@ def createSlug(title):
     whitespace = re.compile('\s')
     temp_title = whitespace.sub("_", title)
     return exp.sub('', temp_title).lower()
+
+def createMessages(post):
+    emails = list(emailsCollection.find())
+    msgs = []
+    message = '<a href="http://regretless.life/#/post/'+post.get("_id")+'">' + post.get("title") + '</a><br>'
+    for email in emails:
+        unsub = '<br><a href="http://regretless.life/data/unsubscribe?id='+str(email.get("_id"))+'">unsubscribe</a><br>'
+        subject = "New post on regretless.life"
+        msg = Message(recipients=[email.get("email")],
+                      sender="our@regretless.life",
+                      html=message + unsub + "<br>Do not reply to this email",
+                      subject=subject)
+        msgs.append(msg)
+    return msgs
+
 
 if __name__ == "__main__":
     app.run(debug = True, port = 5000, host='0.0.0.0')

@@ -200,4 +200,32 @@ export class BlogDao {
                 return post.id
             });
     }
+    subscribe(email) {
+        return this.http
+            .fetch('subscribe', {
+                method: 'post',
+                body: json({
+                    'email': email,
+                }),
+            })
+            .then(response => {
+                if(response.status > 400)
+                    throw response;
+                return response.json();
+            });
+    }
+    unsubscribe(email) {
+        return this.http
+            .fetch('unsubscribe', {
+                method: 'delete',
+                body: json({
+                    'email': email,
+                }),
+            })
+            .then(response => {
+                if(response.status > 400)
+                    throw response;
+                return response.json();
+            });
+    }
 }
