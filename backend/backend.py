@@ -1,18 +1,16 @@
-from flask import Flask
-from flask import request
-from flask.ext.cors import CORS, cross_origin
-from flask.ext.bcrypt import Bcrypt
-from flask import jsonify
-from bson.objectid import ObjectId
 import json
 import requests
 import pymongo
 import re
+
+from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
+from flask_bcrypt import Bcrypt
 from flask_jwt import JWT, jwt_required, current_identity
-from flask.ext.mail import Mail
-from flask.ext.mail import Message
-from datetime import datetime
-from datetime import timedelta
+from flask_mail import Mail, Message
+
+from bson.objectid import ObjectId
+from datetime import datetime, timedelta
 from werkzeug.security import safe_str_cmp
 from configMaster import SECRET
 
