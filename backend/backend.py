@@ -5,77 +5,37 @@ import re
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
-from flask_bcrypt import Bcrypt
 from flask_jwt import JWT, jwt_required, current_identity
 from flask_mail import Mail, Message
 
 from bson.objectid import ObjectId
-from datetime import datetime, timedelta
 from werkzeug.security import safe_str_cmp
-from configMaster import SECRET
 
-class User(object):
-    def __init__(self, id, username, password, name):
-        self.id = username
-        self.username = username
-        self.name = name
-        self.password = password
-
-    def __str__(self):
-        return "User(id='%s')" % self.id
-
-def authenticate(username, password):
-    user = list(usersCollection.find({"_id":username})).pop()
-    if user and bcrypt.check_password_hash(user.get("password"), password):
-        return User(user.get("_id"), user.get("_id"), user.get("password"), user.get("name"))
-    return
-
-def identity(payload):
-    user_id = payload['identity']
-    user = list(usersCollection.find({"_id":user_id})).pop()
-    return User(user.get("_id"), user.get("_id"), user.get("password"), user.get("name"))
+from authModule import AuthModule
+from skyScannerModule import routeQuery, airportQuery
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = SECRET
-app.config['JWT_AUTH_USERNAME_KEY'] = 'email'
-app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1*60*60) # 1 hour
 
-jwt = JWT(app, authenticate, identity)
-mail = Mail(app)
-CORS(app)
-bcrypt = Bcrypt(app)
-
-access_token = "YOUR_TOKEN_HERE"
 connection = pymongo.MongoClient("mongodb://localhost")
+
 postsCollection = connection.blog.posts
 usersCollection = connection.blog.users
 emailsCollection = connection.blog.emails
 
+authModule = AuthModule(app, usersCollection)
+jwt = JWT(app, authModule.authenticate, authModule.identity)
+mail = Mail(app)
+cors = CORS(app)
+
+access_token = "YOUR_TOKEN_HERE"
+
 @app.route("/airportQuery", methods=['GET'])
-def autocomplete():
-    query = request.args.get('query')
-    headers = {"Content-type": "application/x-www-form-urlencoded"}
-    response = requests.get(
-    "http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/GB/GBP/en-GB?query=" + query + "&apiKey=" + access_token,
-    headers=headers)
-    response = json.loads(response.text);
-    return jsonify(response)
+def airportQuery():
+    return SkyScannerModule.airportQuery(request)
 
 @app.route("/routeQuery", methods=['GET'])
 def routeQuery():
-    start = request.args.get('start')
-    end = request.args.get('end') 
-    date = request.args.get('date') 
-    if (request.args.get('end') is None):
-        end = "anywhere"
-    if (request.args.get('date') is None):
-        date = "2016-03"
-    headers = {"Content-type": "application/x-www-form-urlencoded"}
-    response = requests.get(
-    "http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/GB/USD/en-GB/" + start + "/" + end + "/" + date + "?apiKey=" + access_token,
-    headers=headers)
-    response = json.loads(response.text);
-    return jsonify(response)
+    return SkyScannerModule.routeQuery(request)
 
 @app.route("/submitPost", methods=['POST', 'OPTION'])
 @jwt_required()
@@ -125,26 +85,6 @@ def deletePost():
     id = request.json['id']
     postsCollection.delete_one({"_id":id})
     return jsonify({'resp':True})
-
-@app.route("/register", methods=['POST', 'OPTION'])
-@jwt_required()
-def registerUser():
-    jsonData = request.json    
-    email = jsonData['email']
-    password = jsonData['password']
-    name = jsonData['displayName']
-    user = {
-        '_id': email,
-        'password': bcrypt.generate_password_hash(password),
-        'name': name
-    }
-    id = usersCollection.insert_one(user).inserted_id
-    return jsonify({'id':id})
-
-@app.route("/auth/me", methods=['GET', 'OPTION'])
-@jwt_required()
-def getMe():
-    return jsonify({'name':current_identity.name, 'id':current_identity.id})
 
 @app.route("/submitComment", methods=['POST', 'OPTION'])
 def submitComment():
@@ -232,6 +172,18 @@ def getSurroundingPosts():
     else:
         prevPost = None
     return jsonify({'resp':{'next':nextPost,'prev':prevPost}})
+
+@app.route("/register", methods=['POST', 'OPTION'])
+@jwt_required()
+def registerUser():
+    jsonData = request.json
+    user = {
+        '_id': jsonData['email'],
+        'password': jsonData['password'],
+        'name': jsonData['displayName']
+    }
+    id = authModule.registerUser(user)
+    return jsonify({'id':id})
 
 @app.route("/subscribe", methods=['POST', 'OPTION'])
 def subscribe():   
