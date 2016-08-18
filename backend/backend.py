@@ -97,7 +97,7 @@ def submitComment():
         "content":jsonData['content'],
     }}})
     msg = Message("New Comment",
-                sender="our@regretless.life",
+                sender="info@regretless.life",
                 recipients=["ostyn@live.com", "erikaostyn@gmail.com"],
                 html="<html>You just got a new comment from "
                 +jsonData['name']
@@ -188,7 +188,7 @@ def subscribe():
     unsub = '<br><a href="http://regretless.life/data/unsubscribe?id='+str(id)+'">unsubscribe</a><br>'
     subject = "You have been subscribed"
     msg = Message(recipients=[email],
-                    sender="our@regretless.life",
+                    sender="info@regretless.life",
                     html= "You have been subscribed to <a href='https://regretless.life'>regretless.life</a>. Unsubscribe if you didn't mean to do this." + unsub,
                     subject=subject)
     mail.send(msg)
@@ -253,7 +253,7 @@ def createMessages(post):
         unsub = '<br><a href="http://regretless.life/data/unsubscribe?id='+str(email.get("_id"))+'">unsubscribe</a><br>'
         subject = "New post on regretless.life"
         msg = Message(recipients=[email.get("email")],
-                      sender="our@regretless.life",
+                      sender="info@regretless.life",
                       html=message + unsub + "<br>Do not reply to this email",
                       subject=subject)
         msgs.append(msg)
