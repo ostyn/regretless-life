@@ -14,6 +14,8 @@ from werkzeug.security import safe_str_cmp
 from authModule import AuthModule
 from skyScannerModule import routeQuery, airportQuery
 
+from configMaster import SMTP_USER, SMTP_PASSWORD
+
 app = Flask(__name__)
 
 connection = pymongo.MongoClient("mongodb://localhost")
@@ -21,7 +23,11 @@ connection = pymongo.MongoClient("mongodb://localhost")
 postsCollection = connection.blog.posts
 usersCollection = connection.blog.users
 emailsCollection = connection.blog.emails
-
+app.config['MAIL_SERVER'] = 'smtp-mail.outlook.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = SMTP_USER
+app.config['MAIL_PASSWORD'] = SMTP_PASSWORD
+app.config['MAIL_USE_TLS'] = True
 authModule = AuthModule(app, usersCollection)
 jwt = JWT(app, authModule.authenticate, authModule.identity)
 mail = Mail(app)
