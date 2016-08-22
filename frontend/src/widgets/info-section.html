@@ -4,10 +4,12 @@
     <div class="infoSectionContent">Jared + Erika. AKA, Jerika. AKA, us. Out to see the world and never forget it.</div>
     <br>
     <h5>Subscribe</h5>
-    <div><input class="textbox" value.bind="email" placeholder="email"></input></div>
-    <br>
-    <div><button click.trigger="subscribe()">subscribe</button></div>
-    <div class="small" if.bind="subbed">You have been subscribed. We sent you a test email. Check your spam box, just in case</div>
+    <form submit.trigger="subscribe()">
+        <div><input class="textbox" value.bind="email" placeholder="email"></input></div>
+        <br>
+        <div><button>subscribe</button></div>
+        <div class="small" if.bind="subbed">You have been subscribed. We sent you a test email. Check your spam box, just in case</div>
+    </form>
     <div><button if.bind="isAuthenticated" click.trigger="newPost()">new post</button></div>
     <a if.bind="isAuthenticated" route-href="route: drafts"><button>view drafts</button></a>
     <div><button if.bind="isAuthenticated" click.trigger="logout()">logout</button></div>
