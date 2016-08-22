@@ -200,6 +200,9 @@ h2{
     padding-bottom: 20px;
 }
 .contentArea {
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 20px;
 }
 .comments {
