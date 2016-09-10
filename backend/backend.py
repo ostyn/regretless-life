@@ -98,7 +98,7 @@ def submitComment():
     postsCollection.update_one({"_id":jsonData['postId']},{"$push":
     {"comments":{
         "name":jsonData['name'],
-        "email":jsonData['email'],
+        "email":jsonData.get('email', ''),
         "date":jsonData['date'],
         "content":jsonData['content'],
     }}})
