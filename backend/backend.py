@@ -134,6 +134,9 @@ def findAllDraftPosts():
 def findAllPosts(isDraft = False):
     query = request.args.get('query')
     posts = postsCollection.find(buildQueryObject(query, isDraft)).sort('date', direction=-1)
+    posts = list(posts)
+    for post in posts:
+        fixOneDriveUrls(post)
     return jsonify({'resp':{'posts': list(posts), 'remainingPosts': 0}})
 
 @app.route("/findNDraftPosts", methods=['GET'])
@@ -151,6 +154,9 @@ def findNPosts(isDraft = False):
     start = int(start)
     num = int(num)
     posts = postsCollection.find(buildQueryObject(query, isDraft)).sort('date', direction=-1).limit(num).skip(start)
+    posts = list(posts)
+    for post in posts:
+        fixOneDriveUrls(post)
     return jsonify({'resp':{'posts': list(posts), 'remainingPosts': getNumberOfPosts(query)-num-start}})
 
 @app.route("/getDraftPost", methods=['GET'])
@@ -162,6 +168,7 @@ def getDraftPost():
 def getPost(isDraft = False):
     id = request.args.get('id')
     post = postsCollection.find_one({'_id':id, "isDraft":isDraft})
+    fixOneDriveUrls(post)
     return jsonify({'resp':post})
 
 @app.route("/getSurroundingPosts", methods=['GET'])
@@ -210,6 +217,10 @@ def getNumberOfPosts(query, isDraft = False):
     id = request.args.get('id')
     count = postsCollection.find(buildQueryObject(query, isDraft)).count()
     return count
+
+def fixOneDriveUrls(post):
+    post["content"] = post["content"].replace('-bn1ap000.files.1drv.com', '.bn1302.livefilestore.com')
+    post["heroPhotoUrl"] = post["heroPhotoUrl"].replace('-bn1ap000.files.1drv.com', '.bn1302.livefilestore.com')
 
 def check_int(s):
     if s is None:
