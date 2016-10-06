@@ -25,22 +25,31 @@ export class Editor {
                 });
         }
         else {
-            this.post = {};
+            this.post = {'isDraft': true};
         }
     }
-    submit(){
-        let promising;
-        if(this.editing){
-            promising = this.blogDao.updatePost(this.post)
-        }
-        else {
-           promising = this.blogDao.submitPost(this.post)
-        }
-        promising.then(id => {
+    save(){
+        this.blogDao.savePost(this.post).then(id => {
             this.router.navigateToRoute('post', {'id' : id, 'isDraft': (this.post.isDraft)?this.post.isDraft:undefined});
         })
         .catch(response => {
             alert('Something went very, very wrong. Head for the hills')
+        });
+    }
+    publish(){
+        this.blogDao.publishPost(this.post).then(id => {
+            this.router.navigateToRoute('post', {'id' : id});
+        })
+        .catch(response => {
+            alert('Something went very, very wrong. Head for the hills');
+        });
+    }
+    unpublish(){
+        this.blogDao.unpublishPost(this.post).then(id => {
+            this.router.navigateToRoute('post', {'id':id, 'isDraft':true});
+        })
+        .catch(response => {
+            alert('Something went very, very wrong. Head for the hills');
         });
     }
     delete(){

@@ -43,45 +43,68 @@ def airportQuery():
 def routeQuery():
     return SkyScannerModule.routeQuery(request)
 
-@app.route("/submitPost", methods=['POST', 'OPTION'])
+@app.route("/savePost", methods=['POST', 'OPTION'])
 @jwt_required()
-def submitPost():
-    jsonData = request.json
+def savePost(passedJsonData=None):
+    if(passedJsonData is None):
+        jsonData = request.json
+    else:
+        jsonData = passedJsonData
     slug = createSlug(jsonData['title'])
-    post = {
-        '_id': str(ObjectId()),
-        'slug': slug,
-        'title': jsonData['title'],
-        'author': current_identity.name,
-        'date': jsonData['date'],
-        'location': jsonData['location'],
-        'heroPhotoUrl': jsonData['heroPhotoUrl'],
-        'content': jsonData['content'],
-        'comments': [],
-        'isDraft': jsonData.get('isDraft', False),
-    }
-    id = postsCollection.insert_one(post).inserted_id
-    if (not(post.get('isDraft'))):
-        messages = createMessages(post)
-        with mail.connect() as conn:
-            for message in messages:
-                conn.send(message)
+    id = ""
+    if (jsonData.get('id') is None):
+        post = {
+            '_id': str(ObjectId()),
+            'slug': slug,
+            'title': jsonData['title'],
+            'author': current_identity.name,
+            'date': jsonData['date'],
+            'location': jsonData['location'],
+            'heroPhotoUrl': jsonData['heroPhotoUrl'],
+            'content': jsonData['content'],
+            'comments': [],
+            'isDraft': True,
+        }
+        id = postsCollection.insert_one(post).inserted_id
+    else:
+        postsCollection.update_one({"_id":jsonData['id']},{"$set":
+        {
+            "title":jsonData['title'],
+            "slug":slug,
+            "location":jsonData['location'],
+            "heroPhotoUrl":jsonData['heroPhotoUrl'],
+            "content":jsonData['content'],
+            "dateLastEdited":jsonData['date'],
+            'isDraft': jsonData['isDraft'],
+        }})
+        id = jsonData['id']
     return jsonify({'id':id})
 
-@app.route("/updatePost", methods=['POST', 'OPTION'])
+@app.route("/publishPost", methods=['POST', 'OPTION'])
 @jwt_required()
-def updatePost():
+def publishPost():
     jsonData = request.json
-    slug = createSlug(jsonData['title'])
+    id = json.loads(savePost(jsonData).response[0].decode('ascii'))["id"]
+    postsCollection.update_one({"_id":id},{"$set":
+    {
+        'date': jsonData['date'],
+        "dateLastEdited":None,
+        "isDraft": False,
+    }})
+    messages = createMessages(jsonData['title'], id)
+    with mail.connect() as conn:
+        for message in messages:
+            conn.send(message)
+    return jsonify({'id':id})
+
+@app.route("/unpublishPost", methods=['POST', 'OPTION'])
+@jwt_required()
+def unpublishPost():
+    jsonData = request.json
+    savePost(jsonData)
     postsCollection.update_one({"_id":jsonData['id']},{"$set":
     {
-        "title":jsonData['title'],
-        "slug":slug,
-        "location":jsonData['location'],
-        "heroPhotoUrl":jsonData['heroPhotoUrl'],
-        "content":jsonData['content'],
-        "dateLastEdited":jsonData['date'],
-        "isDraft": jsonData['isDraft'],
+        "isDraft": True,
     }})
     return jsonify({'id':jsonData['id']})
 
@@ -262,12 +285,12 @@ def createSlug(title):
     temp_title = whitespace.sub("_", title)
     return exp.sub('', temp_title).lower()
 
-def createMessages(post):
+def createMessages(title, id):
     emails = list(emailsCollection.find())
     msgs = []
-    message = '<a href="http://regretless.life/#/post/'+post.get("_id")+'">' + post.get("title") + '</a><br>'
+    message = '<a href="http://regretless.life/#/post/' + id + '">' + title + '</a><br>'
     for email in emails:
-        unsub = '<br><a href="http://regretless.life/data/unsubscribe?id='+str(email.get("_id"))+'">unsubscribe</a><br>'
+        unsub = '<br><a href="http://regretless.life/data/unsubscribe?id='+str(id)+'">unsubscribe</a><br>'
         subject = "New post on regretless.life"
         msg = Message(recipients=[email.get("email")],
                       sender="info@regretless.life",

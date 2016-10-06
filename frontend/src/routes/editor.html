@@ -25,10 +25,9 @@
             <textarea class="textarea postEditor" placeholder="content" value.bind="post.content"></textarea>
             <span class="postEditor postPreview" innerhtml.bind="post.content | markdownFormat"></span>
         </p>
-        <p>
-            <input type="checkbox" checked.bind="post.isDraft">Save as draft?</input>
-        </p>
         <button if.bind="editing" click.trigger="delete()">Delete Post</button>
-        <button click.trigger="submit()">Submit</button>
+        <button click.trigger="save()">Save</button>
+        <button if.bind="post.isDraft" click.trigger="publish()">Publish</button>
+        <button if.bind="!post.isDraft" click.trigger="unpublish()">Unpublish</button>
     </div>
 </template>

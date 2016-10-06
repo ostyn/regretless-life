@@ -96,31 +96,9 @@ export class BlogDao {
             });
     }
 
-    submitPost(post) {
+    savePost(post) {
         return this.http
-            .fetch('submitPost', {
-                method: 'post',
-                body: json({
-                    'title': post.title,
-                    'location': post.location,
-                    'content': post.content,
-                    'heroPhotoUrl': post.heroPhotoUrl,
-                    'isDraft':post.isDraft,
-                    'date': new Date().getTime(),
-                }),
-            })
-            .then(response => {
-                if(response.status > 400)
-                    throw response;
-                return response.json();
-            })
-            .then((submittedPost) => {
-                return submittedPost.id
-            });
-    }
-    updatePost(post) {
-        return this.http
-            .fetch('updatePost', {
+            .fetch('savePost', {
                 method: 'post',
                 body: json({
                     'id': post._id,
@@ -141,6 +119,55 @@ export class BlogDao {
                 return submittedPost.id
             });
     }
+
+    publishPost(post) {
+        return this.http
+            .fetch('publishPost', {
+                method: 'post',
+                body: json({
+                    'id': post._id,
+                    'title': post.title,
+                    'location': post.location,
+                    'content': post.content,
+                    'heroPhotoUrl': post.heroPhotoUrl,
+                    'isDraft':post.isDraft,
+                    'date': new Date().getTime(),
+                }),
+            })
+            .then(response => {
+                if(response.status > 400)
+                    throw response;
+                return response.json();
+            })
+            .then((submittedPost) => {
+                return submittedPost.id
+            });
+    }
+
+    unpublishPost(post) {
+        return this.http
+            .fetch('unpublishPost', {
+                method: 'post',
+                body: json({
+                    'id': post._id,
+                    'title': post.title,
+                    'location': post.location,
+                    'content': post.content,
+                    'heroPhotoUrl': post.heroPhotoUrl,
+                    'isDraft':post.isDraft,
+                    'date': new Date().getTime(),
+                }),
+            })
+            .then(response => {
+                if(response.status > 400)
+                    throw response;
+                return response.json();
+            })
+            .then((submittedPost) => {
+                return submittedPost.id
+            });
+    }
+
     deletePost(id) {
         return this.http
             .fetch('deletePost', {

@@ -19,6 +19,7 @@ export class Post {
             if(params.isDraft === 'true') {
                 return this.blogDao.getDraftPost(params.id).then((post) => {
                     this.post = post;
+                    routeConfig.navModel.title = post.title;
                 });
             }
             else {
