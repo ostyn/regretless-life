@@ -25,9 +25,14 @@ export class InfoSection{
     }
     subscribe(){
         this.blogDao.subscribe(this.email)
-            .then(()=>{
-                this.email = "";
-                this.subbed = true;
+            .then((response)=>{
+                if(response.resp) {
+                    this.email = "";
+                    this.message = "You have been subscribed. We sent you a test email. Check your spam box, just in case";
+                }
+                else {
+                    this.message = "This email has already been subscribed to notifications";
+                }
             });
     }
 }

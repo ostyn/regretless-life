@@ -216,10 +216,13 @@ def registerUser():
 
 @app.route("/subscribe", methods=['POST', 'OPTION'])
 def subscribe():   
-    email = request.json['email']
+    email = request.json['email'].lower()
     user = {
         'email': email
     }
+    existingEmail = emailsCollection.find_one({'email': email})
+    if(existingEmail is not None):
+        return jsonify({'resp':False})
     id = emailsCollection.insert_one(user).inserted_id
     unsub = '<br><a href="http://regretless.life/data/unsubscribe?id='+str(id)+'">unsubscribe</a><br>'
     subject = "You have been subscribed"

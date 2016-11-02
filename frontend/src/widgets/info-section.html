@@ -8,7 +8,7 @@
         <div><input class="textbox" value.bind="email" placeholder="email"></input></div>
         <br>
         <div><button>subscribe</button></div>
-        <div class="small" if.bind="subbed">You have been subscribed. We sent you a test email. Check your spam box, just in case</div>
+        <div class="small" if.bind="message">${message}</div>
     </form>
     <div><button if.bind="isAuthenticated" click.trigger="newPost()">new post</button></div>
     <a if.bind="isAuthenticated" route-href="route: drafts"><button>view drafts</button></a>
