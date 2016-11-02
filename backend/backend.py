@@ -50,12 +50,10 @@ def savePost(passedJsonData=None):
         jsonData = request.json
     else:
         jsonData = passedJsonData
-    slug = createSlug(jsonData['title'])
     id = ""
     if (jsonData.get('id') is None):
         post = {
             '_id': str(ObjectId()),
-            'slug': slug,
             'title': jsonData['title'],
             'author': current_identity.name,
             'date': jsonData['date'],
@@ -70,7 +68,6 @@ def savePost(passedJsonData=None):
         postsCollection.update_one({"_id":jsonData['id']},{"$set":
         {
             "title":jsonData['title'],
-            "slug":slug,
             "location":jsonData['location'],
             "heroPhotoUrl":jsonData['heroPhotoUrl'],
             "content":jsonData['content'],
@@ -281,12 +278,6 @@ def buildQueryObject(query, isDraft):
             }}
         ]
     }
-
-def createSlug(title):
-    exp = re.compile('\W')
-    whitespace = re.compile('\s')
-    temp_title = whitespace.sub("_", title)
-    return exp.sub('', temp_title).lower()
 
 def createMessages(title, id):
     emails = list(emailsCollection.find())
