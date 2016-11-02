@@ -15,6 +15,7 @@ from authModule import AuthModule
 from skyScannerModule import routeQuery, airportQuery
 
 from configMaster import SMTP_USER, SMTP_PASSWORD
+import time
 
 app = Flask(__name__)
 
@@ -119,7 +120,7 @@ def submitComment():
     {"comments":{
         "name":jsonData['name'],
         "email":jsonData.get('email', ''),
-        "date":jsonData['date'],
+        "date": getDateInMilliseconds(),
         "content":jsonData['content'],
     }}})
     msg = Message("New Comment",
@@ -292,6 +293,9 @@ def createMessages(title, id):
                       subject=subject)
         msgs.append(msg)
     return msgs
+
+def getDateInMilliseconds():
+    return int(time.time()*1000)
 
 
 if __name__ == "__main__":

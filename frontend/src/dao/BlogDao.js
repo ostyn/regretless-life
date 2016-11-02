@@ -194,7 +194,6 @@ export class BlogDao {
                     'name': comment.name,
                     'email': comment.email,
                     'content': comment.content,
-                    'date': new Date().getTime(),
                 }),
             })
             .then(response => {
