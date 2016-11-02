@@ -156,7 +156,7 @@ def findAllDraftPosts():
 @app.route("/findAllPosts", methods=['GET'])
 def findAllPosts(isDraft = False):
     query = request.args.get('query')
-    posts = postsCollection.find(buildQueryObject(query, isDraft)).sort('date', direction=-1)
+    posts = postsCollection.find(buildQueryObject(query, isDraft), {"comments.email": False}).sort('date', direction=-1)
     posts = list(posts)
     for post in posts:
         fixOneDriveUrls(post)
@@ -176,7 +176,7 @@ def findNPosts(isDraft = False):
         return jsonify({'error':"One of the params is not a number"})
     start = int(start)
     num = int(num)
-    posts = postsCollection.find(buildQueryObject(query, isDraft)).sort('date', direction=-1).limit(num).skip(start)
+    posts = postsCollection.find(buildQueryObject(query, isDraft), {"comments.email": False}).sort('date', direction=-1).limit(num).skip(start)
     posts = list(posts)
     for post in posts:
         fixOneDriveUrls(post)
@@ -190,7 +190,7 @@ def getDraftPost():
 @app.route("/getPost", methods=['GET'])
 def getPost(isDraft = False):
     id = request.args.get('id')
-    post = postsCollection.find_one({'_id':id, "isDraft":isDraft})
+    post = postsCollection.find_one({'_id':id, "isDraft":isDraft}, {"comments.email": False})
     fixOneDriveUrls(post)
     return jsonify({'resp':post})
 
