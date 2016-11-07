@@ -4,7 +4,8 @@ import {Router} from 'aurelia-router';
 import {BlogDao} from '../dao/BlogDao.js';
 @inject(AuthService, Router, BlogDao)
 export class InfoSection{
-    subbed =false;
+    subbed = false;
+    activelySubscribing = false;
     constructor(auth, router, blogDao){
         this.auth = auth;
         this.router = router;
@@ -26,6 +27,7 @@ export class InfoSection{
     subscribe(){
         this.blogDao.subscribe(this.email)
             .then((response)=>{
+                this.activelySubscribing = false;
                 if(response.resp) {
                     this.email = "";
                     this.message = "You have been subscribed. We sent you a test email. Check your spam box, just in case";
@@ -34,5 +36,6 @@ export class InfoSection{
                     this.message = "This email has already been subscribed to notifications";
                 }
             });
+        this.activelySubscribing = true;
     }
 }

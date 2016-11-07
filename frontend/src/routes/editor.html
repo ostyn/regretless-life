@@ -25,9 +25,9 @@
             <textarea class="textarea postEditor" placeholder="content" value.bind="post.content"></textarea>
             <span class="postEditor postPreview" innerhtml.bind="post.content | markdownFormat"></span>
         </p>
-        <button if.bind="editing" click.trigger="delete()">Delete Post</button>
-        <button click.trigger="save()">Save</button>
-        <button if.bind="post.isDraft" click.trigger="publish()">Publish</button>
-        <button if.bind="!post.isDraft" click.trigger="unpublish()">Unpublish</button>
+        <button if.bind="editing" disabled.bind="activelyContactingServer" click.trigger="delete()">Delete Post</button>
+        <button click.trigger="save()" disabled.bind="activelyContactingServer">Save</button>
+        <button if.bind="post.isDraft" disabled.bind="activelyContactingServer" click.trigger="publish()">Publish</button>
+        <button if.bind="!post.isDraft" disabled.bind="activelyContactingServer" click.trigger="unpublish()">Unpublish</button>
     </div>
 </template>

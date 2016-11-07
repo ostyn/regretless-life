@@ -43,6 +43,6 @@
         <p><input class="textbox" placeholder="Name" value.bind=comment.name></input></p>
         <p><input class="textbox" placeholder="Email(optional)" value.bind="comment.email"></input></p>
         <p><textarea class="textarea" placeholder="Comment" value.bind="comment.content"></textarea></p>
-        <p><button click.trigger="submitComment()">Submit Comment</button></p>
+        <p><button click.trigger="submitComment()" disabled.bind="activelySubmittingComment">Submit Comment</button></p>
     </section>
 </template>

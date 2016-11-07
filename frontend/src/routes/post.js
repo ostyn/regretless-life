@@ -9,6 +9,7 @@ export class Post {
     post = undefined;
     nextPost = undefined;
     prevPost = undefined;
+    activelySubmittingComment = false;
     constructor(blogDao, auth) {
         this.blogDao = blogDao;
         this.auth = auth;
@@ -64,12 +65,14 @@ export class Post {
             this.blogDao.getPost(id)
                 .then((post) => {
                     this.post = post;
+                    this.activelySubmittingComment = false;
                 });
             this.comment = {};
         })
         .catch(response => {
             alert('Something went very, very wrong. Head for the hills')
         });
+        this.activelySubmittingComment = true;
     }
     deleteComment(comment) {
         this.blogDao.deleteComment(this.post._id, comment)

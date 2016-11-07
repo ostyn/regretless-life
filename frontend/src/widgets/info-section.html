@@ -7,7 +7,7 @@
     <form submit.trigger="subscribe()">
         <div><input class="textbox" value.bind="email" placeholder="email"></input></div>
         <br>
-        <div><button>subscribe</button></div>
+        <div><button disabled.bind="activelySubscribing">subscribe</button></div>
         <div class="small" if.bind="message">${message}</div>
     </form>
     <div><button if.bind="isAuthenticated" click.trigger="newPost()">new post</button></div>
