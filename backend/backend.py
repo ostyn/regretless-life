@@ -82,7 +82,7 @@ def savePost(passedJsonData=None):
 @jwt_required()
 def publishPost():
     jsonData = request.json
-    id = json.loads(savePost(jsonData).response[0].decode('ascii'))["id"]
+    id = json.loads(savePost(jsonData).response[0])["id"]
     postsCollection.update_one({"_id":id},{"$set":
     {
         'date': jsonData['date'],
