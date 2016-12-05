@@ -285,7 +285,7 @@ def createMessages(title, id):
     msgs = []
     message = '<a href="http://regretless.life/#/post/' + id + '">' + title + '</a><br>'
     for email in emails:
-        unsub = '<br><a href="http://regretless.life/data/unsubscribe?id='+str(email.get("id"))+'">unsubscribe</a><br>'
+        unsub = '<br><a href="http://regretless.life/data/unsubscribe?id='+str(email.get("_id"))+'">unsubscribe</a><br>'
         subject = "New post on regretless.life"
         msg = Message(recipients=[email.get("email")],
                       sender="info@regretless.life",
