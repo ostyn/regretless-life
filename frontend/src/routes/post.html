@@ -10,7 +10,7 @@
             </div></center>
             <p class="grey">by ${post.author} on ${secondsToDate(post.date)} at ${secondsToTime(post.date)}</p>
             <a if.bind="isAuthenticated" route-href="route: editor; params.bind: getLinkParams(post)">edit</a>
-            <div>
+            <div if.bind="post.location">
                 <div class="mapButton" click.trigger="toggleMap()">${post.location}</div>
                 <google-map if.bind="mapLoaded" show.bind="mapShown" address.bind="post.location" zoom="7"></google-map>
             </div>
