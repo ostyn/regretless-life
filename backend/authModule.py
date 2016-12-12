@@ -8,7 +8,7 @@ class AuthModule():
         self.bcrypt = Bcrypt(app)
         app.config['SECRET_KEY'] = SECRET
         app.config['JWT_AUTH_USERNAME_KEY'] = 'email'
-        app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1*60*60) # 1 hour
+        app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=3*60*60) # 3 hours
 
     class User(object):
         def __init__(self, id, username, password, name):
