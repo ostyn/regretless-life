@@ -57,7 +57,7 @@ def savePost(passedJsonData=None):
             '_id': str(ObjectId()),
             'title': jsonData['title'],
             'author': current_identity.name,
-            'date': jsonData['date'],
+            'date': getDateInMilliseconds(),
             'location': jsonData['location'],
             'heroPhotoUrl': jsonData['heroPhotoUrl'],
             'content': jsonData['content'],
@@ -72,7 +72,7 @@ def savePost(passedJsonData=None):
             "location":jsonData['location'],
             "heroPhotoUrl":jsonData['heroPhotoUrl'],
             "content":jsonData['content'],
-            "dateLastEdited":jsonData['date'],
+            "dateLastEdited":getDateInMilliseconds(),
             'isDraft': jsonData['isDraft'],
         }})
         id = jsonData['id']
@@ -85,7 +85,7 @@ def publishPost():
     id = json.loads(savePost(jsonData).response[0])["id"]
     postsCollection.update_one({"_id":id},{"$set":
     {
-        'date': jsonData['date'],
+        'date': getDateInMilliseconds(),
         "dateLastEdited":None,
         "isDraft": False,
     }})

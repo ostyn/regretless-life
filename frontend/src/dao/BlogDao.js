@@ -107,7 +107,6 @@ export class BlogDao {
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,
                     'isDraft':post.isDraft,
-                    'date': new Date().getTime(),
                 }),
             })
             .then(response => {
@@ -131,7 +130,6 @@ export class BlogDao {
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,
                     'isDraft':post.isDraft,
-                    'date': new Date().getTime(),
                 }),
             })
             .then(response => {
@@ -155,7 +153,6 @@ export class BlogDao {
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,
                     'isDraft':post.isDraft,
-                    'date': new Date().getTime(),
                 }),
             })
             .then(response => {
