@@ -216,7 +216,8 @@ def registerUser():
 def subscribe():   
     email = request.json['email'].lower()
     user = {
-        'email': email
+        'email': email,
+        'date' : getDateInMilliseconds()
     }
     existingEmail = emailsCollection.find_one({'email': email})
     if(existingEmail is not None):
