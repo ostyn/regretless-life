@@ -1,5 +1,5 @@
 import {inject} from 'aurelia-framework';
-import {BlogDao} from '../dao/BlogDao.js';
+import {BlogDao} from 'dao/BlogDao';
 import {activationStrategy, Router} from 'aurelia-router';
 @inject(BlogDao, Router)
 export class Blog {

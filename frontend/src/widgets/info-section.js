@@ -1,7 +1,7 @@
 import {inject} from 'aurelia-framework';
 import {AuthService} from 'aurelia-auth';
 import {Router} from 'aurelia-router';
-import {BlogDao} from '../dao/BlogDao.js';
+import {BlogDao} from 'dao/BlogDao';
 @inject(AuthService, Router, BlogDao)
 export class InfoSection{
     subbed = false;

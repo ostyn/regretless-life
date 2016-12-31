@@ -1,5 +1,5 @@
 import {inject} from 'aurelia-framework';
-import {BlogDao} from '../dao/BlogDao.js';
+import {BlogDao} from 'dao/BlogDao';
 import {AuthService} from 'aurelia-auth';
 @inject(BlogDao, AuthService)
 export class Post {

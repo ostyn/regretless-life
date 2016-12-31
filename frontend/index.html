@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+	<meta charset="utf-8">
     <title>regretless.life</title>
-    <link rel="stylesheet" href="jspm_packages/npm/font-awesome@4.5.0/css/font-awesome.min.css">
-	  <link href='https://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="styles/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,11 +25,6 @@
     <i class="fa fa-spinner fa-spin"></i>
   </center>
   <body aurelia-app="main">
-    <script src="jspm_packages/npm/bluebird@3.4.6/js/browser/bluebird.min.js"></script>
-    <script src="jspm_packages/system.js"></script>
-    <script src="config.js"></script>
-    <script>
-      System.import('aurelia-bootstrapper');
-    </script>
+    <script src="scripts/vendor-bundle.js" data-main="aurelia-bootstrapper"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-import {City} from '../routes/city.js'
+import {City} from 'routes/city'
 export class CityPage {
     activate(params, routeConfig, navigationInstruction) {
         this.city = new City(params.name);
