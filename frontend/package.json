@@ -21,7 +21,7 @@
     "requirejs": "^2.3.2",
     "showdown": "^1.5.4",
     "showdown-youtube": "^1.2.1",
-    "strip-tags": "^0.1.1",
+    "striptags": "^2.1.1",
     "text": "github:requirejs/text#latest",
     "trim-html": "^0.1.7",
     "whatwg-fetch": "^2.0.1"
