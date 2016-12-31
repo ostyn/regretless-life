@@ -1,8 +1,9 @@
 import trimHtml from 'trim-html';
-// import stripTags from 'strip-tags';
+import striptags from 'striptags';
 export class TrimHtmlValueConverter {
   toView(value, length, suffix = " <span class='grey small'>[…]</span>") {
-    //return stripTags(trimHtml(value, { limit: length, suffix: suffix }).html, ['img','iframe']);
-    return trimHtml(value, { limit: length, suffix: suffix }).html;
+    return striptags(trimHtml(value, { limit: length, suffix: suffix }).html, 
+      ['p','strong', 'em', 'i', 'b', 'ul','ol','li','a','blockquote','h1','h2','h3','h4','h5','h6']
+    );
   }
 }

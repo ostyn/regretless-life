@@ -1,11 +1,10 @@
 import showdown from 'showdown';
-// import youtube from 'showdown-youtube';
+import youtube from 'showdown-youtube';
 export class MarkdownFormatValueConverter {
   constructor() {
     showdown.setOption('tables', 'true');
     showdown.setOption('simplifiedAutoLink', 'true');
-    //this.converter = new showdown.Converter({extensions: ['youtube']});
-    this.converter = new showdown.Converter();
+    this.converter = new showdown.Converter({extensions: ['youtube']});
   }
   toView(value) {
     if(!value)

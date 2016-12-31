@@ -117,6 +117,12 @@
           "aurelia-templating-binding",
           "aurelia-fetch-client",
           "whatwg-fetch",
+          "striptags",
+          {
+            "name":"showdown-youtube",
+            "path": "../node_modules/showdown-youtube/src",
+            "main":"showdown-youtube"
+          },
           {
               "name": "aurelia-google-maps",
               "path": "../node_modules/aurelia-google-maps/dist/amd",
