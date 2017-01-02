@@ -1,4 +1,4 @@
-frontend/dist
+frontend/scripts
 frontend/node_modules
 frontend/jspm_packages
 backend/db.json
