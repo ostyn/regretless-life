@@ -168,9 +168,6 @@ h2{
 .titleLink:visited, .titleLink:hover, .titleLinktitle:active, .titleLink:link {
     text-decoration: none;
 }
-.titleLink{
-    display: table-row;
-}
 .postTitle {
     display: block;
     position: absolute;
@@ -191,6 +188,7 @@ h2{
     min-height: 100px;
 }
 .header{
+    width:100%;
     position:relative;
     float:left;
     clear:none;
