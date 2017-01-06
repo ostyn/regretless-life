@@ -8,7 +8,7 @@
                     <div class="postTitle">${post.title}</div>
                 </div>
             </div></center>
-            <p class="grey">by ${post.author} on ${secondsToDate(post.date)} at ${secondsToTime(post.date)}</p>
+            <p class="grey">by ${post.author} on ${formatLib.secondsToDate(post.date)} at ${formatLib.secondsToTime(post.date)}</p>
             <a if.bind="isAuthenticated" route-href="route: editor; params.bind: getLinkParams(post)">edit</a>
             <div if.bind="post.location">
                 <div class="mapButton" click.trigger="toggleMap()">${post.location}</div>
@@ -18,7 +18,7 @@
                 <div innerhtml.bind="post.content | markdownFormat"></div>
             </p>
             <div show.bind="post.dateLastEdited != undefined"> 
-                <p class="grey">Updated on ${secondsToDate(post.dateLastEdited)} at ${secondsToTime(post.dateLastEdited)}</p>
+                <p class="grey">Updated on ${formatLib.secondsToDate(post.dateLastEdited)} at ${formatLib.secondsToTime(post.dateLastEdited)}</p>
             </div>
             <div class="nextPrevLink">
                 <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="left"><< ${prevPost.title}</a>
@@ -34,7 +34,7 @@
         <h3>${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</h3>
         <div class="comment" repeat.for="comment of post.comments">
             <div class="grey">#${$index+1} ${comment.name}</div>
-            <div class="grey">${secondsToDate(comment.date)} at ${secondsToTime(comment.date)}</div>
+            <div class="grey">${formatLib.secondsToDate(comment.date)} at ${formatLib.secondsToTime(comment.date)}</div>
             <div>${comment.content}</div>
             <button if.bind="isAuthenticated" click.trigger="deleteComment(comment)">delete</button>
         </div>

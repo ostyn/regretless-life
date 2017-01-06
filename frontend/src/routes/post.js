@@ -1,7 +1,8 @@
 import {inject} from 'aurelia-framework';
 import {BlogDao} from 'dao/BlogDao';
+import {FormatLib} from 'util/FormatLib';
 import {AuthService} from 'aurelia-auth';
-@inject(BlogDao, AuthService)
+@inject(BlogDao, FormatLib, AuthService)
 export class Post {
     comment = {};
     mapLoaded = false;
@@ -10,8 +11,9 @@ export class Post {
     nextPost = undefined;
     prevPost = undefined;
     activelySubmittingComment = false;
-    constructor(blogDao, auth) {
+    constructor(blogDao, formatLib, auth) {
         this.blogDao = blogDao;
+        this.formatLib = formatLib;
         this.auth = auth;
     }
     activate(params, routeConfig, navigationInstruction) {
@@ -53,12 +55,7 @@ export class Post {
     get isAuthenticated() {
         return this.auth.isAuthenticated();
     }
-    secondsToDate(seconds) {
-        return new Date(seconds).toLocaleDateString();
-    }
-    secondsToTime(seconds) {
-        return new Date(seconds).toLocaleTimeString();
-    }
+
     submitComment() {
         this.blogDao.submitComment(this.post._id, this.comment)
         .then(id => {

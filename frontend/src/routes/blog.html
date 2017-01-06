@@ -12,7 +12,7 @@
                     <div class="postTitle">${post.title}</div>
                 </div>
             </a></center>
-            <div class="grey">by ${post.author}, ${secondsToDate(post.date)}</div>
+            <div class="grey">by ${post.author}, ${formatLib.secondsToDate(post.date)}</div>
             <p>
                 <div class="textPreview" innerhtml.bind="post.content | markdownFormat | trimHtml : previewLength"></div>
             </p>

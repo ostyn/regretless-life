@@ -1,7 +1,8 @@
 import {inject} from 'aurelia-framework';
 import {BlogDao} from 'dao/BlogDao';
+import {FormatLib} from 'util/FormatLib';
 import {activationStrategy, Router} from 'aurelia-router';
-@inject(BlogDao, Router)
+@inject(BlogDao, FormatLib, Router)
 export class Blog {
     previewLength = 200;
     start = 0;
@@ -41,15 +42,10 @@ export class Blog {
                     }
                 });
     }
-    constructor(blogDao, router) {
+    constructor(blogDao, formatLib, router) {
         this.blogDao = blogDao;
+        this.formatLib = formatLib;
         this.router = router;
-    }
-    secondsToDate(seconds) {
-        return new Date(seconds).toLocaleDateString();
-    }
-    secondsToTime(seconds) {
-        return new Date(seconds).toLocaleTimeString();
     }
     isSearchPage(){
         return this.query != undefined;
