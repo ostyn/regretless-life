@@ -120,6 +120,20 @@
           "whatwg-fetch",
           "striptags",
           {
+            "name":"jquery",
+            "path": "../node_modules/jquery/dist",
+            "main" : "jquery.min.js"
+          },
+          {
+            "name":"jvectormap",
+            "path": "../node_modules/jvectormap",
+            "main":"jquery-jvectormap.min.js",
+              "resources": [
+                  "./tests/assets/jquery-jvectormap-world-mill-en.js",
+                  "./lib/jquery-mousewheel.js"
+              ]
+          },
+          {
             "name":"showdown-youtube",
             "path": "../node_modules/showdown-youtube/src",
             "main":"showdown-youtube"

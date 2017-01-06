@@ -94,7 +94,21 @@ export class BlogDao {
                 console.log(ex);
             });
     }
-
+    getAllPostsByLocation() {
+        return this.http.fetch('getAllPostsByLocation')
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                if(data.resp != null)
+                    return data.resp.locations;
+                else
+                    return;
+            })
+            .catch(ex => {
+                console.log(ex);
+            });
+    }
     savePost(post) {
         return this.http
             .fetch('savePost', {

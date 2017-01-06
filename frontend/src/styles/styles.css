@@ -302,3 +302,11 @@ google-map {
     background-color:lightgrey;
     cursor: pointer;
 }
+#myMap {
+    position:relative;
+}
+
+.mapContainer {
+    height:400px;
+    position: static;
+}

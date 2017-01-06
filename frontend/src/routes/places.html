@@ -1,0 +1,20 @@
+<template>
+    <require from="../widgets/vector-map"></require>
+    <section class="contentArea">
+        <h1>Places</h1>
+        <div class="mapContainer post">
+            <vector-map if.bind="values" values.bind="values" id="myMap"></vector-map>
+        </div>
+        <ul>
+            <li repeat.for="place of places">
+                ${place._id.name}
+                <ul>
+                    <li repeat.for="blogPost of place.posts">
+                        <a route-href="route: post; params.bind: { id: blogPost.id }">${blogPost.title}</a>
+                        on ${formatLib.secondsToDate(blogPost.date)}
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</template>

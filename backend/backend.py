@@ -2,6 +2,7 @@ import json
 import requests
 import pymongo
 import re
+import geocoder
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
@@ -14,7 +15,7 @@ from werkzeug.security import safe_str_cmp
 from authModule import AuthModule
 from skyScannerModule import routeQuery, airportQuery
 
-from configMaster import SMTP_USER, SMTP_PASSWORD
+from configMaster import SMTP_USER, SMTP_PASSWORD, GOOGLE_MAPS_KEY
 import time
 
 app = Flask(__name__)
@@ -64,17 +65,32 @@ def savePost(passedJsonData=None):
             'comments': [],
             'isDraft': True,
         }
+        if(jsonData['location']):
+            geocoded = geocoder.google(jsonData['location'], key=GOOGLE_MAPS_KEY)
+            post['locationInfo'] = {}
+            post['locationInfo']["latitude"] = geocoded.lat
+            post['locationInfo']["longitude"] = geocoded.lng
+            post['locationInfo']["country"] = geocoded.country
+            post['locationInfo']["name"] = jsonData['location']
         id = postsCollection.insert_one(post).inserted_id
     else:
-        postsCollection.update_one({"_id":jsonData['id']},{"$set":
-        {
+        post = {
             "title":jsonData['title'],
-            "location":jsonData['location'],
+            "location": jsonData['location'],
             "heroPhotoUrl":jsonData['heroPhotoUrl'],
             "content":jsonData['content'],
             "dateLastEdited":getDateInMilliseconds(),
             'isDraft': jsonData['isDraft'],
-        }})
+        }
+        if(jsonData['location']):
+            geocoded = geocoder.google(jsonData['location'], key=GOOGLE_MAPS_KEY)
+            post['locationInfo'] = {}
+            post['locationInfo']["latitude"] = geocoded.lat
+            post['locationInfo']["longitude"] = geocoded.lng
+            post['locationInfo']["country"] = geocoded.country
+            post['locationInfo']["name"] = jsonData['location']
+        postsCollection.update_one({"_id":jsonData['id']},{"$set":post
+        })
         id = jsonData['id']
     return jsonify({'id':id})
 
@@ -206,6 +222,49 @@ def getSurroundingPosts():
     else:
         prevPost = None
     return jsonify({'resp':{'next':nextPost,'prev':prevPost}})
+
+@app.route("/getAllPostsByLocation", methods=['GET'])
+def getAllPostsByLocation(isDraft = False):
+    locations = postsCollection.aggregate([
+    {  
+        '$match':{  
+            '$and':[  
+                {  
+                'locationInfo':{  
+                    '$exists':"true"
+                }
+                },
+                {  
+                'locationInfo':{  
+                    '$ne':{}
+                }
+                }
+            ],
+            'isDraft':{  
+                '$eq':isDraft
+            }
+        }
+    },
+    {  
+        '$group':{  
+            '_id':{  
+                'name':'$locationInfo.name',
+                'latitude':'$locationInfo.latitude',
+                'longitude':'$locationInfo.longitude',
+                'country':'$locationInfo.country'
+            },
+            'posts':{  
+                '$push':{  
+                'title':'$title',
+                'id':'$_id',
+                'date':'$date',
+                }
+            }
+        }
+    }
+    ])
+
+    return jsonify({'resp':{'locations': list(locations)}})
 
 @app.route("/register", methods=['POST', 'OPTION'])
 @jwt_required()
