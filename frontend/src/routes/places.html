@@ -7,7 +7,7 @@
         </div>
         <ul>
             <li repeat.for="place of places">
-                ${place._id.name}
+                ${place._id.country}
                 <ul>
                     <li repeat.for="blogPost of place.posts">
                         <a route-href="route: post; params.bind: { id: blogPost.id }">${blogPost.title}</a>

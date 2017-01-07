@@ -70,7 +70,8 @@ def savePost(passedJsonData=None):
             post['locationInfo'] = {}
             post['locationInfo']["latitude"] = geocoded.lat
             post['locationInfo']["longitude"] = geocoded.lng
-            post['locationInfo']["country"] = geocoded.country
+            post['locationInfo']["country"] = geocoded.country_long
+            post['locationInfo']["countryCode"] = geocoded.country
             post['locationInfo']["name"] = jsonData['location']
         id = postsCollection.insert_one(post).inserted_id
     else:
@@ -87,7 +88,8 @@ def savePost(passedJsonData=None):
             post['locationInfo'] = {}
             post['locationInfo']["latitude"] = geocoded.lat
             post['locationInfo']["longitude"] = geocoded.lng
-            post['locationInfo']["country"] = geocoded.country
+            post['locationInfo']["country"] = geocoded.country_long
+            post['locationInfo']["countryCode"] = geocoded.country
             post['locationInfo']["name"] = jsonData['location']
         postsCollection.update_one({"_id":jsonData['id']},{"$set":post
         })
@@ -248,10 +250,8 @@ def getAllPostsByLocation(isDraft = False):
     {  
         '$group':{  
             '_id':{  
-                'name':'$locationInfo.name',
-                'latitude':'$locationInfo.latitude',
-                'longitude':'$locationInfo.longitude',
-                'country':'$locationInfo.country'
+                'country':'$locationInfo.country',
+                'countryCode':'$locationInfo.countryCode'
             },
             'posts':{  
                 '$push':{  

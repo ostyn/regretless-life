@@ -17,7 +17,7 @@ export class Places {
                     this.places = locations;
                     this.values = {};
                     for(var place of this.places) {
-                        this.values[place["_id"]["country"]] = 1;
+                        this.values[place["_id"]["countryCode"]] = 1;
                     }
                 }
             )
