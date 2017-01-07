@@ -1,10 +1,11 @@
 Python3/pip3
 * pymongo
-flask
+* flask
 * flask-jwt
 * flask-cors
 * flask-bcrypt
 * flask-mail
+* geocoder
 
 Setting up python with WSGI on Apache
 Combination of 
