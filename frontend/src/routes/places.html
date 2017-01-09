@@ -1,5 +1,6 @@
 <template>
     <require from="../widgets/vector-map"></require>
+    <link rel="stylesheet" href="../../node_modules/flag-icon-css/css/flag-icon.min.css">
     <section class="contentArea">
         <h1>Places</h1>
         <div class="mapContainer post">
@@ -9,6 +10,7 @@
                     <h3>${year._id.year}</h3>
                     <ul class="placesList">
                         <li repeat.for="location of year.locations">
+                            <span class.bind='getCssFlag(location.countryCode)' click.trigger="toggleList(location.countryCode)"></span>
                             <span click.trigger="toggleList(location.countryCode)">${location.country}</span>
                             <ul show.bind="show[location.countryCode]">
                                 <li repeat.for="blogPost of location.posts">

@@ -28,4 +28,7 @@ export class Places {
     toggleList = (name)=>{
         this.show[name] = !this.show[name];
     }
+    getCssFlag(countryCode){
+        return `flag-icon flag-icon-${countryCode.toLowerCase()}`;
+    }
 }
