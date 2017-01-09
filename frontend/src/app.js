@@ -18,7 +18,7 @@ export class App {
       { route: 'about', moduleId: './routes/post', name:'about', nav: true, title: 'about us'},
       { route: 'login', moduleId: './routes/login', nav: false, title: 'login'},
       { route: 'register', moduleId: './routes/register', nav: false, title: 'register', auth:true},
-      { route: 'places', moduleId: './routes/places', nav: false, title: 'places'},
+      { route: 'places', moduleId: './routes/places', nav: true, title: 'places'},
     ]);
 
     this.router = router;
