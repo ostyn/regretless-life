@@ -101,7 +101,7 @@ export class BlogDao {
             })
             .then(data => {
                 if(data.resp != null)
-                    return data.resp.locations;
+                    return data.resp.years;
                 else
                     return;
             })
@@ -116,7 +116,7 @@ export class BlogDao {
                 body: json({
                     'id': post._id,
                     'title': post.title,
-                    'location': post.location,
+                    'location': post.locationInfo.name,
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,
                     'isDraft':post.isDraft,

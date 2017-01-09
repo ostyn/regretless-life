@@ -4,6 +4,7 @@ import { vectorMap } from 'jvectormap';
 @inject(Element)
 export class VectorMap {
   @bindable values = {};
+  @bindable clickCallback;
   constructor(el) {
     this.id = el.id;
   }
@@ -27,6 +28,9 @@ export class VectorMap {
             attribute: 'fill',
             values: this.values
           }]
+        },
+        onRegionClick: (e, code)=>{
+          this.clickCallback(code);
         }
       }
     );

@@ -3,18 +3,22 @@
     <section class="contentArea">
         <h1>Places</h1>
         <div class="mapContainer post">
-            <vector-map if.bind="values" values.bind="values" id="myMap"></vector-map>
+            <vector-map if.bind="values" values.bind="values" id="myMap" click-callback.call="toggleList($event, name)"></vector-map>
+            <div class="columns">
+                <div repeat.for="year of years" class="columnOfPosts">
+                    <h3>${year._id.year}</h3>
+                    <ul class="placesList">
+                        <li repeat.for="location of year.locations">
+                            <span click.trigger="toggleList(location.countryCode)">${location.country}</span>
+                            <ul show.bind="show[location.countryCode]">
+                                <li repeat.for="blogPost of location.posts">
+                                    <a route-href="route: post; params.bind: { id: blogPost.id }">${blogPost.title}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <ul>
-            <li repeat.for="place of places">
-                ${place._id.country}
-                <ul>
-                    <li repeat.for="blogPost of place.posts">
-                        <a route-href="route: post; params.bind: { id: blogPost.id }">${blogPost.title}</a>
-                        on ${formatLib.secondsToDate(blogPost.date)}
-                    </li>
-                </ul>
-            </li>
-        </ul>
     </section>
 </template>

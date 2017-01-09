@@ -59,7 +59,7 @@ body {
     margin-bottom: 48px;
     margin-right:220px;
 }
-@media (max-width: 700px) {
+@media (max-width: 740px) {
     .menu, .sidebar{
         display: none;
     }
@@ -78,7 +78,7 @@ body {
         padding-left: 40px;
     }
 }
-@media (min-width: 700px) {
+@media (min-width: 740px) {
     .menu{
         margin: 0px;
         height: 32px;
@@ -309,4 +309,21 @@ google-map {
 .mapContainer {
     height:400px;
     position: static;
+}
+
+.placesList li {
+    cursor: pointer;
+	list-style: none;
+}
+.placesList{
+    margin-left:0px;
+    padding-left:0px;
+}
+.placesList li:before {
+	content: "\00BB \0020";
+}
+.columnOfPosts{
+    width: 200px;
+    display:inline-block;
+    vertical-align: top;
 }

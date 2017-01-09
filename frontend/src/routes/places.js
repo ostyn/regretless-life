@@ -4,6 +4,7 @@ import {FormatLib} from 'util/FormatLib';
 import {VectorMap} from 'widgets/vector-map';
 @inject(BlogDao, FormatLib)
 export class Places {
+    show = {};
     places = []
     values = undefined
     constructor(blogDao, formatLib) {
@@ -12,14 +13,19 @@ export class Places {
     }
     activate() {
         this.blogDao.getAllPostsByLocation()
-            .then((locations) =>
+            .then((years) =>
                 {
-                    this.places = locations;
+                    this.years = years;
                     this.values = {};
-                    for(var place of this.places) {
-                        this.values[place["_id"]["countryCode"]] = 1;
+                    for(var year of this.years) {
+                        for(var location of year.locations) {
+                            this.values[location["countryCode"]] = 1;
+                        }
                     }
                 }
             )
+    }
+    toggleList = (name)=>{
+        this.show[name] = !this.show[name];
     }
 }

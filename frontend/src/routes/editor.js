@@ -19,10 +19,14 @@ export class Editor {
             if(params.isDraft === 'true')
                 return this.blogDao.getDraftPost(params.id).then((post) => {
                     this.post = post;
+                    if(!this.post.locationInfo)
+                        this.post.locationInfo = {}
                 });
             else
                 return this.blogDao.getPost(params.id).then((post) => {
                     this.post = post;
+                    if(!this.post.locationInfo)
+                        this.post.locationInfo = {}
                 });
         }
         else {

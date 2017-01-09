@@ -16,7 +16,7 @@ from authModule import AuthModule
 from skyScannerModule import routeQuery, airportQuery
 
 from configMaster import SMTP_USER, SMTP_PASSWORD, GOOGLE_MAPS_KEY
-import time
+import time, datetime
 
 app = Flask(__name__)
 
@@ -48,24 +48,24 @@ def routeQuery():
 @app.route("/savePost", methods=['POST', 'OPTION'])
 @jwt_required()
 def savePost(passedJsonData=None):
-    if(passedJsonData is None):
+    if passedJsonData is None:
         jsonData = request.json
     else:
         jsonData = passedJsonData
     id = ""
-    if (jsonData.get('id') is None):
+    if jsonData.get('id') is None:
         post = {
             '_id': str(ObjectId()),
             'title': jsonData['title'],
             'author': current_identity.name,
             'date': getDateInMilliseconds(),
-            'location': jsonData['location'],
             'heroPhotoUrl': jsonData['heroPhotoUrl'],
             'content': jsonData['content'],
             'comments': [],
             'isDraft': True,
         }
-        if(jsonData['location']):
+        if('location' in jsonData):
+            post['location'] = jsonData['location']
             geocoded = geocoder.google(jsonData['location'], key=GOOGLE_MAPS_KEY)
             post['locationInfo'] = {}
             post['locationInfo']["latitude"] = geocoded.lat
@@ -77,13 +77,13 @@ def savePost(passedJsonData=None):
     else:
         post = {
             "title":jsonData['title'],
-            "location": jsonData['location'],
             "heroPhotoUrl":jsonData['heroPhotoUrl'],
             "content":jsonData['content'],
             "dateLastEdited":getDateInMilliseconds(),
             'isDraft': jsonData['isDraft'],
         }
-        if(jsonData['location']):
+        if('location' in jsonData):
+            post["location"]= jsonData['location']
             geocoded = geocoder.google(jsonData['location'], key=GOOGLE_MAPS_KEY)
             post['locationInfo'] = {}
             post['locationInfo']["latitude"] = geocoded.lat
@@ -206,7 +206,7 @@ def getDraftPost():
 @app.route("/getPost", methods=['GET'])
 def getPost(isDraft = False):
     id = request.args.get('id')
-    post = postsCollection.find_one({'_id':id, "isDraft":isDraft}, {"comments.email": False})
+    post = postsCollection.find_one({'_id':id, "isDraft":isDraft}, {"comments.email": False, "location": False})
     fixOneDriveUrls(post)
     return jsonify({'resp':post})
 
@@ -227,9 +227,9 @@ def getSurroundingPosts():
 
 @app.route("/getAllPostsByLocation", methods=['GET'])
 def getAllPostsByLocation(isDraft = False):
-    locations = postsCollection.aggregate([
+    years = postsCollection.aggregate([
     {  
-        '$match':{  
+        '$match':{ 
             '$and':[  
                 {  
                 'locationInfo':{  
@@ -247,24 +247,59 @@ def getAllPostsByLocation(isDraft = False):
             }
         }
     },
-    {  
+    {
+        '$project' : {
+            '_id' : "$_id",
+            'title':1,
+            'date':1,
+            'locationInfo':1,
+            'year' : {'$year':{'$add': [datetime.datetime(1970, 1, 1, 0, 0), "$date"]}}
+        }
+    },
+    {
         '$group':{  
             '_id':{  
                 'country':'$locationInfo.country',
-                'countryCode':'$locationInfo.countryCode'
+                'countryCode':'$locationInfo.countryCode',
+                'year':'$year'
             },
             'posts':{  
                 '$push':{  
-                'title':'$title',
-                'id':'$_id',
-                'date':'$date',
+                    'title':'$title',
+                    'id':'$_id',
+                    'date':'$date',
+                    'location':'$locationInfo.name'
                 }
             }
         }
-    }
+    },
+    {
+        '$sort':{
+            '_id.country':1,
+        }
+    },
+    {
+        '$group':{  
+            '_id':{  
+                'year':'$_id.year'
+            },
+            'locations':{  
+                '$push':{  
+                    'posts':'$posts',
+                    'country': '$_id.country',
+                    'countryCode':'$_id.countryCode'
+                }
+            }
+        }
+    },
+    {
+        '$sort':{
+            '_id.year':1
+        }
+    },
     ])
 
-    return jsonify({'resp':{'locations': list(locations)}})
+    return jsonify({'resp':{'years': list(years)}})
 
 @app.route("/register", methods=['POST', 'OPTION'])
 @jwt_required()
