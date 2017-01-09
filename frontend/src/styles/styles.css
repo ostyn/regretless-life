@@ -314,6 +314,7 @@ google-map {
 .placesList li {
     cursor: pointer;
 	list-style: none;
+    margin-top: 10px;
 }
 .placesList{
     margin-left:0px;
