@@ -29,6 +29,9 @@ export class Places {
         this.show[name] = !this.show[name];
     }
     getCssFlag(countryCode){
-        return `flag-icon flag-icon-${countryCode.toLowerCase()}`;
+        if(countryCode)
+            return `flag-icon flag-icon-${countryCode.toLowerCase()}`;
+        else
+            return "";
     }
 }
