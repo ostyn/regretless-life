@@ -353,3 +353,13 @@ google-map {
     display:inline-block;
     vertical-align: top;
 }
+.flag-icon{
+    margin: 5px;
+}
+.columns{
+    margin-bottom: 20px;
+}
+.accordion{
+    cursor: pointer;
+    padding: 5px;
+}
