@@ -12,17 +12,6 @@
             <input class="textbox" type="text" placeholder="hero photo url" value.bind="post.heroPhotoUrl"></input>
             <img class="hero" src.bind="post.heroPhotoUrl">
         </p>
-        <div title="
-            ![alt-text](Image URL) is an image
-            [google](http://google.com) is a link
-            #header 1
-            ##header 2 etc.
-            _italics_
-            **bold**
-            __also bold__
-            >indent the paragraph
-            ">Mouse-over me for hints!
-        </div>
         <p>
             <editor-widget class="postEditor" markdown.two-way ="post.content" starting-value.one-time="post.content | markdownFormat"></editor-widget>
         </p>
