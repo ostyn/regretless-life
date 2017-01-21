@@ -118,6 +118,16 @@
           "aurelia-templating-binding",
           "aurelia-fetch-client",
           "whatwg-fetch",
+          {
+            "name": "to-markdown",
+            "path":"../node_modules/to-markdown/dist",
+            "main":"to-markdown.js"
+          },
+          {
+            "name": "medium-editor",
+            "path": "../node_modules/medium-editor/dist",
+            "main": "./js/medium-editor.min.js"
+          },
           "striptags",
           {
             "name":"jquery",

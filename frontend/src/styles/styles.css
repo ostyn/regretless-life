@@ -140,8 +140,26 @@ h2{
 }
 .postEditor {
     display: inline-block;
-    width: 40%;
     height: 600px;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.editable{
+    padding: 15px;
+    min-height: 570px !important;
+    background-color: inherit;
+    border: none;
+    border-left: 2px solid black;
+	height: 40px;
+	font-size: 16px;
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.editable > p:first-child  {
+    margin-top: 0px;
+}
+.editable > p:last-child  {
+    margin-bottom: 0px;
 }
 .postPreview {
     vertical-align: top;
