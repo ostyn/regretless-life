@@ -1,0 +1,9 @@
+<template>
+    <div repeat.for="file of files">
+        ${file.name}
+        <br>
+        <img class="copy" data-clipboard-target='#foo${$index}' src="${file.thumbnails[0]['large']['url']}?width=100&amp;height=9999&amp;cropmode=none">
+        <br>
+        <input id='foo${$index}' value="![](${file.thumbnails[0]['large']['url']}?width=1024&amp;height=9999&amp;cropmode=none)">
+    </div>
+</template>
