@@ -279,6 +279,13 @@ h2{
 .textPreview {
     overflow: hidden;
 }
+.hero{
+    width:100px !important;
+    vertical-align: middle;
+    display: inline-block !important;
+    position: relative;
+    left: 0px;
+}
 .post * img{
     margin-top: 10px;
     margin-bottom: 10px;
