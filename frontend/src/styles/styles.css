@@ -311,14 +311,14 @@ button:hover {
 google-map {
     margin-top: 15px;
     margin-bottom: 15px;
+    overflow: visible !important;
 }
 .mapButton {
-    margin-left: 10px;
-    margin-right:0px;
     float: right;
-    padding:5px;
-    background-color:lightgrey;
-    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    right: 0;
+    text-align: center;
 }
 #myMap {
     position:relative;

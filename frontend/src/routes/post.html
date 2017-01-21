@@ -11,7 +11,7 @@
             <p class="grey">by ${post.author} on ${formatLib.secondsToDate(post.date)} at ${formatLib.secondsToTime(post.date)}</p>
             <a if.bind="isAuthenticated" route-href="route: editor; params.bind: getLinkParams(post)">edit</a>
             <div if.bind="post.locationInfo && post.locationInfo.name">
-                <div class="mapButton" click.trigger="toggleMap()">${post.locationInfo.name}</div>
+                <button class="mapButton" click.trigger="toggleMap()">${(mapShown)?'X':post.locationInfo.name}</button>
                 <google-map if.bind="mapLoaded" show.bind="mapShown" address.bind="post.locationInfo.name" zoom="7"></google-map>
             </div>
             <p>
