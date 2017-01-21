@@ -1,6 +1,7 @@
 from configMaster import SECRET
 from flask_bcrypt import Bcrypt
 from datetime import timedelta
+from flask import jsonify
 
 class AuthModule():
     def __init__(self, app, usersCollection):
