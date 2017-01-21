@@ -28,6 +28,7 @@
     "showdown-youtube": "^1.2.1",
     "striptags": "^2.1.1",
     "text": "github:requirejs/text#latest",
+    "to-markdown": "^3.0.3",
     "trim-html": "^0.1.7",
     "whatwg-fetch": "^2.0.1"
   },
