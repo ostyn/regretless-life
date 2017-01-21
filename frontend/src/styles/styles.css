@@ -111,7 +111,7 @@ body {
     font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .textarea:focus, .textbox:focus{
-    outline: none;
+    outline: 1px dashed gray;
 }
 img {
     border-radius: 4px;
