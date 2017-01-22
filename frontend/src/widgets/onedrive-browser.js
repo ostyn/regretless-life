@@ -13,7 +13,10 @@ export class OnedriveBrowser {
             multiSelect: true,
             openInNewWindow: true,
             advanced: {
-                'redirectUri': fullUrl + '/onedrive.html'
+                'redirectUri': fullUrl + '/onedrive.html',
+                'createLinkParameters': { 
+                    'type': "embed"
+                }
             },
             success: (files) => {
                 this.files = files.value;
