@@ -113,6 +113,9 @@ body {
 .textarea:focus, .textbox:focus{
     outline: 1px dashed gray;
 }
+.editable:focus{
+    outline: none;
+}
 img {
     border-radius: 4px;
 }
@@ -140,6 +143,8 @@ h2{
 }
 .postEditor {
     display: inline-block;
+    width: 100%;
+    border-left: 2px solid black;
     height: 600px;
     overflow: scroll;
     overflow-x: hidden;
@@ -150,7 +155,6 @@ h2{
     min-height: 570px !important;
     background-color: inherit;
     border: none;
-    border-left: 2px solid black;
 	height: 40px;
 	font-size: 16px;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
