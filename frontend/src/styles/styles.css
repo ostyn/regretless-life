@@ -151,11 +151,13 @@ h2{
     overflow-y: auto;
 }
 .editable{
+    height: auto;
     padding: 15px;
+    padding-left: 30px;
+    padding-right:30px;
     min-height: 570px !important;
     background-color: inherit;
     border: none;
-	height: 40px;
 	font-size: 16px;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
