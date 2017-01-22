@@ -1,23 +1,31 @@
 <template>
     <require from="converters/markdown-format"></require>
+    <require from="widgets/onedrive-browser"></require>
     <require from="widgets/editor-widget"></require>
-    <div class="post">
-        <p>
-            <input class="textbox" type="text" placeholder="title" value.bind="post.title" focus="true"></input>
-        </p>
-        <p>
-            <input class="textbox" type="text" placeholder="place" value.bind="post.locationInfo.name"></input>
-        </p>
-        <p>
-            <input class="textbox" type="text" placeholder="hero photo url" value.bind="post.heroPhotoUrl"></input>
-            <img class="hero" src.bind="post.heroPhotoUrl">
-        </p>
-        <p>
-            <editor-widget class="postEditor" markdown.two-way ="post.content" starting-value.one-time="post.content | markdownFormat"></editor-widget>
-        </p>
-        <button if.bind="editing" disabled.bind="activelyContactingServer" click.trigger="delete()">Delete Post</button>
-        <button click.trigger="save()" disabled.bind="activelyContactingServer">Save</button>
-        <button if.bind="post.isDraft" disabled.bind="activelyContactingServer" click.trigger="publish()">Publish</button>
-        <button if.bind="!post.isDraft" disabled.bind="activelyContactingServer" click.trigger="unpublish()">Unpublish</button>
+    <div class="contentArea">
+        <div class="siteBody">
+            <div>
+                <div class="infoFields">
+                    <p>
+                        <input class="textbox" type="text" placeholder="title" value.bind="post.title" focus="true"></input>
+                    </p>
+                    <p>
+                        <input class="textbox" type="text" placeholder="place" value.bind="post.locationInfo.name"></input>
+                    </p>
+                    <p>
+                        <input class="textbox" type="text" placeholder="hero photo url" value.bind="post.heroPhotoUrl"></input>
+                        <img class="hero" src.bind="post.heroPhotoUrl">
+                    </p>
+                </div>
+                <onedrive-browser></onedrive-browser>
+            </div>
+            <p>
+                <editor-widget class="postEditor blogPostBody" markdown.two-way="post.content" starting-value.one-time="post.content | markdownFormat"></editor-widget>
+            </p>
+            <button if.bind="editing" disabled.bind="activelyContactingServer" click.trigger="delete()">Delete Post</button>
+            <button click.trigger="save()" disabled.bind="activelyContactingServer">Save</button>
+            <button if.bind="post.isDraft" disabled.bind="activelyContactingServer" click.trigger="publish()">Publish</button>
+            <button if.bind="!post.isDraft" disabled.bind="activelyContactingServer" click.trigger="unpublish()">Unpublish</button>
+        </div>
     </div>
 </template>

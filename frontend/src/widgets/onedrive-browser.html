@@ -1,10 +1,10 @@
 <template>
-    <button click.trigger="launchOneDrivePicker()">select pictures</button>
-    <div repeat.for="file of files">
-        ${file.name}
-        <br>
-        <img class="copy" data-clipboard-target='#foo${$index}' src="${file.thumbnails[0]['large']['url']}?width=100&amp;height=9999&amp;cropmode=none">
-        <br>
-        <input id='foo${$index}' value="![](${file.thumbnails[0]['large']['url']}?width=1024&amp;height=9999&amp;cropmode=none)">
+    <div>
+        <button click.trigger="launchOneDrivePicker()">select pictures</button>
+    </div>
+    <div class="imagePreviews">
+        <div class="imagePreview" repeat.for="file of files">
+            <img click.trigger="insertImgNodeAtCursor(file.thumbnails[0]['large']['url'])" src="${file.thumbnails[0]['large']['url']}?width=9999&amp;height=100&amp;cropmode=none">
+        </div>
     </div>
 </template>

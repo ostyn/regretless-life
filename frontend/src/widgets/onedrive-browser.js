@@ -26,4 +26,31 @@ export class OnedriveBrowser {
     removeItem(index) {
         this.files.splice(index, 1);
     }
+    insertImgNodeAtCursor(imgUrl) {
+        var sel, range, html;
+        if (window.getSelection) {
+            sel = window.getSelection();
+            if (sel.getRangeAt && sel.rangeCount && sel.focusNode.parentNode.isContentEditable) {
+                range = sel.getRangeAt(0);
+                range.deleteContents();
+                var imgNode = document.createElement("img");
+                imgNode.src = imgUrl;
+                range.insertNode(imgNode);
+                //Finding the last isContentEditable element ancestor to notify of the change
+                let node = sel.focusNode;
+                let parentElement = sel.parentElement;
+                while (node.parentNode.isContentEditable) {
+                    parentElement = node.parentElement;
+                    node = node.parentNode;
+                }
+                parentElement.dispatchEvent(new Event('change'));
+                //Move cursor after added element
+                range.setStartAfter(imgNode);
+                sel.removeAllRanges();
+                sel.addRange(range);   
+            }
+        } else if (document.selection && document.selection.createRange) {
+            document.selection.createRange().text = imgUrl;
+        }
+    }
 }

@@ -2,25 +2,23 @@
     <require from="converters/markdown-format"></require>
     <require from="converters/trim-html-converter"></require>
     <section class="contentArea">
-        <div class="post" show.bind="query != undefined">
+        <div class="siteBody blogPostBody" show.bind="query != undefined">
             Search Results for "${query}"
         </div>
-        <div class="post" repeat.for="post of posts">
+        <div class="siteBody blogPostBody" repeat.for="post of posts">
             <center><a class="titleLink" route-href="route: post; params.bind: getLinkParams(post)">
                 <div class="header">
                     <img class="headerImage" src="${post.heroPhotoUrl}"></img>
                     <div class="postTitle">${post.title}</div>
                 </div>
             </a></center>
-            <div class="grey">by ${post.author}, ${formatLib.secondsToDate(post.date)}</div>
-            <p>
-                <div class="textPreview" innerhtml.bind="post.content | markdownFormat | trimHtml : previewLength"></div>
-            </p>
+            <p class="grey">by ${post.author}, ${formatLib.secondsToDate(post.date)}</p>
+            <div class="textPreview" innerhtml.bind="post.content | markdownFormat | trimHtml : previewLength"></div>
             <div class="grey small">
                 <a route-href="route: post; params.bind: { id: post._id }">${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</a>
             </div>
         </div>
-        <div class="post" show.bind="posts.length == 0">
+        <div class="siteBody blogPostBody" show.bind="posts.length == 0">
             Couldn't find any posts. Sorry :(
         </div>
         <div show.bind="!isSearchPage()">

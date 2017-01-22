@@ -1,48 +1,55 @@
 <template>
     <require from="converters/markdown-format"></require>
     <section class="contentArea">
-        <div class="post" show.bind="post != undefined">
-            <center><div class="titleLink">
-                <div class="header">
-                    <img class="headerImage" src="${post.heroPhotoUrl}"></img>
-                    <div class="postTitle">${post.title}</div>
+        <div class="siteBody blogPostBody" show.bind="post != undefined">
+            <center>
+                <div class="titleLink">
+                    <div class="header">
+                        <img class="headerImage" src="${post.heroPhotoUrl}"></img>
+                        <div class="postTitle">${post.title}</div>
+                    </div>
                 </div>
-            </div></center>
+            </center>
             <p class="grey">by ${post.author} on ${formatLib.secondsToDate(post.date)} at ${formatLib.secondsToTime(post.date)}</p>
             <a if.bind="isAuthenticated" route-href="route: editor; params.bind: getLinkParams(post)">edit</a>
             <div if.bind="post.locationInfo && post.locationInfo.name">
                 <button class="mapButton" click.trigger="toggleMap()">${(mapShown)?'X':post.locationInfo.name}</button>
                 <google-map if.bind="mapLoaded" show.bind="mapShown" address.bind="post.locationInfo.name" zoom="7"></google-map>
             </div>
-            <p>
-                <div innerhtml.bind="post.content | markdownFormat"></div>
-            </p>
-            <div show.bind="post.dateLastEdited != undefined"> 
+            <div innerhtml.bind="post.content | markdownFormat"></div>
+            <div show.bind="post.dateLastEdited != undefined">
                 <p class="grey">Updated on ${formatLib.secondsToDate(post.dateLastEdited)} at ${formatLib.secondsToTime(post.dateLastEdited)}</p>
             </div>
             <div class="nextPrevLink">
-                <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="left"><< ${prevPost.title}</a>
-                <a if.bind="nextPost" route-href="route: post; params.bind: { id: nextPost.id }" class="right">${nextPost.title} >></a>
+                <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="left">
+                    << ${prevPost.title}</a>
+                        <a if.bind="nextPost" route-href="route: post; params.bind: { id: nextPost.id }" class="right">${nextPost.title} >></a>
             </div>
         </div>
-        <div class="post" show.bind="post == undefined">
+        <div class="siteBody" show.bind="post == undefined">
             Couldn't find that post. Sorry :(
         </div>
     </section>
-    <section class="comments">
-        <p class="small">Talk in the boxes down there. We'll talk back!</p>
-        <h3>${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</h3>
-        <div class="comment" repeat.for="comment of post.comments">
-            <div class="grey">#${$index+1} ${comment.name}</div>
-            <div class="grey">${formatLib.secondsToDate(comment.date)} at ${formatLib.secondsToTime(comment.date)}</div>
-            <div>${comment.content}</div>
-            <button if.bind="isAuthenticated" click.trigger="deleteComment(comment)">delete</button>
+    <section class="contentArea comments">
+        <div class="siteBody">
+            <p class="small">Talk in the boxes down there. We'll talk back!</p>
+            <h3>${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</h3>
+            <div class="comment" repeat.for="comment of post.comments">
+                <div class="grey">#${$index+1} ${comment.name}</div>
+                <div class="grey">${formatLib.secondsToDate(comment.date)} at ${formatLib.secondsToTime(comment.date)}</div>
+                <div>${comment.content}</div>
+                <button if.bind="isAuthenticated" click.trigger="deleteComment(comment)">delete</button>
+            </div>
         </div>
     </section>
-    <section class="postComment">
-        <p><input class="textbox" placeholder="Name" value.bind=comment.name></input></p>
-        <p><input class="textbox" placeholder="Email(optional)" value.bind="comment.email"></input></p>
-        <p><textarea class="textarea" placeholder="Comment" value.bind="comment.content"></textarea></p>
-        <p><button click.trigger="submitComment()" disabled.bind="activelySubmittingComment">Submit Comment</button></p>
+    <section class="contentArea postComment">
+        <div class="siteBody">
+            <p><input class="textbox" placeholder="Name" value.bind=comment.name></input>
+            </p>
+            <p><input class="textbox" placeholder="Email(optional)" value.bind="comment.email"></input>
+            </p>
+            <p><textarea class="textarea" placeholder="Comment" value.bind="comment.content"></textarea></p>
+            <p><button click.trigger="submitComment()" disabled.bind="activelySubmittingComment">Submit Comment</button></p>
+        </div>
     </section>
 </template>

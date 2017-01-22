@@ -55,7 +55,7 @@ body {
     font-size: 48px;
     cursor: pointer;
 }
-.post {
+.siteBody {
     margin-bottom: 48px;
     margin-right:220px;
 }
@@ -63,7 +63,7 @@ body {
     .menu, .sidebar{
         display: none;
     }
-    .post {
+    .siteBody {
         margin-right: 0px;
     }
     .mobile-menu{
@@ -165,12 +165,6 @@ h2{
 .editable > p:last-child  {
     margin-bottom: 0px;
 }
-.postPreview {
-    vertical-align: top;
-    float: right;
-    padding: 20px;
-    overflow: scroll;
-}
 .right {
     float: right;
 }
@@ -230,7 +224,6 @@ h2{
     margin-bottom: 20px;
 }
 .postComment {
-    max-width: 200px;
     padding: 20px;
     margin-bottom: 20px;
 }
@@ -290,7 +283,7 @@ h2{
     position: relative;
     left: 0px;
 }
-.post * img{
+.blogPostBody * img{
     margin-top: 10px;
     margin-bottom: 10px;
     display: table-row;
@@ -298,7 +291,7 @@ h2{
     width: auto;
     max-width: 100%;
 }
-.post * iframe{
+.blogPostBody * iframe{
     margin-top: 10px;
     margin-bottom: 10px;
     display: table-row;
@@ -366,4 +359,19 @@ google-map {
 .accordion{
     cursor: pointer;
     padding: 5px;
+}
+onedrive-browser{
+    margin-top: 11px;
+    display: flex;
+}
+.imagePreview {
+    display: inline-block;
+}
+.imagePreviews{
+    height: 120px;
+    width: auto;
+    display: flex;
+    overflow: scroll;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
