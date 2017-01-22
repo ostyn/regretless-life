@@ -29,7 +29,7 @@ export class OnedriveBrowser {
     removeItem(index) {
         this.files.splice(index, 1);
     }
-    insertImgNodeAtCursor(imgUrl) {
+    insertImgNodeAtCursor(imgUrl, name) {
         var sel, range, html;
         if (window.getSelection) {
             sel = window.getSelection();
@@ -38,6 +38,7 @@ export class OnedriveBrowser {
                 range.deleteContents();
                 var imgNode = document.createElement("img");
                 imgNode.src = imgUrl;
+                imgNode.alt = name;
                 range.insertNode(imgNode);
                 //Finding the last isContentEditable element ancestor to notify of the change
                 let node = sel.focusNode;

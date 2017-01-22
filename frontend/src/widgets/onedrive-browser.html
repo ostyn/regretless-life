@@ -4,7 +4,7 @@
     </div>
     <div class="imagePreviews">
         <div class="imagePreview" repeat.for="file of files">
-            <img click.trigger="insertImgNodeAtCursor(file.thumbnails[0]['large']['url'])" src="${file.thumbnails[0]['large']['url']}?width=9999&amp;height=100&amp;cropmode=none">
+            <img click.trigger="insertImgNodeAtCursor(file.thumbnails[0]['large']['url'], file.name)" src="${file.thumbnails[0]['large']['url']}?width=9999&amp;height=100&amp;cropmode=none">
         </div>
     </div>
 </template>
