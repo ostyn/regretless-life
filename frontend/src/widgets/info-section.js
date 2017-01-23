@@ -2,14 +2,18 @@ import {inject} from 'aurelia-framework';
 import {AuthService} from 'aurelia-auth';
 import {Router} from 'aurelia-router';
 import {BlogDao} from 'dao/BlogDao';
-@inject(AuthService, Router, BlogDao)
+import {EventAggregator} from 'aurelia-event-aggregator';
+import {PageChanged} from 'messages/messages'
+@inject(AuthService, Router, BlogDao, EventAggregator)
 export class InfoSection{
     subbed = false;
     activelySubscribing = false;
-    constructor(auth, router, blogDao){
+    constructor(auth, router, blogDao, eventAggregator){
         this.auth = auth;
         this.router = router;
         this.blogDao = blogDao;
+        this.eventAggregator = eventAggregator;
+        this.eventAggregator.subscribe(PageChanged, msg => (this.message = undefined));
     }
     logout(){
         this.auth.logout();

@@ -1,5 +1,7 @@
 import {FetchConfig, AuthorizeStep} from 'aurelia-auth';
 import {inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
+import {PageChanged} from 'messages/messages'
 @inject(FetchConfig)
 export class App {
   configureRouter(config, router) {
@@ -31,8 +33,13 @@ export class App {
     this.fetchConfig.configure();
   }
 }
+@inject(EventAggregator)
 class PostCompleteStep {
+  constructor(eventAggregator){
+    this.eventAggregator = eventAggregator;
+  }
   run(routingContext, next) {
+      this.eventAggregator.publish(new PageChanged());
       window.scrollTo(0, 0);
       return next();
   }
