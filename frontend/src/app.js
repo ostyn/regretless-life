@@ -21,6 +21,7 @@ export class App {
       { route: 'login', moduleId: './routes/login', nav: false, title: 'login'},
       { route: 'register', moduleId: './routes/register', nav: false, title: 'register', auth:true},
       { route: 'places', moduleId: './routes/places', nav: true, title: 'places'},
+      { route: 'od', moduleId: './widgets/onedrive-browser', nav: false, title: 'od'},
     ]);
 
     this.router = router;
