@@ -1,6 +1,8 @@
 import OneDrive from 'onedrive';
 export class OnedriveBrowser {
     files = [];
+    width=1024;
+    height=9999;
     launchOneDrivePicker() {
         var fullUrl = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
         var odOptions = {
@@ -52,5 +54,8 @@ export class OnedriveBrowser {
         } else if (document.selection && document.selection.createRange) {
             document.selection.createRange().text = imgUrl;
         }
+    }
+    getFileUrl(file){
+        return file.thumbnails[0]['large']['url'];
     }
 }

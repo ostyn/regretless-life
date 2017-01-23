@@ -1,10 +1,14 @@
 <template>
     <div>
         <button click.trigger="launchOneDrivePicker()">select pictures</button>
+        <br>
+        <label for="width">width:<input id="width" class="textbox sizeInputs" value.bind="width" type="number"></label>
+        <br>
+        <label for="height">height:<input id="height" class="textbox sizeInputs" value.bind="height" type="number"></label>
     </div>
     <div class="imagePreviews">
         <div class="imagePreview" repeat.for="file of files">
-            <img click.trigger="insertImgNodeAtCursor(file.thumbnails[0]['large']['url'], file.name)" src="${file.thumbnails[0]['large']['url']}?width=9999&amp;height=100&amp;cropmode=none">
+            <img click.trigger="insertImgNodeAtCursor(getFileUrl(file)+'?width='+width+'&amp;height='+ height +'&amp;cropmode=none', file.name)" src="${getFileUrl(file)}?width=9999&amp;height=190&amp;cropmode=none">
         </div>
     </div>
 </template>
