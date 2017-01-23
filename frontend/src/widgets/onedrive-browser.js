@@ -1,10 +1,6 @@
 import OneDrive from 'onedrive';
-import Clipboard from 'clipboard';
 export class OnedriveBrowser {
     files = [];
-    constructor() {
-        new Clipboard('.copy');
-    }
     launchOneDrivePicker() {
         var fullUrl = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
         var odOptions = {

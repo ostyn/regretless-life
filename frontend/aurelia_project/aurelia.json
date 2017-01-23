@@ -130,11 +130,6 @@
           },
           "striptags",
           {
-            "name":"clipboard",
-            "path": "../node_modules/clipboard/dist",
-            "main" : "clipboard.min.js"
-          },
-          {
             "name":"jquery",
             "path": "../node_modules/jquery/dist",
             "main" : "jquery.min.js"
