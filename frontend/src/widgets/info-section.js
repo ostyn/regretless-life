@@ -13,7 +13,10 @@ export class InfoSection{
         this.router = router;
         this.blogDao = blogDao;
         this.eventAggregator = eventAggregator;
-        this.eventAggregator.subscribe(PageChanged, msg => (this.message = undefined));
+        this.eventAggregator.subscribe(PageChanged, msg => {
+            this.message = undefined;
+            this.email = undefined;
+        });
     }
     logout(){
         this.auth.logout();
