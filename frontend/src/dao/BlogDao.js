@@ -7,7 +7,7 @@ export class BlogDao {
     constructor(http) {
         http.configure(config => {
             config
-                .withBaseUrl('http://' + window.location.hostname + '/data/')
+                .withBaseUrl(window.location.protocol + '//' + window.location.hostname + '/data/')
                 .withDefaults({
                     headers: {
                         'Accept': 'application/json',
