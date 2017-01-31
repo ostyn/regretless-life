@@ -18,7 +18,7 @@
                         <img class="hero" src.bind="post.heroPhotoUrl">
                     </p>
                 </div>
-                <onedrive-browser files.one-way="post.images | stringToArray"></onedrive-browser>
+                <onedrive-browser if.bind="post.images" files.one-way="post.images | stringToArray"></onedrive-browser>
             </div>
             <p>
                 <editor-widget class="postEditor blogPostBody" markdown.two-way="post.content" starting-value.one-time="post.content | markdownFormat"></editor-widget>
