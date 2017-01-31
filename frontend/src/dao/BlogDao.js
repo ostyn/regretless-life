@@ -120,6 +120,7 @@ export class BlogDao {
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,
                     'isDraft':post.isDraft,
+                    'images':post.images
                 }),
             })
             .then(response => {
@@ -143,6 +144,7 @@ export class BlogDao {
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,
                     'isDraft':post.isDraft,
+                    'images':post.images
                 }),
             })
             .then(response => {
@@ -166,6 +168,7 @@ export class BlogDao {
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,
                     'isDraft':post.isDraft,
+                    'images':post.images
                 }),
             })
             .then(response => {

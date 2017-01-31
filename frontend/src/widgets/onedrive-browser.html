@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button click.trigger="launchOneDrivePicker()">select pictures</button>
+        <button if.bind="usingOnedrive" click.trigger="launchOneDrivePicker()">select pictures</button>
         <br>
         <label for="width">width:<input id="width" class="textbox sizeInputs" value.bind="width" type="number"></label>
         <br>

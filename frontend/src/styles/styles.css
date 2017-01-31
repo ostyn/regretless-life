@@ -113,6 +113,10 @@ body {
 .textarea:focus, .textbox:focus{
     outline: 1px dashed gray;
 }
+.pictureBox {
+    height:300px;
+    width: 100%;
+}
 .editable:focus{
     outline: none;
 }

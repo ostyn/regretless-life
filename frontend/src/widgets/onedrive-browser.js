@@ -1,6 +1,8 @@
 import OneDrive from 'onedrive';
+import { bindable } from 'aurelia-framework';
 export class OnedriveBrowser {
-    files = [];
+    usingOnedrive = false;
+    @bindable files = [];
     width=1024;
     height=9999;
     launchOneDrivePicker() {
@@ -36,7 +38,8 @@ export class OnedriveBrowser {
                 range.deleteContents();
                 var imgNode = document.createElement("img");
                 imgNode.src = imgUrl;
-                imgNode.alt = name;
+                if(name)
+                    imgNode.alt = name;
                 range.insertNode(imgNode);
                 //Finding the last isContentEditable element ancestor to notify of the change
                 let node = sel.focusNode;
@@ -56,6 +59,9 @@ export class OnedriveBrowser {
         }
     }
     getFileUrl(file){
-        return file.thumbnails[0]['large']['url'];
+        if (this.usingOnedrive)
+            return file.thumbnails[0]['large']['url'];
+        else
+            return file['url'].split('?')[0]
     }
 }

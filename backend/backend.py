@@ -63,6 +63,7 @@ def savePost(passedJsonData=None):
             'content': jsonData['content'],
             'comments': [],
             'isDraft': True,
+            'images': jsonData['images']
         }
         if('location' in jsonData):
             post['location'] = jsonData['location']
@@ -81,6 +82,7 @@ def savePost(passedJsonData=None):
             "content":jsonData['content'],
             "dateLastEdited":getDateInMilliseconds(),
             'isDraft': jsonData['isDraft'],
+            'images': jsonData['images']
         }
         if('location' in jsonData):
             post["location"]= jsonData['location']
