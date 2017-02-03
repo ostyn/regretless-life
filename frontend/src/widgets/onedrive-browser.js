@@ -5,7 +5,7 @@ import {BlogDao} from 'dao/BlogDao';
 export class OnedriveBrowser {
     usingOnedrive = true;
     @bindable files = [];
-    images = [];
+    @bindable images = [];
     width=1024;
     height=9999;
     constructor(blogDao) {

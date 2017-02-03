@@ -20,17 +20,24 @@ export class Editor {
                 return this.blogDao.getDraftPost(params.id).then((post) => {
                     this.post = post;
                     if(!this.post.locationInfo)
-                        this.post.locationInfo = {}
+                        this.post.locationInfo = {};
+                    if(!this.post.images)
+                        this.post.images = [];
                 });
             else
                 return this.blogDao.getPost(params.id).then((post) => {
                     this.post = post;
                     if(!this.post.locationInfo)
-                        this.post.locationInfo = {}
+                        this.post.locationInfo = {};
+                    if(!this.post.images)
+                        this.post.images = [];
                 });
         }
         else {
-            this.post = {'isDraft': true};
+            this.post = {
+                'isDraft': true,
+                'images':[]
+        };
         }
     }
     save(){
