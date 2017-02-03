@@ -16,7 +16,7 @@ export class OnedriveBrowser {
         this.openOneDriveWindow();
     }
     openOneDriveWindow() {
-        var fullUrl = 'http://' + location.hostname + (location.port ? ':' + location.port : '');
+        var fullUrl = 'https://' + location.hostname + (location.port ? ':' + location.port : '');
         var odOptions = {
             clientId: "dfa0eeeb-f33a-41a8-b0e8-c9d4feb8c648",
             action: "share",
