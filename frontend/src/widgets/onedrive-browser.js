@@ -9,7 +9,6 @@ export class OnedriveBrowser {
     width=1024;
     height=9999;
     constructor(blogDao) {
-        var new_window = window.open("https://login.live.com/oauth20_authorize.srf?client_id=dfa0eeeb-f33a-41a8-b0e8-c9d4feb8c648&scope=onedrive.readwrite&response_type=token&redirect_uri=http://localhost:9000/onedriveRedirect.html", '_blank');
         this.blogDao = blogDao;
     }
     launchOneDrivePicker() {
