@@ -267,4 +267,29 @@ export class BlogDao {
                 return response.json();
             });
     }
+    getAuthkey(url){
+        return this.http
+            .fetch('getAuthkey?url='+encodeURIComponent(url), {
+                'method':'get'
+        })
+        .then(response => {
+            if(response.status > 400)
+                throw response;
+            return response.json();
+        })
+        .then((resp) => {
+            return resp.authkey;
+        });;
+    }
+    getOneDriveLink(url){
+        return this.http
+            .fetch(url, {
+                'method':'get'
+        })
+        .then(response => {
+            if(response.status > 400)
+                throw response;
+            return response.json();
+        });
+    }
 }

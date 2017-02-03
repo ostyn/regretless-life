@@ -18,14 +18,10 @@
                         <img class="hero" src.bind="post.heroPhotoUrl">
                     </p>
                 </div>
-                <onedrive-browser if.bind="post.images" files.one-way="post.images | stringToArray"></onedrive-browser>
+                <onedrive-browser if.bind="post.images"></onedrive-browser>
             </div>
             <p>
                 <editor-widget class="postEditor blogPostBody" markdown.two-way="post.content" starting-value.one-time="post.content | markdownFormat"></editor-widget>
-            </p>
-            <p>
-                <button value.bind="post.images" click.trigger="showImageEntryBox = !showImageEntryBox">add pictures</button>
-                <textarea class="textarea pictureBox" if.bind="showImageEntryBox" value.bind="post.images"></textarea>
             </p>
             <button if.bind="editing" disabled.bind="activelyContactingServer" click.trigger="delete()">Delete Post</button>
             <button click.trigger="save()" disabled.bind="activelyContactingServer">Save</button>

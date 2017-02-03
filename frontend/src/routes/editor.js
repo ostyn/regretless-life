@@ -6,7 +6,6 @@ import {activationStrategy} from 'aurelia-router';
 export class Editor {
     editing = false;
     activelyContactingServer = false;
-    showImageEntryBox = false;
     determineActivationStrategy(){
         return activationStrategy.replace;
     }

@@ -7,8 +7,8 @@
         <label for="height">height:<input id="height" class="textbox sizeInputs" value.bind="height" type="number"></label>
     </div>
     <div class="imagePreviews">
-        <div class="imagePreview" repeat.for="file of files">
-            <img click.trigger="insertImgNodeAtCursor(getFileUrl(file)+'?width='+width+'&amp;height='+ height +'&amp;cropmode=none', file.name)" src="${getFileUrl(file)}?width=9999&amp;height=190&amp;cropmode=none">
+        <div class="imagePreview" repeat.for="image of images">
+            <img click.trigger="insertImgNodeAtCursor(image.url+'?width='+width+'&amp;height='+ height +'&amp;cropmode=none', image.name, image.id)" src="${image.url}?width=9999&amp;height=190&amp;cropmode=none">
         </div>
     </div>
 </template>

@@ -3,7 +3,8 @@ import requests
 import pymongo
 import re
 import geocoder
-
+from furl import furl
+from urllib.request import urlopen
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from flask_jwt import JWT, jwt_required, current_identity
@@ -333,6 +334,14 @@ def unsubscribe():
     id = request.args.get('id')
     emailsCollection.delete_one({'_id': ObjectId(id)})
     return "Unsubscribed"
+
+@app.route("/getAuthkey", methods=['GET'])
+def getAuthkey():
+    url = request.args.get('url')
+    res = urlopen(url)
+    finalurl = res.geturl()
+    f = furl(finalurl) 
+    return jsonify({'authkey':f.args['authkey']})
 
 def getNumberOfPosts(query, isDraft = False):
     id = request.args.get('id')
