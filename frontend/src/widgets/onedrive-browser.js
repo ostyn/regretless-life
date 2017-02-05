@@ -37,15 +37,22 @@ export class OnedriveBrowser {
     }
     processImages(files){
         this.files = files.value;
+        var slotOffset = this.images.length;
         this.blogDao.getAuthkey(files.webUrl).then((authkey)=>{
             for(var index in this.files) {
                 var url = `https://api.onedrive.com/v1.0/drive/items/${this.files[index].id}/thumbnails?select=c9999x9999&authkey=${authkey}&access_token=${window.localStorage.getItem("access_token")}`;
+                this.images.push({
+                    'name':this.files[index].name, 
+                    'id':this.files[index].id,
+                    'url':'loading.gif'
+                    });
+                let slotIndex = index;
                 this.blogDao.getOneDriveLink(url)
                 .then((resp)=>{
                     var urlTemp = resp.value[0]['c9999x9999']['url'];
                     var urlTempParts= urlTemp.split('?');
                     urlTemp = urlTempParts[0];
-                    this.images.push({'name':this.files[index].name, 'id':this.files[index].id, 'url': urlTemp});
+                    this.images[parseInt(slotIndex)+slotOffset].url = urlTemp;
                 });
             }
         });
