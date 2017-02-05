@@ -41,7 +41,7 @@ export class OnedriveBrowser {
         this.files = files.value;
         var slotOffset = this.images.length;
         this.blogDao.getAuthkey(files.webUrl).then((authkey)=>{
-            this.files.sort(this.formatLib.dynamicSort("name"));
+            var promises = []
             for(var index in this.files) {
                 var url = `https://api.onedrive.com/v1.0/drive/items/${this.files[index].id}/thumbnails?select=c9999x9999&authkey=${authkey}&access_token=${window.localStorage.getItem("access_token")}`;
                 this.images.push({
@@ -50,14 +50,18 @@ export class OnedriveBrowser {
                     'url':'loading.gif'
                     });
                 let slotIndex = index;
-                this.blogDao.getOneDriveLink(url)
+                var promise = this.blogDao.getOneDriveLink(url)
                 .then((resp)=>{
                     var urlTemp = resp.value[0]['c9999x9999']['url'];
                     var urlTempParts= urlTemp.split('?');
                     urlTemp = urlTempParts[0];
                     this.images[parseInt(slotIndex)+slotOffset].url = urlTemp;
                 });
+                promises.push(promise);
             }
+            Promise.all(promises).then(()=>{
+                this.images.sort(this.formatLib.dynamicSort("name"));
+            })
         });
         //files.webUrl goes to getAuthkey
         //Once that returns, get the access token by hitting
