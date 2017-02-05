@@ -96,4 +96,8 @@ export class OnedriveBrowser {
         else
             return file['url'].split('?')[0]
     }
+    setWidthHeight(width, height){
+        this.width = width;
+        this.height = height;
+    }
 }

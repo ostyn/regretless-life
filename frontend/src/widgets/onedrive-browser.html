@@ -2,9 +2,9 @@
     <div>
         <button if.bind="usingOnedrive" click.trigger="launchOneDrivePicker()">select pictures</button>
         <br>
-        <label for="width">width:<input id="width" class="textbox sizeInputs" value.bind="width" type="number"></label>
+        <span click.trigger="setWidthHeight(1024, 9999)" for="width">width:<input id="width" class="textbox sizeInputs" value.bind="width" type="number"></span>
         <br>
-        <label for="height">height:<input id="height" class="textbox sizeInputs" value.bind="height" type="number"></label>
+        <span click.trigger="setWidthHeight(9999, 600)" for="height">height:<input id="height" class="textbox sizeInputs" value.bind="height" type="number"></span>
     </div>
     <div class="imagePreviews">
         <div class="imagePreview" if.bind="images" repeat.for="image of images">
