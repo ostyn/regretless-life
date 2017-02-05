@@ -1,15 +1,17 @@
 import OneDrive from 'onedrive';
 import { bindable, inject } from 'aurelia-framework';
 import {BlogDao} from 'dao/BlogDao';
-@inject(BlogDao)
+import {FormatLib} from 'util/FormatLib';
+@inject(BlogDao, FormatLib)
 export class OnedriveBrowser {
     usingOnedrive = true;
     @bindable files = [];
     @bindable images = [];
     width=1024;
     height=9999;
-    constructor(blogDao) {
+    constructor(blogDao, formatLib) {
         this.blogDao = blogDao;
+        this.formatLib = formatLib;
     }
     launchOneDrivePicker() {
         this.openOneDriveWindow();
@@ -39,6 +41,7 @@ export class OnedriveBrowser {
         this.files = files.value;
         var slotOffset = this.images.length;
         this.blogDao.getAuthkey(files.webUrl).then((authkey)=>{
+            this.files.sort(this.formatLib.dynamicSort("name"));
             for(var index in this.files) {
                 var url = `https://api.onedrive.com/v1.0/drive/items/${this.files[index].id}/thumbnails?select=c9999x9999&authkey=${authkey}&access_token=${window.localStorage.getItem("access_token")}`;
                 this.images.push({
