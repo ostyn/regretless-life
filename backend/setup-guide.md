@@ -6,6 +6,7 @@ Python3/pip3
 * flask-bcrypt
 * flask-mail
 * geocoder
+* furl
 
 Setting up python with WSGI on Apache
 Combination of 
