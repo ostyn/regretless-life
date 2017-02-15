@@ -37,10 +37,15 @@ export class InfoSection{
                 this.activelySubscribing = false;
                 if(response.resp) {
                     this.email = "";
-                    this.message = "You have been subscribed. We sent you a test email. Check your spam box, just in case";
+                    this.message = response.msg;
                 }
+                //Known error states
+                else if(response.resp === false){
+                    this.message = response.msg;
+                }
+                //Unknown error states
                 else {
-                    this.message = "This email has already been subscribed to notifications";
+                    this.message = "Could not subscribe. Try again later."
                 }
             });
         this.activelySubscribing = true;
