@@ -24,7 +24,7 @@
             <google-map if.bind="mapLoaded" show.bind="mapShown" address.bind="post.locationInfo.name" zoom="7"></google-map>
         </div>
         <div innerhtml.bind="post.content | markdownFormat | trimHtml : contentLength"></div>
-        <div if.bind="post.dateLastEdited != undefined">
+        <div if.bind="(showLastEditedDate==true) && post.dateLastEdited != undefined">
             <p class="grey">Updated on ${formatLib.secondsToDate(post.dateLastEdited)} at ${formatLib.secondsToTime(post.dateLastEdited)}</p>
         </div>
         <div if.bind="showCommentsLink" class="grey small">

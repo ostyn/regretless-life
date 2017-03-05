@@ -9,6 +9,7 @@ export class PostWidget {
     @bindable useLongAuthorDate = true;
     @bindable contentLength = -1;
     @bindable showCommentsLink = false;
+    @bindable showLastEditedDate = true;
     constructor(formatLib, auth) {
         this.formatLib = formatLib;
         this.auth = auth;
@@ -26,7 +27,7 @@ export class PostWidget {
         return this.auth.isAuthenticated();
     }
     getAuthorDate(useLongAuthorDate) {
-        if(useLongAuthorDate)
+        if(useLongAuthorDate==true)
             return `by ${this.post.author} on ${this.formatLib.secondsToDate(this.post.date)} at ${this.formatLib.secondsToTime(this.post.date)}`
         else
             return `by ${this.post.author}, ${this.formatLib.secondsToDate(this.post.date)}`
