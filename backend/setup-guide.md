@@ -7,6 +7,9 @@ Python3/pip3
 * flask-mail
 * geocoder
 * furl
+* requests
+
+pip install requests furl flask geocoder pymongo flask-cors flask-jwt flask-bcrypt flask-mail
 
 Setting up python with WSGI on Apache
 Combination of 
