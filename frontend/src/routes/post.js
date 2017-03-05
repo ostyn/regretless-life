@@ -43,18 +43,6 @@ export class Post {
             });
         }
     }
-    toggleMap(){
-        if(!this.mapLoaded) {
-            this.mapLoaded = true;
-            this.mapShown = true;
-        }
-        else {
-            this.mapShown = !this.mapShown;
-        }
-    }
-    get isAuthenticated() {
-        return this.auth.isAuthenticated();
-    }
 
     submitComment() {
         this.blogDao.submitComment(this.post._id, this.comment)
@@ -82,11 +70,5 @@ export class Post {
         .catch(response => {
             alert('Something went very, very wrong. Head for the hills')
         });
-    }
-    getLinkParams(post){
-        return { 
-            'id': post._id, 
-            'isDraft': (post.isDraft) ? post.isDraft : undefined 
-        };
     }
 }

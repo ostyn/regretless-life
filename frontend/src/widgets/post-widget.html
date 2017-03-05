@@ -1,0 +1,34 @@
+<template>
+    <require from="converters/trim-html-converter"></require>
+    <require from="converters/markdown-format"></require>
+    <div class="siteBody blogPostBody" show.bind="post != undefined">
+        <center>
+            <a if.bind="showTitleLink" class="titleLink" route-href="route: post; params.bind: getLinkParams(post)">
+                <div class="header">
+                    <img class="headerImage" src="${post.heroPhotoUrl}"></img>
+                    <div class="postTitle">${post.title}</div>
+                </div>
+            </a>
+            <div if.bind="!showTitleLink" class="titleLink">
+                <div class="header">
+                    <img class="headerImage" src="${post.heroPhotoUrl}"></img>
+                    <div class="postTitle">${post.title}</div>
+                </div>
+            </div>
+        </center>
+        <p class="grey">${getAuthorDate(useLongAuthorDate)}</p>
+        <a if.bind="isAuthenticated" route-href="route: editor; params.bind: getLinkParams(post)">edit</a>
+        <!--below is a hack until Aurelia easily supports typed binding-->
+        <div if.bind="(showMapButton==true) && post.locationInfo && post.locationInfo.name">
+            <button class="mapButton" click.trigger="toggleMap()">${(mapShown)?'X':post.locationInfo.name}</button>
+            <google-map if.bind="mapLoaded" show.bind="mapShown" address.bind="post.locationInfo.name" zoom="7"></google-map>
+        </div>
+        <div innerhtml.bind="post.content | markdownFormat | trimHtml : contentLength"></div>
+        <div if.bind="post.dateLastEdited != undefined">
+            <p class="grey">Updated on ${formatLib.secondsToDate(post.dateLastEdited)} at ${formatLib.secondsToTime(post.dateLastEdited)}</p>
+        </div>
+        <div if.bind="showCommentsLink" class="grey small">
+            <a route-href="route: post; params.bind: { id: post._id }">${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</a>
+        </div>
+    </div>
+</template>

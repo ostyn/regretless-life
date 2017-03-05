@@ -279,9 +279,6 @@ h2{
     text-decoration: none;
     padding-bottom: 20px;
 }
-.textPreview {
-    overflow: hidden;
-}
 .hero{
     width:100px !important;
     vertical-align: middle;

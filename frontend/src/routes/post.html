@@ -1,30 +1,15 @@
 <template>
     <require from="converters/markdown-format"></require>
+    <require from="widgets/post-widget"></require>
     <section class="contentArea">
-        <div class="siteBody blogPostBody" show.bind="post != undefined">
-            <center>
-                <div class="titleLink">
-                    <div class="header">
-                        <img class="headerImage" src="${post.heroPhotoUrl}"></img>
-                        <div class="postTitle">${post.title}</div>
-                    </div>
-                </div>
-            </center>
-            <p class="grey">by ${post.author} on ${formatLib.secondsToDate(post.date)} at ${formatLib.secondsToTime(post.date)}</p>
-            <a if.bind="isAuthenticated" route-href="route: editor; params.bind: getLinkParams(post)">edit</a>
-            <div if.bind="post.locationInfo && post.locationInfo.name">
-                <button class="mapButton" click.trigger="toggleMap()">${(mapShown)?'X':post.locationInfo.name}</button>
-                <google-map if.bind="mapLoaded" show.bind="mapShown" address.bind="post.locationInfo.name" zoom="7"></google-map>
-            </div>
-            <div innerhtml.bind="post.content | markdownFormat"></div>
-            <div show.bind="post.dateLastEdited != undefined">
-                <p class="grey">Updated on ${formatLib.secondsToDate(post.dateLastEdited)} at ${formatLib.secondsToTime(post.dateLastEdited)}</p>
-            </div>
-            <div class="nextPrevLink">
-                <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="left">
-                    << ${prevPost.title}</a>
-                        <a if.bind="nextPost" route-href="route: post; params.bind: { id: nextPost.id }" class="right">${nextPost.title} >></a>
-            </div>
+        <post-widget post.bind="post"></post-widget>
+        <div class="nextPrevLink">
+            <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="left">
+                << ${prevPost.title} 
+            </a>
+            <a if.bind="nextPost" route-href="route: post; params.bind: { id: nextPost.id }" class="right">
+                ${nextPost.title} >>
+            </a>
         </div>
         <div class="siteBody" show.bind="post == undefined">
             Couldn't find that post. Sorry :(
