@@ -2,15 +2,16 @@
     <require from="converters/markdown-format"></require>
     <require from="widgets/post-widget"></require>
     <section class="contentArea">
-        <post-widget post.bind="post"></post-widget>
-        <div class="nextPrevLink">
-            <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="left">
-                << ${prevPost.title} 
-            </a>
-            <a if.bind="nextPost" route-href="route: post; params.bind: { id: nextPost.id }" class="right">
-                ${nextPost.title} >>
-            </a>
-        </div>
+        <post-widget post.bind="post">
+            <div slot="optionalControls" class="nextPrevLink">
+                <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="left">
+                    << ${prevPost.title} 
+                </a>
+                <a if.bind="nextPost" route-href="route: post; params.bind: { id: nextPost.id }" class="right">
+                    ${nextPost.title} >>
+                </a>
+            </div>
+        </post-widget>
         <div class="siteBody" show.bind="post == undefined">
             Couldn't find that post. Sorry :(
         </div>
