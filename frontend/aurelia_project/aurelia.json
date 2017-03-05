@@ -151,11 +151,7 @@
           {
               "name": "aurelia-google-maps",
               "path": "../node_modules/aurelia-google-maps/dist/amd",
-              "main": "index",
-              "resources": [
-                  "./google-maps.html",
-                  "./maps.css"
-              ]
+              "main": "index"
           },
           "showdown",
           {
