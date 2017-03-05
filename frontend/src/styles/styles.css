@@ -59,7 +59,7 @@ body {
     margin-bottom: 48px;
     margin-right:220px;
 }
-@media (max-width: 740px) {
+@media (max-width: 763px) {
     .menu, .sidebar{
         display: none;
     }
@@ -78,7 +78,7 @@ body {
         padding-left: 40px;
     }
 }
-@media (min-width: 740px) {
+@media (min-width: 764px) {
     .menu{
         margin: 0px;
         height: 32px;
