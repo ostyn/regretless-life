@@ -193,7 +193,7 @@ h2{
 .postTitle {
     display: block;
     position: absolute;
-    top: 10px;
+    top: 0px;
     left: 0px;
     z-index: 2;
     text-align: center;
@@ -287,7 +287,6 @@ h2{
     left: 0px;
 }
 .blogPostBody * img{
-    margin-top: 10px;
     margin-bottom: 10px;
     display: table-row;
     border-radius: 4px;
