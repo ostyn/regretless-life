@@ -199,7 +199,7 @@ def findNPosts(isDraft = False):
     posts = list(posts)
     for post in posts:
         fixOneDriveUrls(post)
-    return jsonify({'resp':{'posts': list(posts), 'remainingPosts': getNumberOfPosts(query)-num-start}})
+    return jsonify({'resp':{'posts': list(posts), 'remainingPosts': getNumberOfPosts(query, isDraft)-num-start}})
 
 @app.route("/getDraftPost", methods=['GET'])
 @jwt_required()

@@ -25,7 +25,7 @@ export class Blog {
                     }
                 });
         }
-        if(this.router.history.location.hash.indexOf("draft") !=-1)
+        if(this.isDraftPage())
             return this.blogDao.getNDraftPosts(this.start, this.num)
                 .then((postsData) => {
                     if(postsData) {
@@ -49,6 +49,9 @@ export class Blog {
     }
     isSearchPage(){
         return this.query != undefined;
+    }
+    isDraftPage(){
+        return this.router.history.location.hash.indexOf("draft") !=-1;
     }
     getLinkParams(post){
         return { 

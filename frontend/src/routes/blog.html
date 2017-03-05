@@ -15,12 +15,20 @@
         <div class="siteBody blogPostBody" show.bind="posts.length == 0">
             Couldn't find any posts. Sorry :(
         </div>
-        <div show.bind="!isSearchPage()">
+        <div if.bind="!isSearchPage()&& !isDraftPage()">
             <div show.bind="start != 0">
                 <a class="nextPrevPageLink" route-href="route: blog; params.bind: { start: (start-num<0)?0:start-num }">newer posts</a>
             </div>
             <div show.bind="remainingPosts > 0">
                 <a class="nextPrevPageLink" route-href="route: blog; params.bind: { start: start+num }">older posts</a>
+            </div>
+        </div>
+        <div if.bind="isDraftPage()">
+            <div show.bind="start != 0">
+                <a class="nextPrevPageLink" route-href="route: drafts; params.bind: { start: (start-num<0)?0:start-num }">newer drafts</a>
+            </div>
+            <div show.bind="remainingPosts > 0">
+                <a class="nextPrevPageLink" route-href="route: drafts; params.bind: { start: start+num }">older drafts</a>
             </div>
         </div>
         <div show.bind="isSearchPage()">
