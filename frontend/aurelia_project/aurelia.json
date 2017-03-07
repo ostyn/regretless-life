@@ -153,6 +153,11 @@
               "path": "../node_modules/aurelia-google-maps/dist/amd",
               "main": "index"
           },
+          {
+              "name": "aurelia-google-analytics",
+              "path": "../node_modules/aurelia-google-analytics/dist/amd",
+              "main": "index"
+          },
           "showdown",
           {
             "name": "nprogress",
