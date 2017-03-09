@@ -7,6 +7,8 @@ export class Login{
     password='';
 
     constructor(auth){
+        if(location.protocol !== "https" && location.hostname !== "localhost")
+            window.location.replace(window.location.href.replace("http", "https"));
         this.auth = auth;
     };
 
