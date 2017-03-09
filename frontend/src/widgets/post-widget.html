@@ -16,7 +16,7 @@
                 </div>
             </div>
         </center>
-        <p class="grey">${getAuthorDate(useLongAuthorDate)}</p>
+        <div class="grey">${getAuthorDate(useLongAuthorDate)}</div>
         <a if.bind="isAuthenticated" route-href="route: editor; params.bind: getLinkParams(post)">edit</a>
         <!--below is a hack until Aurelia easily supports typed binding-->
         <div if.bind="(showMapButton==true) && post.locationInfo && post.locationInfo.name">
