@@ -1,7 +1,7 @@
 import trimHtml from 'trim-html';
 import striptags from 'striptags';
 export class TrimHtmlValueConverter {
-  toView(value, length, suffix = " <span class='grey small'>…</span>") {
+  toView(value, length, suffix = "…") {
     if(length < 0)
       return value;
     else
