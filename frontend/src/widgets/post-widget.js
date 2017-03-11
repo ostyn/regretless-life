@@ -1,7 +1,7 @@
 import {inject, bindable} from 'aurelia-framework';
 import {FormatLib} from 'util/FormatLib';
-import {AuthService} from 'aurelia-auth';
-@inject(FormatLib, AuthService)
+import {UserService} from 'services/userService';
+@inject(FormatLib, UserService)
 export class PostWidget {
     @bindable post = undefined;
     @bindable showTitleLink = false;
@@ -10,9 +10,9 @@ export class PostWidget {
     @bindable contentLength = -1;
     @bindable showCommentsLink = false;
     @bindable showLastEditedDate = true;
-    constructor(formatLib, auth) {
+    constructor(formatLib, userService) {
         this.formatLib = formatLib;
-        this.auth = auth;
+        this.userService = userService;
     }
     toggleMap(){
         if(!this.mapLoaded) {
@@ -22,9 +22,6 @@ export class PostWidget {
         else {
             this.mapShown = !this.mapShown;
         }
-    }
-    get isAuthenticated() {
-        return this.auth.isAuthenticated();
     }
     getAuthorDate(useLongAuthorDate) {
         if(useLongAuthorDate==true)

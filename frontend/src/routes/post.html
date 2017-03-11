@@ -24,7 +24,7 @@
                 <div class="grey">#${$index+1} ${comment.name}</div>
                 <div class="grey">${formatLib.secondsToDate(comment.date)} at ${formatLib.secondsToTime(comment.date)}</div>
                 <div>${comment.content}</div>
-                <button if.bind="isAuthenticated" click.trigger="deleteComment(comment)">delete</button>
+                <button if.bind="userService.isAuthenticated" click.trigger="deleteComment(comment)">delete</button>
             </div>
         </div>
     </section>

@@ -1,8 +1,8 @@
 import {inject} from 'aurelia-framework';
 import {BlogDao} from 'dao/BlogDao';
+import {UserService} from 'services/userService';
 import {FormatLib} from 'util/FormatLib';
-import {AuthService} from 'aurelia-auth';
-@inject(BlogDao, FormatLib, AuthService)
+@inject(BlogDao, FormatLib, UserService)
 export class Post {
     comment = {};
     mapLoaded = false;
@@ -11,10 +11,10 @@ export class Post {
     nextPost = undefined;
     prevPost = undefined;
     activelySubmittingComment = false;
-    constructor(blogDao, formatLib, auth) {
+    constructor(blogDao, formatLib, userService) {
         this.blogDao = blogDao;
         this.formatLib = formatLib;
-        this.auth = auth;
+        this.userService = userService;
     }
     activate(params, routeConfig, navigationInstruction) {
         this.mapShown = false;
