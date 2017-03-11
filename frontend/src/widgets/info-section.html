@@ -1,4 +1,7 @@
 <template class="info">
+    <div if.bind="userService.isAuthenticated">
+        Hey, ${userService.usersName}. What's up?
+    </div>
     <center><img width=150 height=150 src="src/widgets/us.jpg"></center>
     <div class="infoSectionTitleContainer">
         <div class="infoSectionTitle">who are we?</div>
@@ -12,7 +15,7 @@
         <div><button disabled.bind="activelySubscribing">subscribe</button></div>
         <div class="small" if.bind="message">${message}</div>
     </form>
-    <div><button if.bind="isAuthenticated" click.trigger="newPost()">new post</button></div>
-    <a if.bind="isAuthenticated" route-href="route: drafts"><button>view drafts</button></a>
-    <div><button if.bind="isAuthenticated" click.trigger="logout()">logout</button></div>
+    <div><button if.bind="userService.isAuthenticated" click.trigger="newPost()">new post</button></div>
+    <a if.bind="userService.isAuthenticated" route-href="route: drafts"><button>view drafts</button></a>
+    <div><button if.bind="userService.isAuthenticated" click.trigger="userService.logout()">logout</button></div>
 </template>

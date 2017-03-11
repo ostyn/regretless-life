@@ -1,32 +1,22 @@
 import {inject} from 'aurelia-framework';
-import {AuthService} from 'aurelia-auth';
 import {Router} from 'aurelia-router';
 import {BlogDao} from 'dao/BlogDao';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {PageChanged} from 'messages/messages'
-@inject(AuthService, Router, BlogDao, EventAggregator)
+import {UserService} from 'services/userService';
+@inject(Router, BlogDao, EventAggregator, UserService)
 export class InfoSection{
     subbed = false;
     activelySubscribing = false;
-    constructor(auth, router, blogDao, eventAggregator){
-        this.auth = auth;
+    constructor(router, blogDao, eventAggregator, userService){
         this.router = router;
         this.blogDao = blogDao;
         this.eventAggregator = eventAggregator;
+        this.userService = userService;
         this.eventAggregator.subscribe(PageChanged, msg => {
             this.message = undefined;
             this.email = undefined;
         });
-    }
-    logout(){
-        this.auth.logout();
-    }
-    get isAuthenticated() {
-        return this.auth.isAuthenticated();
-    }
-    me(){
-        if(this.isAuthenticated)
-            return this.auth.getMe();
     }
     newPost(){
         this.router.navigateToRoute('editor');

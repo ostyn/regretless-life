@@ -2,16 +2,25 @@ import {inject} from 'aurelia-framework';
 import {BlogDao} from 'dao/BlogDao';
 import {Router} from 'aurelia-router';
 import {activationStrategy} from 'aurelia-router';
-@inject(BlogDao, Router)
+import {UserService} from 'services/userService';
+@inject(BlogDao, Router, UserService)
 export class Editor {
     editing = false;
     activelyContactingServer = false;
+    userComparer = (userA, userBname) => 
+    {
+        if(userBname)
+            return userA === userBname;
+        else
+            return userA === this.userService.usersName;
+    }
     determineActivationStrategy(){
         return activationStrategy.replace;
     }
-    constructor(blogDao, router) {
+    constructor(blogDao, router, userService) {
         this.blogDao = blogDao;
         this.router = router;
+        this.userService = userService;
     }
     activate(params, routeConfig, navigationInstruction) {
         if(params.id) {

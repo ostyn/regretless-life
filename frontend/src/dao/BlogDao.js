@@ -116,6 +116,7 @@ export class BlogDao {
                 body: json({
                     'id': post._id,
                     'title': post.title,
+                    'author': post.author,
                     'location': post.locationInfo.name,
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,
@@ -140,6 +141,7 @@ export class BlogDao {
                 body: json({
                     'id': post._id,
                     'title': post.title,
+                    'author': post.author,
                     'location': post.location,
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,
@@ -164,6 +166,7 @@ export class BlogDao {
                 body: json({
                     'id': post._id,
                     'title': post.title,
+                    'author': post.author,
                     'location': post.location,
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,

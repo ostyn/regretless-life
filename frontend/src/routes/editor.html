@@ -11,6 +11,13 @@
                         <input class="textbox" type="text" placeholder="title" value.bind="post.title" focus="true"></input>
                     </p>
                     <p>
+                        <select value.bind="post.author" matcher.bind="userComparer">
+                            <option repeat.for="user of userService.availableUsers" model.bind="user.name">
+                                ${user.name}
+                            </option>
+                        </select>
+                    </p>
+                    <p>
                         <input class="textbox" type="text" placeholder="place" value.bind="post.locationInfo.name"></input>
                     </p>
                     <p>

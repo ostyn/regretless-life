@@ -1,7 +1,7 @@
 <template>
     <section class="contentArea">
         <div class="siteBody">
-            <form submit.click="login()">
+            <form>
                 <p>
                     <input class="textbox" type="text" value.bind="email" placeholder="email" focus="true"></input>
                 </p>
@@ -9,7 +9,7 @@
                     <input class="textbox" type="password" value.bind="password" placeholder="password"></input>
                 </p>
                 <p>
-                    <button name="submit" click.trigger='login()'>login</button>
+                    <button name="submit" click.trigger='userService.login(email, password)'>login</button>
                 </p>
             </form>
         </div>

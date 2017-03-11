@@ -58,7 +58,7 @@ def savePost(passedJsonData=None):
         post = {
             '_id': str(ObjectId()),
             'title': jsonData['title'],
-            'author': current_identity.name,
+            'author': jsonData['author'],
             'date': getDateInMilliseconds(),
             'heroPhotoUrl': jsonData['heroPhotoUrl'],
             'content': jsonData['content'],
@@ -79,6 +79,7 @@ def savePost(passedJsonData=None):
     else:
         post = {
             "title":jsonData['title'],
+            'author': jsonData['author'],
             "heroPhotoUrl":jsonData['heroPhotoUrl'],
             "content":jsonData['content'],
             "dateLastEdited":getDateInMilliseconds(),
@@ -153,6 +154,17 @@ def submitComment():
                 + jsonData['postId'] + "\">here</a>")
     mail.send(msg)
     return jsonify({'id':jsonData['postId']})
+
+@app.route("/getAvailableUsers", methods=['GET'])
+@jwt_required()
+def getAvailableUsers():
+    users = list(usersCollection.find({},{'_id':1,'name':1}))
+    return jsonify({'resp':users})
+
+@app.route("/auth/me", methods=['GET'])
+@jwt_required()
+def getCurrentUser():
+    return jsonify({'resp':current_identity.name})
 
 @app.route("/deleteComment", methods=['DELETE'])
 @jwt_required()
