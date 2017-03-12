@@ -1,9 +1,10 @@
+import moment from 'moment';
 export class FormatLib {
     secondsToDate(seconds) {
-        return new Date(seconds).toLocaleDateString();
+        return moment(seconds).format('MMMM D, YYYY');
     }
     secondsToTime(seconds) {
-        return new Date(seconds).toLocaleTimeString();
+        return moment(seconds).format('h:mm a'); 
     }
     //Stolen from Stack Overflow
     //http://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value-in-javascript

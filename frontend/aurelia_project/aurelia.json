@@ -194,7 +194,8 @@
             "name": "onedrive",
             "path": "../lib",
             "main": "OneDrive.js"
-          }
+          },
+          "moment"
         ]
       }
     ]
