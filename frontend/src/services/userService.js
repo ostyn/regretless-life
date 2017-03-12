@@ -8,8 +8,10 @@ export class UserService {
     constructor(auth, http){
         this.auth = auth;
         this.http = http;
-        this.initUsersName();
-        this.initAvailableUsers();
+        if(this.isAuthenticated) {
+            this.initUsersName();
+            this.initAvailableUsers();
+        }
     }
     login(email, password){
         return this.auth.login(email, password)
