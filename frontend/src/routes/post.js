@@ -45,7 +45,13 @@ export class Post {
     }
 
     submitComment() {
-        this.blogDao.submitComment(this.post._id, this.comment)
+        let submitMethod = this.blogDao.submitComment;
+        if(this.userService.isAuthenticated) {
+            this.comment.name = this.userService.usersName;
+            this.comment.email = "";
+            submitMethod = this.blogDao.submitAdminComment;
+        }
+        submitMethod.call(this.blogDao, this.post._id, this.comment)
         .then(id => {
             this.blogDao.getPost(id)
                 .then((post) => {

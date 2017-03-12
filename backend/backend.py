@@ -135,16 +135,25 @@ def deletePost():
     postsCollection.delete_one({"_id":id})
     return jsonify({'resp':True})
 
+
+@app.route("/submitAdminComment", methods=['POST', 'OPTION'])
+@jwt_required()
+def submitAdminComment():
+    return submitComment(True)
+
 @app.route("/submitComment", methods=['POST', 'OPTION'])
-def submitComment():
+def submitComment(adminComment=False):
     jsonData = request.json
-    postsCollection.update_one({"_id":jsonData['postId']},{"$push":
-    {"comments":{
+    comment = {
         "name":jsonData['name'],
         "email":jsonData.get('email', ''),
         "date": getDateInMilliseconds(),
         "content":jsonData['content'],
-    }}})
+    }
+    if(adminComment):
+        comment["admin"] = True
+    postsCollection.update_one({"_id":jsonData['postId']},{"$push":
+    {"comments":comment}})
     msg = Message("New Comment",
                 sender="info@regretless.life",
                 recipients=["ostyn@live.com", "erikaostyn@gmail.com"],

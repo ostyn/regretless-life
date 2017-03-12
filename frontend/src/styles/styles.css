@@ -397,3 +397,13 @@ onedrive-browser{
     color: gray;
     text-decoration: underline;
 }
+.commentPicture {
+    border-radius: 40px;
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+}
+.commentHeader{
+    display: flex;
+    align-items:center;
+}

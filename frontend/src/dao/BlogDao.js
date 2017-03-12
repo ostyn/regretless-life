@@ -221,6 +221,26 @@ export class BlogDao {
                 return post.id
             });
     }
+    submitAdminComment(postId, comment) {
+        return this.http
+            .fetch('submitAdminComment', {
+                method: 'post',
+                body: json({
+                    'postId': postId,
+                    'name': comment.name,
+                    'email': comment.email,
+                    'content': comment.content,
+                }),
+            })
+            .then(response => {
+                if(response.status > 400)
+                    throw response;
+                return response.json();
+            })
+            .then((post) => {
+                return post.id
+            });
+    }
     deleteComment(postId, comment) {
         return this.http
             .fetch('deleteComment', {
