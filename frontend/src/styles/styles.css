@@ -386,7 +386,7 @@ onedrive-browser{
     color: rgb(18,141,167);
 }
 .logo2{
-    font-family: 'Cinzel', 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Cinzel', "Palatino Linotype", "Book Antiqua", Palatino, serif;
     color: rgb(0,0,0);
 }
 .content * a:link, .content * a:visited {
