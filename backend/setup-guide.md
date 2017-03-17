@@ -5,11 +5,12 @@ Python3/pip3
 * flask-cors
 * flask-bcrypt
 * flask-mail
+* flask_compress
 * geocoder
 * furl
 * requests
 
-pip install requests furl flask geocoder pymongo flask-cors flask-jwt flask-bcrypt flask-mail
+pip install requests furl flask geocoder pymongo flask-cors flask-jwt flask-bcrypt flask-mail flask_compress
 
 Setting up python with WSGI on Apache
 Combination of 

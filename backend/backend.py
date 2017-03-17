@@ -9,6 +9,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from flask_jwt import JWT, jwt_required, current_identity
 from flask_mail import Mail, Message
+from flask_compress import Compress
 
 from bson.objectid import ObjectId
 from werkzeug.security import safe_str_cmp
@@ -35,7 +36,7 @@ authModule = AuthModule(app, usersCollection)
 jwt = JWT(app, authModule.authenticate, authModule.identity)
 mail = Mail(app)
 cors = CORS(app)
-
+compress = Compress(app)
 access_token = "YOUR_TOKEN_HERE"
 
 @app.route("/airportQuery", methods=['GET'])
