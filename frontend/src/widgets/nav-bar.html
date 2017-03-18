@@ -1,5 +1,6 @@
 <template>
     <require from="./info-section"></require>
+    <require from="./expando.html"></require>
     <div class="logo">
         <a class="titleLink logo1" href="#">regretless.<span class="logo2">LIFE</span></a>
     </div>
@@ -13,16 +14,7 @@
             <div repeat.for="row of router.navigation" class="menuItem ${row.isActive ? 'active' : ''}">
                 <a href.bind="row.href">${row.title}</a>
             </div>
-            <div if.bind="!showSearchBox" class="menuItem searchToggle" click.trigger="toggleSearchBox()">
-                search
-            </div>
-            <form submit.trigger="search(query)">
-                <input show.bind="showSearchBox" 
-                       class="searchbox menuItem textbox" 
-                       value.bind="query" 
-                       focus.bind="showSearchBox" 
-                       placeholder="search...">
-            </form>
+            <expando callback.call="search($event, query)">
         </div>
     </div>
     <br>

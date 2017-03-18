@@ -5,7 +5,6 @@ import {PageChanged} from 'messages/messages'
 @inject(Router, EventAggregator, Element)
 export class NavBar{
     isMobileMenuOut = false;
-    showSearchBox = false;
     query = "";
     constructor(router, eventAggregator, element){
         this.router = router;
@@ -15,10 +14,7 @@ export class NavBar{
     toggleMobileMenu(){
         this.isMobileMenuOut = !this.isMobileMenuOut;
     }
-    toggleSearchBox(){
-        this.showSearchBox = !this.showSearchBox;
-    }
-    search(query){
+    search = (query)=>{
         this.isMobileMenuOut = false;
         this.router.navigateToRoute('search', { query: query })
     }
