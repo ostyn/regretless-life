@@ -1,8 +1,6 @@
 <template bindable="callback">
 	<require from="./expando.css"></require>
 	<form class="expando-form" method="get" submit.trigger="callback(query)">
-		<label for="query" class="expando-label">
-			<input type="search" class="expando-searchbox" placeholder="Search Posts..." id="query" value.bind="query" autocomplete="off">
-		</label>
+		<input type="search" class="expando-searchbox" placeholder="Search Posts..." id="query" value.bind="query" autocomplete="off">
 	</form>
 </template>
