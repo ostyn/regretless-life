@@ -183,7 +183,6 @@ def deleteComment():
     postsCollection.update_one({"_id":jsonData['postId']},{"$pull":
     {"comments":{
         "name":jsonData['name'],
-        "email":jsonData['email'],
         "date":jsonData['date'],
         "content":jsonData['content'],
     }}})
