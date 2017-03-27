@@ -15,7 +15,6 @@ from bson.objectid import ObjectId
 from werkzeug.security import safe_str_cmp
 
 from authModule import AuthModule
-from skyScannerModule import routeQuery, airportQuery
 
 from configMaster import SMTP_USER, SMTP_PASSWORD, GOOGLE_MAPS_KEY
 import time, datetime
@@ -39,13 +38,6 @@ cors = CORS(app)
 compress = Compress(app)
 access_token = "YOUR_TOKEN_HERE"
 
-@app.route("/airportQuery", methods=['GET'])
-def airportQuery():
-    return SkyScannerModule.airportQuery(request)
-
-@app.route("/routeQuery", methods=['GET'])
-def routeQuery():
-    return SkyScannerModule.routeQuery(request)
 
 @app.route("/savePost", methods=['POST', 'OPTION'])
 @jwt_required()

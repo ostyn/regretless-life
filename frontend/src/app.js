@@ -13,8 +13,6 @@ export class App {
       { route: 'drafts', moduleId: './routes/blog',nav: false, title: 'drafts', name:'drafts', auth: true },
       { route: 'search', moduleId: './routes/blog',nav: false, title: 'search', name:'search' },
       { route: 'editor', moduleId: './routes/editor',nav: false, title: 'editor', name:'editor', auth:true},
-      { route: 'flights', moduleId: './routes/flights', nav: false, title: 'flights' },
-      { route: 'city/:name/explore', moduleId: './routes/city-page', nav: false, title: config.title },
       { route: 'post/:id', moduleId: './routes/post', name:'post', nav: false, title: config.title },
       { route: 'questions', moduleId: './routes/questions', nav: false, title: 'q + a' },
       { route: 'about', moduleId: './routes/post', name:'about', nav: true, title: 'about us'},
