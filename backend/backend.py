@@ -39,9 +39,9 @@ cors = CORS(app)
 compress = Compress(app)
 access_token = "YOUR_TOKEN_HERE"
 
-@app.route('/oneDriveImageProxy/<path:url>')
-def oneDriveImageProxy(url):
-    url = unquote(url)
+@app.route('/oneDriveImageProxy', methods=['GET'])
+def oneDriveImageProxy():
+    url = unquote(request.args.get('url'))
     parsedUrl = urlparse(url)
     if not (parsedUrl.netloc.endswith('livefilestore.com')):
         return jsonify({'error':"Image source not supported."})

@@ -11,7 +11,7 @@ export class MarkdownFormatValueConverter {
           type: 'output',
           filter: function (text, converter, options) {
             return text.replace(imgRegex, function (match, url, rest) {               
-                var addon = 'onerror="this.onerror=null;this.src=\'http://regretless.life/data/oneDriveImageProxy/\' + encodeURIComponent(this.src);" ';
+                var addon = 'onerror="this.onerror=null;this.src=\'http://regretless.life/data/oneDriveImageProxy?url=\' + encodeURIComponent(this.src);" ';
                 return match.replace("<img ", "<img " + addon);
             });
           }
