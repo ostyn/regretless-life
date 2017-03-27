@@ -4,7 +4,21 @@ export class MarkdownFormatValueConverter {
   constructor() {
     showdown.setOption('tables', 'true');
     showdown.setOption('simplifiedAutoLink', 'true');
-    this.converter = new showdown.Converter({extensions: ['youtube']});
+    let imgRegex = /(?:<p>)?<img.*?src="(.+?)"(.*?)\/?>(?:<\/p>)?/gi;
+    showdown.extension('imageProxy', function () {
+      return [
+        {
+          type: 'output',
+          filter: function (text, converter, options) {
+            return text.replace(imgRegex, function (match, url, rest) {               
+                var addon = 'onerror="this.onerror=null;this.src=\'http://regretless.life/data/oneDriveImageProxy/\' + encodeURIComponent(this.src);" ';
+                return match.replace("<img ", "<img " + addon);
+            });
+          }
+        }
+      ];
+    });
+    this.converter = new showdown.Converter({extensions: ['youtube', 'imageProxy']});
   }
   toView(value) {
     if(!value)

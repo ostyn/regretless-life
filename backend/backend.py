@@ -4,8 +4,9 @@ import pymongo
 import re
 import geocoder
 from furl import furl
-from urllib.request import urlopen
-from flask import Flask, request, jsonify
+from urllib.request import urlopen, unquote
+from urllib.parse import urlparse
+from flask import Flask, request, jsonify, Response, stream_with_context
 from flask_cors import CORS, cross_origin
 from flask_jwt import JWT, jwt_required, current_identity
 from flask_mail import Mail, Message
@@ -38,6 +39,17 @@ cors = CORS(app)
 compress = Compress(app)
 access_token = "YOUR_TOKEN_HERE"
 
+@app.route('/oneDriveImageProxy/<path:url>')
+def oneDriveImageProxy(url):
+    url = unquote(url)
+    parsedUrl = urlparse(url)
+    if not (parsedUrl.netloc.endswith('livefilestore.com')):
+        return jsonify({'error':"Image source not supported."})
+    req = requests.get(url, stream = True)
+    resp = Response(stream_with_context(req.iter_content()), content_type = req.headers['content-type'])
+    resp.headers['Expires'] = req.headers['Expires']
+    resp.headers['Cache-Control'] = req.headers['Cache-Control']
+    return resp
 
 @app.route("/savePost", methods=['POST', 'OPTION'])
 @jwt_required()

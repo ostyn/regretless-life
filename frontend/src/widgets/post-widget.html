@@ -5,13 +5,13 @@
         <center>
             <a if.bind="showTitleLink" class="titleLink" route-href="route: post; params.bind: getLinkParams(post)">
                 <div class="header">
-                    <img class="headerImage" src="${post.heroPhotoUrl}"></img>
+                    <img class="headerImage" src="${post.heroPhotoUrl}" onerror="this.onerror=null;this.src='http://regretless.life/data/oneDriveImageProxy/' + encodeURIComponent(this.src);">
                     <div class="postTitle">${post.title}</div>
                 </div>
             </a>
             <div if.bind="!showTitleLink" class="titleLink">
                 <div class="header">
-                    <img class="headerImage" src="${post.heroPhotoUrl}"></img>
+                    <img class="headerImage" src="${post.heroPhotoUrl}" onerror="this.onerror=null;this.src='http://regretless.life/data/oneDriveImageProxy/' + encodeURIComponent(this.src);">
                     <div class="postTitle">${post.title}</div>
                 </div>
             </div>
