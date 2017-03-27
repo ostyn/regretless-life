@@ -20,7 +20,10 @@ export function configure(aurelia) {
           enabled: false // Set to `true` to have some log messages appear in the browser console.
         },
         pageTracking: {
-          enabled: true // Set to `false` to disable in non-production environments.
+          enabled: true, // Set to `false` to disable in non-production environments.
+          getTitle: function(){
+            return window.document.title.split(' | ')[0];
+          }
         },
         clickTracking: {
           enabled: false // Set to `false` to disable in non-production environments.

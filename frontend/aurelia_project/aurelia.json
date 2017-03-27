@@ -196,6 +196,8 @@
             "main": "OneDrive.js"
           },
           "moment"
+          "moment",
+          "deepmerge"
         ]
       }
     ]
