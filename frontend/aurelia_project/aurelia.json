@@ -120,8 +120,8 @@
           "whatwg-fetch",
           {
             "name": "to-markdown",
-            "path":"../node_modules/to-markdown/dist",
-            "main":"to-markdown.js"
+            "path": "../node_modules/to-markdown/dist",
+            "main": "to-markdown.js"
           },
           {
             "name": "medium-editor",
@@ -130,33 +130,34 @@
           },
           "striptags",
           {
-            "name":"jquery",
+            "name": "jquery",
             "path": "../node_modules/jquery/dist",
-            "main" : "jquery.min.js"
+            "main": "jquery.min.js"
           },
           {
-            "name":"jvectormap",
+            "name": "jvectormap",
             "path": "../node_modules/jvectormap",
-            "main":"jquery-jvectormap.min.js",
-              "resources": [
-                  "./tests/assets/jquery-jvectormap-world-mill-en.js",
-                  "./lib/jquery-mousewheel.js"
-              ]
+            "main": "jquery-jvectormap.min.js",
+            "resources": [
+              "./tests/assets/jquery-jvectormap-world-mill-en.js",
+              "./lib/jquery-mousewheel.js"
+            ]
           },
           {
-            "name":"showdown-youtube",
+            "name": "showdown-youtube",
             "path": "../node_modules/showdown-youtube/src",
-            "main":"showdown-youtube"
+            "main": "showdown-youtube"
           },
           {
-              "name": "aurelia-google-maps",
-              "path": "../node_modules/aurelia-google-maps/dist/amd",
-              "main": "index"
+            "name": "aurelia-google-maps",
+            "path": "../node_modules/aurelia-google-maps/dist/amd",
+            "main": "index"
           },
           {
-              "name": "aurelia-google-analytics",
-              "path": "../node_modules/aurelia-google-analytics/dist/amd",
-              "main": "index"
+            "name": "aurelia-google-analytics",
+            "main": "index",
+            "path": "../node_modules/aurelia-google-analytics/dist/amd",
+            "resources": []
           },
           "showdown",
           {
@@ -169,9 +170,9 @@
           },
           "trim-html",
           {
-              "name": "aurelia-auth",
-              "path": "../node_modules/aurelia-auth/dist/amd",
-              "main": "aurelia-auth"
+            "name": "aurelia-auth",
+            "path": "../node_modules/aurelia-auth/dist/amd",
+            "main": "aurelia-auth"
           },
           "text",
           {
@@ -195,7 +196,6 @@
             "path": "../lib",
             "main": "OneDrive.js"
           },
-          "moment"
           "moment",
           "deepmerge"
         ]
