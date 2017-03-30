@@ -27,3 +27,5 @@ https://dykang852.wordpress.com/2014/11/01/how-to-deploy-a-flask-application-on-
 http://askubuntu.com/questions/569550/assertionerror-using-apache2-and-libapache2-mod-wsgi-py3-on-ubuntu-14-04-python
 
 Used LetsEncrypt and CertBot to setup HTTPS
+
+Should setup favicon to use gzip http://stackoverflow.com/questions/14510331/how-do-you-enable-gzip-compression-for-favicon-ico
