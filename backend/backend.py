@@ -253,14 +253,14 @@ def getAllPostsByLocation(isDraft = False):
         '$match':{ 
             '$and':[  
                 {  
-                'locationInfo':{  
+                'locationInfo.countryCode':{
                     '$exists':"true"
                 }
                 },
                 {  
-                'locationInfo':{  
-                    '$ne':{}
-                }
+                'locationInfo.countryCode':{  
+                    '$ne':None
+                } 
                 }
             ],
             'isDraft':{  
