@@ -110,19 +110,21 @@ export class BlogDao {
             });
     }
     savePost(post) {
-        return this.http
-            .fetch('savePost', {
-                method: 'post',
-                body: json({
+        let postData = {
                     'id': post._id,
                     'title': post.title,
                     'author': post.author,
-                    'location': post.locationInfo.name,
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,
                     'isDraft':post.isDraft,
                     'images':post.images
-                }),
+                };
+        if(post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
+            postData['location'] = post.locationInfo.name;
+        return this.http
+            .fetch('savePost', {
+                method: 'post',
+                body: json(postData),
             })
             .then(response => {
                 if(response.status > 400)
@@ -135,19 +137,21 @@ export class BlogDao {
     }
 
     publishPost(post) {
-        return this.http
-            .fetch('publishPost', {
-                method: 'post',
-                body: json({
+        let postData = {
                     'id': post._id,
                     'title': post.title,
                     'author': post.author,
-                    'location': post.location,
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,
                     'isDraft':post.isDraft,
                     'images':post.images
-                }),
+                };
+        if(post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
+            postData['location'] = post.locationInfo.name;
+        return this.http
+            .fetch('publishPost', {
+                method: 'post',
+                body: json(postData),
             })
             .then(response => {
                 if(response.status > 400)
