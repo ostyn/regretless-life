@@ -69,12 +69,12 @@ def savePost(passedJsonData=None):
             'content': jsonData['content'],
             'comments': [],
             'isDraft': True,
-            'images': jsonData['images']
+            'images': jsonData['images'],
+            'locationInfo': {}
         }
         if('location' in jsonData):
             post['location'] = jsonData['location']
             geocoded = geocoder.google(jsonData['location'], key=GOOGLE_MAPS_KEY)
-            post['locationInfo'] = {}
             post['locationInfo']["latitude"] = geocoded.lat
             post['locationInfo']["longitude"] = geocoded.lng
             post['locationInfo']["country"] = geocoded.country_long
@@ -89,12 +89,12 @@ def savePost(passedJsonData=None):
             "content":jsonData['content'],
             "dateLastEdited":getDateInMilliseconds(),
             'isDraft': jsonData['isDraft'],
-            'images': jsonData['images']
+            'images': jsonData['images'],
+            'locationInfo': {}
         }
         if('location' in jsonData):
             post["location"]= jsonData['location']
             geocoded = geocoder.google(jsonData['location'], key=GOOGLE_MAPS_KEY)
-            post['locationInfo'] = {}
             post['locationInfo']["latitude"] = geocoded.lat
             post['locationInfo']["longitude"] = geocoded.lng
             post['locationInfo']["country"] = geocoded.country_long
