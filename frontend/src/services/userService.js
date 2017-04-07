@@ -25,7 +25,7 @@ export class UserService {
         });
     };
     initUsersName() {
-        this.usersName = this.auth.getMe()
+        this.auth.getMe()
             .then((usersName) =>
             {
                 this.usersName = usersName.resp;
