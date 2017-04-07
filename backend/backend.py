@@ -157,15 +157,19 @@ def submitComment(adminComment=False):
     }
     if(adminComment):
         comment["admin"] = True
+    post = postsCollection.find_one({'_id':jsonData['postId']})
     postsCollection.update_one({"_id":jsonData['postId']},{"$push":
     {"comments":comment}})
-    msg = Message("New Comment",
+    msg = Message("New Comment on " + post['title'] + "!",
                 sender="info@regretless.life",
                 recipients=["ostyn@live.com", "erikaostyn@gmail.com"],
-                html="<html>You just got a new comment from "
-                +jsonData['name']
-                + " on a post.<br><br> View it <a href=\"http://regretless.life/#/post/" 
-                + jsonData['postId'] + "\">here</a>")
+                html= "You got a new comment!<br><br>" +
+                "Name: "
+                + jsonData['name']
+                + "<br>Email: "
+                + jsonData['email']
+                + "<br>Post: <a href=\"https://regretless.life/#/post/" 
+                + jsonData['postId'] + "\">" + post['title'] +"</a><br><quote><i>"+ jsonData['content'] + "</i></quote>")
     mail.send(msg)
     return jsonify({'id':jsonData['postId']})
 
