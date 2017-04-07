@@ -66,6 +66,8 @@ export class Post {
         this.activelySubmittingComment = true;
     }
     deleteComment(comment) {
+        if(!confirm('Delete comment?'))
+            return;
         this.blogDao.deleteComment(this.post._id, comment)
         .then(id => {
             this.blogDao.getPost(id)

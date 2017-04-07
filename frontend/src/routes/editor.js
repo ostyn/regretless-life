@@ -50,6 +50,8 @@ export class Editor {
         }
     }
     save(){
+        if(!confirm('Save post?'))
+            return;
         this.blogDao.savePost(this.post).then(id => {
             this.activelyContactingServer = false;
             this.router.navigateToRoute('post', {'id' : id, 'isDraft': (this.post.isDraft)?this.post.isDraft:undefined});
@@ -61,6 +63,8 @@ export class Editor {
         this.activelyContactingServer = true;
     }
     publish(){
+        if(!confirm('Publish post?'))
+            return;
         this.blogDao.publishPost(this.post).then(id => {
             this.activelyContactingServer = false;
             this.router.navigateToRoute('post', {'id' : id});
@@ -72,6 +76,8 @@ export class Editor {
         this.activelyContactingServer = true;
     }
     unpublish(){
+        if(!confirm('Unpublish post?'))
+            return;
         this.blogDao.unpublishPost(this.post).then(id => {
             this.activelyContactingServer = false;
             this.router.navigateToRoute('post', {'id':id, 'isDraft':true});
@@ -83,6 +89,8 @@ export class Editor {
         this.activelyContactingServer = true;
     }
     delete(){
+        if(!confirm('Delete post?'))
+            return;
         this.blogDao.deletePost(this.post._id).then(id => {
             this.activelyContactingServer = false;
             this.router.navigateToRoute('');
