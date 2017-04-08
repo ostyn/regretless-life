@@ -263,24 +263,6 @@ export class BlogDao {
                 return post.id
             });
     }
-    certifyComment(postId, index) {
-        return this.http
-            .fetch('certifyComment', {
-                method: 'post',
-                body: json({
-                    'postId': postId,
-                    'index': index
-                }),
-            })
-            .then(response => {
-                if(response.status > 400)
-                    throw response;
-                return response.json();
-            })
-            .then((post) => {
-                return post.id
-            });
-    }
     subscribe(email) {
         return this.http
             .fetch('subscribe', {

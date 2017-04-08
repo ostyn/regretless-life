@@ -79,18 +79,4 @@ export class Post {
             alert('Something went very, very wrong. Head for the hills')
         });
     }
-    certifyComment(index) {
-        if(!confirm('Certify comment?'))
-            return;
-        this.blogDao.certifyComment(this.post._id, index)
-        .then(id => {
-            this.blogDao.getPost(id)
-                .then((post) => {
-                    this.post = post;
-                });
-        })
-        .catch(response => {
-            alert('Something went very, very wrong. Head for the hills')
-        });
-    }
 }

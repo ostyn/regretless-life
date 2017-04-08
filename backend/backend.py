@@ -202,20 +202,6 @@ def deleteComment():
         })
     return jsonify({'id':jsonData['postId']})
 
-@app.route("/certifyComment", methods=['POST'])
-@jwt_required()
-def certifyComment():
-    jsonData = request.json
-    postsCollection.update({
-            "_id": jsonData['postId']
-        },
-        {
-            "$set": {
-                "comments."+ str(jsonData['index']) +".admin":  True
-            }
-        })
-    return jsonify({'id':jsonData['postId']})
-
 @app.route("/findAllDraftPosts", methods=['GET'])
 @jwt_required()
 def findAllDraftPosts():
