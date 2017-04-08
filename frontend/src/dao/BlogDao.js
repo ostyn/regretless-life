@@ -245,16 +245,13 @@ export class BlogDao {
                 return post.id
             });
     }
-    deleteComment(postId, comment) {
+    deleteComment(postId, index) {
         return this.http
             .fetch('deleteComment', {
                 method: 'delete',
                 body: json({
                     'postId': postId,
-                    'name': comment.name,
-                    'email': comment.email,
-                    'content': comment.content,
-                    'date': comment.date,
+                    'index': index
                 }),
             })
             .then(response => {
@@ -266,16 +263,13 @@ export class BlogDao {
                 return post.id
             });
     }
-    certifyComment(postId, comment) {
+    certifyComment(postId, index) {
         return this.http
             .fetch('certifyComment', {
                 method: 'post',
                 body: json({
                     'postId': postId,
-                    'name': comment.name,
-                    'email': comment.email,
-                    'content': comment.content,
-                    'date': comment.date,
+                    'index': index
                 }),
             })
             .then(response => {

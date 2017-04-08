@@ -65,10 +65,10 @@ export class Post {
         });
         this.activelySubmittingComment = true;
     }
-    deleteComment(comment) {
+    deleteComment(index) {
         if(!confirm('Delete comment?'))
             return;
-        this.blogDao.deleteComment(this.post._id, comment)
+        this.blogDao.deleteComment(this.post._id, index)
         .then(id => {
             this.blogDao.getPost(id)
                 .then((post) => {
@@ -79,10 +79,10 @@ export class Post {
             alert('Something went very, very wrong. Head for the hills')
         });
     }
-    certifyComment(comment) {
+    certifyComment(index) {
         if(!confirm('Certify comment?'))
             return;
-        this.blogDao.certifyComment(this.post._id, comment)
+        this.blogDao.certifyComment(this.post._id, index)
         .then(id => {
             this.blogDao.getPost(id)
                 .then((post) => {

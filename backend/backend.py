@@ -188,32 +188,30 @@ def getCurrentUser():
 @jwt_required()
 def deleteComment():
     jsonData = request.json
-    postsCollection.update_one({"_id":jsonData['postId']},{"$pull":
-    {"comments":{
-        "name":jsonData['name'],
-        "date":jsonData['date'],
-        "content":jsonData['content'],
-    }}})
+    #Arcane, but mongodb won't let you delete by index, only update
+    #So we update and then pull based on the update
+    postsCollection.update_one(
+        {"_id":jsonData['postId']},
+        {"$unset":
+            {"comments."+ str(jsonData['index']) : True}
+        })
+    postsCollection.update_one(
+        {"_id":jsonData['postId']},
+        {"$pull":
+            {"comments" : None}
+        })
     return jsonify({'id':jsonData['postId']})
 
 @app.route("/certifyComment", methods=['POST'])
 @jwt_required()
 def certifyComment():
     jsonData = request.json
-    postsCollection.update_one({
-        "_id": jsonData['postId'],
-        "comments.name":jsonData['name'],
-        "comments.date":jsonData['date'],
-        "comments.content":jsonData['content'],
+    postsCollection.update({
+            "_id": jsonData['postId']
         },
         {
             "$set": {
-                "comments.$": {
-                    "name":jsonData['name'],
-                    "date":jsonData['date'],
-                    "content":jsonData['content'],
-                    "admin": True
-                }
+                "comments."+ str(jsonData['index']) +".admin":  True
             }
         })
     return jsonify({'id':jsonData['postId']})
