@@ -127,7 +127,7 @@ def construct_blueprint(postsCollection):
                     "Name: "
                     + jsonData['name']
                     + "<br>Email: "
-                    + jsonData['email']
+                    + jsonData.get('email', '')
                     + "<br>Post: <a href=\"https://regretless.life/#/post/" 
                     + jsonData['postId'] + "\">" + post['title'] +"</a><br><quote><i>"+ jsonData['content'] + "</i></quote>")
         mail.send(msg)
