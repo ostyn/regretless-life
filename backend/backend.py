@@ -32,7 +32,6 @@ jwt = JWT(app, authModule.authenticate, authModule.identity)
 mail = Mail(app)
 cors = CORS(app)
 compress = Compress(app)
-access_token = "YOUR_TOKEN_HERE"
 
 app.register_blueprint(blogPostModule.construct_blueprint(postsCollection, mail))
 app.register_blueprint(oneDriveModule.construct_blueprint())
