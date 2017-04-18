@@ -5,7 +5,7 @@ from flask_jwt import jwt_required
 from flask_mail import Mail, Message
 
 from bson.objectid import ObjectId
-from configMaster import GOOGLE_MAPS_KEY
+from configMaster import GOOGLE_MAPS_KEY, IS_PROD
 import datetime
 from utilityClass import getDateInMilliseconds
 
@@ -78,9 +78,10 @@ def construct_blueprint(postsCollection, mail):
             "isDraft": False,
         }})
         messages = createMessages(jsonData['title'], id)
-        with mail.connect() as conn:
-            for message in messages:
-                conn.send(message)
+        if IS_PROD:
+            with mail.connect() as conn:
+                for message in messages:
+                    conn.send(message)
         return jsonify({'id':id})
 
     @blogPostModule.route("/unpublishPost", methods=['POST', 'OPTION'])
@@ -131,7 +132,8 @@ def construct_blueprint(postsCollection, mail):
                     + jsonData.get('email', '')
                     + "<br>Post: <a href=\"https://regretless.life/#/post/" 
                     + jsonData['postId'] + "\">" + post['title'] +"</a><br><quote><i>"+ jsonData['content'] + "</i></quote>")
-        mail.send(msg)
+        if IS_PROD:
+            mail.send(msg)
         return jsonify({'id':jsonData['postId']})
 
     @blogPostModule.route("/deleteComment", methods=['DELETE'])
