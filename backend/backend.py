@@ -1,5 +1,4 @@
 import pymongo
-import re
 import blogPostModule
 import oneDriveModule
 import subscriptionModule

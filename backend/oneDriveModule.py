@@ -2,7 +2,7 @@ import requests
 from furl import furl
 from urllib.request import urlopen, unquote
 from urllib.parse import urlparse
-from flask import Flask, Blueprint, request, jsonify, Response, stream_with_context
+from flask import Blueprint, request, jsonify, Response, stream_with_context
 
 def construct_blueprint():
     oneDriveModule = Blueprint('oneDriveModule', __name__)
@@ -11,8 +11,8 @@ def construct_blueprint():
         url = request.args.get('url')
         res = urlopen(url)
         finalurl = res.geturl()
-        f = furl(finalurl) 
-        return jsonify({'authkey':f.args['authkey']})
+        furled = furl(finalurl)
+        return jsonify({'authkey':furled.args['authkey']})
 
     @oneDriveModule.route('/oneDriveImageProxy', methods=['GET'])
     def oneDriveImageProxy():
