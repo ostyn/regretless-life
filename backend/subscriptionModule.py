@@ -4,6 +4,7 @@ from flask_mail import Message
 
 from bson.objectid import ObjectId
 from utilityClass import getDateInMilliseconds
+from configMaster import IS_PROD
 
 def construct_blueprint(emailsCollection, mail):
     subscriptionModule = Blueprint('subscriptionModule', __name__)
@@ -33,7 +34,8 @@ def construct_blueprint(emailsCollection, mail):
                         sender="info@regretless.life",
                         html= "You have been subscribed to <a href='https://regretless.life'>regretless.life</a>. Unsubscribe if you didn't mean to do this." + unsub,
                         subject=subject)
-        mail.send(msg)
+        if IS_PROD:
+            mail.send(msg)
         return jsonify({
             'resp':True,
             'msg': 'You have been subscribed. We sent you a test email. Check your spam box, just in case'
