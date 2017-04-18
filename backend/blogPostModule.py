@@ -1,6 +1,6 @@
 import json
 import geocoder
-from flask import Flask, request, jsonify, Blueprint
+from flask import request, jsonify, Blueprint
 from flask_jwt import jwt_required
 from flask_mail import Mail, Message
 
@@ -9,7 +9,7 @@ from configMaster import GOOGLE_MAPS_KEY, IS_PROD
 import datetime
 from utilityClass import getDateInMilliseconds
 
-def construct_blueprint(postsCollection, mail):
+def construct_blueprint(postsCollection, emailsCollection, mail):
     blogPostModule = Blueprint('blogPostModule', __name__)
 
     @blogPostModule.route("/savePost", methods=['POST', 'OPTION'])
@@ -322,4 +322,17 @@ def construct_blueprint(postsCollection, mail):
                 }}
             ]
         }
+    def createMessages(title, id):
+        emails = list(emailsCollection.find())
+        msgs = []
+        message = '<a href="http://regretless.life/#/post/' + id + '">' + title + '</a><br>'
+        for email in emails:
+            unsub = '<br><a href="http://regretless.life/data/unsubscribe?id='+str(email.get("_id"))+'">unsubscribe</a><br>'
+            subject = "New post on regretless.life"
+            msg = Message(recipients=[email.get("email")],
+                        sender="info@regretless.life",
+                        html=message + unsub + "<br>Do not reply to this email",
+                        subject=subject)
+            msgs.append(msg)
+        return msgs
     return(blogPostModule)

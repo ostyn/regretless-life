@@ -6,7 +6,7 @@ import subscriptionModule
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_jwt import JWT, jwt_required, current_identity
-from flask_mail import Mail, Message
+from flask_mail import Mail
 from flask_compress import Compress
 
 from bson.objectid import ObjectId
@@ -34,7 +34,7 @@ mail = Mail(app)
 cors = CORS(app)
 compress = Compress(app)
 
-app.register_blueprint(blogPostModule.construct_blueprint(postsCollection, mail))
+app.register_blueprint(blogPostModule.construct_blueprint(postsCollection, emailsCollection, mail))
 app.register_blueprint(oneDriveModule.construct_blueprint())
 app.register_blueprint(subscriptionModule.construct_blueprint(emailsCollection, mail))
 
@@ -53,20 +53,6 @@ def getCurrentUser():
 @jwt_required()
 def registerUser():
     return authModule.registerUser(request)
-
-def createMessages(title, id):
-    emails = list(emailsCollection.find())
-    msgs = []
-    message = '<a href="http://regretless.life/#/post/' + id + '">' + title + '</a><br>'
-    for email in emails:
-        unsub = '<br><a href="http://regretless.life/data/unsubscribe?id='+str(email.get("_id"))+'">unsubscribe</a><br>'
-        subject = "New post on regretless.life"
-        msg = Message(recipients=[email.get("email")],
-                      sender="info@regretless.life",
-                      html=message + unsub + "<br>Do not reply to this email",
-                      subject=subject)
-        msgs.append(msg)
-    return msgs
 
 if __name__ == "__main__":
     app.run(debug = True, port = 5000, host='0.0.0.0')
