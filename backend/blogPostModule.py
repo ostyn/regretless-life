@@ -1,6 +1,6 @@
 import json
 import geocoder
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Blueprint
 from flask_jwt import jwt_required
 from flask_mail import Mail, Message
 
