@@ -9,7 +9,7 @@ from configMaster import GOOGLE_MAPS_KEY
 import datetime
 from utilityClass import getDateInMilliseconds
 
-def construct_blueprint(postsCollection):
+def construct_blueprint(postsCollection, mail):
     blogPostModule = Blueprint('blogPostModule', __name__)
 
     @blogPostModule.route("/savePost", methods=['POST', 'OPTION'])

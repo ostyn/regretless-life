@@ -34,7 +34,7 @@ cors = CORS(app)
 compress = Compress(app)
 access_token = "YOUR_TOKEN_HERE"
 
-app.register_blueprint(blogPostModule.construct_blueprint(postsCollection))
+app.register_blueprint(blogPostModule.construct_blueprint(postsCollection, mail))
 app.register_blueprint(oneDriveModule.construct_blueprint())
 
 @app.route("/getAvailableUsers", methods=['GET'])
