@@ -1,22 +1,14 @@
-import json
-import requests
 import pymongo
 import re
-import geocoder
 import blogPostModule
 import oneDriveModule
-from furl import furl
-from urllib.request import urlopen, unquote
-from urllib.parse import urlparse
-from flask import Flask, request, jsonify, Response, stream_with_context
-from flask_cors import CORS, cross_origin
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from flask_jwt import JWT, jwt_required, current_identity
 from flask_mail import Mail, Message
 from flask_compress import Compress
 
 from bson.objectid import ObjectId
-from werkzeug.security import safe_str_cmp
-
 from authModule import AuthModule
 
 from configMaster import SMTP_USER, SMTP_PASSWORD, GOOGLE_MAPS_KEY
