@@ -12,7 +12,7 @@ from bson.objectid import ObjectId
 from authModule import AuthModule
 
 from configMaster import SMTP_USER, SMTP_PASSWORD, GOOGLE_MAPS_KEY
-import time, datetime
+from utilityClass import getDateInMilliseconds
 
 app = Flask(__name__)
 
@@ -103,9 +103,6 @@ def createMessages(title, id):
                       subject=subject)
         msgs.append(msg)
     return msgs
-
-def getDateInMilliseconds():
-    return int(time.time()*1000)
 
 if __name__ == "__main__":
     app.run(debug = True, port = 5000, host='0.0.0.0')

@@ -6,7 +6,8 @@ from flask_mail import Mail, Message
 
 from bson.objectid import ObjectId
 from configMaster import GOOGLE_MAPS_KEY
-import time, datetime
+import datetime
+from utilityClass import getDateInMilliseconds
 
 def construct_blueprint(postsCollection):
     blogPostModule = Blueprint('blogPostModule', __name__)
