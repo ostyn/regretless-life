@@ -27,15 +27,15 @@ app.config['MAIL_USERNAME'] = SMTP_USER
 app.config['MAIL_PASSWORD'] = SMTP_PASSWORD
 app.config['MAIL_USE_TLS'] = True
 
-app.register_blueprint(blogPostModule.construct_blueprint(postsCollection))
-app.register_blueprint(oneDriveModule.construct_blueprint())
-
 authModule = AuthModule(app, usersCollection)
 jwt = JWT(app, authModule.authenticate, authModule.identity)
 mail = Mail(app)
 cors = CORS(app)
 compress = Compress(app)
 access_token = "YOUR_TOKEN_HERE"
+
+app.register_blueprint(blogPostModule.construct_blueprint(postsCollection))
+app.register_blueprint(oneDriveModule.construct_blueprint())
 
 @app.route("/getAvailableUsers", methods=['GET'])
 @jwt_required()
