@@ -4,6 +4,7 @@ import pymongo
 import re
 import geocoder
 import blogPostModule
+import oneDriveModule
 from furl import furl
 from urllib.request import urlopen, unquote
 from urllib.parse import urlparse
@@ -35,6 +36,7 @@ app.config['MAIL_PASSWORD'] = SMTP_PASSWORD
 app.config['MAIL_USE_TLS'] = True
 
 app.register_blueprint(blogPostModule.construct_blueprint(postsCollection))
+app.register_blueprint(oneDriveModule.construct_blueprint())
 
 authModule = AuthModule(app, usersCollection)
 jwt = JWT(app, authModule.authenticate, authModule.identity)
@@ -42,18 +44,6 @@ mail = Mail(app)
 cors = CORS(app)
 compress = Compress(app)
 access_token = "YOUR_TOKEN_HERE"
-
-@app.route('/oneDriveImageProxy', methods=['GET'])
-def oneDriveImageProxy():
-    url = unquote(request.args.get('url'))
-    parsedUrl = urlparse(url)
-    if not (parsedUrl.netloc.endswith('livefilestore.com')):
-        return jsonify({'error':"Image source not supported."})
-    req = requests.get(url, stream = True)
-    resp = Response(stream_with_context(req.iter_content()), content_type = req.headers['content-type'])
-    resp.headers['Expires'] = req.headers['Expires']
-    resp.headers['Cache-Control'] = req.headers['Cache-Control']
-    return resp
 
 @app.route("/getAvailableUsers", methods=['GET'])
 @jwt_required()
@@ -107,14 +97,6 @@ def unsubscribe():
     id = request.args.get('id')
     emailsCollection.delete_one({'_id': ObjectId(id)})
     return "Unsubscribed"
-
-@app.route("/getAuthkey", methods=['GET'])
-def getAuthkey():
-    url = request.args.get('url')
-    res = urlopen(url)
-    finalurl = res.geturl()
-    f = furl(finalurl) 
-    return jsonify({'authkey':f.args['authkey']})
 
 def createMessages(title, id):
     emails = list(emailsCollection.find())
