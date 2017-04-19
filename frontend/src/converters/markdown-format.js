@@ -1,7 +1,10 @@
 import showdown from 'showdown';
 import youtube from 'showdown-youtube';
+import {inject} from 'aurelia-framework';
+import {OneDriveProxyOnErrorCustomAttribute} from 'attributes/oneDriveProxyOnError'
+@inject(OneDriveProxyOnErrorCustomAttribute)
 export class MarkdownFormatValueConverter {
-  constructor() {
+  constructor(oneDriveProxy) {
     showdown.setOption('tables', 'true');
     showdown.setOption('simplifiedAutoLink', 'true');
     let imgRegex = /(?:<p>)?<img.*?src="(.+?)"(.*?)\/?>(?:<\/p>)?/gi;
@@ -11,8 +14,7 @@ export class MarkdownFormatValueConverter {
           type: 'output',
           filter: function (text, converter, options) {
             return text.replace(imgRegex, function (match, url, rest) {               
-                var addon = 'onerror="this.onerror=null;this.src=\'http://regretless.life/data/oneDriveImageProxy?url=\' + encodeURIComponent(this.src);" ';
-                return match.replace("<img ", "<img " + addon);
+                return match.replace("<img ", "<img " + oneDriveProxy.markdownString + " ");
             });
           }
         }

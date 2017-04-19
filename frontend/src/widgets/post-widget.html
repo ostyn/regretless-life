@@ -1,17 +1,18 @@
 <template>
     <require from="converters/trim-html-converter"></require>
     <require from="converters/markdown-format"></require>
+    <require from="attributes/oneDriveProxyOnError"></require>
     <div class="siteBody blogPostBody" show.bind="post != undefined">
         <center>
             <a if.bind="showTitleLink" class="titleLink" route-href="route: post; params.bind: getLinkParams(post)">
                 <div class="header">
-                    <img class="headerImage" src="${post.heroPhotoUrl}" onerror="this.onerror=null;this.src='http://regretless.life/data/oneDriveImageProxy?url=' + encodeURIComponent(this.src);">
+                    <img class="headerImage" src="${post.heroPhotoUrl}" one-drive-proxy-on-error>
                     <div class="postTitle">${post.title}</div>
                 </div>
             </a>
             <div if.bind="!showTitleLink" class="titleLink">
                 <div class="header">
-                    <img class="headerImage" src="${post.heroPhotoUrl}" onerror="this.onerror=null;this.src='http://regretless.life/data/oneDriveImageProxy?url=' + encodeURIComponent(this.src);">
+                    <img class="headerImage" src="${post.heroPhotoUrl}" one-drive-proxy-on-error>
                     <div class="postTitle">${post.title}</div>
                 </div>
             </div>
