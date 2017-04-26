@@ -28,7 +28,7 @@
                 <onedrive-browser images.two-way="post.images"></onedrive-browser>
             </div>
             <p>
-                <editor-widget class="postEditor blogPostBody" markdown.two-way="post.content" starting-value.one-time="post.content | markdownFormat"></editor-widget>
+                <editor-widget class="postEditor blogPostBody" markdown.two-way="markdown" starting-value.one-time="post.content | markdownFormat"></editor-widget>
             </p>
             <button if.bind="editing" disabled.bind="activelyContactingServer" click.trigger="delete()">Delete Post</button>
             <button click.trigger="save()" disabled.bind="activelyContactingServer">Save</button>
