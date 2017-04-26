@@ -38,7 +38,7 @@ export class Editor {
         //TODO get from params map instead and delete helper class
         let unsavedContent = window.localStorage.getItem(this.unsavedContentKey);
         if(unsavedContent){
-            if(!confirm('There are unsaved changes. Use them?')) {
+            if(!confirm('There are unsaved changes. Use them? Cancel to discard changes')) {
                 unsavedContent = undefined;
                 window.localStorage.removeItem(this.unsavedContentKey);
             }
