@@ -1,0 +1,6 @@
+<template>
+    <form submit.trigger="inputItem()">
+        <input placeholder="${placeholder}" value.bind="currentItem">
+    </form>
+    <button class="deleteButton" repeat.for="item of items" click.trigger="removeItem($index)">${item} x</button>
+</template>
