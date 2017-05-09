@@ -1,13 +1,13 @@
 import {bindable} from 'aurelia-framework'
 export class MultiSelectBox {
-    @bindable items = [];
+    @bindable items = new Set();
     @bindable placeholder;
     currentItem;
     inputItem() {
-        this.items.push(this.currentItem);
+        this.items.add(this.currentItem);
         this.currentItem = undefined;
     }
-    removeItem(itemIndex) {
-        this.items.splice(itemIndex, 1);
+    removeItem(item) {
+        this.items.delete(item);
     }
 }

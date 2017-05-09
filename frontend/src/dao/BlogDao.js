@@ -118,7 +118,7 @@ export class BlogDao {
                     'heroPhotoUrl': post.heroPhotoUrl,
                     'isDraft':post.isDraft,
                     'images':post.images,
-                    'tags': post.tags
+                    'tags': Array.from(post.tags)
                 };
         if(post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
             postData['location'] = post.locationInfo.name;
@@ -146,7 +146,7 @@ export class BlogDao {
                     'heroPhotoUrl': post.heroPhotoUrl,
                     'isDraft':post.isDraft,
                     'images':post.images,
-                    'tags':post.tags
+                    'tags':Array.from(post.tags)
                 };
         if(post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
             postData['location'] = post.locationInfo.name;
@@ -178,7 +178,7 @@ export class BlogDao {
                     'heroPhotoUrl': post.heroPhotoUrl,
                     'isDraft':post.isDraft,
                     'images':post.images,
-                    'tags': post.tags
+                    'tags': Array.from(post.tags)
                 }),
             })
             .then(response => {

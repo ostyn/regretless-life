@@ -74,7 +74,9 @@ export class Editor {
                     if(!this.post.images)
                         this.post.images = [];
                     if(!this.post.tags)
-                        this.post.tags = [];
+                        this.post.tags = new Set();
+                    else
+                        this.post.tags = new Set(this.post.tags);
                 });
             else
                 return this.blogDao.getPost(params.id).then((post) => {
@@ -86,7 +88,9 @@ export class Editor {
                     if(!this.post.images)
                         this.post.images = [];
                     if(!this.post.tags)
-                        this.post.tags = [];
+                        this.post.tags = new Set();
+                    else
+                        this.post.tags = new Set(this.post.tags);
                 });
         }
         else {
@@ -94,7 +98,7 @@ export class Editor {
                 'content': unsavedContent,
                 'isDraft': true,
                 'images':[],
-                'tags':[]
+                'tags':new Set()
         };
         }
     }
