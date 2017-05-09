@@ -7,6 +7,7 @@ import {UserService} from 'services/userService';
 export class Editor {
     editing = false;
     activelyContactingServer = false;
+    message = "There are unsaved changes. Sure you want to leave?";
     @observable markdown;
     userComparer = (userA, userBname) => 
     {
@@ -33,6 +34,10 @@ export class Editor {
         this.router = router;
         this.userService = userService;
     }
+    canDeactivate(params, routeConfig, navigationInstruction){
+        if(window.localStorage.getItem(this.unsavedContentKey))
+            return confirm(this.message);
+    }
     activate(params, routeConfig, navigationInstruction) {
         this.unsavedContentKey = "unsavedMarkdown" + params["id"];
 
@@ -43,6 +48,20 @@ export class Editor {
                 window.localStorage.removeItem(this.unsavedContentKey);
             }
         }
+
+        window.onbeforeunload = (e) => {
+            if(!window.localStorage.getItem(this.unsavedContentKey))
+                return;
+            e = e || window.event;
+            // For IE and Firefox
+            if (e) {
+                e.returnValue = this.message;
+            }
+
+            // For Safari
+            return this.message;
+        };
+
         if(params.id) {
             this.editing = true;
             if(params.isDraft === 'true')
