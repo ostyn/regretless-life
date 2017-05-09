@@ -3,6 +3,7 @@
     <require from="converters/string-to-array"></require>
     <require from="widgets/onedrive-browser"></require>
     <require from="widgets/editor-widget"></require>
+    <require from="widgets/multi-select-box"></require>
     <div class="contentArea">
         <div class="siteBody">
             <div>
@@ -19,6 +20,9 @@
                     </p>
                     <p>
                         <input class="textbox" type="text" placeholder="place" value.bind="post.locationInfo.name"></input>
+                    </p>
+                    <p>
+                        <multi-select-box items.bind="post.tags" placeholder="enter tags here..."></multi-select-box>
                     </p>
                     <p>
                         <input class="textbox" type="text" placeholder="hero photo url" value.bind="post.heroPhotoUrl"></input>

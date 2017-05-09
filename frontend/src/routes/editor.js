@@ -73,6 +73,8 @@ export class Editor {
                         this.post.locationInfo = {};
                     if(!this.post.images)
                         this.post.images = [];
+                    if(!this.post.tags)
+                        this.post.tags = [];
                 });
             else
                 return this.blogDao.getPost(params.id).then((post) => {
@@ -83,13 +85,16 @@ export class Editor {
                         this.post.locationInfo = {};
                     if(!this.post.images)
                         this.post.images = [];
+                    if(!this.post.tags)
+                        this.post.tags = [];
                 });
         }
         else {
             this.post = {
                 'content': unsavedContent,
                 'isDraft': true,
-                'images':[]
+                'images':[],
+                'tags':[]
         };
         }
     }

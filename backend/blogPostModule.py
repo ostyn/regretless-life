@@ -31,6 +31,7 @@ def construct_blueprint(postsCollection, emailsCollection, mail):
                 'comments': [],
                 'isDraft': True,
                 'images': jsonData['images'],
+                'tags':jsonData.get('tags', []),
                 'locationInfo': {}
             }
             if('location' in jsonData):
@@ -51,6 +52,7 @@ def construct_blueprint(postsCollection, emailsCollection, mail):
                 "dateLastEdited":getDateInMilliseconds(),
                 'isDraft': jsonData['isDraft'],
                 'images': jsonData['images'],
+                'tags': jsonData.get('tags', []),
                 'locationInfo': {}
             }
             if('location' in jsonData):

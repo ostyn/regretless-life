@@ -105,7 +105,7 @@ body {
 	font-size: 16px;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.textbox{
+.textbox, multi-select-box input{
     background-color: inherit;
     border: none;
     border-left: 1px solid black;
@@ -117,7 +117,7 @@ body {
 	padding-right: 15px;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.textarea:focus, .textbox:focus{
+.textarea:focus, .textbox:focus, multi-select-box input:focus{
     outline: 1px dashed gray;
 }
 .editable:focus{
@@ -390,4 +390,7 @@ onedrive-browser{
 .commentHeader{
     display: flex;
     align-items:center;
+}
+multi-select-box form{
+    display: inline-block;
 }
