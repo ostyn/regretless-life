@@ -7,7 +7,7 @@
         <post-widget 
             repeat.for="post of posts" 
             post.bind="post" 
-            content-length=200 
+            content-length.bind="previewLength" 
             show-title-link=true 
             show-comments-link=true 
             use-long-author-date=false 
