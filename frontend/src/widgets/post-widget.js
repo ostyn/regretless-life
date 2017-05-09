@@ -9,6 +9,7 @@ export class PostWidget {
     @bindable useLongAuthorDate = true;
     @bindable contentLength = -1;
     @bindable showCommentsLink = false;
+    @bindable showTagLinks = true;
     @bindable showLastEditedDate = true;
     constructor(formatLib, userService) {
         this.formatLib = formatLib;

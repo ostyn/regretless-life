@@ -31,6 +31,9 @@
         <div if.bind="showCommentsLink" class="grey small">
             <a route-href="route: post; params.bind: { id: post._id }">${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</a>
         </div>
+        <div if.bind="showTagLinks" class="grey small">
+            <span repeat.for="tag of post.tags">${tag}</span>
+        </div>
         <slot name="optionalControls"></slot>
     </div>
 </template>
