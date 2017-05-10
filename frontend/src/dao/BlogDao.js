@@ -53,6 +53,18 @@ export class BlogDao {
                 console.log(ex);
             });
     }
+    getNTaggedPosts(tag, start, num) {
+        return this.http.fetch('getNTaggedPosts?tag=' + tag + "&start=" + start + "&num=" + num)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data.resp;
+            })
+            .catch(ex => {
+                console.log(ex);
+            });
+    }
     getPost(id) {
         return this.http.fetch('getPost?id=' + id)
             .then(response => {

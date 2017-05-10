@@ -12,6 +12,7 @@ export class App {
       { route: ['', 'blog'], moduleId: './routes/post-list-base',nav: false, title: 'blog', name:['', 'blog'] },
       { route: 'drafts', moduleId: './routes/post-list-draft',nav: false, title: 'drafts', name:'drafts', auth: true },
       { route: 'search', moduleId: './routes/post-list-search',nav: false, title: 'search', name:'search' },
+      { route: 'tag/:tag', moduleId: './routes/post-list-tag',nav: false, title: 'tag', name:'tag' },
       { route: 'editor', moduleId: './routes/editor',nav: false, title: 'editor', name:'editor', auth:true},
       { route: 'post/:id', moduleId: './routes/post', name:'post', nav: false, title: config.title },
       { route: 'about', moduleId: './routes/post', name:'about', nav: true, title: 'about us'},

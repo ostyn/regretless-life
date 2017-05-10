@@ -184,6 +184,18 @@ def construct_blueprint(postsCollection, emailsCollection, mail):
         posts = postsCollection.find(buildQueryObject(query, isDraft), {"comments.email": False}).sort('date', direction=-1).limit(num).skip(start)
         return jsonify({'resp':{'posts': list(posts), 'remainingPosts': getNumberOfPosts(query, isDraft)-num-start}})
 
+    @blogPostModule.route("/getNTaggedPosts", methods=['GET'])
+    def getNTaggedPosts(isDraft = False):
+        tag = request.args.get('tag')
+        start = request.args.get('start', 0)
+        num = request.args.get('num')
+        if not(check_int(start)) or not(check_int(num)):
+            return jsonify({'error':"One of the params is not a number"})
+        start = int(start)
+        num = int(num)
+        posts = postsCollection.find({'tags':tag}, {"comments.email": False}).sort('date', direction=-1).limit(num).skip(start)
+        return jsonify({'resp':{'posts': list(posts), 'remainingPosts': getNumberOfPostsWithTag(tag, isDraft)-num-start}})
+
     @blogPostModule.route("/getDraftPost", methods=['GET'])
     @jwt_required()
     def getDraftPost():
@@ -289,6 +301,10 @@ def construct_blueprint(postsCollection, emailsCollection, mail):
     def getNumberOfPosts(query, isDraft = False):
         id = request.args.get('id')
         count = postsCollection.find(buildQueryObject(query, isDraft)).count()
+        return count
+    def getNumberOfPostsWithTag(tag, isDraft = False):
+        id = request.args.get('id')
+        count = postsCollection.find({'tags':tag}).count()
         return count
 
     def check_int(s):
