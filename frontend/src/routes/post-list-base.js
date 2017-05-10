@@ -26,7 +26,7 @@ export class PostListBase{
             });
     }
     activate(params, routeConfig, navigationInstruction) {
-        this.routeName = routeConfig.route;
+        this.routeName = routeConfig.name;
         if(params.start)
             this.start = parseInt(params.start);
         return this.getData(params);
