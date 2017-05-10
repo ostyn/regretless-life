@@ -1,0 +1,27 @@
+<template>
+    <require from="widgets/post-widget"></require>
+    <section class="contentArea">
+        <div class="siteBody blogPostBody" show.bind="query != undefined">
+            Search Results for "${query}"
+        </div>
+        <post-widget 
+            repeat.for="post of posts" 
+            post.bind="post" 
+            content-length.bind="previewLength" 
+            show-title-link=true 
+            show-comments-link=true 
+            use-long-author-date=false 
+            show-last-edited-date=false
+            show-map-button=false>
+        </post-widget>
+        <div class="siteBody blogPostBody" show.bind="posts.length == 0">
+            Couldn't find any posts. Sorry :(
+        </div>
+        <div show.bind="start != 0">
+            <a class="nextPrevPageLink" route-href="route.bind: routeName; params.bind: getNextLinkParams">${nextText}</a>
+        </div>
+        <div  show.bind="remainingPosts > 0">
+            <a class="nextPrevPageLink" route-href="route.bind: routeName; params.bind: getPrevLinkParams">${prevText}</a>
+        </div>
+    </section>
+</template>

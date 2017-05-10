@@ -9,9 +9,9 @@ export class App {
     config.addPipelineStep('authorize', AuthorizeStep);
     config.addPipelineStep('postcomplete', PostCompleteStep);
     config.map([
-      { route: ['', 'blog'], moduleId: './routes/blog',nav: false, title: 'blog', name:['', 'blog'] },
-      { route: 'drafts', moduleId: './routes/blog',nav: false, title: 'drafts', name:'drafts', auth: true },
-      { route: 'search', moduleId: './routes/blog',nav: false, title: 'search', name:'search' },
+      { route: ['', 'blog'], moduleId: './routes/post-list-base',nav: false, title: 'blog', name:['', 'blog'] },
+      { route: 'drafts', moduleId: './routes/post-list-draft',nav: false, title: 'drafts', name:'drafts', auth: true },
+      { route: 'search', moduleId: './routes/post-list-search',nav: false, title: 'search', name:'search' },
       { route: 'editor', moduleId: './routes/editor',nav: false, title: 'editor', name:'editor', auth:true},
       { route: 'post/:id', moduleId: './routes/post', name:'post', nav: false, title: config.title },
       { route: 'about', moduleId: './routes/post', name:'about', nav: true, title: 'about us'},
