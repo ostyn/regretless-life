@@ -5,7 +5,7 @@
             Search Results for "${query}"
         </div>
         <div class="siteBody blogPostBody" show.bind="tag != undefined">
-            <a route-href="route.bind:'blog'" class="tagButton">${tag} x</a>
+            <a click.trigger="router.navigateBack()" class="tagButton">${tag} x</a>
         </div>
         <post-widget 
             repeat.for="post of posts" 
