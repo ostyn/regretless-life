@@ -1,6 +1,7 @@
 <template>
-    <form submit.trigger="inputItem()">
-        <input placeholder="${placeholder}" value.bind="currentItem">
+    <form submit.trigger="selectItem(currentItem)">
+        <input focus.bind="focusTextBox" placeholder="${placeholder}" value.bind="currentItem & debounce:200">
     </form>
-    <button class="deleteButton" repeat.for="item of items" click.trigger="removeItem(item)">${item} x</button>
+    <a class="tagButton" click.trigger="selectItem(item)" repeat.for="item of matchingItems">${item}</a>
+    <button class="deleteButton" repeat.for="item of selectedItems" click.trigger="removeItem(item)">${item} x</button>
 </template>

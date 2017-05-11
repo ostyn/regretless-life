@@ -22,7 +22,7 @@
                         <input class="textbox" type="text" placeholder="place" value.bind="post.locationInfo.name"></input>
                     </p>
                     <p>
-                        <multi-select-box items.bind="post.tags" placeholder="enter tags here..."></multi-select-box>
+                        <multi-select-box available-items.bind="availableTags" selected-items.bind="post.tags" placeholder="enter tags here..."></multi-select-box>
                     </p>
                     <p>
                         <input class="textbox" type="text" placeholder="hero photo url" value.bind="post.heroPhotoUrl"></input>

@@ -8,6 +8,7 @@ export class Editor {
     editing = false;
     activelyContactingServer = false;
     message = "There are unsaved changes. Sure you want to leave?";
+    availableTags = new Set();
     @observable markdown;
     userComparer = (userA, userBname) => 
     {
@@ -61,7 +62,10 @@ export class Editor {
             // For Safari
             return this.message;
         };
-
+        this.blogDao.getAvailableTags()
+            .then((tags)=>{
+                this.availableTags = new Set(tags);
+            });
         if(params.id) {
             this.editing = true;
             if(params.isDraft === 'true')
