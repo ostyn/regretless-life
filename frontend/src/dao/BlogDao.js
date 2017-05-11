@@ -121,6 +121,21 @@ export class BlogDao {
                 console.log(ex);
             });
     }
+    getAvailableTags() {
+        return this.http.fetch('getAvailableTags')
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                if(data.resp != null)
+                    return data.resp;
+                else
+                    return;
+            })
+            .catch(ex => {
+                console.log(ex);
+            });
+    }
     savePost(post) {
         let postData = {
                     'id': post._id,

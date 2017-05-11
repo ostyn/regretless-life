@@ -222,6 +222,11 @@ def construct_blueprint(postsCollection, emailsCollection, mail):
             prevPost = None
         return jsonify({'resp':{'next':nextPost,'prev':prevPost}})
 
+    @blogPostModule.route("/getAvailableTags", methods=['GET'])
+    def getAvailableTags(isDraft = False):
+        tags = list(postsCollection.aggregate([{'$unwind':'$tags'},{'$group':{'_id':1,'tags':{'$addToSet':'$tags'}}},{'$project':{'_id':False}}]))
+        return jsonify({'resp': tags[0]['tags']})
+
     @blogPostModule.route("/getAllPostsByLocation", methods=['GET'])
     def getAllPostsByLocation(isDraft = False):
         years = postsCollection.aggregate([
