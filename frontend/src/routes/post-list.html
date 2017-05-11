@@ -4,6 +4,9 @@
         <div class="siteBody blogPostBody" show.bind="query != undefined">
             Search Results for "${query}"
         </div>
+        <div class="siteBody blogPostBody" show.bind="tag != undefined">
+            <a route-href="route.bind:'blog'" class="tagButton">${tag} x</a>
+        </div>
         <post-widget 
             repeat.for="post of posts" 
             post.bind="post" 
@@ -12,6 +15,7 @@
             show-comments-link=true 
             use-long-author-date=false 
             show-last-edited-date=false
+            show-tag-links=false
             show-map-button=false>
         </post-widget>
         <div class="siteBody blogPostBody" show.bind="posts.length == 0">

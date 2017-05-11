@@ -394,3 +394,21 @@ onedrive-browser{
 multi-select-box form{
     display: inline-block;
 }
+.tagButton {
+    font-size: 14px;
+    cursor: default; 
+    display: inline-block;
+    border: black solid 1px;
+    padding: 10px;
+    margin: 5px;
+    font-family: "Open Sans";
+    background-color: #FDFCFD;
+}
+
+.tagButton:link, .tagButton:visited{
+    text-decoration: none !important;
+}
+.tagButton:active, .tagButton:hover{
+    text-decoration: none !important;
+    background-color: lightgray;
+}

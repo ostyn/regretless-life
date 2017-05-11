@@ -9,7 +9,7 @@ export class App {
     config.addPipelineStep('authorize', AuthorizeStep);
     config.addPipelineStep('postcomplete', PostCompleteStep);
     config.map([
-      { route: ['', 'blog'], moduleId: './routes/post-list-base',nav: false, title: 'blog', name:['', 'blog'] },
+      { route: ['', 'blog'], moduleId: './routes/post-list-base',nav: false, title: 'blog', name:'blog' },
       { route: 'drafts', moduleId: './routes/post-list-draft',nav: false, title: 'drafts', name:'drafts', auth: true },
       { route: 'search', moduleId: './routes/post-list-search',nav: false, title: 'search', name:'search' },
       { route: 'tag/:tag', moduleId: './routes/post-list-tag',nav: false, title: 'tag', name:'tag' },
