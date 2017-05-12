@@ -1,11 +1,11 @@
 <template>
     <require from="widgets/post-widget"></require>
     <section class="contentArea">
-        <div class="siteBody blogPostBody" show.bind="query != undefined">
+        <div class="blogPostBody" show.bind="query != undefined">
             Search Results for "${query}"
         </div>
-        <div class="siteBody blogPostBody" show.bind="tag != undefined">
-            <a click.trigger="router.navigateBack()" class="tagButton">${tag} x</a>
+        <div class="blogPostBody" show.bind="tag != undefined">
+            Posts tagged with: <div class="tagButton">${tag}</div>
         </div>
         <post-widget 
             repeat.for="post of posts" 
@@ -18,7 +18,7 @@
             show-tag-links=false
             show-map-button=false>
         </post-widget>
-        <div class="siteBody blogPostBody" show.bind="posts.length == 0">
+        <div class="blogPostBody" show.bind="posts.length == 0">
             Couldn't find any posts. Sorry :(
         </div>
         <div show.bind="start != 0">
