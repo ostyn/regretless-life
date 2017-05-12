@@ -337,6 +337,24 @@ def construct_blueprint(postsCollection, emailsCollection, mail):
                         {
                             '$regex':query, '$options':'i'
                         }
+                    },  
+                    {
+                        'locationInfo.name':
+                        {
+                            '$regex':query, '$options':'i'
+                        }
+                    }, 
+                    {
+                        'tags':
+                        {
+                            '$regex':query, '$options':'i'
+                        }
+                    }, 
+                    {
+                        'comments.content':
+                        {
+                            '$regex':query, '$options':'i'
+                        }
                     }
                 ]},
                 {'isDraft': 
