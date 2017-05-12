@@ -14,6 +14,9 @@
             <div repeat.for="row of router.navigation" class="menuItem ${row.isActive ? 'active' : ''}">
                 <a href.bind="row.href">${row.title}</a>
             </div>
+            <div class="menuItem">
+                <a class="${router.currentInstruction.fragment==='/tag/tips' ? 'active' : ''}" route-href="route.bind:'tag'; params.bind:{tag:'tips'}">tips</a>
+            </div>
             <expando callback.call="search($event, query)">
         </div>
     </div>
