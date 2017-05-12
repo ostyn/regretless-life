@@ -404,6 +404,12 @@ multi-select-box form{
     font-family: "Open Sans";
     background-color: #FDFCFD;
 }
+.tagButton:first-child {
+    margin-left: 0px;
+}
+button:first-child {
+    margin-left: 0px;
+}
 
 .tagButton:link, .tagButton:visited{
     text-decoration: none !important;
