@@ -1,5 +1,6 @@
 import {PostListBase} from 'routes/post-list-base';
 export class PostListTag extends PostListBase {
+    showTagLinks = true;
     getData(params){
         this.tag = params.tag;
         return this.blogDao.getNTaggedPosts(params.tag, this.start, this.num)
