@@ -14,13 +14,13 @@ export class MultiSelectBox {
     removeItem(item) {
         this.focusTextBox = true;
         this.selectedItems.delete(item);
-        this.buildMatchingItemsList();
+        if(this.currentItem)
+            this.buildMatchingItemsList();
     }
     currentItemChanged(newValue, oldValue){
         this.matchingItems = [];
-        if(this.currentItem === undefined || this.currentItem === '')
-            return;
-        this.buildMatchingItemsList();
+        if(this.currentItem)
+            this.buildMatchingItemsList();
     }
     buildMatchingItemsList(){
         for(let item of this.availableItems.entries()) {
