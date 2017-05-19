@@ -2,7 +2,9 @@ import trimHtml from 'trim-html';
 import striptags from 'striptags';
 export class TrimHtmlValueConverter {
   toView(value, length, suffix = "…") {
-    if(length < 0)
+    if(length == 0)
+      return "";
+    else if(length < 0)
       return value;
     else
       return striptags(trimHtml(value, { limit: length, suffix: suffix }).html, 
