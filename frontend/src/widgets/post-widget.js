@@ -11,6 +11,7 @@ export class PostWidget {
     @bindable showCommentsLink = false;
     @bindable showTagLinks = true;
     @bindable showLastEditedDate = true;
+    @bindable showAuthorDate = true;
     constructor(formatLib, userService) {
         this.formatLib = formatLib;
         this.userService = userService;
