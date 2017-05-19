@@ -1,5 +1,5 @@
 import {PostListBase} from 'routes/post-list-base';
-export class PostListTag extends PostListBase {
+export class PostListTags extends PostListBase {
     showTagLinks = true;
     getData(params){
         this.tag = params.tag;

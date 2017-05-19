@@ -33,7 +33,7 @@
         </p>
         <slot name="optionalControls"></slot>
         <div if.bind="showTagLinks==true">
-            <a class="tagButton" repeat.for="listedTag of post.tags" route-href="route: tag; params.bind: { tag:listedTag }">${listedTag}</a>
+            <a class="tagButton" repeat.for="listedTag of post.tags" route-href="route: tags; params.bind: { tag:listedTag }">${listedTag}</a>
         </div>
     </div>
 </template>

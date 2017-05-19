@@ -18,28 +18,20 @@ export class Post {
     }
     activate(params, routeConfig, navigationInstruction) {
         this.mapShown = false;
-        if(params.id) {
-            if(params.isDraft === 'true') {
-                return this.blogDao.getDraftPost(params.id).then((post) => {
-                    this.post = post;
-                    routeConfig.navModel.title = post.title;
-                });
-            }
-            else {
-                return this.blogDao.getPost(params.id).then((post) => {
-                    this.post = post;
-                    routeConfig.navModel.title = post.title;
-                    this.blogDao.getSurroundingPosts(this.post.date).then((surroundingPosts) => {
-                        this.nextPost = surroundingPosts.next;
-                        this.prevPost = surroundingPosts.prev;
-                    })
-                });
-            }
+        if(params.isDraft === 'true') {
+            return this.blogDao.getDraftPost(params.id).then((post) => {
+                this.post = post;
+                routeConfig.navModel.title = post.title;
+            });
         }
         else {
-            //let's load up the about page here
-            return this.blogDao.getPost('57ab6b3acf1e8c1be5bc7b10').then((post) => {
+            return this.blogDao.getPost(params.id).then((post) => {
                 this.post = post;
+                routeConfig.navModel.title = post.title;
+                this.blogDao.getSurroundingPosts(this.post.date).then((surroundingPosts) => {
+                    this.nextPost = surroundingPosts.next;
+                    this.prevPost = surroundingPosts.prev;
+                })
             });
         }
     }
