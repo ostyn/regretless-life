@@ -12,11 +12,12 @@
             post.bind="post" 
             content-length.bind="previewLength" 
             show-title-link=true 
-            show-comments-link=true 
-            use-long-author-date=false 
+            show-comments-link.bind="showCommentsLink"
+            use-long-author-date=false
             show-last-edited-date=false
             show-tag-links.bind='showTagLinks'
-            show-map-button=false>
+            show-map-button=false
+            show-author-date.bind='showAuthorDate'>
         </post-widget>
         <div class="blogPostBody" show.bind="posts.length == 0">
             Couldn't find any posts. Sorry :(

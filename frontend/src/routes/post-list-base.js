@@ -8,6 +8,8 @@ export class PostListBase{
     nextText = "newer posts";
     prevText = "older posts";
     previewLength = 200;
+    showCommentsLink = true;
+    showAuthorDate = true;
     start = 0;
     num = 5;
     posts = [];
