@@ -194,6 +194,7 @@ h2 {
 .expandedPostTitle {
     bottom: 0px;
     right: 0px;
+    font-size: 20px;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 10px;
     border-radius: 4px;
@@ -201,6 +202,10 @@ h2 {
 .headerImage {
     position:relative;
     min-height: 100px;
+    display: table-row;
+    border-radius: 4px;
+    width: auto;
+    max-width: 100%;
 }
 .header {
     position:relative;
@@ -269,6 +274,8 @@ h2 {
     left: 0px;
 }
 .blogPostBody * img {
+    margin-top: 10px;
+    margin-bottom: 10px;
     display: table-row;
     border-radius: 4px;
     width: auto;
@@ -437,8 +444,8 @@ button:first-child {
     overflow: hidden;
 }
 .tagsFeedPostWidget {
-    max-width: 19%;
-    min-width: 180px;
+    max-width: 23%;
+    min-width: 200px;
     display: inline-block;
     vertical-align: top;
     margin-right: 10px;

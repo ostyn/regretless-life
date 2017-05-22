@@ -2,7 +2,7 @@
     <require from="converters/trim-html-converter"></require>
     <require from="converters/markdown-format"></require>
     <require from="attributes/oneDriveProxyOnError"></require>
-    <div class="blogPostBody" show.bind="post != undefined">
+    <div show.bind="post != undefined">
 
         <center>
             <a if.bind="(showTitleLink === 'true' || showTitleLink === true)" class="titleLink" route-href="route: post; params.bind: getLinkParams(post)">
@@ -25,7 +25,7 @@
             <button class="mapButton" click.trigger="toggleMap()">${(mapShown)?'X':post.locationInfo.name}</button>
             <google-map if.bind="mapLoaded" show.bind="mapShown" address.bind="post.locationInfo.name" zoom="7"></google-map>
         </span>
-        <div innerhtml.bind="post.content | markdownFormat | trimHtml : contentLength"></div>
+        <div class="blogPostBody" innerhtml.bind="post.content | markdownFormat | trimHtml : contentLength"></div>
         <div if.bind="(showLastEditedDate === 'true' || showLastEditedDate === true) && post.dateLastEdited != undefined">
             <p class="grey">Updated on ${formatLib.secondsToDate(post.dateLastEdited)} at ${formatLib.secondsToTime(post.dateLastEdited)}</p>
         </div>
