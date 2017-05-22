@@ -1,17 +1,16 @@
 <template>
-    <section class="contentArea">
-        <div class="siteBody">
-            <form>
-                <p>
-                    <input class="textbox" type="text" value.bind="email" placeholder="email" focus="true"></input>
-                </p>
-                <p>
-                    <input class="textbox" type="password" value.bind="password" placeholder="password"></input>
-                </p>
-                <p>
-                    <button name="submit" click.trigger='userService.login(email, password)'>login</button>
-                </p>
-            </form>
-        </div>
+    <section>
+        <span class="routeTitle">Login</span>
+        <form>
+            <p>
+                <input class="textbox" type="text" value.bind="email" placeholder="email" focus="true"></input>
+            </p>
+            <p>
+                <input class="textbox" type="password" value.bind="password" placeholder="password"></input>
+            </p>
+            <p>
+                <button name="submit" click.trigger='userService.login(email, password)'>login</button>
+            </p>
+        </form>
     </section>
 </template>

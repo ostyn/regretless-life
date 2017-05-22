@@ -10,6 +10,8 @@ export class PostListBase{
     previewLength = 200;
     showCommentsLink = true;
     showAuthorDate = true;
+    widgetCssRule = "regularFeedPostWidget";
+    expandPostTitle = false;
     start = 0;
     num = 5;
     posts = [];

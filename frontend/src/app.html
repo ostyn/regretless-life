@@ -8,9 +8,9 @@
   <loading-indicator loading.bind="router.isNavigating"></loading-indicator>
   <nav-bar class="navbar"></nav-bar>
   <div class="appContainer">
-    <div class="content">
-      <router-view></router-view>
+    <div class="appBody">
+      <info-section class="sidebar"></info-section>
+      <router-view class="content"></router-view>
     </div>
-    <info-section class="sidebar"></info-section>
   </div>
 </template>

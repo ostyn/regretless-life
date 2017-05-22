@@ -2,7 +2,9 @@
     <div if.bind="userService.isAuthenticated && userService.usersName">
         Hey, ${userService.usersName}. What's up?
     </div>
-    <center><img width=150 height=150 src="src/widgets/us.jpg"></center>
+    <div>
+        <img class="infoSectionImage" width=150 height=150 src="src/widgets/us.jpg">
+    </div>
     <div class="infoSectionTitleContainer">
         <div class="infoSectionTitle">who are we?</div>
     </div>

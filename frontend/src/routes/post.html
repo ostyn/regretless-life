@@ -1,7 +1,7 @@
 <template>
     <require from="converters/markdown-format"></require>
     <require from="widgets/post-widget"></require>
-    <section class="contentArea">
+    <section>
         <post-widget post.bind="post">
             <div slot="optionalControls" class="nextPrevLink">
                 <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="left">
@@ -12,12 +12,12 @@
                 </a>
             </div>
         </post-widget>
-        <div class="siteBody" show.bind="post == undefined">
+        <div show.bind="post == undefined">
             Couldn't find that post. Sorry :(
         </div>
     </section>
-    <section class="contentArea comments">
-        <div class="siteBody">
+    <section class="comments">
+        <div>
             <p class="small">Talk in the boxes down there. We'll talk back!</p>
             <h3>${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</h3>
             <div class="comment" repeat.for="comment of post.comments">
@@ -31,8 +31,8 @@
             </div>
         </div>
     </section>
-    <section class="contentArea postComment">
-        <div class="siteBody">
+    <section class="postComment">
+        <div>
             <p>
                 <input if.bind="!userService.isAuthenticated" class="textbox" placeholder="Name" value.bind="comment.name"></input>
                 <span if.bind="userService.isAuthenticated">${userService.usersName}</span>

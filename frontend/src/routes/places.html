@@ -1,9 +1,9 @@
 <template>
     <require from="../widgets/vector-map"></require>
     <link rel="stylesheet" href="../../node_modules/flag-icon-css/css/flag-icon.min.css">
-    <section class="contentArea">
-        <div class="mapContainer siteBody">
-            <h1>Places</h1>
+    <section>
+        <span class="routeTitle">Places</span>
+        <div class="mapContainer">
             <vector-map if.bind="values" values.bind="values" id="myMap" click-callback.call="toggleList($event, name)"></vector-map>
             <div class="columns">
                 <div repeat.for="year of years" class="columnOfPosts">

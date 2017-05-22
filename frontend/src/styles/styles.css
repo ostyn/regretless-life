@@ -4,18 +4,18 @@ body {
     font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .content{
-    width:100%;
-    float:left;
-    margin-right:-200px;
-}
-.info{
-    width:178px;
-    float:left;
-    padding-top: 20px;
+    max-width: 1024px;
+    overflow: hidden;
 }
 .appContainer {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 40px;
+}
+.appBody {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1024px;
 }
 .active{
 	opacity: .25;
@@ -37,16 +37,14 @@ body {
     text-decoration: none;
     color: gray;
 }
-.siteBody {
-    margin-bottom: 48px;
-    margin-right:220px;
-}
 @media (max-width: 650px) {
     .sidebar{
         display: none;
     }
-    .siteBody {
-        margin-right: 0px;
+    .menuInfo{
+        width:180px;
+        margin-left: auto;
+        margin-right: auto;
     }
     .logo {
         font-weight: 400;
@@ -58,21 +56,25 @@ body {
     .mobile-menu{
         float: right;
         padding-right: 20px;
+        padding-left: 20px;
         font-weight: 300;
         font-size: 48px;
         cursor: pointer;
     }
     .mobile-menu-dropdown {
         display: flex;
-        margin: 0px;
+        margin-top: 10px;
         padding-right: 20px;
-    }
-    info-section {
-        margin-left: auto;
-        margin-right: auto;
+        padding-left: 20px;
     }
 }
 @media (min-width: 651px) {
+    .sidebar{
+        margin-left: 40px;
+        margin-bottom: 40px;
+        width:180px;
+        float:right;        
+    }
     .logo {
         font-weight: 400;
         font-size: 48px;
@@ -95,6 +97,10 @@ body {
     align-items:center;
     margin-left: auto;
     margin-right: auto;
+}
+.navbar {
+    margin-bottom: 40px;
+    display: block;
 }
 .textarea {
     background-color: inherit;
@@ -137,8 +143,7 @@ h2{
     font-weight: 300;
 }
 .postEditor {
-    display: inline-block;
-    width: 100%;
+    display: block;
     border-left: 1px solid black;
     height: 600px;
     overflow: scroll;
@@ -201,27 +206,18 @@ h2{
     min-height: 100px;
 }
 .header{
-    width:100%;
     position:relative;
-    float:left;
     clear:none;
     overflow:hidden;
 }
 .comment {
     padding-bottom: 20px;
 }
-.contentArea {
-    max-width: 1464px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
-}
 .comments {
-    padding: 20px;
+    max-width: 50%;
     margin-bottom: 20px;
 }
 .postComment {
-    padding: 20px;
     margin-bottom: 20px;
 }
 .nextPrevLink {
@@ -241,22 +237,26 @@ h2{
     font-size: 20px;
 }
 .infoSectionTitleContainer{
-    display:flex;
     border-top: 1px solid #9a9a9a;
     border-bottom: 1px solid #9a9a9a;
-    clear: both;
+    margin-bottom: 5px;
 }
 .infoSectionTitle {
     margin-top: 5px;
     margin-bottom: 5px;
     font-size: 20px;
     font-weight: 300;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: center;
 }
 .infoSectionContent{
     font-size: 14px;
     line-height: 22px;
+}
+.infoSectionImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
 }
 .nextPrevPageLink {
     font-weight: 300;
@@ -272,7 +272,6 @@ h2{
     left: 0px;
 }
 .blogPostBody * img{
-    margin-bottom: 10px;
     display: table-row;
     border-radius: 4px;
     width: auto;
@@ -305,10 +304,9 @@ google-map {
     margin-bottom: 15px;
 }
 .mapButton {
-    float: right;
-    position: relative;
-    z-index: 1;
-    right: 0;
+    min-width: 80px;
+    float: left;
+    margin-right: 20px;
     text-align: center;
 }
 #myMap {
@@ -395,6 +393,9 @@ multi-select-box form{
     display: inline-block;
 }
 .tagButton {
+    font-variant-caps: all-small-caps;
+    min-width: 60px;
+    text-align: center;
     font-size: 14px;
     cursor: default; 
     display: inline-block;
@@ -403,6 +404,11 @@ multi-select-box form{
     margin: 5px;
     font-family: "Open Sans";
     background-color: #FDFCFD;
+}
+.routeTagButton {
+    margin-left: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .tagButton:first-child {
     margin-left: 0px;
@@ -417,4 +423,53 @@ button:first-child {
 .tagButton:active, .tagButton:hover{
     text-decoration: none !important;
     background-color: lightgray;
+}
+.jvectormap-container {
+    width: auto !important;
+}
+.routeTitle{
+    font-size: 20px;
+    display: block;
+    font-weight: bold;
+    font-variant-caps: all-small-caps;
+}
+.regularFeedPostWidget {
+    margin-bottom: 40px;
+    display: block;
+}
+.searchFeedPostWidget {
+    max-width: 20%;
+    min-width: 180px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+    overflow: hidden;
+}
+.tagsFeedPostWidget {
+    max-width: 19%;
+    min-width: 180px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.expandedPostTitle {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgba(255,255,255,0.8);
+    padding: 10px;
+    font-size: 24px;
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    border-radius: 4px;
+}
+.authorDateLine {
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
