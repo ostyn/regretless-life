@@ -3,7 +3,7 @@ body {
     margin: 0;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.content{
+.content {
     max-width: 1024px;
     overflow: hidden;
 }
@@ -17,10 +17,10 @@ body {
     margin-right: auto;
     max-width: 1024px;
 }
-.active{
+.active {
 	opacity: .25;
 }
-.menuItem{
+.menuItem {
     font-weight: 300;
     font-size: 20px;
     display: inline-block;
@@ -29,19 +29,19 @@ body {
     padding-top: 5px;
     padding-bottom: 5px;
 }
-.menuItem > a:link, .menuItem > a:visited{
+.menuItem > a:link, .menuItem > a:visited {
     text-decoration: none;
     color: black;
 }
-.menuItem > a:active, .menuItem > a:hover{
+.menuItem > a:active, .menuItem > a:hover {
     text-decoration: none;
     color: gray;
 }
 @media (max-width: 650px) {
-    .sidebar{
+    .sidebar {
         display: none;
     }
-    .menuInfo{
+    .menuInfo {
         width:180px;
         margin-left: auto;
         margin-right: auto;
@@ -53,7 +53,7 @@ body {
         float: left;
         padding: 20px;
     }
-    .mobile-menu{
+    .mobile-menu {
         float: right;
         padding-right: 20px;
         padding-left: 20px;
@@ -69,11 +69,11 @@ body {
     }
 }
 @media (min-width: 651px) {
-    .sidebar{
+    .sidebar {
         margin-left: 40px;
         margin-bottom: 40px;
         width:180px;
-        float:right;        
+        float:right;
     }
     .logo {
         font-weight: 400;
@@ -82,17 +82,17 @@ body {
         margin-top: 0.5em;
         margin-bottom: 0.5em;
     }
-    .mobile-menu, .mobile-menu-dropdown{
+    .mobile-menu, .mobile-menu-dropdown {
         display: none;
     }
 }
-.menuContainer{
+.menuContainer {
     display:flex;
     border-top: 1px solid #9a9a9a;
     border-bottom: 1px solid #9a9a9a;
     clear: both;
 }
-.menu{
+.menu {
     display:flex;
     align-items:center;
     margin-left: auto;
@@ -106,40 +106,37 @@ body {
     background-color: inherit;
     border: none;
     border-left: 1px solid black;
-	padding: 15px;
-	height: 40px;
-	font-size: 16px;
+    padding: 15px;
+    height: 40px;
+    font-size: 16px;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.textbox, multi-select-box input{
+.textbox, multi-select-box input {
     background-color: inherit;
     border: none;
     border-left: 1px solid black;
     width: 150px;
-	padding: 3px;
-	height: 40px;
-	font-size: 16px;
-	padding-left: 15px;
-	padding-right: 15px;
+    padding: 3px;
+    height: 40px;
+    font-size: 16px;
+    padding-left: 15px;
+    padding-right: 15px;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.textarea:focus, .textbox:focus, multi-select-box input:focus{
+.textarea:focus, .textbox:focus, multi-select-box input:focus {
     outline: 1px dashed gray;
-}
-.editable:focus{
-    outline: none;
 }
 img {
     border-radius: 4px;
 }
-h2{
+h2 {
     font-weight: 400;
 }
-.small{
-	font-size: 14px;
+.small {
+    font-size: 14px;
 }
-.grey{
-	color: #777;
+.grey {
+    color: #777;
     font-weight: 300;
 }
 .postEditor {
@@ -150,7 +147,7 @@ h2{
     overflow-x: hidden;
     overflow-y: auto;
 }
-.editable{
+.editable {
     height: auto;
     padding: 15px;
     padding-left: 30px;
@@ -158,30 +155,23 @@ h2{
     min-height: 570px !important;
     background-color: inherit;
     border: none;
-	font-size: 16px;
+    font-size: 16px;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.editable > p:first-child  {
+.editable > p:first-child {
     margin-top: 0px;
 }
-.editable > p:last-child  {
+.editable > p:last-child {
     margin-bottom: 0px;
 }
-.right {
+.editable:focus {
+    outline: none;
+}
+.nextPost {
     float: right;
 }
-.left {
+.prevPost {
     float: left;
-}
-.title {
-    background-color: rgba(120, 120, 120, 0.35);
-    color: rgba(255,255,255,0.8);
-    padding:20px;
-    font-size: 24px;
-    font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 500;
-    border-top-left-radius: 4px;
-    display: inline-block
 }
 .titleLink:visited, .titleLink:hover, .titleLinktitle:active, .titleLink:link {
     text-decoration: none;
@@ -201,11 +191,18 @@ h2{
     font-weight: 500;
     border-top-left-radius: 4px;
 }
+.expandedPostTitle {
+    bottom: 0px;
+    right: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 4px;
+}
 .headerImage {
     position:relative;
     min-height: 100px;
 }
-.header{
+.header {
     position:relative;
     clear:none;
     overflow:hidden;
@@ -217,7 +214,7 @@ h2{
     max-width: 50%;
     margin-bottom: 20px;
 }
-.postComment {
+.addComment {
     margin-bottom: 20px;
 }
 .nextPrevLink {
@@ -236,7 +233,7 @@ h2{
     font-family: "Petit Formal Script";
     font-size: 20px;
 }
-.infoSectionTitleContainer{
+.infoSectionTitleContainer {
     border-top: 1px solid #9a9a9a;
     border-bottom: 1px solid #9a9a9a;
     margin-bottom: 5px;
@@ -248,7 +245,7 @@ h2{
     font-weight: 300;
     text-align: center;
 }
-.infoSectionContent{
+.infoSectionContent {
     font-size: 14px;
     line-height: 22px;
 }
@@ -264,20 +261,20 @@ h2{
     text-decoration: none;
     padding-bottom: 20px;
 }
-.hero{
+.heroImagePreview {
     width:100px !important;
     vertical-align: middle;
     display: inline-block !important;
     position: relative;
     left: 0px;
 }
-.blogPostBody * img{
+.blogPostBody * img {
     display: table-row;
     border-radius: 4px;
     width: auto;
     max-width: 100%;
 }
-.blogPostBody * iframe{
+.blogPostBody * iframe {
     margin-top: 10px;
     margin-bottom: 10px;
     display: table-row;
@@ -318,39 +315,39 @@ google-map {
 }
 .placesList li {
     cursor: pointer;
-	list-style: none;
+    list-style: none;
     margin-top: 10px;
 }
-.placesList{
+.placesList {
     margin-left:0px;
     padding-left:0px;
 }
 .placesList li:before {
-	content: "\00BB \0020";
+    content: "\00BB \0020";
 }
-.columnOfPosts{
+.columnOfPosts {
     width: 200px;
     display:inline-block;
     vertical-align: top;
 }
-.flag-icon{
+.flag-icon {
     margin: 5px;
 }
-.columns{
+.columns {
     margin-bottom: 20px;
 }
-.accordion{
+.accordion {
     cursor: pointer;
     padding: 5px;
 }
-onedrive-browser{
+onedrive-browser {
     margin-top: 11px;
     display: flex;
 }
 .imagePreview {
     display: inline-block;
 }
-.imagePreviews{
+.imagePreviews {
     height: 200px;
     width: auto;
     display: flex;
@@ -361,13 +358,13 @@ onedrive-browser{
 .sizeInputs {
     width: 100px;
 }
-.logo1{
+.logo1 {
 	margin-left: auto;
     margin-right: auto;
     font-family: 'Petit Formal Script', 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgb(18,141,167);
 }
-.logo2{
+.logo2 {
     font-family: 'Cinzel', "Palatino Linotype", "Book Antiqua", Palatino, serif;
     color: rgb(0,0,0);
 }
@@ -385,11 +382,11 @@ onedrive-browser{
     width: 40px;
     padding: 5px;
 }
-.commentHeader{
+.commentHeader {
     display: flex;
     align-items:center;
 }
-multi-select-box form{
+multi-select-box form {
     display: inline-block;
 }
 .tagButton {
@@ -405,29 +402,23 @@ multi-select-box form{
     font-family: "Open Sans";
     background-color: #FDFCFD;
 }
-.routeTagButton {
-    margin-left: 0px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 .tagButton:first-child {
     margin-left: 0px;
+}
+.tagButton:link, .tagButton:visited {
+    text-decoration: none !important;
+}
+.tagButton:active, .tagButton:hover {
+    text-decoration: none !important;
+    background-color: lightgray;
 }
 button:first-child {
     margin-left: 0px;
 }
-
-.tagButton:link, .tagButton:visited{
-    text-decoration: none !important;
-}
-.tagButton:active, .tagButton:hover{
-    text-decoration: none !important;
-    background-color: lightgray;
-}
 .jvectormap-container {
     width: auto !important;
 }
-.routeTitle{
+.routeTitle {
     font-size: 20px;
     display: block;
     font-weight: bold;
@@ -452,22 +443,6 @@ button:first-child {
     vertical-align: top;
     margin-right: 10px;
     margin-bottom: 10px;
-}
-.expandedPostTitle {
-    display: block;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: rgba(255,255,255,0.8);
-    padding: 10px;
-    font-size: 24px;
-    font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 500;
-    border-radius: 4px;
 }
 .authorDateLine {
     margin-bottom: 10px;

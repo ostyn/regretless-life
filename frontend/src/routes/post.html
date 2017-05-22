@@ -4,10 +4,10 @@
     <section>
         <post-widget post.bind="post">
             <div slot="optionalControls" class="nextPrevLink">
-                <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="left">
+                <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="prevPost">
                     << ${prevPost.title} 
                 </a>
-                <a if.bind="nextPost" route-href="route: post; params.bind: { id: nextPost.id }" class="right">
+                <a if.bind="nextPost" route-href="route: post; params.bind: { id: nextPost.id }" class="nextPost">
                     ${nextPost.title} >>
                 </a>
             </div>
@@ -31,7 +31,7 @@
             </div>
         </div>
     </section>
-    <section class="postComment">
+    <section class="addComment">
         <div>
             <p>
                 <input if.bind="!userService.isAuthenticated" class="textbox" placeholder="Name" value.bind="comment.name"></input>
