@@ -217,6 +217,7 @@ h2 {
 }
 .comments {
     max-width: 50%;
+    min-width: 200px;
     margin-bottom: 20px;
 }
 .addComment {
