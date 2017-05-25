@@ -2,8 +2,6 @@ import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
 @inject(HttpClient)
 export class BlogDao {
-    posts = [];
-    remaining = 0;
     constructor(http) {
         http.configure(config => {
             config
