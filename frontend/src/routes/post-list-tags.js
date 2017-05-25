@@ -7,7 +7,7 @@ export class PostListTags extends PostListBase {
     showCommentsLink = false;
     showAuthorDate = false;
     expandPostTitle = true;
-    num = 10;
+    num = 9;
     getData(params){
         this.tag = params.tag;
         return this.blogDao.getNTaggedPosts(params.tag, this.start, this.num)
