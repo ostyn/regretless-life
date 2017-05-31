@@ -8,4 +8,11 @@ export class Login{
     constructor(userService){
         this.userService = userService;
     };
+    login(){
+        this.userService.login(this.email, this.password)
+            .then(()=>{
+                this.email = '';
+                this.password = '';
+            });
+    }
 }

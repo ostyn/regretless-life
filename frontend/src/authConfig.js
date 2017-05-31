@@ -10,9 +10,7 @@ var config = {
   loginUrl: 'auth',
   // The API serves its tokens with a key of id_token which differs from
   // aureliauth's standard.
-  tokenName: 'access_token',
-  // Once logged in, we want to redirect the user to the welcome view.
-  loginRedirect: '#/',
+  tokenName: 'access_token'
 }
 
 
