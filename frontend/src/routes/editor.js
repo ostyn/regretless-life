@@ -109,8 +109,8 @@ export class Editor {
     save(){
         if(!confirm('Save post?'))
             return;
-        window.localStorage.removeItem(this.unsavedContentKey);
         this.blogDao.savePost(this.post).then(id => {
+            window.localStorage.removeItem(this.unsavedContentKey);
             this.activelyContactingServer = false;
             this.router.navigateToRoute('post', {'id' : id, 'isDraft': (this.post.isDraft)?this.post.isDraft:undefined});
         })
@@ -123,8 +123,8 @@ export class Editor {
     publish(){
         if(!confirm('Publish post?'))
             return;
-        window.localStorage.removeItem(this.unsavedContentKey);
         this.blogDao.publishPost(this.post).then(id => {
+            window.localStorage.removeItem(this.unsavedContentKey);
             this.activelyContactingServer = false;
             this.router.navigateToRoute('post', {'id' : id});
         })
@@ -137,8 +137,8 @@ export class Editor {
     unpublish(){
         if(!confirm('Unpublish post?'))
             return;
-        window.localStorage.removeItem(this.unsavedContentKey);
         this.blogDao.unpublishPost(this.post).then(id => {
+            window.localStorage.removeItem(this.unsavedContentKey);
             this.activelyContactingServer = false;
             this.router.navigateToRoute('post', {'id':id, 'isDraft':true});
         })
@@ -151,8 +151,8 @@ export class Editor {
     delete(){
         if(!confirm('Delete post?'))
             return;
-        window.localStorage.removeItem(this.unsavedContentKey);
         this.blogDao.deletePost(this.post._id).then(id => {
+            window.localStorage.removeItem(this.unsavedContentKey);
             this.activelyContactingServer = false;
             this.router.navigateToRoute('');
         })
