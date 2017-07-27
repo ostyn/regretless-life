@@ -3,6 +3,7 @@ import {BlogDao} from 'dao/BlogDao';
 import {Router} from 'aurelia-router';
 import {activationStrategy} from 'aurelia-router';
 import {UserService} from 'services/userService';
+import toMarkdown from 'to-markdown';
 @inject(BlogDao, Router, UserService)
 export class Editor {
     editing = false;
@@ -105,6 +106,14 @@ export class Editor {
                 'tags':new Set()
         };
         }
+    }
+    updateMarkdown(){
+        //copy($(".blogPostBody").innerHTML);
+        //copy($(".headerImage").src.split("/").pop())
+        this.updatedHtml = this.updatedHtml.replace(/src=".+?\/.+?\/(.*?)"/g, "src='./" + this.path + "/$1'");
+        this.post.content = toMarkdown(this.updatedHtml);
+        this.post.heroPhotoUrl = "./" + this.path + "/" + this.newHeroUrl;
+        this.save();
     }
     save(){
         if(!confirm('Save post?'))

@@ -12,6 +12,19 @@
                 <p>
                     <input class="textbox" type="text" placeholder="title" value.bind="post.title" focus="true"></input>
                 </p>
+
+                <p>
+                    directory name
+                    <input value.bind="path">
+                    <br>
+                    new header url
+                    <input value.bind="newHeroUrl">
+                    <br>
+                    html to markdown convert
+                    <textarea value.bind="updatedHtml"></textarea>
+                    <br>
+                    <button click.trigger="updateMarkdown()">Update Markdown!</button>
+                </p>
                 <p>
                     <select value.bind="post.author" matcher.bind="userComparer">
                         <option repeat.for="user of userService.availableUsers" model.bind="user.name">
