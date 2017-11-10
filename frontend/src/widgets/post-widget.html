@@ -1,19 +1,18 @@
 <template>
     <require from="converters/trim-html-converter"></require>
     <require from="converters/markdown-format"></require>
-    <require from="attributes/oneDriveProxyOnError"></require>
     <div show.bind="post != undefined">
 
         <center>
             <a if.bind="(showTitleLink === 'true' || showTitleLink === true)" class="titleLink" route-href="route: post; params.bind: getLinkParams(post)">
                 <div class="header">
-                    <img class="headerImage" src="${post.heroPhotoUrl}" one-drive-proxy-on-error>
+                    <img class="headerImage" src="${post.heroPhotoUrl}">
                     <div class="postTitle ${(expandPostTitle === 'true' || expandPostTitle === true) ? 'expandedPostTitle' : ''}">${post.title}</div>
                 </div>
             </a>
             <div if.bind="!(showTitleLink === 'true' || showTitleLink === true)" class="titleLink">
                 <div class="header">
-                    <img class="headerImage" src="${post.heroPhotoUrl}" one-drive-proxy-on-error>
+                    <img class="headerImage" src="${post.heroPhotoUrl}">
                     <div class="postTitle ${(expandPostTitle === 'true' || expandPostTitle === true) ? 'expandedPostTitle' : ''}">${post.title}</div>
                 </div>
             </div>
