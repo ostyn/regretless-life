@@ -1,0 +1,22 @@
+<template>
+    <h2>moods</h2>
+    <label repeat.for="[id, moodOb] of moods">
+        <input type="radio" name="moodSelector" model.bind="id" checked.bind="mood">
+        ${moodOb.emoji}
+    </label>
+    <h2>when</h2>
+    <input type="date" value.bind="date" max.bind="date" name="" id="">
+    <input type="time" value.bind="time" name="" id="">
+    
+    <h2>activities</h2>
+    <div repeat.for="activity of nonArchivedActivities">
+        ${activity.name}
+        <button click.trigger="addActivity(activity.id)">+</button>
+    </div>
+    <textarea value.bind="note"></textarea>
+    <div repeat.for="[id, count] of selectedActivities">
+        ${activities.get(id).name}x${count}
+        <button click.trigger="removeActivity(id)">-</button>
+    </div>
+    <button disabled.bind="mood === undefined" click.trigger="submitEntry()">submit</button>
+</template>

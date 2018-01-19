@@ -1,0 +1,14 @@
+<template>
+  <require from="tracker/mood-edit"></require>
+  <require from="tracker/activity-edit"></require>
+  <require from="tracker/entry-edit"></require>
+  <require from="tracker/entry"></require>
+  <h1>Some Moods</h1>
+  <div click.trigger="setCurrentMood(mood)" repeat.for="[id, mood] of moods">${mood.emoji}</div>
+  <mood-edit mood.two-way="mood"></mood-edit>
+  <h1>Some Activities</h1>
+  <div click.trigger="setCurrentActivity(activity)" repeat.for="[id, activity] of activities">${activity.name}</div>
+  <activity-edit activity.two-way="activity"></activity-edit>
+  <entry-edit></entry-edit>
+  <entry repeat.for="[id, e] of entries" entry.bind="e"></entry>
+</template>

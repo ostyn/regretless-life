@@ -1,0 +1,11 @@
+<template>
+        Date: ${entry.date} @ ${entry.time}
+        <br>
+        Mood: ${moods.get(entry.mood).emoji}
+        <br>
+        Activities: <ul>
+            <li repeat.for="[id, count] of entry.activities">${activities.get(id).name}x${count}</li>
+        </ul>
+        Note: <div>${entry.note}</div>
+        <button click.trigger="deleteEntry(entry.id)">delete</button>
+</template>
