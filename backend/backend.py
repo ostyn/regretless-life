@@ -3,6 +3,7 @@ import blogPostModule
 import oneDriveModule
 import subscriptionModule
 import userModule
+import trackerModule
 
 from flask import Flask
 from flask_cors import CORS
@@ -21,6 +22,10 @@ connection = pymongo.MongoClient("mongodb://localhost")
 postsCollection = connection.blog.posts
 usersCollection = connection.blog.users
 emailsCollection = connection.blog.emails
+activitiesCollection = connection.tracker.activities
+moodsCollection = connection.tracker.moods
+entriesCollection = connection.tracker.entries
+
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = SMTP_USER
@@ -37,6 +42,7 @@ app.register_blueprint(blogPostModule.construct_blueprint(postsCollection, email
 app.register_blueprint(oneDriveModule.construct_blueprint())
 app.register_blueprint(subscriptionModule.construct_blueprint(emailsCollection, mail))
 app.register_blueprint(userModule.construct_blueprint(usersCollection, authModule))
+app.register_blueprint(trackerModule.construct_blueprint(usersCollection, entriesCollection, moodsCollection, activitiesCollection))
 
 if __name__ == "__main__":
     app.run(debug = True, port = 5000, host='0.0.0.0')
