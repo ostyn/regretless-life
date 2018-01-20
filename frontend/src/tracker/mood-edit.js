@@ -17,7 +17,7 @@ export class MoodEdit {
     }
 
     submitMood() {
-        if(this.workingCopy.id === undefined)
+        if(this.workingCopy._id === undefined)
             this.moodService.addMood(this.workingCopy);
         else
             this.moodService.updateMood(this.workingCopy);
@@ -29,13 +29,13 @@ export class MoodEdit {
     }
 
     deleteMood() {
-        if(this.workingCopy && this.workingCopy.id !== undefined) {
-            this.moodService.deleteMood(this.workingCopy.id);
+        if(this.workingCopy && this.workingCopy._id !== undefined) {
+            this.moodService.deleteMood(this.workingCopy._id);
             this.resetActiveMood();
         }
     }
 
     resetActiveMood() {
-        this.mood = { name: undefined, emoji: undefined, id: undefined, rating: undefined };
+        this.mood = { name: undefined, emoji: undefined, _id: undefined, rating: undefined };
     }
 }

@@ -2,16 +2,16 @@ export class ActivityService {
     nextId = 1;
     activities = new Map();
     constructor(){
-        let activity = {name: "this.name", emoji: "this.emoji", isArchived: false, id: this.nextId++};
-        this.activities.set(activity.id, activity);
+        let activity = {name: "this.name", emoji: "this.emoji", isArchived: false, _id: ""+this.nextId++};
+        this.activities.set(activity._id, activity);
     }
     addActivity(activity) {
-        activity.id = this.nextId++;
-        this.activities.set(activity.id, activity);
+        activity._id = this.nextId++;
+        this.activities.set(activity._id, activity);
     }
 
     updateActivity(activity) {
-        this.activities.set(activity.id, activity);
+        this.activities.set(activity._id, activity);
     }
 
     getActivities() {

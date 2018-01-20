@@ -16,7 +16,7 @@ export class ActivityEdit {
     }
 
     submitActivity() {
-        if(this.workingCopy.id === undefined)
+        if(this.workingCopy._id === undefined)
             this.activityService.addActivity(this.workingCopy);
         else
             this.activityService.updateActivity(this.workingCopy);
@@ -28,13 +28,13 @@ export class ActivityEdit {
     }
 
     deleteActivity() {
-        if(this.workingCopy && this.workingCopy.id !== undefined) {
-            this.activityService.deleteActivity(this.workingCopy.id);
+        if(this.workingCopy && this.workingCopy._id !== undefined) {
+            this.activityService.deleteActivity(this.workingCopy._id);
             this.resetActiveActivity();
         }
     }
 
     resetActiveActivity() {
-        this.activity = { emoji: undefined, id: undefined, isArchived: undefined, name: undefined };
+        this.activity = { emoji: undefined, _id: undefined, isArchived: undefined, name: undefined };
     }
 }

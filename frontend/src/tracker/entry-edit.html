@@ -11,7 +11,7 @@
     <h2>activities</h2>
     <div repeat.for="activity of nonArchivedActivities">
         ${activity.name}
-        <button click.trigger="addActivity(activity.id)">+</button>
+        <button click.trigger="addActivity(activity._id)">+</button>
     </div>
     <textarea value.bind="note"></textarea>
     <div repeat.for="[id, count] of selectedActivities">

@@ -7,5 +7,5 @@
             <li repeat.for="[id, count] of entry.activities">${activities.get(id).name}x${count}</li>
         </ul>
         Note: <div>${entry.note}</div>
-        <button click.trigger="deleteEntry(entry.id)">delete</button>
+        <button click.trigger="deleteEntry(entry._id)">delete</button>
 </template>
