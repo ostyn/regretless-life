@@ -55,25 +55,9 @@ export class TrackerDao extends BaseGenericDao {
                 return resp;
             });
     }
-    subscribe(email) {
-        return this.http
-            .fetch('subscribe', {
-                method: 'post',
-                body: json({
-                    'email': email,
-                }),
-            })
-            .then(response => {
-                if(response.status > 400)
-                    throw response;
-                return response.json();
-            });
-    }
     strMapToObj(strMap) {
         let obj = Object.create(null);
         for (let [k,v] of strMap) {
-            // We don’t escape the key '__proto__'
-            // which can cause problems on older engines
             obj[k] = v;
         }
         return obj;
