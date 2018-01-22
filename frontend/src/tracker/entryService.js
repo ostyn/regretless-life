@@ -1,18 +1,18 @@
 import { inject } from "aurelia-framework";
-import { TrackerDao } from "../dao/TrackerDao";
+import { EntryDao } from "../dao/EntryDao";
 import { EventAggregator } from "aurelia-event-aggregator";
 
-@inject(TrackerDao, EventAggregator)
+@inject(EntryDao, EventAggregator)
 export class EntryService {
-    constructor(trackerDao, eventAggregator){
-        this.trackerDao = trackerDao;
+    constructor(entryDao, eventAggregator){
+        this.entryDao = entryDao;
         this.ea = eventAggregator;
     }
     notifyListeners(){
         this.ea.publish('entriesUpdated');
     }
     addEntry(entry) {
-        this.trackerDao.saveEntry(entry)
+        this.entryDao.saveItem(entry)
             .then((id)=>{
                 this.notifyListeners();
             });
@@ -23,7 +23,7 @@ export class EntryService {
     }
 
     getEntries() {
-        return this.trackerDao.getEntries()
+        return this.entryDao.getItems()
             .then((entries)=> {
                 return entries;
             })
@@ -34,7 +34,7 @@ export class EntryService {
     }
 
     deleteEntry(id) {
-        return this.trackerDao.deleteEntry(id)
+        return this.entryDao.deleteItem(id)
             .then(resp=>{
                 this.notifyListeners();
                 return resp;
