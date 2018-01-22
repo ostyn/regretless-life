@@ -5,12 +5,13 @@ from bson.objectid import ObjectId
 def construct_blueprint(usersCollection, entriesCollection, moodsCollection, activitiesCollection):
     trackerModule = Blueprint('trackerModule', __name__)
     @trackerModule.route("/saveEntry", methods=['POST', 'OPTION'])
-    def savePost(passedJsonData=None):
+    def saveEntry(passedJsonData=None):
         if passedJsonData is None:
             jsonData = request.json
         else:
             jsonData = passedJsonData
         id = ""
+        #TODO combine boilerplate here
         if jsonData.get('_id') is None:
             entry = {
                 'activities': jsonData.get('activities', {}), 
@@ -35,4 +36,15 @@ def construct_blueprint(usersCollection, entriesCollection, moodsCollection, act
             )
             id = jsonData['_id']
         return jsonify({'_id':id})
+    @trackerModule.route("/getEntries", methods=['GET'])
+    def getEntries():
+        return jsonify({"entries": list(entriesCollection.find())})
+    @trackerModule.route("/getEntry", methods=['GET'])
+    def getEntry():
+        id = request.args.get('id')
+        return jsonify({"entry": entriesCollection.find({'_id':id})[0]})
+    @trackerModule.route("/deleteEntry", methods=['DELETE'])
+    def deleteEntry():
+        id = request.args.get('id')
+        return jsonify({"deleted": entriesCollection.remove({'_id':id})})
     return trackerModule
