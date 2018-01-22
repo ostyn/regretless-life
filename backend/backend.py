@@ -3,7 +3,7 @@ import blogPostModule
 import oneDriveModule
 import subscriptionModule
 import userModule
-import trackerModule
+import genericModule
 
 from flask import Flask
 from flask_cors import CORS
@@ -31,6 +31,15 @@ app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = SMTP_USER
 app.config['MAIL_PASSWORD'] = SMTP_PASSWORD
 app.config['MAIL_USE_TLS'] = True
+def makeEntry(jsonData):
+    return {
+        'activities': jsonData.get('activities', {}), 
+        'date': jsonData.get('date', ""), 
+        'mood': jsonData.get('mood', ""), 
+        'note': jsonData.get('note', ""), 
+        'time': jsonData.get('time', ""),
+        '_id': jsonData.get('_id', None)
+    }
 
 authModule = AuthModule(app, usersCollection)
 jwt = JWT(app, authModule.authenticate, authModule.identity)
@@ -42,7 +51,7 @@ app.register_blueprint(blogPostModule.construct_blueprint(postsCollection, email
 app.register_blueprint(oneDriveModule.construct_blueprint())
 app.register_blueprint(subscriptionModule.construct_blueprint(emailsCollection, mail))
 app.register_blueprint(userModule.construct_blueprint(usersCollection, authModule))
-app.register_blueprint(trackerModule.construct_blueprint(usersCollection, entriesCollection, moodsCollection, activitiesCollection))
+app.register_blueprint(genericModule.construct_blueprint("entries", entriesCollection, makeEntry), url_prefix="/entries")
 
 if __name__ == "__main__":
     app.run(debug = True, port = 5000, host='0.0.0.0')

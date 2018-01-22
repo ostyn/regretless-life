@@ -5,7 +5,7 @@ export class TrackerDao {
     constructor(http) {
         http.configure(config => {
             config
-                .withBaseUrl(window.location.protocol + '//' + window.location.hostname + ':5000/')
+                .withBaseUrl(window.location.protocol + '//' + window.location.hostname + ':5000/entries/')
                 .withDefaults({
                     headers: {
                         'Accept': 'application/json',
@@ -16,15 +16,15 @@ export class TrackerDao {
         this.http = http;
     }
     getEntries() {
-        return this.http.fetch('getEntries')
+        return this.http.fetch('getItems')
             .then(response => {
                 return response.json();
             })
             .then(data => {
-                data.entries.forEach(element => {
+                data.items.forEach(element => {
                     element.activities = this.ObjToStrMap(element.activities);
                 });
-                return data.entries;
+                return data.items;
             })
             .catch(ex => {
                 console.log(ex);
@@ -34,7 +34,7 @@ export class TrackerDao {
         var clone = Object.assign({}, passedEntry);
         clone.activities = this.strMapToObj(passedEntry.activities);
         return this.http
-            .fetch('saveEntry', {
+            .fetch('saveItem', {
                 method: 'post',
                 body: json(clone),
             })
@@ -49,7 +49,7 @@ export class TrackerDao {
     }
     deleteEntry(id) {
         return this.http
-            .fetch('deleteEntry', {
+            .fetch('deleteItem', {
                 method: 'delete',
                 body: json({
                     'id': id,
