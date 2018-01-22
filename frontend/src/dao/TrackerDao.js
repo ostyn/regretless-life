@@ -1,19 +1,10 @@
-import {inject} from 'aurelia-framework';
+import {inject, NewInstance} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
-@inject(HttpClient)
-export class TrackerDao {
+import {BaseGenericDao} from 'dao/BaseGenericDao';
+@inject(NewInstance.of(HttpClient))
+export class TrackerDao extends BaseGenericDao {
     constructor(http) {
-        http.configure(config => {
-            config
-                .withBaseUrl(window.location.protocol + '//' + window.location.hostname + ':5000/entries/')
-                .withDefaults({
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-type': 'application/json'
-                    }
-                });
-        });
-        this.http = http;
+        super(http, "entries");
     }
     getEntries() {
         return this.http.fetch('getItems')
