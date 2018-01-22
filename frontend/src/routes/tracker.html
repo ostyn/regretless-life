@@ -10,5 +10,5 @@
   <div click.trigger="setCurrentActivity(activity)" repeat.for="[id, activity] of activities">${activity.name}</div>
   <activity-edit activity.two-way="activity"></activity-edit>
   <entry-edit></entry-edit>
-  <entry repeat.for="[id, e] of entries" entry.bind="e"></entry>
+  <entry repeat.for="e of entries" entry.bind="e"></entry>
 </template>

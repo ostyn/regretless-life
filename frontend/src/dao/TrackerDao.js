@@ -15,13 +15,16 @@ export class TrackerDao {
         });
         this.http = http;
     }
-    getPost(id) {
-        return this.http.fetch('getPost?id=' + id)
+    getEntries() {
+        return this.http.fetch('getEntries')
             .then(response => {
                 return response.json();
             })
             .then(data => {
-                return data.resp;
+                data.entries.forEach(element => {
+                    element.activities = this.ObjToStrMap(element.activities);
+                });
+                return data.entries;
             })
             .catch(ex => {
                 console.log(ex);
@@ -83,5 +86,12 @@ export class TrackerDao {
             obj[k] = v;
         }
         return obj;
+    }
+    ObjToStrMap(obj) {
+        let map = new Map();
+        for (let k in obj) {
+            map.set(k, obj[k]);
+        }
+        return map;
     }
 }

@@ -1,28 +1,32 @@
 import { inject } from "aurelia-framework";
 import { TrackerDao } from "../dao/TrackerDao";
-@inject(TrackerDao)
+import { EventAggregator } from "aurelia-event-aggregator";
+
+@inject(TrackerDao, EventAggregator)
 export class EntryService {
-    nextId = 1;
-    entries = new Map();
-    constructor(trackerDao){
+    constructor(trackerDao, eventAggregator){
         this.trackerDao = trackerDao;
-        let entry = {activities:undefined, date: undefined, _id: 0, mood: undefined, note:'testing123', time: undefined};
-        this.entries.set(entry._id, entry);
+        this.ea = eventAggregator;
+    }
+    notifyListeners(){
+        this.ea.publish('entriesUpdated');
     }
     addEntry(entry) {
         this.trackerDao.saveEntry(entry)
             .then((id)=>{
-                entry._id = id;
-                this.entries.set(id, entry);
-            })
+                this.notifyListeners();
+            });
     }
 
     updateEntry(entry) {
-        this.entries.set(entry._id, entry);
+        //this.entries.set(entry._id, entry);
     }
 
     getEntries() {
-        return this.entries;
+        return this.trackerDao.getEntries()
+            .then((entries)=> {
+                return entries;
+            })
     }
 
     getEntry(id) {
