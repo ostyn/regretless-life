@@ -42,7 +42,7 @@ def construct_blueprint(usersCollection, entriesCollection, moodsCollection, act
     @trackerModule.route("/getEntry", methods=['GET'])
     def getEntry():
         id = request.args.get('id')
-        return jsonify({"entry": entriesCollection.find({'_id':id})[0]})
+        return jsonify({"entry": entriesCollection.find_one({'_id':id})})
     @trackerModule.route("/deleteEntry", methods=['DELETE'])
     def deleteEntry():
         id = request.json["id"]
