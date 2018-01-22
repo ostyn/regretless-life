@@ -40,6 +40,12 @@ def makeEntry(jsonData):
         'time': jsonData.get('time', ""),
         '_id': jsonData.get('_id', None)
     }
+def makeMood(jsonData):
+    return {
+        'name': jsonData.get('name', ""), 
+        'emoji': jsonData.get('emoji', ""), 
+        'rating': jsonData.get('rating', 0)
+    }
 
 authModule = AuthModule(app, usersCollection)
 jwt = JWT(app, authModule.authenticate, authModule.identity)
@@ -52,6 +58,7 @@ app.register_blueprint(oneDriveModule.construct_blueprint())
 app.register_blueprint(subscriptionModule.construct_blueprint(emailsCollection, mail))
 app.register_blueprint(userModule.construct_blueprint(usersCollection, authModule))
 app.register_blueprint(genericModule.construct_blueprint("entries", entriesCollection, makeEntry), url_prefix="/entries")
+app.register_blueprint(genericModule.construct_blueprint("moods", moodsCollection, makeMood), url_prefix="/moods")
 
 if __name__ == "__main__":
     app.run(debug = True, port = 5000, host='0.0.0.0')

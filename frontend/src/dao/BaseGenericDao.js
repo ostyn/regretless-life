@@ -19,9 +19,6 @@ export class BaseGenericDao {
                 return response.json();
             })
             .then(data => {
-                data.items.forEach(element => {
-                    element.activities = this.ObjToStrMap(element.activities);
-                });
                 return data.items;
             })
             .catch(ex => {
@@ -29,12 +26,10 @@ export class BaseGenericDao {
             });
     }
     saveItem(passedEntry) {
-        var clone = Object.assign({}, passedEntry);
-        clone.activities = this.strMapToObj(passedEntry.activities);
         return this.http
             .fetch('saveItem', {
                 method: 'post',
-                body: json(clone),
+                body: json(passedEntry),
             })
             .then(response => {
                 if(response.status > 400)

@@ -1,7 +1,7 @@
 <template>
         Date: ${entry.date} @ ${entry.time}
         <br>
-        Mood: ${moods.get(entry.mood).emoji}
+        Mood: ${currentMood.emoji}
         <br>
         Activities: <ul>
             <li repeat.for="[id, count] of entry.activities">${activities.get(id).name}x${count}</li>

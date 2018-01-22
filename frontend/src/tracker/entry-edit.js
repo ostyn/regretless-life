@@ -25,7 +25,10 @@ export class EntryEdit {
         this.moodService = moodService;
         this.entryService = entryService;
         this.activities = this.activityService.getActivities();
-        this.moods = this.moodService.getMoods();
+        this.moodService.getMoods()
+            .then((moods)=>{
+                this.moods = moods;
+            });
         this.date = new Date().toISOString().substr(0,10);
         this.time = new Date().toTimeString().substr(0,5);
     }

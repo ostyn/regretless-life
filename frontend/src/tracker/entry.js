@@ -8,13 +8,18 @@ export class Entry {
     @bindable entry;
     activities;
     moods;
+    currentMood;
     activityService;
     moodService;
     constructor(activityService, moodService, entryService) {
         this.activityService = activityService;
         this.moodService = moodService;
         this.entryService = entryService;
-        this.moods = this.moodService.getMoods();
+        this.moodService.getMoods()
+            .then((moods)=>{
+                this.moods = moods;
+                this.currentMood = this.moods.find(mood => mood._id === entry.mood);
+            });
         this.activities = this.activityService.getActivities();
     }
     deleteEntry(id){

@@ -21,9 +21,11 @@ export class Tracker {
     this.activityService = activityService;
     this.entryService = entryService;
     this.ea = eventAggregator;
-    this.moods = this.moodService.getMoods();
+    this.moodService.getMoods()
+      .then((moods)=>{
+        this.moods = moods;
+      });
     this.activities = this.activityService.getActivities();
-    this.getEntries();
   }
   getEntries = () => {
     this.entryService.getEntries()

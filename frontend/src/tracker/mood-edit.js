@@ -17,11 +17,8 @@ export class MoodEdit {
     }
 
     submitMood() {
-        if(this.workingCopy._id === undefined)
-            this.moodService.addMood(this.workingCopy);
-        else
-            this.moodService.updateMood(this.workingCopy);
-        this.resetActiveMood();
+        this.moodService.saveMood(this.workingCopy)
+            .then(()=> {this.resetActiveMood()});
     }
 
     cancelEdit() {

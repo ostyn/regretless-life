@@ -1,37 +1,39 @@
+import { inject } from "aurelia-framework";
+import { MoodDao } from "../dao/MoodDao";
+import { EventAggregator } from "aurelia-event-aggregator";
+
+@inject(MoodDao, EventAggregator)
 export class MoodService {
-    nextId = 1;
-    moods = new Map();
-    constructor(){
-        let mood = {name: "1", emoji: ":`(", rating: "1", _id: this.nextId++};
-        this.moods.set(mood._id, mood);
-        mood = {name: "2", emoji: ":(", rating: "2", _id: this.nextId++};
-        this.moods.set(mood._id, mood);
-        mood = {name: "3", emoji: ":|", rating: "3", _id: this.nextId++};
-        this.moods.set(mood._id, mood);
-        mood = {name: "4", emoji: ":)", rating: "4", _id: this.nextId++};
-        this.moods.set(mood._id, mood);
-        mood = {name: "5", emoji: ":D", rating: "5", _id: this.nextId++};
-        this.moods.set(mood._id, mood);
+    moods = [];
+
+    constructor(moodDao) {
+        this.moodDao = moodDao;
     }
-    addMood(mood) {
-        mood._id = this.nextId++;
-        this.moods.set(mood._id, mood);
+    saveMood(mood) {
+        return this.moodDao.saveItem(mood)
+            .then((id)=>{
+                this.notifyListeners();
+            });
     }
 
     updateMood(mood) {
-        this.moods.set(mood._id, mood);
+        //this.entries.set(entry._id, entry);
     }
 
     getMoods() {
-        return this.moods;
+        return this.moodDao.getItems()
+            .then(moods => moods);
     }
 
     getMood(id) {
-        return this.moods.get(id);
+        //return this.entries.get(id);
     }
 
-    deleteMood(moodId) {
-        this.moods.delete(moodId);
+    deleteMood(id) {
+        return this.moodDao.deleteItem(id)
+            .then(resp=>{
+                this.notifyListeners();
+                return resp;
+            });
     }
-
 }
