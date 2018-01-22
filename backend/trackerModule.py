@@ -4,6 +4,7 @@ from bson.objectid import ObjectId
 
 def construct_blueprint(usersCollection, entriesCollection, moodsCollection, activitiesCollection):
     trackerModule = Blueprint('trackerModule', __name__)
+
     @trackerModule.route("/saveEntry", methods=['POST', 'OPTION'])
     def saveEntry(passedJsonData=None):
         if passedJsonData is None:
@@ -11,40 +12,35 @@ def construct_blueprint(usersCollection, entriesCollection, moodsCollection, act
         else:
             jsonData = passedJsonData
         id = ""
-        #TODO combine boilerplate here
+        entry = {
+            'activities': jsonData.get('activities', {}), 
+            'date': jsonData.get('date', ""), 
+            'mood': jsonData.get('mood', ""), 
+            'note': jsonData.get('note', ""), 
+            'time': jsonData.get('time', "")
+        }
         if jsonData.get('_id') is None:
-            entry = {
-                'activities': jsonData.get('activities', {}), 
-                'date': jsonData.get('date', ""), 
-                '_id': str(ObjectId()), 
-                'mood': jsonData.get('mood', ""), 
-                'note': jsonData.get('note', ""), 
-                'time': jsonData.get('time', "")
-            }
+            entry["_id"] = str(ObjectId())
             id = entriesCollection.insert_one(entry).inserted_id
         else:
-            entry = {
-                'activities': jsonData.get('tags', {}), 
-                'date': jsonData.get('tags', ""), 
-                'mood': jsonData.get('tags', ""), 
-                'note': jsonData.get('note', ""), 
-                'time': jsonData.get('tags', "")
-            }
             entriesCollection.update_one(
                 {"_id":jsonData['_id']},
-                {"$set":entry}
-            )
+                {"$set":entry})
             id = jsonData['_id']
         return jsonify({'_id':id})
+
     @trackerModule.route("/getEntries", methods=['GET'])
     def getEntries():
         return jsonify({"entries": list(entriesCollection.find())})
+
     @trackerModule.route("/getEntry", methods=['GET'])
     def getEntry():
         id = request.args.get('id')
         return jsonify({"entry": entriesCollection.find_one({'_id':id})})
+
     @trackerModule.route("/deleteEntry", methods=['DELETE'])
     def deleteEntry():
         id = request.json["id"]
         return jsonify({"deleted": entriesCollection.remove({'_id':id})})
+
     return trackerModule
