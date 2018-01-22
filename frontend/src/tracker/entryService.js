@@ -34,6 +34,10 @@ export class EntryService {
     }
 
     deleteEntry(id) {
-        this.entries.delete(id);
+        return this.trackerDao.deleteEntry(id)
+            .then(resp=>{
+                this.notifyListeners();
+                return resp;
+            });
     }
 }

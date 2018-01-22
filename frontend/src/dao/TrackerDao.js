@@ -47,9 +47,9 @@ export class TrackerDao {
                 return entry._id
             });
     }
-    deletePost(id) {
+    deleteEntry(id) {
         return this.http
-            .fetch('deletePost', {
+            .fetch('deleteEntry', {
                 method: 'delete',
                 body: json({
                     'id': id,
