@@ -7,40 +7,53 @@ def construct_blueprint(usersCollection, entriesCollection, moodsCollection, act
 
     @trackerModule.route("/saveEntry", methods=['POST', 'OPTION'])
     def saveEntry(passedJsonData=None):
-        if passedJsonData is None:
-            jsonData = request.json
-        else:
-            jsonData = passedJsonData
-        id = ""
+        jsonData = passedJsonDataElseRequestData(passedJsonData, request.json)
         entry = {
             'activities': jsonData.get('activities', {}), 
             'date': jsonData.get('date', ""), 
             'mood': jsonData.get('mood', ""), 
             'note': jsonData.get('note', ""), 
-            'time': jsonData.get('time', "")
+            'time': jsonData.get('time', ""),
+            '_id': jsonData.get('_id', None)
         }
-        if jsonData.get('_id') is None:
-            entry["_id"] = str(ObjectId())
-            id = entriesCollection.insert_one(entry).inserted_id
-        else:
-            entriesCollection.update_one(
-                {"_id":jsonData['_id']},
-                {"$set":entry})
-            id = jsonData['_id']
-        return jsonify({'_id':id})
+        return jsonify({'_id': upsertToCollection(entry, entriesCollection)})
 
     @trackerModule.route("/getEntries", methods=['GET'])
     def getEntries():
-        return jsonify({"entries": list(entriesCollection.find())})
+        return jsonify({"entries": getAllItemsFromCollection(entriesCollection)})
 
     @trackerModule.route("/getEntry", methods=['GET'])
     def getEntry():
-        id = request.args.get('id')
-        return jsonify({"entry": entriesCollection.find_one({'_id':id})})
+        return jsonify({"entry": getItemFromCollection(request.args.get('id'), entriesCollection)})
 
     @trackerModule.route("/deleteEntry", methods=['DELETE'])
     def deleteEntry():
-        id = request.json["id"]
-        return jsonify({"deleted": entriesCollection.remove({'_id':id})})
+        return jsonify({"deleted": deleteItemFromCollection(request.json["id"], entriesCollection)})
+
+    def passedJsonDataElseRequestData(passedJsonData, requestData):
+        if passedJsonData is None:
+            return requestData
+        else:
+            return passedJsonData
+
+    def upsertToCollection(item, collection):
+        if(item["_id"] is None):
+            item["_id"] = str(ObjectId())
+            id = collection.insert_one(item).inserted_id
+        else:
+            collection.update_one(
+                {"_id":jsonData['_id']},
+                {"$set":item})
+            id = jsonData['_id']
+        return id
+
+    def getAllItemsFromCollection(collection):
+        return list(collection.find())
+
+    def getItemFromCollection(id, collection):
+        return collection.find_one({'_id':id})
+
+    def deleteItemFromCollection(id, collection):
+        return collection.remove({'_id':id})
 
     return trackerModule
