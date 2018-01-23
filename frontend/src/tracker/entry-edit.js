@@ -2,8 +2,9 @@ import { ActivityService } from "./activityService";
 import { MoodService } from "./moodService";
 import { inject } from "aurelia-framework";
 import { EntryService } from "./entryService";
+import { EventAggregator } from "aurelia-event-aggregator";
 
-@inject(ActivityService, MoodService, EntryService)
+@inject(ActivityService, MoodService, EntryService, EventAggregator)
 export class EntryEdit {
     entryService;
     note;
@@ -20,18 +21,32 @@ export class EntryEdit {
         return Array.from(this.activities.values())
             .filter((entry) => !entry.isArchived);
     }
-    constructor(activityService, moodService, entryService) {
+    constructor(activityService, moodService, entryService, eventAggregator) {
         this.activityService = activityService;
         this.moodService = moodService;
         this.entryService = entryService;
+        this.ea = eventAggregator;
         this.activities = this.activityService.getActivities();
-        this.moodService.getMoods()
-            .then((moods)=>{
-                this.moods = moods;
-            });
+        this.getMoods();
         this.date = new Date().toISOString().substr(0,10);
         this.time = new Date().toTimeString().substr(0,5);
     }
+
+    attached() {
+        this.subscriber = this.ea.subscribe('moodsUpdated', this.getMoods);
+    }
+    
+    detached() {
+        this.subscriber.dispose();
+    }
+
+    getMoods = () => {
+        this.moodService.getMoods()
+            .then((moods) => {
+                this.moods = moods;
+            });
+    }
+
     addActivity(id) {
         if (this.selectedActivities.has(id))
             this.selectedActivities.set(id, this.selectedActivities.get(id) + 1);

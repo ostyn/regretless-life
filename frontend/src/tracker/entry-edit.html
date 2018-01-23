@@ -1,8 +1,8 @@
 <template>
     <h2>moods</h2>
-    <label repeat.for="mood of moods">
-        <input type="radio" name="moodSelector" model.bind="id" checked.bind="mood">
-        ${mood.emoji}
+    <label repeat.for="m of moods">
+        <input type="radio" name="moodSelector" model.bind="m._id" checked.bind="mood">
+        ${m.emoji}
     </label>
     <h2>when</h2>
     <input type="date" value.bind="date" max.bind="date" name="" id="">

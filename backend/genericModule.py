@@ -29,14 +29,14 @@ def construct_blueprint(name, collection, buildItem):
             return passedJsonData
 
     def upsertToCollection(item, collection):
-        if("_id" not in item):
+        if(item["_id"] is None):
             item["_id"] = str(ObjectId())
             id = collection.insert_one(item).inserted_id
         else:
             collection.update_one(
-                {"_id":jsonData['_id']},
+                {"_id":item['_id']},
                 {"$set":item})
-            id = jsonData['_id']
+            id = item['_id']
         return id
 
     def getAllItemsFromCollection(collection):

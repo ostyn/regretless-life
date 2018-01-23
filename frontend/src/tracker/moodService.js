@@ -6,8 +6,12 @@ import { EventAggregator } from "aurelia-event-aggregator";
 export class MoodService {
     moods = [];
 
-    constructor(moodDao) {
+    constructor(moodDao, eventAggregator) {
         this.moodDao = moodDao;
+        this.ea = eventAggregator;
+    }
+    notifyListeners(){
+        this.ea.publish('moodsUpdated');
     }
     saveMood(mood) {
         return this.moodDao.saveItem(mood)

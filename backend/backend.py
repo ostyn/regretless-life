@@ -44,7 +44,8 @@ def makeMood(jsonData):
     return {
         'name': jsonData.get('name', ""), 
         'emoji': jsonData.get('emoji', ""), 
-        'rating': jsonData.get('rating', 0)
+        'rating': jsonData.get('rating', 0),
+        '_id': jsonData.get('_id', None)
     }
 
 authModule = AuthModule(app, usersCollection)

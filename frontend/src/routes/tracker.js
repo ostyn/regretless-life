@@ -10,7 +10,7 @@ export class Tracker {
   entryService;
   activityService;
   moodService;
-
+  subscribers = [];
   moods;
   activities;
 
@@ -21,23 +21,27 @@ export class Tracker {
     this.activityService = activityService;
     this.entryService = entryService;
     this.ea = eventAggregator;
-    this.moodService.getMoods()
-      .then((moods)=>{
-        this.moods = moods;
-      });
+    this.getMoods();
     this.activities = this.activityService.getActivities();
+    this.getEntries();
   }
   getEntries = () => {
     this.entryService.getEntries()
       .then(entries => this.entries = entries);
   }
 
+  getMoods = () => {
+    this.moodService.getMoods()
+      .then(moods => this.moods = moods);
+  }
+
   attached() {
-    this.subscriber = this.ea.subscribe('entriesUpdated', this.getEntries);
+    this.subscribers.push(this.ea.subscribe('entriesUpdated', this.getEntries));
+    this.subscribers.push(this.ea.subscribe('moodsUpdated', this.getMoods));
   }
 
   detached() {
-    this.subscriber.dispose();
+    this.subscribers.forEach(sub => this.subscribers.pop().dispose());
   }
   setCurrentMood(mood) {
     this.mood = mood;
