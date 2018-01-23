@@ -47,6 +47,13 @@ def makeMood(jsonData):
         'rating': jsonData.get('rating', 0),
         '_id': jsonData.get('_id', None)
     }
+def makeActivity(jsonData):
+    return {
+        'name': jsonData.get('name', ""), 
+        'emoji': jsonData.get('emoji', ""), 
+        'isArchived': jsonData.get('isArchived', False),
+        '_id': jsonData.get('_id', None)
+    }
 
 authModule = AuthModule(app, usersCollection)
 jwt = JWT(app, authModule.authenticate, authModule.identity)
@@ -60,6 +67,7 @@ app.register_blueprint(subscriptionModule.construct_blueprint(emailsCollection, 
 app.register_blueprint(userModule.construct_blueprint(usersCollection, authModule))
 app.register_blueprint(genericModule.construct_blueprint("entries", entriesCollection, makeEntry), url_prefix="/entries")
 app.register_blueprint(genericModule.construct_blueprint("moods", moodsCollection, makeMood), url_prefix="/moods")
+app.register_blueprint(genericModule.construct_blueprint("activities", activitiesCollection, makeActivity), url_prefix="/activities")
 
 if __name__ == "__main__":
     app.run(debug = True, port = 5000, host='0.0.0.0')
