@@ -4,8 +4,6 @@ import { EventAggregator } from "aurelia-event-aggregator";
 
 @inject(MoodDao, EventAggregator)
 export class MoodService {
-    moods = [];
-
     constructor(moodDao, eventAggregator) {
         this.moodDao = moodDao;
         this.ea = eventAggregator;
