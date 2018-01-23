@@ -22,7 +22,7 @@ export class Tracker {
     this.entryService = entryService;
     this.ea = eventAggregator;
     this.getMoods();
-    this.activities = this.activityService.getActivities();
+    this.getActivities();
     this.getEntries();
   }
   getEntries = () => {
@@ -35,9 +35,15 @@ export class Tracker {
       .then(moods => this.moods = moods);
   }
 
+  getActivities = () => {
+    this.activityService.getActivities()
+      .then(activities => this.activities = activities);
+  }
+
   attached() {
     this.subscribers.push(this.ea.subscribe('entriesUpdated', this.getEntries));
     this.subscribers.push(this.ea.subscribe('moodsUpdated', this.getMoods));
+    this.subscribers.push(this.ea.subscribe('activitiesUpdated', this.getActivities));
   }
 
   detached() {

@@ -3,8 +3,8 @@
         <br>
         Mood: ${currentMood.emoji}
         <br>
-        Activities: <ul>
-            <li repeat.for="[id, count] of entry.activities">${activities.get(id).name}x${count}</li>
+        Activities: <ul if.bind="activities.length !== 0">
+            <li repeat.for="[id, count] of entry.activities">${buildActivityString(id, count)}</li>
         </ul>
         Note: <div>${entry.note}</div>
         <button click.trigger="deleteEntry(entry._id)">delete</button>

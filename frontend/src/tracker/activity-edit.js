@@ -16,10 +16,7 @@ export class ActivityEdit {
     }
 
     submitActivity() {
-        if(this.workingCopy._id === undefined)
-            this.activityService.addActivity(this.workingCopy);
-        else
-            this.activityService.updateActivity(this.workingCopy);
+        this.activityService.saveActivity(this.workingCopy);
         this.resetActiveActivity();
     }
 

@@ -11,39 +11,47 @@ export class EntryEdit {
     selectedActivities = new Map(); // map of activityId to count
     mood;
     moods;
-    activities;
+    activities = [];
+    subscribers = [];
     activityService;
     moodService;
     entry;
     date;
     time;
     get nonArchivedActivities() {
-        return Array.from(this.activities.values())
-            .filter((entry) => !entry.isArchived);
+        return this.activities
+            .filter((activity) => !activity.isArchived);
     }
     constructor(activityService, moodService, entryService, eventAggregator) {
         this.activityService = activityService;
         this.moodService = moodService;
         this.entryService = entryService;
         this.ea = eventAggregator;
-        this.activities = this.activityService.getActivities();
+        this.getActivities();
         this.getMoods();
         this.date = new Date().toISOString().substr(0,10);
         this.time = new Date().toTimeString().substr(0,5);
     }
 
     attached() {
-        this.subscriber = this.ea.subscribe('moodsUpdated', this.getMoods);
-    }
+        this.subscribers.push(this.ea.subscribe('moodsUpdated', this.getMoods));
+        this.subscribers.push(this.ea.subscribe('activitiesUpdated', this.getActivities));
+      }
     
     detached() {
-        this.subscriber.dispose();
+        this.subscribers.forEach(sub => this.subscribers.pop().dispose());
     }
 
     getMoods = () => {
         this.moodService.getMoods()
             .then((moods) => {
                 this.moods = moods;
+            });
+    }
+    getActivities = () => {
+        this.activityService.getActivities()
+            .then((activities) => {
+                this.activities = activities;
             });
     }
 
@@ -67,5 +75,8 @@ export class EntryEdit {
         this.note = undefined;
         this.date = new Date().toISOString().substr(0,10);
         this.time = new Date().toTimeString().substr(0,5);
+    }
+    buildActivityString(id, count) {
+        return `${this.activities.find(activity => activity._id === id).name}x${count}`;
     }
 }

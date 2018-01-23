@@ -1,28 +1,42 @@
+import { inject } from "aurelia-framework";
+import { ActivityDao } from "../dao/ActivityDao";
+import { EventAggregator } from "aurelia-event-aggregator";
+
+@inject(ActivityDao, EventAggregator)
 export class ActivityService {
-    nextId = 1;
-    activities = new Map();
-    constructor(){
-        let activity = {name: "this.name", emoji: "this.emoji", isArchived: false, _id: ""+this.nextId++};
-        this.activities.set(activity._id, activity);
+    constructor(activityDao, eventAggregator) {
+        this.activityDao = activityDao;
+        this.ea = eventAggregator;
     }
-    addActivity(activity) {
-        activity._id = this.nextId++;
-        this.activities.set(activity._id, activity);
+    notifyListeners(){
+        this.ea.publish('activitiesUpdated');
+        this.ea.publish('entriesUpdated');
+    }
+    saveActivity(activity) {
+        return this.activityDao.saveItem(activity)
+            .then((id)=>{
+                this.notifyListeners();
+            });
     }
 
     updateActivity(activity) {
-        this.activities.set(activity._id, activity);
+        //this.entries.set(entry._id, entry);
     }
 
     getActivities() {
-        return this.activities;
+        return this.activityDao.getItems()
+            .then(activities => activities);
     }
 
     getActivity(id) {
-        return this.activities.get(id);
+        //return this.entries.get(id);
     }
 
-    deleteActivity(activityId) {
-        this.activities.delete(activityId);
+    deleteActivity(id) {
+        return this.activityDao.deleteItem(id)
+            .then(resp=>{
+                this.notifyListeners();
+                return resp;
+            });
     }
 }

@@ -15,7 +15,7 @@
     </div>
     <textarea value.bind="note"></textarea>
     <div repeat.for="[id, count] of selectedActivities">
-        ${activities.get(id).name}x${count}
+        ${buildActivityString(id, count)}
         <button click.trigger="removeActivity(id)">-</button>
     </div>
     <button disabled.bind="mood === undefined" click.trigger="submitEntry()">submit</button>

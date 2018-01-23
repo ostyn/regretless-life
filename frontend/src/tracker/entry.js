@@ -7,7 +7,8 @@ import { EventAggregator } from "aurelia-event-aggregator";
 export class Entry {
     entryService;
     @bindable entry;
-    activities;
+    activities = [];
+    subscribers = [];
     moods;
     currentMood;
     activityService;
@@ -18,15 +19,25 @@ export class Entry {
         this.entryService = entryService;
         this.ea = eventAggregator;
         this.getMoods();
-        this.activities = this.activityService.getActivities();
+        this.getActivities();
     }
+
     attached() {
-        this.subscriber = this.ea.subscribe('moodsUpdated', this.getMoods);
-    }
+        this.subscribers.push(this.ea.subscribe('moodsUpdated', this.getMoods));
+        this.subscribers.push(this.ea.subscribe('activitiesUpdated', this.getActivities));
+      }
     
     detached() {
-        this.subscriber.dispose();
+        this.subscribers.forEach(sub => this.subscribers.pop().dispose());
     }
+
+    getActivities = () => {
+        this.activityService.getActivities()
+            .then((activities) => {
+                this.activities = activities;
+            });
+    }
+
     getMoods = () => {
         this.moodService.getMoods()
             .then((moods)=>{
@@ -34,7 +45,15 @@ export class Entry {
                 this.currentMood = this.moods.find(mood => mood._id === this.entry.mood);
             });
     }
+
     deleteEntry(id){
         this.entryService.deleteEntry(id);
+    }
+
+    buildActivityString(id, count) {
+        if(this.activities.length == 0)
+            return;
+        let activity = this.activities.find(activity => activity._id === id);
+        return `${activity.name}x${count}`;
     }
 }
