@@ -1,11 +1,21 @@
 <template>
-        Date: ${entry.date} @ ${entry.time}
-        <br>
-        Mood: ${currentMood.emoji}
-        <br>
-        Activities: <ul if.bind="activities.length !== 0">
-            <li repeat.for="[id, count] of entry.activities">${buildActivityString(id, count)}</li>
-        </ul>
-        Note: <div>${entry.note}</div>
+    <div class="entry">
+        <div>Date: ${entry.date} @ ${entry.time}</div>
+        <div class="activeMood">${currentMood.emoji}</div>
+        <div>Activities:
+            <div if.bind="activities.length">
+                <div repeat.for="[id, count] of entry.activities" class="activityContainer" click.trigger="removeActivity(id)">
+                    <div class="activityEmoji">${findActivity(id).emoji}</div>
+                    <div class="activityName">
+                        ${findActivity(id).name}
+                        <span class="badge" if.bind="count>1">${count}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>Note:
+            <div>${entry.note}</div>
+        </div>
         <button click.trigger="deleteEntry(entry._id)">delete</button>
+    </div>
 </template>

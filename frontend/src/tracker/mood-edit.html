@@ -1,14 +1,16 @@
 <template>
     <form>
-        <input type="radio" name="moodRatingGroup" value="1" checked.bind="workingCopy.rating">
-        <input type="radio" name="moodRatingGroup" value="2" checked.bind="workingCopy.rating">
-        <input type="radio" name="moodRatingGroup" value="3" checked.bind="workingCopy.rating">
-        <input type="radio" name="moodRatingGroup" value="4" checked.bind="workingCopy.rating">
-        <input type="radio" name="moodRatingGroup" value="5" checked.bind="workingCopy.rating">
+        <label>😁<input type="radio" name="moodRatingGroup" value="5" checked.bind="workingCopy.rating"></label>
+        <label>😊<input type="radio" name="moodRatingGroup" value="4" checked.bind="workingCopy.rating"></label>
+        <label>😐<input type="radio" name="moodRatingGroup" value="3" checked.bind="workingCopy.rating"></label>
+        <label>😟<input type="radio" name="moodRatingGroup" value="2" checked.bind="workingCopy.rating"></label>
+        <label>😢<input type="radio" name="moodRatingGroup" value="1" checked.bind="workingCopy.rating"></label>
         <input type="text" value.bind="workingCopy.name" placeholder="name">
         <input type="text" value.bind="workingCopy.emoji" placeholder="emoji">
-        <input type="submit" click.trigger="submitMood()">
-        <button click.trigger="cancelEdit()">cancel</button>
-        <button click.trigger="deleteMood()">delete</button>
+        <div>
+            <button click.trigger="submitMood()">save</button>
+            <button click.trigger="cancelEdit()">cancel</button>
+            <button click.trigger="deleteMood()">delete</button>
+        </div>
     </form>
 </template>

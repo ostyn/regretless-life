@@ -56,4 +56,7 @@ export class Entry {
         let activity = this.activities.find(activity => activity._id === id);
         return `${activity.name}x${count}`;
     }
+    findActivity(id) {
+        return this.activities.find(activity => activity._id === id);
+    }
 }

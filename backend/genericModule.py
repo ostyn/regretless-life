@@ -40,7 +40,9 @@ def construct_blueprint(name, collection, buildItem):
         return id
 
     def getAllItemsFromCollection(collection):
-        return list(collection.find())
+        items = list(collection.find())
+        items.reverse()
+        return items
 
     def getItemFromCollection(id, collection):
         return collection.find_one({'_id':id})

@@ -76,7 +76,7 @@ export class EntryEdit {
         this.date = new Date().toISOString().substr(0,10);
         this.time = new Date().toTimeString().substr(0,5);
     }
-    buildActivityString(id, count) {
-        return `${this.activities.find(activity => activity._id === id).name}x${count}`;
+    findActivity(id) {
+        return this.activities.find(activity => activity._id === id);
     }
 }

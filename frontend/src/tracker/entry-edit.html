@@ -1,22 +1,30 @@
 <template>
+    <require from="tracker/tracker.css"></require>
     <h2>moods</h2>
-    <label repeat.for="m of moods">
-        <input type="radio" name="moodSelector" model.bind="m._id" checked.bind="mood">
+    <label class.bind="m._id === mood ? 'activeMood' : 'inactiveMood'" repeat.for="m of moods">
         ${m.emoji}
+        <input show.bind="false" type="radio" name="moodSelector" model.bind="m._id" checked.bind="mood">
     </label>
     <h2>when</h2>
     <input type="date" value.bind="date" max.bind="date" name="" id="">
     <input type="time" value.bind="time" name="" id="">
-    
+
     <h2>activities</h2>
-    <div repeat.for="activity of nonArchivedActivities">
-        ${activity.name}
-        <button click.trigger="addActivity(activity._id)">+</button>
+    <div repeat.for="activity of nonArchivedActivities" class="activityContainer cursor" click.trigger="addActivity(activity._id)">
+        <div class="activityEmoji">${activity.emoji}</div>
+        <div class="activityName">${activity.name}</div>
     </div>
-    <textarea value.bind="note"></textarea>
-    <div repeat.for="[id, count] of selectedActivities">
-        ${buildActivityString(id, count)}
-        <button click.trigger="removeActivity(id)">-</button>
+    <div>
+        <textarea value.bind="note"></textarea>
+    </div>
+    <div>
+        <div repeat.for="[id, count] of selectedActivities" class="activityContainer cursor" click.trigger="removeActivity(id)">
+            <div class="activityEmoji">${findActivity(id).emoji}</div>
+            <div class="activityName">
+                ${findActivity(id).name}
+                <span class="badge" if.bind="count>1">${count}</span>
+            </div>
+        </div>
     </div>
     <button disabled.bind="mood === undefined" click.trigger="submitEntry()">submit</button>
 </template>
