@@ -28,7 +28,7 @@ export class App {
   constructor(fetchConfig, http) {
     http.configure(config => {
       config
-        .withBaseUrl(window.location.protocol + '//' + window.location.hostname + ':5000/')
+        .withBaseUrl(window.location.protocol + '//' + window.location.hostname + '/data/')
         .withDefaults({
           headers: {
             'Accept': 'application/json',
