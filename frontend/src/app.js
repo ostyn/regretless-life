@@ -33,7 +33,7 @@ export class App {
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json',
-            'Cache-Control': 'no-cache',
+            'Cache-Control': 'max-age=0, private, must-revalidate',
             'Pragma': 'no-cache',
             'Expires': 'Sat, 01 Jan 2000 00:00:00 GMT'
           }
