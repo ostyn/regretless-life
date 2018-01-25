@@ -42,7 +42,8 @@ export class Entry {
         this.moodService.getMoods()
             .then((moods)=>{
                 this.moods = moods;
-                this.currentMood = this.moods.find(mood => mood._id === this.entry.mood);
+                if(moods&& moods.length)
+                    this.currentMood = this.moods.find(mood => mood._id === this.entry.mood);
             });
     }
 

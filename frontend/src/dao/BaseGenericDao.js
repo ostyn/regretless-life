@@ -1,20 +1,11 @@
 import {json} from 'aurelia-fetch-client';
 export class BaseGenericDao {
     constructor(http, name) {
-        http.configure(config => {
-            config
-                .withBaseUrl(window.location.protocol + '//' + window.location.hostname + ':5000/' + name +'/')
-                .withDefaults({
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-type': 'application/json'
-                    }
-                });
-        });
+        this.path = name;
         this.http = http;
     }
     getItems() {
-        return this.http.fetch('getItems')
+        return this.http.fetch(this.path + '/getItems')
             .then(response => {
                 return response.json();
             })
@@ -27,7 +18,7 @@ export class BaseGenericDao {
     }
     saveItem(passedEntry) {
         return this.http
-            .fetch('saveItem', {
+            .fetch(this.path + '/saveItem', {
                 method: 'post',
                 body: json(passedEntry),
             })
@@ -42,7 +33,7 @@ export class BaseGenericDao {
     }
     deleteItem(id) {
         return this.http
-            .fetch('deleteItem', {
+            .fetch(this.path + '/deleteItem', {
                 method: 'delete',
                 body: json({
                     'id': id,

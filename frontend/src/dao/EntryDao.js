@@ -1,13 +1,15 @@
-import {inject, NewInstance} from 'aurelia-framework';
+import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
 import {BaseGenericDao} from 'dao/BaseGenericDao';
-@inject(NewInstance.of(HttpClient))
+@inject(HttpClient)
 export class EntryDao extends BaseGenericDao {
+    path;
     constructor(http) {
         super(http, "entries");
+        this.path = "entries";
     }
     getItems() {
-        return this.http.fetch('getItems')
+        return this.http.fetch(this.path + '/getItems')
             .then(response => {
                 return response.json();
             })
@@ -25,7 +27,7 @@ export class EntryDao extends BaseGenericDao {
         var clone = Object.assign({}, passedEntry);
         clone.activities = this.strMapToObj(passedEntry.activities);
         return this.http
-            .fetch('saveItem', {
+            .fetch(this.path + '/saveItem', {
                 method: 'post',
                 body: json(clone),
             })

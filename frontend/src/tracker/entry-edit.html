@@ -1,15 +1,15 @@
 <template>
     <require from="tracker/tracker.css"></require>
-    <h2>moods</h2>
+    <h4>moods</h4>
     <label class.bind="m._id === mood ? 'activeMood' : 'inactiveMood'" repeat.for="m of moods">
         ${m.emoji}
         <input show.bind="false" type="radio" name="moodSelector" model.bind="m._id" checked.bind="mood">
     </label>
-    <h2>when</h2>
+    <h4>when</h4>
     <input type="date" value.bind="date" max.bind="date" name="" id="">
     <input type="time" value.bind="time" name="" id="">
 
-    <h2>activities</h2>
+    <h4>activities</h4>
     <div repeat.for="activity of nonArchivedActivities" class="activityContainer cursor" click.trigger="addActivity(activity._id)">
         <div class="activityEmoji">${activity.emoji}</div>
         <div class="activityName">${activity.name}</div>

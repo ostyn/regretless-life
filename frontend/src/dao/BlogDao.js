@@ -3,16 +3,6 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 @inject(HttpClient)
 export class BlogDao {
     constructor(http) {
-        http.configure(config => {
-            config
-                .withBaseUrl(window.location.protocol + '//' + window.location.hostname + '/data/')
-                .withDefaults({
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-type': 'application/json'
-                    }
-                });
-        });
         this.http = http;
     }
     getAllPosts() {

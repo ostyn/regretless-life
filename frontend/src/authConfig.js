@@ -1,7 +1,7 @@
 var config = {
   authHeader: 'Authorization',
   authToken: 'JWT',
-  baseUrl: 'https://regretless.life/data',
+  baseUrl: 'http://localhost:5000',
   loginRedirect: null,
   logoutRedirect: null,
   signupUrl: 'register',

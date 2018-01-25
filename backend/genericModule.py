@@ -5,20 +5,24 @@ from bson.objectid import ObjectId
 def construct_blueprint(name, collection, buildItem):
     trackerModule = Blueprint(name + 'Module', __name__)
     @trackerModule.route("/saveItem", methods=['POST', 'OPTION'])
+    @jwt_required()
     def saveItem(passedJsonData=None):
         jsonData = passedJsonDataElseRequestData(passedJsonData, request.json)
         item = buildItem(jsonData)
         return jsonify({'_id': upsertToCollection(item, collection)})
 
     @trackerModule.route("/getItems", methods=['GET'])
+    @jwt_required()
     def getItems():
         return jsonify({"items": getAllItemsFromCollection(collection)})
 
     @trackerModule.route("/getItem", methods=['GET'])
+    @jwt_required()
     def getItem():
         return jsonify({"item": getItemFromCollection(request.args.get('id'), collection)})
 
     @trackerModule.route("/deleteItem", methods=['DELETE'])
+    @jwt_required()
     def deleteItem():
         return jsonify({"deleted": deleteItemFromCollection(request.json["id"], collection)})
 
