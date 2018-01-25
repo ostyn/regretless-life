@@ -18,7 +18,7 @@ export class App {
       { route: 'post/:id', moduleId: './routes/post', name: 'post', nav: false, title: config.title },
       { route: 'about', moduleId: './routes/about', name: 'about', nav: true, title: 'about us' },
       { route: 'login', moduleId: './widgets/login', name: 'login', nav: false, title: 'login' },
-      { route: 'register', moduleId: './routes/register', nav: false, title: 'register', auth: false },
+      { route: 'register', moduleId: './routes/register', nav: false, title: 'register', auth: true },
       { route: 'places', moduleId: './routes/places', nav: true, title: 'places' },
       { route: 'tracker', moduleId: './routes/tracker', title: 'tracker', auth: true },
     ]);
