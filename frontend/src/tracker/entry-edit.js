@@ -68,7 +68,7 @@ export class EntryEdit {
             this.selectedActivities.delete(id);
     }
     submitEntry() {
-        this.entry = { activities: new Map(this.selectedActivities), _id: undefined, mood: this.mood, note: this.note, time: this.time, date: this.date }
+        this.entry = { activities: this.selectedActivities, _id: undefined, mood: this.mood, note: this.note, time: this.time, date: this.date }
         this.entryService.addEntry(this.entry);
         this.selectedActivities = new Map();
         this.mood = undefined;
