@@ -31,13 +31,11 @@ export class Tracker {
   }
 
   getMoods = () => {
-    this.moodService.getMoods()
-      .then(moods => this.moods = moods);
+    this.moods = this.moodService.getMoods();
   }
 
   getActivities = () => {
-    this.activityService.getActivities()
-      .then(activities => this.activities = activities);
+    this.activities = this.activityService.getActivities();
   }
 
   attached() {
