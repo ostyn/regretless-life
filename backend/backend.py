@@ -40,6 +40,7 @@ def makeEntry(jsonData):
         'time': jsonData.get('time', ""),
         '_id': jsonData.get('_id', None)
     }
+entrySortOrder = [("date", pymongo.DESCENDING),("time", pymongo.ASCENDING)]
 def makeMood(jsonData):
     return {
         'name': jsonData.get('name', ""), 
@@ -47,6 +48,7 @@ def makeMood(jsonData):
         'rating': jsonData.get('rating', 0),
         '_id': jsonData.get('_id', None)
     }
+moodSortOrder = [("rating", pymongo.DESCENDING)]
 def makeActivity(jsonData):
     return {
         'name': jsonData.get('name', ""), 
@@ -54,6 +56,7 @@ def makeActivity(jsonData):
         'isArchived': jsonData.get('isArchived', False),
         '_id': jsonData.get('_id', None)
     }
+activitySortOrder = [("name", pymongo.ASCENDING)]
 
 authModule = AuthModule(app, usersCollection)
 jwt = JWT(app, authModule.authenticate, authModule.identity)
@@ -65,9 +68,9 @@ app.register_blueprint(blogPostModule.construct_blueprint(postsCollection, email
 app.register_blueprint(oneDriveModule.construct_blueprint())
 app.register_blueprint(subscriptionModule.construct_blueprint(emailsCollection, mail))
 app.register_blueprint(userModule.construct_blueprint(usersCollection, authModule))
-app.register_blueprint(genericModule.construct_blueprint("entries", entriesCollection, makeEntry), url_prefix="/entries")
-app.register_blueprint(genericModule.construct_blueprint("moods", moodsCollection, makeMood), url_prefix="/moods")
-app.register_blueprint(genericModule.construct_blueprint("activities", activitiesCollection, makeActivity), url_prefix="/activities")
+app.register_blueprint(genericModule.construct_blueprint("entries", entriesCollection, makeEntry, entrySortOrder), url_prefix="/entries")
+app.register_blueprint(genericModule.construct_blueprint("moods", moodsCollection, makeMood, moodSortOrder), url_prefix="/moods")
+app.register_blueprint(genericModule.construct_blueprint("activities", activitiesCollection, makeActivity, activitySortOrder), url_prefix="/activities")
 
 @app.after_request
 def add_header(r):

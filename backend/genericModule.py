@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from flask_jwt import jwt_required
 from bson.objectid import ObjectId
 
-def construct_blueprint(name, collection, buildItem):
+def construct_blueprint(name, collection, buildItem, sortOrder=None):
     trackerModule = Blueprint(name + 'Module', __name__)
     @trackerModule.route("/saveItem", methods=['POST', 'OPTION'])
     @jwt_required()
@@ -44,9 +44,10 @@ def construct_blueprint(name, collection, buildItem):
         return id
 
     def getAllItemsFromCollection(collection):
-        items = list(collection.find())
-        items.reverse()
-        return items
+        items = collection.find()
+        if(sortOrder):
+            items = items.sort(sortOrder)
+        return list(items)
 
     def getItemFromCollection(id, collection):
         return collection.find_one({'_id':id})
