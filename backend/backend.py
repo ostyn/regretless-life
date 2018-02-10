@@ -56,7 +56,6 @@ def makeActivity(jsonData):
         'isArchived': jsonData.get('isArchived', False),
         '_id': jsonData.get('_id', None)
     }
-activitySortOrder = [("emoji", pymongo.ASCENDING)]
 
 authModule = AuthModule(app, usersCollection)
 jwt = JWT(app, authModule.authenticate, authModule.identity)
@@ -70,7 +69,7 @@ app.register_blueprint(subscriptionModule.construct_blueprint(emailsCollection, 
 app.register_blueprint(userModule.construct_blueprint(usersCollection, authModule))
 app.register_blueprint(genericModule.construct_blueprint("entries", entriesCollection, makeEntry, entrySortOrder), url_prefix="/entries")
 app.register_blueprint(genericModule.construct_blueprint("moods", moodsCollection, makeMood, moodSortOrder), url_prefix="/moods")
-app.register_blueprint(genericModule.construct_blueprint("activities", activitiesCollection, makeActivity, activitySortOrder), url_prefix="/activities")
+app.register_blueprint(genericModule.construct_blueprint("activities", activitiesCollection, makeActivity), url_prefix="/activities")
 
 @app.after_request
 def add_header(r):
