@@ -56,7 +56,7 @@ def makeActivity(jsonData):
         'isArchived': jsonData.get('isArchived', False),
         '_id': jsonData.get('_id', None)
     }
-activitySortOrder = [("name", pymongo.ASCENDING)]
+activitySortOrder = [("emoji", pymongo.ASCENDING)]
 
 authModule = AuthModule(app, usersCollection)
 jwt = JWT(app, authModule.authenticate, authModule.identity)
