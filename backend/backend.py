@@ -4,6 +4,7 @@ import oneDriveModule
 import subscriptionModule
 import userModule
 import genericModule
+import entryStatsModule
 
 from flask import Flask
 from flask_cors import CORS
@@ -67,6 +68,7 @@ app.register_blueprint(blogPostModule.construct_blueprint(postsCollection, email
 app.register_blueprint(oneDriveModule.construct_blueprint())
 app.register_blueprint(subscriptionModule.construct_blueprint(emailsCollection, mail))
 app.register_blueprint(userModule.construct_blueprint(usersCollection, authModule))
+app.register_blueprint(entryStatsModule.construct_blueprint(entriesCollection))
 app.register_blueprint(genericModule.construct_blueprint("entries", entriesCollection, makeEntry, entrySortOrder), url_prefix="/entries")
 app.register_blueprint(genericModule.construct_blueprint("moods", moodsCollection, makeMood, moodSortOrder), url_prefix="/moods")
 app.register_blueprint(genericModule.construct_blueprint("activities", activitiesCollection, makeActivity), url_prefix="/activities")
