@@ -59,12 +59,17 @@ export class EntryEdit {
         return this.activities.find(activity => activity._id === id);
     }
     newEntry() {
+        var date = new Date();
         return {
             activities: new Map(),
             mood: undefined,
             note: undefined,
-            date: new Date().toISOString().substr(0, 10),
-            time: new Date().toTimeString().substr(0, 5)
+            date: date.getFullYear() + '-' + this.padValue(date.getMonth() + 1, 2) + '-' +  this.padValue(date.getDate(), 2),
+            time: date.toTimeString().substr(0, 5)
         }
+    }
+    padValue(value, width) {
+        let padding = "0".repeat(width)
+        return (padding + value).slice (-width);
     }
 }
