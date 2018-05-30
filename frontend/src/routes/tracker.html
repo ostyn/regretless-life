@@ -24,8 +24,8 @@
 
   <h3 class="cursor" if.bind="entries && entries.length > 0" click.trigger="showEntries = !showEntries">Entries</h3>
   <div if.bind="showEntries">
+    <input value.bind="currentMonth">
+    <input value.bind="currentYear">
     <entry repeat.for="e of entries" entry.bind="e"></entry>
   </div>
-  <input value.bind="currentMonth">
-  <input value.bind="currentYear">
 </template>
