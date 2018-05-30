@@ -69,7 +69,10 @@ export class EntryEdit {
         }
     }
     padValue(value, width) {
-        let padding = "0".repeat(width)
+        let padding = "";
+        for(var i = 0; i < width; i++) {
+            padding += "0"
+        }
         return (padding + value).slice (-width);
     }
 }
