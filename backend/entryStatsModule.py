@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt import jwt_required, current_identity
 from bson import Code
-def construct_blueprint(entriesCollection):
+def construct_blueprint(entriesCollection, entrySortOrder):
     entryStatsModule = Blueprint('entryStatsModule', __name__)
 # get available month/year pairs
 # build ui around that with buttons for months/pages
@@ -43,6 +43,7 @@ def construct_blueprint(entriesCollection):
             month = ""
         year = request.args.get('year',"")
         entries = list(entriesCollection.find({"date":{ "$regex" : "^" + year + "-" + month}}))
+        entries = entries.sort(entrySortOrder)
         return jsonify({'resp':entries})
 
     @entryStatsModule.route("/getActivityCount", methods=['GET'])
