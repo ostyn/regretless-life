@@ -42,8 +42,8 @@ def construct_blueprint(entriesCollection, entrySortOrder):
         else:
             month = ""
         year = request.args.get('year',"")
-        entries = list(entriesCollection.find({"date":{ "$regex" : "^" + year + "-" + month}}))
-        entries = entries.sort(entrySortOrder)
+        entries = entriesCollection.find({"date":{ "$regex" : "^" + year + "-" + month}})
+        entries = list(entries.sort(entrySortOrder))
         return jsonify({'resp':entries})
 
     @entryStatsModule.route("/getActivityCount", methods=['GET'])
