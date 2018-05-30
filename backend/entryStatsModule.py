@@ -14,6 +14,7 @@ def construct_blueprint(entriesCollection):
 # Third, moods pie charted with count
 
     @entryStatsModule.route("/getMonthsWithEntries", methods=['GET'])
+    @jwt_required()
     def getMonthsWithEntries():
         return jsonify({'resp':list(entriesCollection.aggregate(
             [
