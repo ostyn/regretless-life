@@ -3,10 +3,38 @@ from flask_jwt import jwt_required, current_identity
 from bson import Code
 def construct_blueprint(entriesCollection):
     entryStatsModule = Blueprint('entryStatsModule', __name__)
+# get available month/year pairs
+# build ui around that with buttons for months/pages
+# Fill pages with content: new front page view
+# Stats button on each month to zoom in
+# First widget is calendar with a drop down of available items
+# When selected, an item's days will be highlight on calendar
+# Second widget is common activities grid.
+# Activities ordered by count
+# Third, moods pie charted with count
 
-    @entryStatsModule.route("/getEntriesFromMonthAndYear", methods=['GET'])
+    @entryStatsModule.route("/getMonthsWithEntries", methods=['GET'])
+    def getMonthsWithEntries():
+        return jsonify({'resp':list(entriesCollection.aggregate(
+            [
+                {
+                '$project':
+                    {
+                        '_id':0,
+                        'dateSubstring': { '$substr': [ "$date", 0, 7 ] },
+                    }
+                },
+                {
+                '$group':
+                    {
+                        "_id":"$dateSubstring"
+                    }
+                }
+            ]
+        ))})
+    @entryStatsModule.route("/getEntriesFromYearAndMonth", methods=['GET'])
     @jwt_required()
-    def getEntriesFromMonthAndYear():
+    def getEntriesFromYearAndMonth():
         month = request.args.get('month')
         if (month):
             month = month.zfill(2)

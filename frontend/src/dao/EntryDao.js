@@ -8,6 +8,24 @@ export class EntryDao extends BaseGenericDao {
         super(http, "entries");
         this.path = "entries";
     }
+    getEntriesFromYearAndMonth(year, month = undefined) {
+        let queryString = '?year=' + year;
+        if(month)
+            queryString += '&month=' + month;
+        return this.http.fetch('getEntriesFromYearAndMonth' + queryString)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                data.resp.forEach(element => {
+                    element.activities = this.ObjToStrMap(element.activities);
+                });
+                return data.resp;
+            })
+            .catch(ex => {
+                console.log(ex);
+            });
+    }
     getItems() {
         return this.http.fetch(this.path + '/getItems')
             .then(response => {
@@ -40,4 +58,5 @@ export class EntryDao extends BaseGenericDao {
                 return entry._id
             });
     }
+
 }

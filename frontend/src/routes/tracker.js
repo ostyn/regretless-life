@@ -1,4 +1,4 @@
-import { inject } from "aurelia-framework";
+import { inject, bindable } from "aurelia-framework";
 import { MoodService } from "tracker/moodService";
 import { ActivityService } from "tracker/activityService";
 import { EntryService } from "tracker/entryService";
@@ -13,6 +13,8 @@ export class Tracker {
   subscribers = [];
   moods;
   activities;
+  @bindable currentMonth;
+  @bindable currentYear;
 
   activity;
   mood;
@@ -21,9 +23,18 @@ export class Tracker {
     this.activityService = activityService;
     this.entryService = entryService;
     this.ea = eventAggregator;
+    let date = new Date();
+    this.currentMonth = date.getMonth() + 1;
+    this.currentYear = date.getFullYear();
+  }
+  currentMonthChanged(){
+    this.getEntries();
+  }
+  currentYearChanged(){
+    this.getEntries();
   }
   getEntries = () => {
-    this.entryService.getEntries()
+    this.entryService.getEntries(this.currentYear, this.currentMonth)
       .then(entries => this.entries = entries);
   }
 

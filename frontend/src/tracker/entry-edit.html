@@ -15,7 +15,7 @@
         <div class="activityName">${activity.name}</div>
     </div>
     <div>
-        <textarea value.bind="entry.note"></textarea>
+        <textarea class="entryNote" value.bind="entry.note"></textarea>
     </div>
     <div if.bind="activities.length > 0">
         <div repeat.for="[id, count] of entry.activities" class="activityContainer cursor" click.trigger="removeActivity(id)">

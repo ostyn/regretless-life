@@ -22,8 +22,8 @@ export class EntryService {
         //this.entries.set(entry._id, entry);
     }
 
-    getEntries() {
-        return this.entryDao.getItems()
+    getEntries(year, month) {
+        return this.entryDao.getEntriesFromYearAndMonth(year, month)
             .then((entries)=> {
                 return entries;
             })

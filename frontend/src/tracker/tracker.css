@@ -38,3 +38,8 @@
 .cursor {
     cursor: pointer;
 }
+.entryNote {
+    width: 75%;
+    height: 200px;
+    padding: 10px;
+}
