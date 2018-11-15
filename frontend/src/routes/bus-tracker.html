@@ -4,5 +4,6 @@
     </div>
 
     <div repeat.for="stop of stops.data" click.trigger="setStop(stop.stopId)">${stop.stopDescription}(${stop.stopId})</div>
-    ${JSON.stringify(currentStopInfo)}
+    <div repeat.for="arriving of currentStopInfo.data">${arriving.status}</div>
+    ${currentStopInfo}
 </template>
