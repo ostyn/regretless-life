@@ -18,7 +18,19 @@ export class VrtDao {
             });
     }
     getStopsOnRoute(route) {
-        return this.http.fetch('getRoutes')
+        return this.http.fetch('getStopsForRoute?routeId=' + route)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data;
+            })
+            .catch(ex => {
+                console.log(ex);
+            });
+    }
+    getStatusForStop(stop) {
+        return this.http.fetch('getStatusForStop?stopId=' + stop)
             .then(response => {
                 return response.json();
             })

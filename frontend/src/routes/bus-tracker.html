@@ -1,4 +1,8 @@
 <template>
-    <div if.bind="routes">${routes.time}</div>
-    <div repeat.for="stop of stops.data">${stop.stopDescription}(${stop.stopId})</div>
+    <divif.bind="routes">
+        <div repeat.for="route of routes.data" click.trigger="setRoute(route.routeId)" >${route.longName}</div>
+    </div>
+
+    <div repeat.for="stop of stops.data" click.trigger="setStop(stop.stopId)">${stop.stopDescription}(${stop.stopId})</div>
+    ${JSON.stringify(currentStopInfo)}
 </template>

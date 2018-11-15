@@ -8,9 +8,18 @@ export class BusTracker {
             .then((routes) => {
                 this.routes = routes;
             });
-        this.vrtDao.getStopsOnRoute(undefined)
+
+    }
+    setRoute(route){
+        this.vrtDao.getStopsOnRoute(route)
             .then((stops) => {
                 this.stops = stops;
+            });
+    }
+    setStop(stop){
+        this.vrtDao.getStatusForStop(stop)
+            .then((info) => {
+                this.currentStopInfo = info;
             });
     }
 }

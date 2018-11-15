@@ -12,8 +12,8 @@ def construct_blueprint():
 
     @vrtModule.route("/getStopsForRoute", methods=['GET'])
     def getStopsForRoute():
-        routeName = request.args.get('routeName')
-        url = "https://vrt.routematch.com/feed/stops/" + routeName
+        routeId = request.args.get('routeId')
+        url = "https://vrt.routematch.com/feed/stops/" + routeId
         req = requests.get(url, stream = True)
         return jsonify(req.json())
 
