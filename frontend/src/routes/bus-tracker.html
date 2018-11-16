@@ -1,8 +1,17 @@
 <template>
-    <divif.bind="routes">
-        <div repeat.for="route of routes.data" click.trigger="setRoute(route.routeId)" >${route.longName}</div>
-    </div>
-
-    <div repeat.for="stop of stops.data" click.trigger="setStop(stop.stopId)">${stop.stopDescription}(${stop.stopId})</div>
-    <div repeat.for="arriving of currentStopInfo.data">${arriving.status} to ${arriving.destination}</div>
+    <select if.bind="routes" value.bind="selectedRoute">
+        <option model.bind="null">Choose...</option>
+        <option repeat.for="route of routes.data" model.bind="route">
+            ${route.longName}
+        </option>
+    </select>
+    <select if.bind="stops" value.bind="selectedStop">
+        <option model.bind="null">Choose...</option>
+        <option repeat.for="stop of stops.data" model.bind="stop">
+            ${stop.stopDescription}(${stop.stopId})
+        </option>
+    </select>
+    <a if.bind="selectedRoute && selectedStop" route-href="route: bus; params.bind: {routeId:selectedRoute.routeId, stopId: selectedStop.stopId}">Link to Stop</a>
+    <div if.bind="currentStopInfo">${currentStopInfo.time}</div>
+    <div if.bind="currentStopInfo" repeat.for="arriving of currentStopInfo.data">${arriving.status} to ${arriving.destination}</div>
 </template>
