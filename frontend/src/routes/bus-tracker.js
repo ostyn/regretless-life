@@ -5,19 +5,23 @@ export class BusTracker {
     @observable selectedRoute = undefined;
     @observable selectedStop = undefined;
     notCurrentlyRequesting = true;
+    interval = undefined;
     selectedRouteChanged(newVal, oldVal) {
         this.stops = undefined;
-        this.vrtDao.getStopsOnRoute(this.selectedRoute.routeId)
-            .then((stops) => {
-                this.stops = stops;
-            });
+        if (this.selectedRoute) {
+            this.vrtDao.getStopsOnRoute(this.selectedRoute.routeId)
+                .then((stops) => {
+                    this.stops = stops;
+                });
+        }
     }
     selectedStopChanged(newVal, oldVal) {
         this.currentStopInfo = undefined;
-        this.vrtDao.getStatusForStop(this.selectedStop.stopId)
-            .then((info) => {
-                this.currentStopInfo = info;
-            });
+        if (this.selectedStop) {
+            if (this.interval)
+                clearInterval(this.interval);
+            this.interval = setInterval(this.getStatusForCurrentStop, 10000);
+        }
     }
 
     activate(params, routeConfig, navigationInstruction) {
@@ -29,16 +33,15 @@ export class BusTracker {
                 });
                 this.routes = routes;
             });
-        this.vrtDao.getStopsOnRoute(params.routeId)
-            .then((stops) => {
-                stops.data.forEach(stop => {
-                    if (stop.stopId == params.stopId)
-                        this.selectedStop = stop;
+        if (params.routeId)
+            this.vrtDao.getStopsOnRoute(params.routeId)
+                .then((stops) => {
+                    stops.data.forEach(stop => {
+                        if (stop.stopId == params.stopId)
+                            this.selectedStop = stop;
+                    });
+                    this.stops = stops;
                 });
-                this.stops = stops;
-            });
-            setInterval(this.getStatusForCurrentStop, 10000);
-        ;
     }
 
     getStatusForCurrentStop = () => {

@@ -13,5 +13,5 @@
     </select>
     <a if.bind="selectedRoute && selectedStop" route-href="route: bus; params.bind: {routeId:selectedRoute.routeId, stopId: selectedStop.stopId}">Link to Stop</a>
     <div if.bind="currentStopInfo">${currentStopInfo.time}</div>
-    <div if.bind="currentStopInfo" repeat.for="arriving of currentStopInfo.data">${arriving.status} to ${arriving.destination}</div>
+    <div if.bind="currentStopInfo" repeat.for="arriving of currentStopInfo.data">${arriving.routeLongName}: ${arriving.status} to ${arriving.destination}</div>
 </template>
