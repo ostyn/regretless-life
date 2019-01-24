@@ -12,6 +12,8 @@
         </option>
     </select>
     <a if.bind="selectedRoute && selectedStop" route-href="route: bus; params.bind: {routeId:selectedRoute.routeId, stopId: selectedStop.stopId}">Link to Stop</a>
-    <div if.bind="currentStopInfo">${currentStopInfo.time}</div>
+    <div if.bind="notCurrentlyRequesting">Arrival Estimates</div>
+    <div if.bind="!notCurrentlyRequesting">Arrival Estimates Refreshing...</div>
+    <div if.bind="currentStopInfo">Estimates are ${timeSinceLastDataTimestamp} seconds old</div>
     <div if.bind="currentStopInfo" repeat.for="arriving of currentStopInfo.data">${arriving.routeLongName}: ${arriving.status} to ${arriving.destination}</div>
 </template>

@@ -20,6 +20,7 @@ export class BusTracker {
         if (this.selectedStop) {
             if (this.interval)
                 clearInterval(this.interval);
+            this.getStatusForCurrentStop();
             this.interval = setInterval(this.getStatusForCurrentStop, 10000);
         }
     }
@@ -54,9 +55,13 @@ export class BusTracker {
                 });
         }
     }
-
+    updateTimeSinceLastDataTimestamp() {
+        if(this.currentStopInfo)
+            this.timeSinceLastDataTimestamp = Math.round((new Date().getTime() - new Date(this.currentStopInfo.time).getTime())/1000);
+    }
 
     constructor(vrtDao) {
         this.vrtDao = vrtDao;
+        setInterval(() => this.updateTimeSinceLastDataTimestamp(), 1000);
     }
 }
