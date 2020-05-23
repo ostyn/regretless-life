@@ -3,26 +3,27 @@ import { inject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PageChanged } from 'messages/messages';
 import { HttpClient } from 'aurelia-fetch-client';
+import {PLATFORM} from 'aurelia-pal';
 @inject(FetchConfig, HttpClient)
 export class App {
   configureRouter(config, router) {
     config.title = 'regretless.life';
     config.addPipelineStep('authorize', AuthorizeStep);
     config.addPipelineStep('postcomplete', PostCompleteStep);
-    config.map([
-      { route: ['', 'blog'], moduleId: './routes/post-list-base', nav: false, title: 'blog', name: 'blog' },
-      { route: 'drafts', moduleId: './routes/post-list-drafts', nav: false, title: 'drafts', name: 'drafts', auth: true },
-      { route: 'search', moduleId: './routes/post-list-search', nav: false, title: 'search', name: 'search' },
-      { route: 'tags/:tag', moduleId: './routes/post-list-tags', nav: false, title: 'tags', name: 'tags' },
-      { route: 'editor', moduleId: './routes/editor', nav: false, title: 'editor', name: 'editor', auth: true },
-      { route: 'post/:id', moduleId: './routes/post', name: 'post', nav: false, title: config.title },
-      { route: 'about', moduleId: './routes/about', name: 'about', nav: true, title: 'about us' },
-      { route: 'login', moduleId: './widgets/login', name: 'login', nav: false, title: 'login' },
-      { route: 'register', moduleId: './routes/register', nav: false, title: 'register', auth: true },
-      { route: 'places', moduleId: './routes/places', nav: true, title: 'places' },
-      { route: 'tracker', moduleId: './routes/tracker', title: 'tracker', auth: true },
-      { route: 'bus/:routeId?/:stopId?', moduleId: './routes/bus-tracker', name: 'bus', title: 'bus'},
-    ]);
+     config.map([
+       { route: ['', 'blog'], moduleId: PLATFORM.moduleName('./routes/post-list-base'), nav: false, title: 'blog', name: 'blog' },
+      { route: 'drafts', moduleId: PLATFORM.moduleName('./routes/post-list-drafts'), nav: false, title: 'drafts', name: 'drafts', auth: true },
+      { route: 'search', moduleId: PLATFORM.moduleName('./routes/post-list-search'), nav: false, title: 'search', name: 'search' },
+      { route: 'tags/:tag', moduleId: PLATFORM.moduleName('./routes/post-list-tags'), nav: false, title: 'tags', name: 'tags' },
+      { route: 'editor', moduleId: PLATFORM.moduleName('./routes/editor'), nav: false, title: 'editor', name: 'editor', auth: true },
+      { route: 'post/:id', moduleId: PLATFORM.moduleName('./routes/post'), name: 'post', nav: false, title: config.title },
+      { route: 'about', moduleId: PLATFORM.moduleName('./routes/about'), name: 'about', nav: true, title: 'about us' },
+      { route: 'login', moduleId: PLATFORM.moduleName('./widgets/login'), name: 'login', nav: false, title: 'login' },
+      { route: 'register', moduleId: PLATFORM.moduleName('./routes/register'), nav: false, title: 'register', auth: true },
+      { route: 'places', moduleId: PLATFORM.moduleName('./routes/places'), nav: true, title: 'places' },
+      { route: 'tracker', moduleId: PLATFORM.moduleName('./routes/tracker'), title: 'tracker', auth: true },
+      { route: 'bus/:routeId?/:stopId?', moduleId: PLATFORM.moduleName('./routes/bus-tracker'), name: 'bus', title: 'bus'},
+     ]);
 
     this.router = router;
   }

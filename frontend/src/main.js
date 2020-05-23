@@ -1,19 +1,20 @@
 import config from 'authConfig'; 
 import fetch from 'whatwg-fetch';
+import {PLATFORM} from 'aurelia-pal';
 export function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
     .developmentLogging()
-    .plugin('aurelia-auth', (baseConfig)=>{
+    .plugin(PLATFORM.moduleName('aurelia-auth'), (baseConfig)=>{
          baseConfig.configure(config);
     })
-    .plugin('aurelia-google-maps', config => {
+    .plugin(PLATFORM.moduleName('aurelia-google-maps'), config => {
       config.options({
           apiKey: 'AIzaSyDJUe-5GYpgt4u034NjKCa7qlWm4_TPsQ4',
           apiLibraries: 'drawing,geometry' //get optional libraries like drawing, geometry, ... - comma seperated list
       });
     })
-    .plugin('aurelia-google-analytics', config => {
+    .plugin(PLATFORM.moduleName('aurelia-google-analytics'), config => {
       config.init('UA-82516304-1');
       config.attach({
         logging: {
@@ -29,7 +30,8 @@ export function configure(aurelia) {
           enabled: false // Set to `false` to disable in non-production environments.
         }
       });
-    });;
+    })
+    .globalResources(PLATFORM.moduleName("aurelia-auth/auth-filter"));
 	
-  aurelia.start().then(a => a.setRoot());
+    aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));
 }

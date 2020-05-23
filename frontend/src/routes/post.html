@@ -23,7 +23,7 @@
             <div class="comment" repeat.for="comment of post.comments">
                 <div class="commentHeader">
                     <span class="grey">#${$index+1} ${comment.name}</span>
-                    <img class="commentPicture" if.bind="comment.admin" src="src/widgets/us.jpg">
+                    <img class="commentPicture" if.bind="comment.admin" src="/us.jpg">
                 </div>
                 <div class="grey">${formatLib.secondsToDate(comment.date)} at ${formatLib.secondsToTime(comment.date)}</div>
                 <div>${comment.content}</div>

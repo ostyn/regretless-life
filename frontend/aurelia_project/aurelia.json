@@ -1,205 +1,31 @@
 {
-  "name": "rl",
+  "name": "regretless-life",
   "type": "project:application",
-  "platform": {
-    "id": "web",
-    "displayName": "Web",
-    "output": "scripts",
-    "index": "index.html"
+  "paths": {
+    "root": "src",
+    "resources": "resources",
+    "elements": "resources/elements",
+    "attributes": "resources/attributes",
+    "valueConverters": "resources/value-converters",
+    "bindingBehaviors": "resources/binding-behaviors"
   },
   "transpiler": {
     "id": "babel",
-    "displayName": "Babel",
-    "fileExtension": ".js",
-    "options": {
-      "plugins": [
-        "transform-es2015-modules-amd"
-      ]
-    },
-    "source": "src/**/*.js"
-  },
-  "markupProcessor": {
-    "id": "none",
-    "displayName": "None",
-    "fileExtension": ".html",
-    "source": "src/**/*.html"
-  },
-  "cssProcessor": {
-    "id": "none",
-    "displayName": "None",
-    "fileExtension": ".css",
-    "source": "src/**/*.css"
-  },
-  "editor": {
-    "id": "vscode",
-    "displayName": "Visual Studio Code"
-  },
-  "unitTestRunner": {
-    "id": "karma",
-    "displayName": "Karma",
-    "source": "test/unit/**/*.js"
-  },
-  "paths": {
-    "root": "src",
-    "resources": "src/resources",
-    "elements": "src/resources/elements",
-    "attributes": "src/resources/attributes",
-    "valueConverters": "src/resources/value-converters",
-    "bindingBehaviors": "src/resources/binding-behaviors"
-  },
-  "testFramework": {
-    "id": "jasmine",
-    "displayName": "Jasmine"
+    "fileExtension": ".js"
   },
   "build": {
-    "targets": [
-      {
-        "id": "web",
-        "displayName": "Web",
-        "output": "scripts",
-        "index": "index.html"
-      }
-    ],
-    "loader": {
-      "type": "require",
-      "configTarget": "vendor-bundle.js",
-      "includeBundleMetadataInConfig": "auto",
-      "plugins": [
-        {
-          "name": "text",
-          "extensions": [
-            ".html",
-            ".css"
-          ],
-          "stub": true
-        }
-      ]
-    },
     "options": {
-      "minify": "stage & prod",
-      "sourcemaps": "dev & stage",
-      "rev": "stage & prod"
-    },
-    "bundles": [
-      {
-        "name": "app-bundle.js",
-        "source": [
-          "[**/*.js]",
-          "**/*.{css,html}"
-        ]
-      },
-      {
-        "name": "vendor-bundle.js",
-        "prepend": [
-          "node_modules/bluebird/js/browser/bluebird.core.js",
-          "node_modules/requirejs/require.js"
-        ],
-        "dependencies": [
-          "aurelia-binding",
-          "aurelia-bootstrapper",
-          "aurelia-dependency-injection",
-          "aurelia-event-aggregator",
-          "aurelia-framework",
-          "aurelia-history",
-          "aurelia-history-browser",
-          "aurelia-loader",
-          "aurelia-loader-default",
-          "aurelia-logging",
-          "aurelia-logging-console",
-          "aurelia-metadata",
-          "aurelia-pal",
-          "aurelia-pal-browser",
-          "aurelia-path",
-          "aurelia-polyfills",
-          "aurelia-route-recognizer",
-          "aurelia-router",
-          "aurelia-task-queue",
-          "aurelia-templating",
-          "aurelia-templating-binding",
-          "aurelia-fetch-client",
-          "whatwg-fetch",
-          {
-            "name": "to-markdown",
-            "path": "../node_modules/to-markdown/dist",
-            "main": "to-markdown.js"
-          },
-          {
-            "name": "medium-editor",
-            "path": "../node_modules/medium-editor/dist",
-            "main": "./js/medium-editor.min.js"
-          },
-          "striptags",
-          {
-            "name": "jquery",
-            "path": "../node_modules/jquery/dist",
-            "main": "jquery.min.js"
-          },
-          {
-            "name": "jvectormap",
-            "path": "../node_modules/jvectormap",
-            "main": "jquery-jvectormap.min.js",
-            "resources": [
-              "./tests/assets/jquery-jvectormap-world-mill-en.js",
-              "./lib/jquery-mousewheel.js"
-            ]
-          },
-          {
-            "name": "showdown-youtube",
-            "path": "../node_modules/showdown-youtube/src",
-            "main": "showdown-youtube"
-          },
-          {
-            "name": "aurelia-google-maps",
-            "path": "../node_modules/aurelia-google-maps/dist/amd",
-            "main": "index"
-          },
-          {
-            "name": "aurelia-google-analytics",
-            "main": "index",
-            "path": "../node_modules/aurelia-google-analytics/dist/amd",
-            "resources": []
-          },
-          "showdown",
-          {
-            "name": "nprogress",
-            "path": "../node_modules/nprogress",
-            "main": "nprogress",
-            "resources": [
-              "nprogress.css"
-            ]
-          },
-          "trim-html",
-          {
-            "name": "aurelia-auth",
-            "path": "../node_modules/aurelia-auth/dist/amd",
-            "main": "aurelia-auth"
-          },
-          "text",
-          {
-            "name": "aurelia-templating-resources",
-            "path": "../node_modules/aurelia-templating-resources/dist/amd",
-            "main": "aurelia-templating-resources"
-          },
-          {
-            "name": "aurelia-templating-router",
-            "path": "../node_modules/aurelia-templating-router/dist/amd",
-            "main": "aurelia-templating-router"
-          },
-          {
-            "name": "aurelia-testing",
-            "path": "../node_modules/aurelia-testing/dist/amd",
-            "main": "aurelia-testing",
-            "env": "dev"
-          },
-          {
-            "name": "onedrive",
-            "path": "../lib",
-            "main": "OneDrive.js"
-          },
-          "moment",
-          "deepmerge"
-        ]
-      }
-    ]
-  }
+      "server": "dev",
+      "extractCss": "prod",
+      "coverage": false
+    }
+  },
+  "platform": {
+    "hmr": false,
+    "open": false,
+    "port": 8080,
+    "host": "localhost",
+    "output": "dist"
+  },
+  "packageManager": "npm"
 }

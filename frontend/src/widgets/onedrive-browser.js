@@ -1,4 +1,4 @@
-import OneDrive from 'onedrive';
+import OneDrive from '../../lib/onedrive';
 import { bindable, inject } from 'aurelia-framework';
 import {BlogDao} from 'dao/BlogDao';
 import {FormatLib} from 'util/FormatLib';

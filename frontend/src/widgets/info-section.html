@@ -1,7 +1,7 @@
 <template class="info">
     <require from="widgets/login"></require>
     <div>
-        <img class="infoSectionImage" click.trigger="showLogin=!showLogin" width=150 height=150 src="src/widgets/us.jpg">
+        <img class="infoSectionImage" click.trigger="showLogin=!showLogin" width=150 height=150 src="/us.jpg">
     </div>
     <div if.bind="!userService.isAuthenticated">
         <div class="infoSectionTitleContainer">

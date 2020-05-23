@@ -7,19 +7,19 @@
     <meta property="og:type"               content="article" />
     <meta property="og:title"              content="regretless.life" />
     <meta property="og:description"        content="Blogs, places, tips, and things! Out to see the world and never forget it." />
-    <meta property="og:image"              content="http://regretless.life/src/widgets/us.jpg" />
+    <meta property="og:image"              content="/us.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="src/styles/styles.css">
+    <base href="<%- htmlWebpackPlugin.options.metadata.baseUrl %>">
+    <link rel="stylesheet" href="styles.css" type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Petit+Formal+Script' rel='stylesheet' type='text/css'>
   </head>
   <center class="splash">
-    </br>
-    </br>
-    </br>
-    </br>
-    <span class="loadingMessage">loading adventures...</span>
-  </center>
+  </br>
+  </br>
+  </br>
+  </br>
+  <span class="loadingMessage">loading adventures...</span>
+</center>
   <body aurelia-app="main">
-    <script src="scripts/vendor-bundle.js" data-main="aurelia-bootstrapper"></script>
   </body>
 </html>
