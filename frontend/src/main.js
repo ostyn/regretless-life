@@ -10,6 +10,7 @@ export function configure(aurelia) {
     })
     .plugin(PLATFORM.moduleName('aurelia-google-maps'), config => {
       config.options({
+          clientId:false,
           apiKey: 'AIzaSyDJUe-5GYpgt4u034NjKCa7qlWm4_TPsQ4',
           apiLibraries: 'drawing,geometry' //get optional libraries like drawing, geometry, ... - comma seperated list
       });
