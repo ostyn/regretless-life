@@ -1,5 +1,6 @@
 import { bindable, inject } from 'aurelia-framework';
-import { vectorMap } from 'jvectormap';
+import "jvectormap/tests/assets/jquery-jvectormap-world-mill-en.js";
+import "jvectormap/jquery-jvectormap.css";
 
 @inject(Element)
 export class VectorMap {
