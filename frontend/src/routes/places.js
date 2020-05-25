@@ -1,7 +1,8 @@
 import {inject} from 'aurelia-framework';
 import {BlogDao} from 'dao/BlogDao';
 import {FormatLib} from 'util/FormatLib';
-import {VectorMap} from 'widgets/vector-map';
+import 'flag-icon-css/css/flag-icon.min.css';
+
 @inject(BlogDao, FormatLib)
 export class Places {
     show = {};

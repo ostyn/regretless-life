@@ -1,7 +1,6 @@
 import pymongo
 import blogPostModule
 import oneDriveModule
-import vrtModule
 import subscriptionModule
 import userModule
 import genericModule
@@ -67,7 +66,6 @@ compress = Compress(app)
 
 app.register_blueprint(blogPostModule.construct_blueprint(postsCollection, emailsCollection, mail))
 app.register_blueprint(oneDriveModule.construct_blueprint())
-app.register_blueprint(vrtModule.construct_blueprint())
 app.register_blueprint(subscriptionModule.construct_blueprint(emailsCollection, mail))
 app.register_blueprint(userModule.construct_blueprint(usersCollection, authModule))
 app.register_blueprint(entryStatsModule.construct_blueprint(entriesCollection, entrySortOrder))

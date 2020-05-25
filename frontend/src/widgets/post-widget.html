@@ -22,7 +22,7 @@
         <!--below is a hack until Aurelia easily supports typed binding-->
         <span if.bind="(showMapButton === 'true' || showMapButton === true) && post.locationInfo && post.locationInfo.name">
             <button class="mapButton" click.trigger="toggleMap()">${(mapShown)?'X':post.locationInfo.name}</button>
-            <google-map if.bind="mapLoaded" show.bind="mapShown" address.bind="post.locationInfo.name" zoom="7"></google-map>
+            <google-map if.bind="mapLoaded" show.bind="mapShown" latitude.bind="post.locationInfo.latitude" longitude.bind="post.locationInfo.longitude" zoom="7"></google-map>
         </span>
         <div class="blogPostBody" innerhtml.bind="post.content | markdownFormat | trimHtml : contentLength"></div>
         <div if.bind="(showLastEditedDate === 'true' || showLastEditedDate === true) && post.dateLastEdited != undefined">

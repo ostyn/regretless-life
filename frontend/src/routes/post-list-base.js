@@ -2,7 +2,8 @@ import {inject, useView} from 'aurelia-framework';
 import {BlogDao} from 'dao/BlogDao';
 import {FormatLib} from 'util/FormatLib';
 import {activationStrategy, Router} from 'aurelia-router';
-@useView('routes/post-list.html')
+import {PLATFORM} from 'aurelia-pal';
+@useView(PLATFORM.moduleName('routes/post-list.html'))
 @inject(BlogDao, FormatLib, Router)
 export class PostListBase{
     nextText = "newer posts";

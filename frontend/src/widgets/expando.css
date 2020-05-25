@@ -5,7 +5,7 @@
 	cursor: text;
 }
 .expando-searchbox{
-	background: url("/src/widgets/search.png")  no-repeat;
+	background: url("./search.png")  no-repeat;
 	background-size: 24px 24px;
 	padding-left: 32px;
 	background-position: 5% 50%; 

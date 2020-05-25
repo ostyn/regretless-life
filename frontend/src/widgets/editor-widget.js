@@ -1,6 +1,8 @@
 import MediumEditor from 'medium-editor';
 import toMarkdown from 'to-markdown';
 import { bindable } from 'aurelia-framework';
+import "medium-editor/dist/css/medium-editor.min.css";
+import "medium-editor/dist/css/themes/beagle.min.css";
 export class EditorWidget {
     editor = undefined;
     @bindable markdown;
