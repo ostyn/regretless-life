@@ -22,7 +22,6 @@ export class App {
       { route: 'register', moduleId: PLATFORM.moduleName('./routes/register'), nav: false, title: 'register', auth: true },
       { route: 'places', moduleId: PLATFORM.moduleName('./routes/places'), nav: true, title: 'places' },
       { route: 'tracker', moduleId: PLATFORM.moduleName('./routes/tracker'), title: 'tracker', auth: true },
-      { route: 'bus/:routeId?/:stopId?', moduleId: PLATFORM.moduleName('./routes/bus-tracker'), name: 'bus', title: 'bus'},
      ]);
 
     this.router = router;
