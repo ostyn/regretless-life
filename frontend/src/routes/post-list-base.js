@@ -6,34 +6,29 @@ import {PLATFORM} from 'aurelia-pal';
 @useView(PLATFORM.moduleName('routes/post-list.html'))
 @inject(BlogDao, FormatLib, Router)
 export class PostListBase{
-    nextText = "newer posts";
-    prevText = "older posts";
+    moreText = "show more";
     previewLength = 200;
     showCommentsLink = true;
     showAuthorDate = true;
     widgetCssRule = "regularFeedPostWidget";
     expandPostTitle = false;
-    start = 0;
+    requestedLastPage = false;
     num = 5;
     posts = [];
-    remainingPosts = 0;
     routeName;
     determineActivationStrategy(){
         return activationStrategy.replace;
     }
     getData(params){
-        return this.blogDao.getNPosts(this.start, this.num)
+        return this.blogDao.getNPosts(this.num, this.start)
             .then((postsData) => {
                 if(postsData) {
-                    this.posts = postsData.posts;
-                    this.remainingPosts = postsData.remainingPosts;
+                    this.posts = postsData;
                 }
             });
     }
     activate(params, routeConfig, navigationInstruction) {
         this.routeName = routeConfig.name;
-        if(params.start)
-            this.start = parseInt(params.start);
         return this.getData(params);
 
     }
@@ -42,16 +37,15 @@ export class PostListBase{
         this.formatLib = formatLib;
         this.router = router;
     }
-    nextLinkParams(){
-        return { 'start': (this.start-this.num<0)?0:this.start-this.num };
-    }
-    prevLinkParams(){
-        return { 'start': this.start+this.num };
-    }
-    get getNextLinkParams(){
-        return this.nextLinkParams();
-    }
-    get getPrevLinkParams(){
-        return this.prevLinkParams();
+    showMore(){
+        this.blogDao.getNPosts(this.num, this.posts[this.posts.length-1].date)
+            .then((postsData) => {
+                if(postsData) {
+                    if(postsData.length > 0)
+                        this.posts = this.posts.concat(postsData);
+                    else
+                        this.requestedLastPage = true;
+                }
+            });
     }
 }

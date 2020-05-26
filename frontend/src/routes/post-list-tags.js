@@ -18,13 +18,8 @@ export class PostListTags extends PostListBase {
                 }
             });
     }
-    nextLinkParams(){
-        let params = super.nextLinkParams();
-        params["tag"] = this.tag;
-        return params;
-    }
-    prevLinkParams(){
-        let params = super.prevLinkParams();
+    showMore(){
+        let params = super.showMore();
         params["tag"] = this.tag;
         return params;
     }

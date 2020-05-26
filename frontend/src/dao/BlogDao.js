@@ -1,35 +1,66 @@
-import {inject} from 'aurelia-framework';
-import {HttpClient, json} from 'aurelia-fetch-client';
+import { inject } from 'aurelia-framework';
+import { HttpClient, json } from 'aurelia-fetch-client';
+import firebase from "firebase";
 @inject(HttpClient)
 export class BlogDao {
     constructor(http) {
         this.http = http;
+        this.db = firebase.firestore();
     }
     getAllPosts() {
         return this.findAllPosts();
     }
-    getNPosts(start, num) {
-        return this.findNPosts("", start, num);
+    getNPosts(num, start) {
+        return this.findNPosts("", num, start);
     }
     findAllPosts(query = "") {
         return this.findNPosts(query);
     }
-    findNPosts(query = "", start = 0, num = 0) {
-        return this.http.fetch('findNPosts?query=' + query + "&start=" + start + "&num=" + num)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                return data.resp;
-            })
-            .catch(ex => {
-                console.log(ex);
+    findNPosts(query, num, start) {
+        var ref = this.db.collection("posts");
+        let firequery = ref.orderBy("date", "desc").limit(num);
+        if(start !== undefined)
+            firequery = firequery.startAfter(start)
+        return firequery.get().then((snapshot) => {
+            let posts = [];
+            snapshot.forEach(doc => {
+                const post = {
+                    ...doc.data(),
+                    _id: doc.id
+                };
+                posts.push(post);
             });
+            return posts;
+        }
+        );
     }
-    getNDraftPosts(start, num) {
-        return this.findNDraftPosts("", start, num);
+
+    getPost(id) {
+        var ref = this.db.collection("posts");
+        return ref.doc(id).get().then((doc) => {
+            return {
+                ...doc.data(),
+                _id: doc.id
+            };
+        }
+        );
     }
-    findNDraftPosts(query = "", start = 0, num = 0) {
+    // findNPosts(query = "", start = 0, num = 0) {
+    //     return this.http.fetch('findNPosts?query=' + query + "&start=" + start + "&num=" + num)
+    //         .then(response => {
+    //             return response.json();
+    //         })
+    //         .then(data => {
+    //             return data.resp;
+    //         })
+    //         .catch(ex => {
+    //             console.log(ex);
+    //         });
+    // }
+    getNDraftPosts(num, start) {
+        return this.findNDraftPosts("", num, start);
+    }
+    findNDraftPosts(query = "", num = 0, start = 0) {
         return this.http.fetch('findNDraftPosts?query=' + query + "&start=" + start + "&num=" + num)
             .then(response => {
                 return response.json();
@@ -41,20 +72,8 @@ export class BlogDao {
                 console.log(ex);
             });
     }
-    getNTaggedPosts(tag, start, num) {
+    getNTaggedPosts(tag, num, start) {
         return this.http.fetch('getNTaggedPosts?tag=' + tag + "&start=" + start + "&num=" + num)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                return data.resp;
-            })
-            .catch(ex => {
-                console.log(ex);
-            });
-    }
-    getPost(id) {
-        return this.http.fetch('getPost?id=' + id)
             .then(response => {
                 return response.json();
             })
@@ -85,7 +104,7 @@ export class BlogDao {
                 return response.json();
             })
             .then(data => {
-                if(data.resp != null)
+                if (data.resp != null)
                     return data.resp;
                 else
                     return;
@@ -100,7 +119,7 @@ export class BlogDao {
                 return response.json();
             })
             .then(data => {
-                if(data.resp != null)
+                if (data.resp != null)
                     return data.resp.years;
                 else
                     return;
@@ -115,7 +134,7 @@ export class BlogDao {
                 return response.json();
             })
             .then(data => {
-                if(data.resp != null)
+                if (data.resp != null)
                     return data.resp;
                 else
                     return;
@@ -126,16 +145,16 @@ export class BlogDao {
     }
     savePost(post) {
         let postData = {
-                    'id': post._id,
-                    'title': post.title,
-                    'author': post.author,
-                    'content': post.content,
-                    'heroPhotoUrl': post.heroPhotoUrl,
-                    'isDraft':post.isDraft,
-                    'images':post.images,
-                    'tags': Array.from(post.tags)
-                };
-        if(post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
+            'id': post._id,
+            'title': post.title,
+            'author': post.author,
+            'content': post.content,
+            'heroPhotoUrl': post.heroPhotoUrl,
+            'isDraft': post.isDraft,
+            'images': post.images,
+            'tags': Array.from(post.tags)
+        };
+        if (post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
             postData['location'] = post.locationInfo.name;
         return this.http
             .fetch('savePost', {
@@ -143,7 +162,7 @@ export class BlogDao {
                 body: json(postData),
             })
             .then(response => {
-                if(response.status > 400)
+                if (response.status > 400)
                     throw response;
                 return response.json();
             })
@@ -154,16 +173,16 @@ export class BlogDao {
 
     publishPost(post) {
         let postData = {
-                    'id': post._id,
-                    'title': post.title,
-                    'author': post.author,
-                    'content': post.content,
-                    'heroPhotoUrl': post.heroPhotoUrl,
-                    'isDraft':post.isDraft,
-                    'images':post.images,
-                    'tags':Array.from(post.tags)
-                };
-        if(post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
+            'id': post._id,
+            'title': post.title,
+            'author': post.author,
+            'content': post.content,
+            'heroPhotoUrl': post.heroPhotoUrl,
+            'isDraft': post.isDraft,
+            'images': post.images,
+            'tags': Array.from(post.tags)
+        };
+        if (post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
             postData['location'] = post.locationInfo.name;
         return this.http
             .fetch('publishPost', {
@@ -171,7 +190,7 @@ export class BlogDao {
                 body: json(postData),
             })
             .then(response => {
-                if(response.status > 400)
+                if (response.status > 400)
                     throw response;
                 return response.json();
             })
@@ -191,13 +210,13 @@ export class BlogDao {
                     'location': post.location,
                     'content': post.content,
                     'heroPhotoUrl': post.heroPhotoUrl,
-                    'isDraft':post.isDraft,
-                    'images':post.images,
+                    'isDraft': post.isDraft,
+                    'images': post.images,
                     'tags': Array.from(post.tags)
                 }),
             })
             .then(response => {
-                if(response.status > 400)
+                if (response.status > 400)
                     throw response;
                 return response.json();
             })
@@ -215,7 +234,7 @@ export class BlogDao {
                 }),
             })
             .then(response => {
-                if(response.status > 400)
+                if (response.status > 400)
                     throw response;
                 return response.json();
             })
@@ -235,7 +254,7 @@ export class BlogDao {
                 }),
             })
             .then(response => {
-                if(response.status > 400)
+                if (response.status > 400)
                     throw response;
                 return response.json();
             })
@@ -255,7 +274,7 @@ export class BlogDao {
                 }),
             })
             .then(response => {
-                if(response.status > 400)
+                if (response.status > 400)
                     throw response;
                 return response.json();
             })
@@ -273,7 +292,7 @@ export class BlogDao {
                 }),
             })
             .then(response => {
-                if(response.status > 400)
+                if (response.status > 400)
                     throw response;
                 return response.json();
             })
@@ -290,7 +309,7 @@ export class BlogDao {
                 }),
             })
             .then(response => {
-                if(response.status > 400)
+                if (response.status > 400)
                     throw response;
                 return response.json();
             });
@@ -304,34 +323,34 @@ export class BlogDao {
                 }),
             })
             .then(response => {
-                if(response.status > 400)
+                if (response.status > 400)
                     throw response;
                 return response.json();
             });
     }
-    getAuthkey(url){
+    getAuthkey(url) {
         return this.http
-            .fetch('getAuthkey?url='+encodeURIComponent(url), {
-                'method':'get'
-        })
-        .then(response => {
-            if(response.status > 400)
-                throw response;
-            return response.json();
-        })
-        .then((resp) => {
-            return resp.authkey;
-        });;
+            .fetch('getAuthkey?url=' + encodeURIComponent(url), {
+                'method': 'get'
+            })
+            .then(response => {
+                if (response.status > 400)
+                    throw response;
+                return response.json();
+            })
+            .then((resp) => {
+                return resp.authkey;
+            });;
     }
-    getOneDriveLink(url){
+    getOneDriveLink(url) {
         return this.http
             .fetch(url, {
-                'method':'get'
-        })
-        .then(response => {
-            if(response.status > 400)
-                throw response;
-            return response.json();
-        });
+                'method': 'get'
+            })
+            .then(response => {
+                if (response.status > 400)
+                    throw response;
+                return response.json();
+            });
     }
 }

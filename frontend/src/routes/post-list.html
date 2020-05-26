@@ -25,11 +25,6 @@
         <div show.bind="posts.length == 0">
             Couldn't find any posts. Sorry :(
         </div>
-        <div show.bind="start != 0">
-            <a class="nextPrevPageLink" route-href="route.bind: routeName; params.bind: getNextLinkParams">${nextText}</a>
-        </div>
-        <div  show.bind="remainingPosts > 0">
-            <a class="nextPrevPageLink" route-href="route.bind: routeName; params.bind: getPrevLinkParams">${prevText}</a>
-        </div>
+        <button disabled.bind="requestedLastPage" click.trigger="showMore()">${moreText}</button>
     </section>
 </template>

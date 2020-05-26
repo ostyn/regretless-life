@@ -14,13 +14,8 @@ export class PostListSearch extends PostListBase {
                 }
             });
     }
-    nextLinkParams(){
-        let params = super.nextLinkParams();
-        params["query"] = this.query;
-        return params;
-    }
-    prevLinkParams(){
-        let params = super.prevLinkParams();
+    showMore(){
+        let params = super.showMore();
         params["query"] = this.query;
         return params;
     }
