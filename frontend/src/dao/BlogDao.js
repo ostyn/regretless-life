@@ -34,7 +34,24 @@ export class BlogDao {
         }
         );
     }
-
+    getNTaggedPosts(tag, num, start) {
+        var ref = this.db.collection("posts");
+        let firequery = ref.where("isDraft", "==", false).where('tags', 'array-contains', tag).orderBy("date", "desc").limit(num);
+        if (start !== undefined)
+            firequery = firequery.startAfter(start);
+        return firequery.get().then((snapshot) => {
+            let posts = [];
+            snapshot.forEach(doc => {
+                const post = {
+                    ...doc.data(),
+                    _id: doc.id
+                };
+                posts.push(post);
+            });
+            return posts;
+        }
+        );
+    }
     getPost(id) {
         var ref = this.db.collection("posts");
         return ref.doc(id).get().then((doc) => {
@@ -88,18 +105,6 @@ export class BlogDao {
     }
     findNDraftPosts(query = "", num = 0, start = 0) {
         return this.http.fetch('findNDraftPosts?query=' + query + "&start=" + start + "&num=" + num)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                return data.resp;
-            })
-            .catch(ex => {
-                console.log(ex);
-            });
-    }
-    getNTaggedPosts(tag, num, start) {
-        return this.http.fetch('getNTaggedPosts?tag=' + tag + "&start=" + start + "&num=" + num)
             .then(response => {
                 return response.json();
             })

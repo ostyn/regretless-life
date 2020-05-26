@@ -10,17 +10,17 @@ export class PostListTags extends PostListBase {
     num = 9;
     getData(params){
         this.tag = params.tag;
-        return this.blogDao.getNTaggedPosts(params.tag, this.start, this.num)
+        return this.blogDao.getNTaggedPosts(params.tag, this.num)
             .then((postsData) => {
                 if(postsData) {
-                    this.posts = postsData.posts;
-                    this.remainingPosts = postsData.remainingPosts;
+                    this.posts = postsData;
                 }
             });
     }
-    showMore(){
-        let params = super.showMore();
-        params["tag"] = this.tag;
-        return params;
+    loadMore() {
+        if(this.posts && this.posts.length > 1)
+            return this.blogDao.getNTaggedPosts(this.tag, this.num, this.posts[this.posts.length-1].date);
+        else
+            return Promise.resolve([]);
     }
 }

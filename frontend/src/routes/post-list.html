@@ -25,6 +25,7 @@
         <div show.bind="posts.length == 0">
             Couldn't find any posts. Sorry :(
         </div>
-        <button disabled.bind="requestedLastPage" click.trigger="showMore()">${moreText}</button>
+        <button if.bind="!requestedLastPage && posts.length > 0" click.trigger="showMore()">${moreText}</button>
+        <button disabled.bind="true" if.bind="requestedLastPage">No more posts</button>
     </section>
 </template>

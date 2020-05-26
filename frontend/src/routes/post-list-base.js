@@ -37,8 +37,11 @@ export class PostListBase{
         this.formatLib = formatLib;
         this.router = router;
     }
+    loadMore() {
+        return this.blogDao.getNPosts(this.num, this.posts[this.posts.length-1].date);
+    }
     showMore(){
-        this.blogDao.getNPosts(this.num, this.posts[this.posts.length-1].date)
+        this.loadMore()
             .then((postsData) => {
                 if(postsData) {
                     if(postsData.length > 0)
