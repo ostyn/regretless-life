@@ -12,24 +12,27 @@ exports.getPostsByYearAndLocation = functions.https.onRequest((req, res) => {
     .then(snapshot => {
         let years = {};
         snapshot.forEach(doc => {
-            const post = {
-                ...doc.data(),
-                _id: doc.id
-            };
-            if(post.locationInfo === undefined)
+            const fullPost = doc.data();
+            if(fullPost.locationInfo === undefined)
                 return;
-            post["year"] = new Date(post.date).getFullYear();
+            const post = {
+                year: new Date(fullPost.date).getFullYear(),
+                date: fullPost.date,
+                title: fullPost.title,
+                location: fullPost.locationInfo.name,
+                id: doc.id
+            };
             if(years[post.year] === undefined)
                 years[post.year] = {};
-            if(years[post.year][post.locationInfo.countryCode] === undefined)
+            if(years[post.year][fullPost.locationInfo.countryCode] === undefined)
             {
-                years[post.year][post.locationInfo.countryCode] = {};
-                years[post.year][post.locationInfo.countryCode].countryCode = post.locationInfo.countryCode;
-                years[post.year][post.locationInfo.countryCode].country = post.locationInfo.country;
+                years[post.year][fullPost.locationInfo.countryCode] = {};
+                years[post.year][fullPost.locationInfo.countryCode].countryCode = fullPost.locationInfo.countryCode;
+                years[post.year][fullPost.locationInfo.countryCode].country = fullPost.locationInfo.country;
             }
-            if(years[post.year][post.locationInfo.countryCode].posts === undefined)
-                years[post.year][post.locationInfo.countryCode].posts = [];
-            years[post.year][post.locationInfo.countryCode].posts.push(post);
+            if(years[post.year][fullPost.locationInfo.countryCode].posts === undefined)
+                years[post.year][fullPost.locationInfo.countryCode].posts = [];
+            years[post.year][fullPost.locationInfo.countryCode].posts.push(post);
         });
       return res.status(200).send(years);
     }).catch(err => {
