@@ -18,7 +18,7 @@ export class BlogDao {
     }
     findNPosts(query, num, start) {
         var ref = this.db.collection("posts");
-        let firequery = ref.orderBy("date", "desc").limit(num);
+        let firequery = ref.where("isDraft", "==", false).orderBy("date", "desc").limit(num);
         if(start !== undefined)
             firequery = firequery.startAfter(start)
         return firequery.get().then((snapshot) => {
