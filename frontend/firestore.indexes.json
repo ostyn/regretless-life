@@ -10,6 +10,20 @@
         },
         {
           "fieldPath": "date",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "posts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDraft",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
           "order": "DESCENDING"
         }
       ]

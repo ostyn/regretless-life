@@ -4,10 +4,10 @@
     <section>
         <post-widget post.bind="post">
             <div slot="optionalControls" class="nextPrevLink">
-                <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost.id }" class="prevPost">
+                <a if.bind="prevPost" route-href="route: post; params.bind: { id: prevPost._id }" class="prevPost">
                     << ${prevPost.title} 
                 </a>
-                <a if.bind="nextPost" route-href="route: post; params.bind: { id: nextPost.id }" class="nextPost">
+                <a if.bind="nextPost" route-href="route: post; params.bind: { id: nextPost._id }" class="nextPost">
                     ${nextPost.title} >>
                 </a>
             </div>
