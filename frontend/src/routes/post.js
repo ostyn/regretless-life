@@ -25,14 +25,30 @@ export class Post {
             });
         }
         else {
-            return this.blogDao.getPost(params.id).then((post) => {
-                this.post = post;
-                routeConfig.navModel.title = post.title;
-                this.blogDao.getSurroundingPosts(this.post.date).then((surroundingPosts) => {
-                    this.nextPost = surroundingPosts.next;
-                    this.prevPost = surroundingPosts.prev;
-                })
-            });
+            if (this.prevPost && params.id === this.prevPost.id) {
+                this.nextPost = this.post;
+                this.post = this.prevPost;
+                this.blogDao.getPrevPost(this.post.date).then((prevPost) => {
+                    this.prevPost = prevPost;
+                });
+            } else if (this.nextPost && params.id === this.nextPost.id) {
+                this.prevPost = this.post;
+                this.post = this.nextPost;
+                this.blogDao.getNextPost(this.post.date).then((nextPost) => {
+                    this.nextPost = nextPost;
+                });
+            } else {
+                return this.blogDao.getPost(params.id).then((post) => {
+                    this.post = post;
+                    routeConfig.navModel.title = post.title;
+                    this.blogDao.getPrevPost(this.post.date).then((prevPost) => {
+                        this.prevPost = prevPost;
+                    })
+                    this.blogDao.getNextPost(this.post.date).then((nextPost) => {
+                        this.nextPost = nextPost;
+                    })
+                });
+            }
         }
     }
 

@@ -19,8 +19,8 @@ export class BlogDao {
     findNPosts(query, num, start) {
         var ref = this.db.collection("posts");
         let firequery = ref.where("isDraft", "==", false).orderBy("date", "desc").limit(num);
-        if(start !== undefined)
-            firequery = firequery.startAfter(start)
+        if (start !== undefined)
+            firequery = firequery.startAfter(start);
         return firequery.get().then((snapshot) => {
             let posts = [];
             snapshot.forEach(doc => {
@@ -44,6 +44,32 @@ export class BlogDao {
             };
         }
         );
+    }
+    getNextPost(date) {
+        var ref = this.db.collection("posts");
+        return ref.where("isDraft", "==", false).orderBy("date", "desc").startAfter(date).limit(1).get().then((snapshot) => {
+            let nextDoc;
+            snapshot.forEach(doc => {
+                nextDoc = {
+                    ...doc.data(),
+                    _id: doc.id
+                };
+            });
+            return nextDoc;
+        });
+    }
+    getPrevPost(date) {
+        var ref = this.db.collection("posts");
+        return ref.where("isDraft", "==", false).orderBy("date", "desc").endBefore(date).limitToLast(1).get().then((snapshot) => {
+            let prevDoc;
+            snapshot.forEach(doc => {
+                prevDoc = {
+                    ...doc.data(),
+                    _id: doc.id
+                };
+            });
+            return prevDoc;
+        });
     }
     // findNPosts(query = "", start = 0, num = 0) {
     //     return this.http.fetch('findNPosts?query=' + query + "&start=" + start + "&num=" + num)
@@ -92,22 +118,6 @@ export class BlogDao {
             })
             .then(data => {
                 return data.resp;
-            })
-            .catch(ex => {
-                console.log(ex);
-            });
-    }
-
-    getSurroundingPosts(date) {
-        return this.http.fetch('getSurroundingPosts?date=' + date)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                if (data.resp != null)
-                    return data.resp;
-                else
-                    return;
             })
             .catch(ex => {
                 console.log(ex);
