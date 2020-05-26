@@ -6,3 +6,4 @@ backend/db.json
 backend/configMaster.py
 backend/__pycach__
 *.pyc
+.firebase
