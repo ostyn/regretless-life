@@ -103,6 +103,14 @@ export class BlogDao {
         });
 
     }
+    submitComment(postId, comment) {
+        var submitComment = firebase.functions().httpsCallable('submitComment');
+        return submitComment({postId:postId, comment: comment}).then(()=>{
+            return postId
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
     // findNPosts(query = "", start = 0, num = 0) {
     //     return this.http.fetch('findNPosts?query=' + query + "&start=" + start + "&num=" + num)
     //         .then(response => {
@@ -255,26 +263,6 @@ export class BlogDao {
             })
             .then((resp) => {
                 return resp;
-            });
-    }
-    submitComment(postId, comment) {
-        return this.http
-            .fetch('submitComment', {
-                method: 'post',
-                body: json({
-                    'postId': postId,
-                    'name': comment.name,
-                    'email': comment.email,
-                    'content': comment.content,
-                }),
-            })
-            .then(response => {
-                if (response.status > 400)
-                    throw response;
-                return response.json();
-            })
-            .then((post) => {
-                return post.id
             });
     }
     submitAdminComment(postId, comment) {

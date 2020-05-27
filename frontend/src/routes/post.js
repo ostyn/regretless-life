@@ -61,7 +61,7 @@ export class Post {
         }
         submitMethod.call(this.blogDao, this.post._id, this.comment)
         .then(id => {
-            this.blogDao.getPost(id)
+            this.blogDao.getPost(this.post._id)
                 .then((post) => {
                     this.post = post;
                     this.activelySubmittingComment = false;

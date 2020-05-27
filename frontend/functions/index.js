@@ -7,6 +7,25 @@ const firestore = new Firestore({
     projectId: PROJECTID,
     timestampsInSnapshots: true,
 });
+
+exports.submitComment = functions.https.onRequest((req, res) => {
+    cors(req, res, () => {
+        if (req.method === 'POST') {
+            // store/insert a new document
+            const {postId, comment} = (req.body.data) || {};
+            var ref = firestore.collection(COLLECTION_NAME).doc(postId);
+            return ref.update({
+                comments: Firestore.FieldValue.arrayUnion(comment)
+            })
+                .then(() => {
+                    return res.status(200).send({resp:postId});
+                }).catch(err => {
+                    console.error(err);
+                    return res.status(500).send({ error: 'unable to comment', err });
+                });
+        }
+    })
+});
 exports.getPostsByYearAndLocation = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
         return firestore.collection(COLLECTION_NAME)
@@ -35,7 +54,7 @@ exports.getPostsByYearAndLocation = functions.https.onRequest((req, res) => {
                         years[post.year][fullPost.locationInfo.countryCode].posts = [];
                     years[post.year][fullPost.locationInfo.countryCode].posts.push(post);
                 });
-                return res.status(200).send({data:years});
+                return res.status(200).send({ data: years });
             }).catch(err => {
                 console.error(err);
                 return res.status(404).send({ error: 'Unable to retrieve the document' });
