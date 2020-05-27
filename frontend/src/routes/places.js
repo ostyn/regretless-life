@@ -6,8 +6,8 @@ import 'flag-icon-css/css/flag-icon.min.css';
 @inject(BlogDao, FormatLib)
 export class Places {
     show = {};
-    places = []
-    values = undefined
+    values = undefined;
+    years = new Map();
     constructor(blogDao, formatLib) {
         this.blogDao = blogDao;
         this.formatLib = formatLib;
@@ -18,9 +18,9 @@ export class Places {
                 {
                     this.years = years;
                     this.values = {};
-                    for(var year of this.years) {
-                        for(var location of year.locations) {
-                            this.values[location["countryCode"]] = 1;
+                    for(var year of years.values()) {
+                        for(var countryCode of year.keys()) {
+                            this.values[countryCode] = 1;
                         }
                     }
                 }

@@ -88,6 +88,21 @@ export class BlogDao {
             return prevDoc;
         });
     }
+    getAllPostsByLocation() {
+        var getPostsByYearAndLocation = firebase.functions().httpsCallable('getPostsByYearAndLocation');
+        return getPostsByYearAndLocation({}).then((result) => {
+            let respData = result.data;
+            let yearMap = new Map();
+            for (let year of Object.keys(respData)) {
+                if (!yearMap.has(year))
+                    yearMap.set(year, new Map());
+                for (let countryCode of Object.keys(respData[year]))
+                    yearMap.get(year).set(countryCode, respData[year][countryCode]);
+            }
+            return yearMap;
+        });
+
+    }
     // findNPosts(query = "", start = 0, num = 0) {
     //     return this.http.fetch('findNPosts?query=' + query + "&start=" + start + "&num=" + num)
     //         .then(response => {
@@ -123,21 +138,6 @@ export class BlogDao {
             })
             .then(data => {
                 return data.resp;
-            })
-            .catch(ex => {
-                console.log(ex);
-            });
-    }
-    getAllPostsByLocation() {
-        return this.http.fetch('getAllPostsByLocation')
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                if (data.resp != null)
-                    return data.resp.years;
-                else
-                    return;
             })
             .catch(ex => {
                 console.log(ex);
