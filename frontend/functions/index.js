@@ -12,12 +12,16 @@ const firestore = new Firestore({
 exports.submitComment = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
         if (req.method === 'POST') {
-            // store/insert a new document
-            const {postId, comment} = (req.body.data) || {};
-            comment["date"] = new Date().getUTCMilliseconds();
+            const {postId, rawComment} = (req.body.data) || {};
+            const formedComment = {
+                content: rawComment.content,
+                name: rawComment.content,
+                email: rawComment.email,
+                date: new Date().getTime(),
+            }
             var ref = firestore.collection(COLLECTION_NAME).doc(postId);
             return ref.update({
-                comments: Firestore.FieldValue.arrayUnion(comment)
+                comments: Firestore.FieldValue.arrayUnion(formedComment)
             })
                 .then(() => {
                     var mailRef = firestore.collection(MAIL_COLLECTION_NAME);
@@ -25,7 +29,7 @@ exports.submitComment = functions.https.onRequest((req, res) => {
                         to:TEMP_ADMIN_EMAIL_LIST,
                         message:{
                             subject:"New Comment on regretless.life",
-                            html: `name: ${comment.name}<br><br>email: ${comment.email}<br><br>Post: <a href="https://regretless.life/#/post/${postId}">Post here</a><br><br><i>${comment.content}</i>`
+                            html: `name: ${formedComment.name}<br><br>email: ${formedComment.email}<br><br>Post: <a href="https://regretless.life/#/post/${postId}">Post here</a><br><br><i>${formedComment.content}</i>`
                         }
                     })
                     return res.status(200).send({resp:postId});
