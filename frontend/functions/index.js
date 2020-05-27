@@ -12,11 +12,11 @@ const firestore = new Firestore({
 exports.submitComment = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
         if (req.method === 'POST') {
-            const {postId, rawComment} = (req.body.data) || {};
+            const {postId, comment} = (req.body.data) || {};
             const formedComment = {
-                content: rawComment.content,
-                name: rawComment.content,
-                email: rawComment.email,
+                content: comment.content,
+                name: comment.content,
+                email: comment.email,
                 date: new Date().getTime(),
             }
             var ref = firestore.collection(COLLECTION_NAME).doc(postId);
