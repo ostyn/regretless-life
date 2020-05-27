@@ -62,6 +62,58 @@ export class BlogDao {
         }
         );
     }
+    cache = new Map();
+    promises = [];
+    populateUrlCache(storage, prefix, path, name) {
+        if (path === "kenting" || path === "kalaw" || path === "decemberinthenorthwest")
+            name = name.replace("(1", "X")
+        if (!this.cache.has(name)) {
+            var pathReference = storage.ref(`/${prefix}/${path}/${name}`);
+            const promise = pathReference.getDownloadURL().then((url) => {
+                this.cache.set(name, url);
+            });
+            this.promises.push(promise);
+            return promise;
+        }
+    }
+    getUrl = (name) => {
+        return this.cache.get(name);
+    }
+    backfill() {
+        var storage = firebase.storage();
+        fetch("https://regretless.life/data/findNPosts?start=0&num=100").then((data) => {
+            data.json().then((real) => {
+                for (let post of real.resp.posts) {
+                    let parts = post.heroPhotoUrl.split("/");
+                    var pathReference = storage.ref(`/blogphotos/${parts[2]}/${parts[3]}`);
+                    const heroPromise = pathReference.getDownloadURL();
+                    heroPromise.then(function (url) {
+                        post.heroPhotoUrl = url;
+                    });
+                    this.promises.push(heroPromise);
+                    let m;
+                    let regex = /\(\.\/blogphotos\/(\w+)\/(.*?)\)/g;
+                    do {
+                        m = regex.exec(post.content);
+                        if (m) {
+                            this.populateUrlCache(storage, "blogphotos", m[1], m[2]);
+                        }
+                    } while (m);
+                    Promise.all(this.promises).then(() => {
+                        let regex2 = /\(\.\/blogphotos\/(\w+)\/(.*?)\)/g;
+                        post.content = post.content.replace(regex2, (fullMatch, path, name) => {
+                            return "(" + this.getUrl(name) + ")";
+                        });
+                        let id = post._id;
+                        delete post._id;
+                        var ref = this.db.collection("posts");
+                        ref.doc(id).set(post);
+                    });
+                }
+            });
+        });
+    }
+
     getNextPost(date) {
         var ref = this.db.collection("posts");
         return ref.where("isDraft", "==", false).orderBy("date", "desc").startAfter(date).limit(1).get().then((snapshot) => {
@@ -105,9 +157,9 @@ export class BlogDao {
     }
     submitComment(postId, comment) {
         var submitComment = firebase.functions().httpsCallable('submitComment');
-        return submitComment({postId:postId, comment: comment}).then(()=>{
+        return submitComment({ postId: postId, comment: comment }).then(() => {
             return postId
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err);
         });
     }

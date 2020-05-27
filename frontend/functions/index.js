@@ -3,6 +3,7 @@ const Firestore = require('@google-cloud/firestore');
 const cors = require('cors')({ origin: true });
 const PROJECTID = 'regretless-life-test';
 const COLLECTION_NAME = 'posts';
+const MAIL_COLLECTION_NAME = 'mail';
 const firestore = new Firestore({
     projectId: PROJECTID,
     timestampsInSnapshots: true,
@@ -18,6 +19,14 @@ exports.submitComment = functions.https.onRequest((req, res) => {
                 comments: Firestore.FieldValue.arrayUnion(comment)
             })
                 .then(() => {
+                    var mailRef = firestore.collection(MAIL_COLLECTION_NAME);
+                    mailRef.add({
+                        to:"ostyn@live.com,erikaostyn@gmail.com",
+                        message:{
+                            subject:"New Comment on regretless.life",
+                            html: `name: ${comment.name}<br><br>email: ${comment.email}<br><br>Post: <a href="https://regretless.life/#/post/${postId}">Post here</a><br><br><i>${comment.content}</i>`
+                        }
+                    })
                     return res.status(200).send({resp:postId});
                 }).catch(err => {
                     console.error(err);
