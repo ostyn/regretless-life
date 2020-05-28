@@ -116,6 +116,14 @@ exports.getPostsByYearAndLocation = functions.https.onRequest((req, res) => {
             });
     })
 });
-// exports.onAddToPostsCollectionTrigger = functions.firestore
-//   .document('my-collection/{doc-id}')
-//   .onWrite((change, context) => { /* ... */ });
+exports.onPostPublishedTrigger = functions.firestore
+    .document('posts/{docId}')
+    .onWrite((change, context) => {
+        const before = change.before.data();
+        const after = change.after.data();
+        if ((before.isDraft === undefined || before.isDraft === true) && after.isDraft === false)
+            console.log("EWOK! Something was just published!");
+        else
+            console.log("no-op");
+        return;
+    });
