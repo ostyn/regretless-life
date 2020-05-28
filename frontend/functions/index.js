@@ -50,12 +50,12 @@ exports.getPostsByYearAndLocation = functions.https.onRequest((req, res) => {
                 snapshot.forEach(doc => {
                     const fullPost = doc.data();
                     if (fullPost.locationInfo === undefined)
-                        return;
+                        fullPost.locationInfo = {};
                     const post = {
                         year: new Date(fullPost.date).getFullYear(),
                         date: fullPost.date,
                         title: fullPost.title,
-                        location: fullPost.locationInfo.name,
+                        location: fullPost.locationInfo.name || "Miscellaneous",
                         id: doc.id
                     };
                     if (years[post.year] === undefined)
