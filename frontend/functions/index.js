@@ -64,21 +64,20 @@ exports.subscribeEmail = functions.https.onRequest((req, res) => {
             return ref.add({
                 email: email,
                 date: date
-            })
-                .then((docRef) => {
-                    var mailRef = firestore.collection(MAIL_COLLECTION_NAME);
-                    mailRef.add({
-                        to: TEMP_ADMIN_EMAIL_LIST,
-                        message: {
-                            subject: "You've subscribed to regretless.life",
-                            html: `email: ${email}<br><br><a href="https://regretless.life/#/unsubscribe/${docRef.id}">Unsubscribe here</a>`
-                        }
-                    })
-                    return res.status(200).send({ data: { msg: "You have been subscribed. We sent you a test email. Check your spam box, just in case" } });
-                }).catch(err => {
-                    console.error(err);
-                    return res.status(500).send({ data: { error: 'unable to subscribe', err } });
-                });
+            }).then((docRef) => {
+                var mailRef = firestore.collection(MAIL_COLLECTION_NAME);
+                mailRef.add({
+                    to: TEMP_ADMIN_EMAIL_LIST,
+                    message: {
+                        subject: "You've subscribed to regretless.life",
+                        html: `email: ${email}<br><br><a href="https://regretless.life/#/unsubscribe/${docRef.id}">Unsubscribe here</a>`
+                    }
+                })
+                return res.status(200).send({ data: { msg: "You have been subscribed. We sent you a test email. Check your spam box, just in case" } });
+            }).catch(err => {
+                console.error(err);
+                return res.status(500).send({ data: { error: 'unable to subscribe', err } });
+            });
         }
     })
 });
