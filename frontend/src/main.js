@@ -1,5 +1,4 @@
 import config from 'authConfig'; 
-import fetch from 'whatwg-fetch';
 import {PLATFORM} from 'aurelia-pal';
 export function configure(aurelia) {
   aurelia.use
@@ -12,7 +11,8 @@ export function configure(aurelia) {
       config.options({
           clientId:false,
           apiKey: 'AIzaSyDJUe-5GYpgt4u034NjKCa7qlWm4_TPsQ4',
-          apiLibraries: 'drawing,geometry' //get optional libraries like drawing, geometry, ... - comma seperated list
+          apiLibraries: 'drawing,geometry', //get optional libraries like drawing, geometry, ... - comma seperated list
+          options: {zoomControl: false}
       });
     })
     .plugin(PLATFORM.moduleName('aurelia-google-analytics'), config => {
