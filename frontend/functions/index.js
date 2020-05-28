@@ -55,7 +55,6 @@ exports.getPostsByYearAndLocation = functions.https.onRequest((req, res) => {
                         year: new Date(fullPost.date).getFullYear(),
                         date: fullPost.date,
                         title: fullPost.title,
-                        location: fullPost.locationInfo.name || "Miscellaneous",
                         id: doc.id
                     };
                     if (years[post.year] === undefined)
@@ -63,7 +62,7 @@ exports.getPostsByYearAndLocation = functions.https.onRequest((req, res) => {
                     if (years[post.year][fullPost.locationInfo.countryCode] === undefined) {
                         years[post.year][fullPost.locationInfo.countryCode] = {};
                         years[post.year][fullPost.locationInfo.countryCode].countryCode = fullPost.locationInfo.countryCode;
-                        years[post.year][fullPost.locationInfo.countryCode].country = fullPost.locationInfo.country;
+                        years[post.year][fullPost.locationInfo.countryCode].country = fullPost.locationInfo.country || "Miscellaneous";
                     }
                     if (years[post.year][fullPost.locationInfo.countryCode].posts === undefined)
                         years[post.year][fullPost.locationInfo.countryCode].posts = [];
@@ -76,3 +75,6 @@ exports.getPostsByYearAndLocation = functions.https.onRequest((req, res) => {
             });
     })
 });
+// exports.onAddToPostsCollectionTrigger = functions.firestore
+//   .document('my-collection/{doc-id}')
+//   .onWrite((change, context) => { /* ... */ });
