@@ -21,6 +21,7 @@ export class App {
       { route: 'login', moduleId: PLATFORM.moduleName('./widgets/login'), name: 'login', nav: false, title: 'login' },
       { route: 'register', moduleId: PLATFORM.moduleName('./routes/register'), nav: false, title: 'register', auth: true },
       { route: 'places', moduleId: PLATFORM.moduleName('./routes/places'), nav: true, title: 'places' },
+      { route: 'unsubscribe/:id', moduleId: PLATFORM.moduleName('./routes/unsubscribe'), title: 'unsubscribe', auth: false },
       { route: 'tracker', moduleId: PLATFORM.moduleName('./routes/tracker'), title: 'tracker', auth: true },
      ]);
 

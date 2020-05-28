@@ -12,7 +12,7 @@ const firestore = new Firestore({
 exports.submitComment = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
         if (req.method === 'POST') {
-            const {postId, comment} = (req.body.data) || {};
+            const { postId, comment } = (req.body.data) || {};
             const formedComment = {
                 content: comment.content,
                 name: comment.content,
@@ -26,16 +26,58 @@ exports.submitComment = functions.https.onRequest((req, res) => {
                 .then(() => {
                     var mailRef = firestore.collection(MAIL_COLLECTION_NAME);
                     mailRef.add({
-                        to:TEMP_ADMIN_EMAIL_LIST,
-                        message:{
-                            subject:"New Comment on regretless.life",
+                        to: TEMP_ADMIN_EMAIL_LIST,
+                        message: {
+                            subject: "New Comment on regretless.life",
                             html: `name: ${formedComment.name}<br><br>email: ${formedComment.email}<br><br>Post: <a href="https://regretless.life/#/post/${postId}">Post here</a><br><br><i>${formedComment.content}</i>`
                         }
                     })
-                    return res.status(200).send({resp:postId});
+                    return res.status(200).send({ resp: postId });
                 }).catch(err => {
                     console.error(err);
                     return res.status(500).send({ error: 'unable to comment', err });
+                });
+        }
+    })
+});
+exports.unsubscribeEmail = functions.https.onRequest((req, res) => {
+    cors(req, res, () => {
+        if (req.method === 'POST') {
+            const { id } = (req.body.data) || {};
+            var ref = firestore.collection("subscriptions").doc(id);
+            return ref.delete()
+                .then(() => {
+                    return res.status(200).send({ data: { msg: "You have been unsubscribed" } });
+                }).catch(err => {
+                    console.error(err);
+                    return res.status(500).send({ data: { error: 'unable to unsubscribe', err } });
+                });
+        }
+    })
+});
+exports.subscribeEmail = functions.https.onRequest((req, res) => {
+    cors(req, res, () => {
+        if (req.method === 'POST') {
+            const { email } = (req.body.data) || {};
+            var ref = firestore.collection("subscriptions");
+            let date = new Date().getTime();
+            return ref.add({
+                email: email,
+                date: date
+            })
+                .then((docRef) => {
+                    var mailRef = firestore.collection(MAIL_COLLECTION_NAME);
+                    mailRef.add({
+                        to: TEMP_ADMIN_EMAIL_LIST,
+                        message: {
+                            subject: "You've subscribed to regretless.life",
+                            html: `email: ${email}<br><br><a href="https://regretless.life/#/unsubscribe/${docRef.id}">Unsubscribe here</a>`
+                        }
+                    })
+                    return res.status(200).send({ data: { msg: "You have been subscribed. We sent you a test email. Check your spam box, just in case" } });
+                }).catch(err => {
+                    console.error(err);
+                    return res.status(500).send({ data: { error: 'unable to subscribe', err } });
                 });
         }
     })

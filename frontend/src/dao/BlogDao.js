@@ -170,6 +170,22 @@ export class BlogDao {
             console.log(err);
         });
     }
+    subscribe(email) {
+        var subscribeEmail = firebase.functions().httpsCallable('subscribeEmail');
+        return subscribeEmail({ email: email }).then((resp) => {
+            return resp.data;
+        }).catch((err) => {
+            return err;
+        });
+    }
+    unsubscribe(id) {
+        var unsubscribeEmail = firebase.functions().httpsCallable('unsubscribeEmail');
+        return unsubscribeEmail({ id: id }).then((resp) => {
+            return resp.data;
+        }).catch((err) => {
+            return err;
+        });
+    }
     // findNPosts(query = "", start = 0, num = 0) {
     //     return this.http.fetch('findNPosts?query=' + query + "&start=" + start + "&num=" + num)
     //         .then(response => {
@@ -360,34 +376,6 @@ export class BlogDao {
             })
             .then((post) => {
                 return post.id
-            });
-    }
-    subscribe(email) {
-        return this.http
-            .fetch('subscribe', {
-                method: 'post',
-                body: json({
-                    'email': email,
-                }),
-            })
-            .then(response => {
-                if (response.status > 400)
-                    throw response;
-                return response.json();
-            });
-    }
-    unsubscribe(email) {
-        return this.http
-            .fetch('unsubscribe', {
-                method: 'delete',
-                body: json({
-                    'email': email,
-                }),
-            })
-            .then(response => {
-                if (response.status > 400)
-                    throw response;
-                return response.json();
             });
     }
     getAuthkey(url) {

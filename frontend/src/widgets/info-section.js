@@ -25,13 +25,13 @@ export class InfoSection{
         this.blogDao.subscribe(this.email)
             .then((response)=>{
                 this.activelySubscribing = false;
-                if(response.resp) {
+                if(response.msg) {
                     this.email = "";
                     this.message = response.msg;
                 }
                 //Known error states
-                else if(response.resp === false){
-                    this.message = response.msg;
+                else if(response.error){
+                    this.message = response.error;
                 }
                 //Unknown error states
                 else {
