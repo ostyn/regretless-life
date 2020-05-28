@@ -43,6 +43,7 @@ exports.submitComment = functions.https.onRequest((req, res) => {
 exports.getPostsByYearAndLocation = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
         return firestore.collection(COLLECTION_NAME)
+            .where("isDraft", "==", false)
             .get()
             .then(snapshot => {
                 let years = {};
