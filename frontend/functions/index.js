@@ -53,10 +53,10 @@ exports.subscribeEmail = functions.https.onCall(async (data, context) => {
         });
         var mailRef = firestore.collection(MAIL_COLLECTION);
         mailRef.add({
-            to: TEMP_ADMIN_EMAIL_LIST,
+            to: email,
             message: {
                 subject: "You've subscribed to regretless.life",
-                html: `email: ${email}<br><br><a href="https://regretless.life/#/unsubscribe/${docRef.id}">Unsubscribe here</a>`
+                html: `${email} has been subscribed to updates from http://regretless.life<br><br><a href="https://regretless.life/#/unsubscribe/${docRef.id}">Unsubscribe here</a>`
             }
         })
         return { msg: "You have been subscribed. We sent you a test email. Check your spam box, just in case" };
