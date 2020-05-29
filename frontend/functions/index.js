@@ -1,6 +1,5 @@
 const functions = require('firebase-functions');
 const Firestore = require('@google-cloud/firestore');
-const cors = require('cors')({ origin: true });
 const PROJECTID = 'regretless-life-test';
 const POSTS_COLLECTION = 'posts';
 const MAIL_COLLECTION = 'mail';
