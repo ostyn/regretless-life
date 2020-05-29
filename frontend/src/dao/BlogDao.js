@@ -150,13 +150,13 @@ export class BlogDao {
     getAllPostsByLocation() {
         var getPostsByYearAndLocation = firebase.functions().httpsCallable('getPostsByYearAndLocation');
         return getPostsByYearAndLocation({}).then((result) => {
-            let respData = result.data;
+            let years = result.data.resp;
             let yearMap = new Map();
-            for (let year of Object.keys(respData)) {
+            for (let year of Object.keys(years)) {
                 if (!yearMap.has(year))
                     yearMap.set(year, new Map());
-                for (let countryCode of Object.keys(respData[year]))
-                    yearMap.get(year).set(countryCode, respData[year][countryCode]);
+                for (let countryCode of Object.keys(years[year]))
+                    yearMap.get(year).set(countryCode, years[year][countryCode]);
             }
             return yearMap;
         });
@@ -175,7 +175,7 @@ export class BlogDao {
         return subscribeEmail({ email: email }).then((resp) => {
             return resp.data;
         }).catch((err) => {
-            return err;
+            return {error: err.message};
         });
     }
     unsubscribe(id) {
@@ -183,7 +183,7 @@ export class BlogDao {
         return unsubscribeEmail({ id: id }).then((resp) => {
             return resp.data;
         }).catch((err) => {
-            return err;
+            return {error: err.message};
         });
     }
     // findNPosts(query = "", start = 0, num = 0) {
