@@ -5,7 +5,7 @@ var config = {
   loginRedirect: null,
   logoutRedirect: null,
   signupUrl: 'register',
-  signupRedirect: '#/login',
+  signupRedirect: '/',
   loginUrl: 'auth',
   tokenName: 'access_token'
 }

@@ -456,3 +456,15 @@ button:first-child {
     margin-bottom: 10px;
     margin-top: 10px;
 }
+.firebaseui-form-actions, .firebaseui-form-links {
+    display: block !important;
+}
+.firebaseui-form-links {
+    padding-bottom: 5px !important;
+}
+.mdl-shadow--2dp {
+    box-shadow: none !important;
+}
+.firebaseui-title {
+    display: none;
+}

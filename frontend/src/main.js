@@ -1,12 +1,8 @@
-import config from 'authConfig'; 
 import {PLATFORM} from 'aurelia-pal';
 export function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
     .developmentLogging()
-    .plugin(PLATFORM.moduleName('aurelia-auth'), (baseConfig)=>{
-         baseConfig.configure(config);
-    })
     .plugin(PLATFORM.moduleName('aurelia-google-maps'), config => {
       config.options({
           clientId:false,
@@ -31,8 +27,7 @@ export function configure(aurelia) {
           enabled: false // Set to `false` to disable in non-production environments.
         }
       });
-    })
-    .globalResources(PLATFORM.moduleName("aurelia-auth/auth-filter"));
+    });
 	
     aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));
 }

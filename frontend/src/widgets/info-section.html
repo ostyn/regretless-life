@@ -3,11 +3,11 @@
     <div>
         <img class="infoSectionImage" click.trigger="showLogin=!showLogin" width=150 height=150 src="/us.jpg">
     </div>
-    <div if.bind="!userService.isAuthenticated">
+    <div show.bind="!userService.isAuthenticated">
         <div class="infoSectionTitleContainer">
             <div class="infoSectionTitle">who are we?</div>
         </div>
-        <login if.bind="showLogin && !userService.isAuthenticated"></login>
+        <login show.bind="showLogin && !userService.isAuthenticated"></login>
         <div class="infoSectionContent">Jared + Erika. AKA, Jerika. AKA, us. Out to see the world and never forget it.</div>
         <br>
         <h5>Subscribe</h5>
@@ -18,7 +18,7 @@
             <div class="small" if.bind="message">${message}</div>
         </form>
     </div>
-    <div if.bind="userService.isAuthenticated" class="infoSectionTitleContainer">
+    <div show.bind="userService.isAuthenticated" class="infoSectionTitleContainer">
         <div class="infoSectionTitle">how are you${(userService.isAuthenticated && userService.usersName) ? ', ' + userService.usersName +'?' : '?'}</div>
     </div>
     <button if.bind="userService.isAuthenticated" click.trigger="newPost()">new post</button></div>

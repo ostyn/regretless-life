@@ -1,36 +1,25 @@
 import {inject} from 'aurelia-framework';
-import {HttpClient, json} from 'aurelia-fetch-client';
+import {HttpClient} from 'aurelia-fetch-client';
 import {AuthService} from 'aurelia-auth';
+import firebase from "firebase";
 @inject(AuthService, HttpClient)
 export class UserService {
     currentUsersName = "";
     availableUsers = [];
+    authenticated
     constructor(auth, http){
         this.auth = auth;
         this.http = http;
-        if(this.isAuthenticated) {
-            this.initUsersName();
-            this.initAvailableUsers();
-        }
-    }
-    login(email, password){
-        return this.auth.login(email, password)
-        .then(response=>{
-            console.log("success logged " + response);
-            this.initUsersName();
-            this.initAvailableUsers();
-        })
-        .catch(err=>{
-            console.log("login failure");
-        });
-    };
-    initUsersName() {
-        this.auth.getMe()
-            .then((usersName) =>
-            {
-                this.usersName = usersName.resp;
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.user = user;
+                this.authenticated = true;
+                this.usersName = user.displayName;
+                //     this.initAvailableUsers();
+            } else {
+                //this.logout();
             }
-        );
+        });
     }
     initAvailableUsers(){
         return this.http
@@ -48,11 +37,11 @@ export class UserService {
         });
     }
     logout(){
-        this.usersName = "";
-        this.availableUsers = [];
-        this.auth.logout();
+        this.user = undefined;
+        this.authenticated = false;
+        firebase.auth().signOut();
     }
-    get isAuthenticated() {
-        return this.auth.isAuthenticated();
+    get isAuthenticated(){
+        return this.authenticated;
     }
 }
