@@ -1,4 +1,6 @@
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
 const Firestore = require('@google-cloud/firestore');
 const PROJECTID = 'regretless-life-test';
 const POSTS_COLLECTION = 'posts';
@@ -8,6 +10,13 @@ const firestore = new Firestore({
     timestampsInSnapshots: true,
 });
 
+exports.getAllUsers = functions.https.onCall(async (data, context) => {
+    if (context.auth) {
+        const listUsers = await admin.auth().listUsers();
+        return listUsers;
+    }
+    throw new functions.https.HttpsError('unauthenticated', 'Auth required');
+});
 exports.submitComment = functions.https.onCall(async (data, context) => {
     const { postId, comment } = (data) || {};
     const formedComment = {

@@ -14,8 +14,8 @@
                 </p>
                 <p>
                     <select value.bind="post.author" matcher.bind="userComparer">
-                        <option repeat.for="user of userService.availableUsers" model.bind="user.name">
-                            ${user.name}
+                        <option repeat.for="user of userService.availableUsers" model.bind="user.displayName">
+                            ${user.displayName}
                         </option>
                     </select>
                 </p>

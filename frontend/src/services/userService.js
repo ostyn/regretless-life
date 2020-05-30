@@ -15,25 +15,13 @@ export class UserService {
                 this.user = user;
                 this.authenticated = true;
                 this.usersName = user.displayName;
-                //     this.initAvailableUsers();
-            } else {
-                //this.logout();
+                var getAllUsers = firebase.functions().httpsCallable('getAllUsers');
+                return getAllUsers().then((resp) => {
+                    this.availableUsers = resp.data.users;
+                }).catch((err) => {
+                    return {error: err.message};
+                });
             }
-        });
-    }
-    initAvailableUsers(){
-        return this.http
-            .fetch('getAvailableUsers', {
-                'method':'get'
-        })
-        .then(response => {
-            if(response.status > 400)
-                throw response;
-            return response.json();
-        })
-        .then((availableUsers) =>
-        {
-            this.availableUsers = availableUsers.resp;
         });
     }
     logout(){
