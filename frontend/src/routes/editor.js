@@ -69,7 +69,7 @@ export class Editor {
         if(params.id) {
             this.editing = true;
             if(params.isDraft === 'true')
-                return this.blogDao.getDraftPost(params.id).then((post) => {
+                return this.blogDao.getPost(params.id).then((post) => {
                     this.post = post;
                     if(unsavedContent)
                         this.post.content = unsavedContent;

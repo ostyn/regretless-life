@@ -213,19 +213,6 @@ export class BlogDao {
                 console.log(ex);
             });
     }
-
-    getDraftPost(id) {
-        return this.http.fetch('getDraftPost?id=' + id)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                return data.resp;
-            })
-            .catch(ex => {
-                console.log(ex);
-            });
-    }
     getAvailableTags() {
         return this.http.fetch('getAvailableTags')
             .then(response => {
