@@ -53,6 +53,7 @@ export class BlogDao {
         );
     }
     getPost(id) {
+        this.backfill(id);
         var ref = this.db.collection("posts");
         return ref.doc(id).get().then((doc) => {
             return {
@@ -84,6 +85,13 @@ export class BlogDao {
         if(id != toBackfill)
             return;
         var storage = firebase.storage();
+        this.postsJSON.forEach((post)=>{
+            let id = post._id;
+            delete post._id;
+            var ref = this.db.collection("posts");
+            ref.doc(id).set(post);
+        })
+        return;
         fetch("https://regretless.life/data/getPost?id=" + toBackfill).then((data) => {
             data.json().then((real) => {
                 let post = real.resp;
