@@ -335,43 +335,13 @@ export class BlogDao {
                 return resp;
             });
     }
-    submitAdminComment(postId, comment) {
-        return this.http
-            .fetch('submitAdminComment', {
-                method: 'post',
-                body: json({
-                    'postId': postId,
-                    'name': comment.name,
-                    'email': comment.email,
-                    'content': comment.content,
-                }),
-            })
-            .then(response => {
-                if (response.status > 400)
-                    throw response;
-                return response.json();
-            })
-            .then((post) => {
-                return post.id
-            });
-    }
-    deleteComment(postId, index) {
-        return this.http
-            .fetch('deleteComment', {
-                method: 'delete',
-                body: json({
-                    'postId': postId,
-                    'index': index
-                }),
-            })
-            .then(response => {
-                if (response.status > 400)
-                    throw response;
-                return response.json();
-            })
-            .then((post) => {
-                return post.id
-            });
+    deleteComment(postId, comment) {
+        var deleteComment = firebase.functions().httpsCallable('deleteComment');
+        return deleteComment({ postId: postId, comment: comment }).then(() => {
+            return postId;
+        }).catch((err) => {
+            console.log(err);
+        });
     }
     getAuthkey(url) {
         return this.http

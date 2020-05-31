@@ -22,7 +22,7 @@ exports.upgradeToAdmin = functions.auth.user().onCreate(user => {
     }
 });
 exports.getAllUsers = functions.https.onCall(async (data, context) => {
-    if (context.auth && context.auth.token.admin === true) {
+    if (isAdmin(context)) {
         const listUsers = await admin.auth().listUsers();
         let enabledUsers = [];
         for (let user of listUsers.users) {
@@ -37,24 +37,39 @@ exports.submitComment = functions.https.onCall(async (data, context) => {
     const { postId, comment } = (data) || {};
     const formedComment = {
         content: comment.content,
-        name: comment.content,
-        email: comment.email,
+        name: comment.name,
         date: new Date().getTime(),
     }
+    if (comment.email)
+        formedComment["email"] = comment.email;
+    if (isAdmin(context))
+        formedComment["admin"] = true;
     await firestore.collection(POSTS_COLLECTION)
         .doc(postId)
         .update({
             comments: Firestore.FieldValue.arrayUnion(formedComment)
-        })
+        });
     firestore.collection(MAIL_COLLECTION)
         .add({
-            to: TEMP_ADMIN_EMAIL_LIST,
+            to: ADMIN_EMAIL_LIST,
             message: {
                 subject: "New Comment on regretless.life",
                 html: `name: ${formedComment.name}<br><br>email: ${formedComment.email}<br><br>Post: <a href="https://regretless.life/#/post/${postId}">Post here</a><br><br><i>${formedComment.content}</i>`
             }
-        })
+        });
     return { resp: postId };
+});
+exports.deleteComment = functions.https.onCall(async (data, context) => {
+    if (context.auth && context.auth.token.admin === true) {
+        const { postId, comment } = (data) || {};
+        await firestore.collection(POSTS_COLLECTION)
+            .doc(postId)
+            .update({
+                comments: Firestore.FieldValue.arrayRemove(comment)
+            });
+        return { resp: postId };
+    }
+    throw new functions.https.HttpsError('unauthenticated', 'Auth required');
 });
 
 exports.unsubscribeEmail = functions.https.onCall(async (data, context) => {
@@ -147,3 +162,7 @@ exports.onPostPublishedTrigger = functions.firestore.document('posts/{docId}')
             });
         }
     });
+
+function isAdmin(context) {
+    return context.auth && context.auth.token.admin === true;
+}
