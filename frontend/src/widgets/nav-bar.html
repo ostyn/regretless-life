@@ -17,8 +17,6 @@
             <div repeat.for="item of extraMenuItemsConfig.items"  class="menuItem">
                 <a class="${router.currentInstruction.fragment===item.routeFragment ? 'active' : ''}" route-href="route.bind:item.routeName; params.bind:item.params">${item.title}</a>
             </div>
-            <if="false" expando callback.call="search($event, query)">
-                <!-- TODO reenable search -->
         </div>
     </div>
     <div if.bind="isMobileMenuOut" class="mobile-menu-dropdown">

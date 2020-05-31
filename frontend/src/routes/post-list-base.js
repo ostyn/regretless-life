@@ -20,7 +20,7 @@ export class PostListBase{
         return activationStrategy.replace;
     }
     getData(params){
-        return this.blogDao.getNPosts(this.num, this.start)
+        return this.blogDao.getNPosts(false, this.num, this.start)
             .then((postsData) => {
                 if(postsData) {
                     this.posts = postsData;
@@ -38,7 +38,7 @@ export class PostListBase{
         this.router = router;
     }
     loadMore() {
-        return this.blogDao.getNPosts(this.num, this.posts[this.posts.length-1].date);
+        return this.blogDao.getNPosts(false, this.num, this.posts[this.posts.length-1].date);
     }
     showMore(){
         this.loadMore()

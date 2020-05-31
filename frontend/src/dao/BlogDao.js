@@ -7,18 +7,9 @@ export class BlogDao {
         this.http = http;
         this.db = firebase.firestore();
     }
-    getAllPosts() {
-        return this.findAllPosts();
-    }
-    getNPosts(num, start) {
-        return this.findNPosts("", num, start);
-    }
-    findAllPosts(query = "") {
-        return this.findNPosts(query);
-    }
-    findNPosts(query, num, start) {
+    getNPosts(isDraft, num, start) {
         var ref = this.db.collection("posts");
-        let firequery = ref.where("isDraft", "==", false).orderBy("date", "desc").limit(num);
+        let firequery = ref.where("isDraft", "==", isDraft).orderBy("date", "desc").limit(num);
         if (start !== undefined)
             firequery = firequery.startAfter(start);
         return firequery.get().then((snapshot) => {
@@ -127,18 +118,6 @@ export class BlogDao {
             return { error: err.message };
         });
     }
-    // findNPosts(query = "", start = 0, num = 0) {
-    //     return this.http.fetch('findNPosts?query=' + query + "&start=" + start + "&num=" + num)
-    //         .then(response => {
-    //             return response.json();
-    //         })
-    //         .then(data => {
-    //             return data.resp;
-    //         })
-    //         .catch(ex => {
-    //             console.log(ex);
-    //         });
-    // }
     getNDraftPosts(num, start) {
         return this.findNDraftPosts("", num, start);
     }

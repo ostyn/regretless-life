@@ -14,14 +14,12 @@ export class App {
      config.map([
       { route: ['', 'blog'], moduleId: PLATFORM.moduleName('./routes/post-list-base'), nav: false, title: 'blog', name: 'blog' },
       { route: 'drafts', moduleId: PLATFORM.moduleName('./routes/post-list-drafts'), nav: false, title: 'drafts', name: 'drafts', auth: true },
-      { route: 'search', moduleId: PLATFORM.moduleName('./routes/post-list-search'), nav: false, title: 'search', name: 'search' },
       { route: 'tags/:tag', moduleId: PLATFORM.moduleName('./routes/post-list-tags'), nav: false, title: 'tags', name: 'tags' },
       { route: 'editor', moduleId: PLATFORM.moduleName('./routes/editor'), nav: false, title: 'editor', name: 'editor', auth: true },
       { route: 'post/:id', moduleId: PLATFORM.moduleName('./routes/post'), name: 'post', nav: false, title: config.title },
       { route: 'about', moduleId: PLATFORM.moduleName('./routes/about'), name: 'about', nav: true, title: 'about us' },
       { route: 'places', moduleId: PLATFORM.moduleName('./routes/places'), nav: true, title: 'places' },
       { route: 'unsubscribe/:id', moduleId: PLATFORM.moduleName('./routes/unsubscribe'), title: 'unsubscribe', auth: false },
-      { route: 'tracker', moduleId: PLATFORM.moduleName('./routes/tracker'), title: 'tracker', auth: true },
      ]);
 
     this.router = router;

@@ -60,7 +60,7 @@ exports.submitComment = functions.https.onCall(async (data, context) => {
     return { resp: postId };
 });
 exports.deleteComment = functions.https.onCall(async (data, context) => {
-    if (context.auth && context.auth.token.admin === true) {
+    if (isAdmin(context)) {
         const { postId, comment } = (data) || {};
         await firestore.collection(POSTS_COLLECTION)
             .doc(postId)
