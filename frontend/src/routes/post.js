@@ -54,7 +54,7 @@ export class Post {
 
     submitComment() {
         let submitMethod = this.blogDao.submitComment;
-        if(this.userService.isAuthenticated) {
+        if(this.userService.isAuthorized) {
             this.comment.name = this.userService.usersName;
             this.comment.email = "";
             submitMethod = this.blogDao.submitAdminComment;

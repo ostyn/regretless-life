@@ -5,15 +5,31 @@ const Firestore = require('@google-cloud/firestore');
 const PROJECTID = 'regretless-life-test';
 const POSTS_COLLECTION = 'posts';
 const MAIL_COLLECTION = 'mail';
+const ADMIN_EMAIL_LIST = [];
 const firestore = new Firestore({
     projectId: PROJECTID,
     timestampsInSnapshots: true,
 });
 
+//This method adds the claim to the token, but it won't take effect during the first login
+//The user will need to create, logout, and then login for the claim to apply
+exports.upgradeToAdmin = functions.auth.user().onCreate(user => {
+    if (user.email && ADMIN_EMAIL_LIST.includes(user.email)) {
+        const customClaims = {
+            admin: true
+        };
+        return admin.auth().setCustomUserClaims(user.uid, customClaims);
+    }
+});
 exports.getAllUsers = functions.https.onCall(async (data, context) => {
-    if (context.auth) {
+    if (context.auth && context.auth.token.admin === true) {
         const listUsers = await admin.auth().listUsers();
-        return listUsers;
+        let enabledUsers = [];
+        for (let user of listUsers.users) {
+            if (user.customClaims && user.customClaims.admin === true)
+                enabledUsers.push(user);
+        }
+        return { users: enabledUsers };
     }
     throw new functions.https.HttpsError('unauthenticated', 'Auth required');
 });

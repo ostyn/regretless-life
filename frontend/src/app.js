@@ -58,7 +58,7 @@ class CheckAuth {
     this.userService = userService;
   }
   run(routingContext, next) {
-    if(!routingContext.config.auth || this.userService.isAuthenticated)
+    if(!routingContext.config.auth || this.userService.isAuthorized)
       return next();
     return next.cancel(new Redirect('/'));
   }

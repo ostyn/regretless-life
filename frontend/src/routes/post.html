@@ -27,17 +27,17 @@
                 </div>
                 <div class="grey">${formatLib.secondsToDate(comment.date)} at ${formatLib.secondsToTime(comment.date)}</div>
                 <div>${comment.content}</div>
-                <button if.bind="userService.isAuthenticated" click.trigger="deleteComment($index)">delete</button>
+                <button if.bind="userService.isAuthorized" click.trigger="deleteComment($index)">delete</button>
             </div>
         </div>
     </section>
     <section class="addComment">
         <div>
             <p>
-                <input if.bind="!userService.isAuthenticated" class="textbox" placeholder="Name" value.bind="comment.name"></input>
-                <span if.bind="userService.isAuthenticated">${userService.usersName}</span>
+                <input if.bind="!userService.isAuthorized" class="textbox" placeholder="Name" value.bind="comment.name"></input>
+                <span if.bind="userService.isAuthorized">${userService.usersName}</span>
             </p>
-            <p if.bind="!userService.isAuthenticated"><input class="textbox" placeholder="Email(optional)" value.bind="comment.email"></input>
+            <p if.bind="!userService.isAuthorized"><input class="textbox" placeholder="Email(optional)" value.bind="comment.email"></input>
             </p>
             <p><textarea class="textarea" placeholder="Comment" value.bind="comment.content"></textarea></p>
             <p><button click.trigger="submitComment()" disabled.bind="activelySubmittingComment">Submit Comment</button></p>

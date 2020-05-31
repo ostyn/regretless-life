@@ -18,7 +18,7 @@
             </div>
         </center>
         <div if.bind="(showAuthorDate === 'true' || showAuthorDate === true)" class="authorDateLine grey">${getAuthorDate(useLongAuthorDate)}</div>
-        <a if.bind="userService.isAuthenticated" route-href="route: editor; params.bind: getLinkParams(post)">edit</a>
+        <a if.bind="userService.isAuthorized" route-href="route: editor; params.bind: getLinkParams(post)">edit</a>
         <!--below is a hack until Aurelia easily supports typed binding-->
         <span if.bind="(showMapButton === 'true' || showMapButton === true) && post.locationInfo && post.locationInfo.name">
             <button class="mapButton" click.trigger="toggleMap()">${(mapShown)?'X':post.locationInfo.name}</button>

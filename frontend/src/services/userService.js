@@ -6,13 +6,17 @@ import firebase from "firebase";
 export class UserService {
     currentUsersName = "";
     availableUsers = [];
-    authenticated
+    authenticated = false;
+    isAdmin = false;
     constructor(auth, http){
         this.auth = auth;
         this.http = http;
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.user = user;
+                user.getIdTokenResult().then((tr)=>{
+                    this.isAdmin = tr.claims.admin;
+                });
                 this.authenticated = true;
                 this.usersName = user.displayName;
                 var getAllUsers = firebase.functions().httpsCallable('getAllUsers');
@@ -29,7 +33,10 @@ export class UserService {
         this.authenticated = false;
         firebase.auth().signOut();
     }
-    get isAuthenticated(){
+    get isAuthorized(){
+        return this.authenticated && this.isAdmin;
+    }
+    get isLoggedIn(){
         return this.authenticated;
     }
 }

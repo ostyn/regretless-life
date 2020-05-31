@@ -3,11 +3,11 @@
     <div>
         <img class="infoSectionImage" click.trigger="showLogin=!showLogin" width=150 height=150 src="/us.jpg">
     </div>
-    <div show.bind="!userService.isAuthenticated">
+    <div show.bind="!userService.isAuthorized">
         <div class="infoSectionTitleContainer">
             <div class="infoSectionTitle">who are we?</div>
         </div>
-        <login show.bind="showLogin && !userService.isAuthenticated"></login>
+        <login show.bind="showLogin && !userService.isAuthorized"></login>
         <div class="infoSectionContent">Jared + Erika. AKA, Jerika. AKA, us. Out to see the world and never forget it.</div>
         <br>
         <h5>Subscribe</h5>
@@ -18,10 +18,10 @@
             <div class="small" if.bind="message">${message}</div>
         </form>
     </div>
-    <div show.bind="userService.isAuthenticated" class="infoSectionTitleContainer">
-        <div class="infoSectionTitle">how are you${(userService.isAuthenticated && userService.usersName) ? ', ' + userService.usersName +'?' : '?'}</div>
+    <div show.bind="userService.isLoggedIn" class="infoSectionTitleContainer">
+        <div class="infoSectionTitle">how are you${(userService.isLoggedIn && userService.usersName) ? ', ' + userService.usersName +'?' : '?'}</div>
     </div>
-    <button if.bind="userService.isAuthenticated" click.trigger="newPost()">new post</button></div>
-    <a if.bind="userService.isAuthenticated" route-href="route: drafts"><span></span><button>view drafts</button></a>
-    <button if.bind="userService.isAuthenticated" click.trigger="userService.logout()">logout</button>
+    <button if.bind="userService.isAuthorized" click.trigger="newPost()">new post</button></div>
+    <a if.bind="userService.isAuthorized" route-href="route: drafts"><span></span><button>view drafts</button></a>
+    <button if.bind="userService.isLoggedIn" click.trigger="userService.logout()">logout</button>
 </template>
