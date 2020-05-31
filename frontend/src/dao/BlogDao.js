@@ -336,6 +336,7 @@ export class BlogDao {
             });
     }
     deleteComment(postId, comment) {
+        this.removeUndefinedFields(comment);
         var deleteComment = firebase.functions().httpsCallable('deleteComment');
         return deleteComment({ postId: postId, comment: comment }).then(() => {
             return postId;
@@ -343,6 +344,14 @@ export class BlogDao {
             console.log(err);
         });
     }
+    //Array removals must remove the exact same item. Observables with aurelia were introducing new, undefined fields
+    //But since Firestore can't store undefined values anyway, we can by bypass the problem by removing those fields.
+    removeUndefinedFields(comment) {
+        for (let [key, value] of Object.entries(comment))
+            if (value === undefined)
+                delete comment[key];
+    }
+
     getAuthkey(url) {
         return this.http
             .fetch('getAuthkey?url=' + encodeURIComponent(url), {

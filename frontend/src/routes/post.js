@@ -53,7 +53,8 @@ export class Post {
     }
 
     submitComment() {
-        this.comment["name"] = this.userService.usersName;
+        if(this.userService.isAuthorized)
+            this.comment["name"] = this.userService.usersName;
         this.blogDao.submitComment(this.post._id, this.comment)
             .then(id => {
                 this.blogDao.getPost(id)
