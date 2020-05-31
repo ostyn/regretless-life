@@ -19,7 +19,7 @@ export class Post {
     activate(params, routeConfig, navigationInstruction) {
         this.mapShown = false;
         if (params.isDraft === 'true') {
-            return this.blogDao.getDraftPost(params.id).then((post) => {
+            return this.blogDao.getPost(params.id).then((post) => {
                 this.post = post;
                 routeConfig.navModel.title = post.title;
             });

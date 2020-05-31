@@ -34,8 +34,7 @@ export class PostWidget {
     }
     getLinkParams(post){
         return { 
-            'id': post._id, 
-            'isDraft': (post.isDraft) ? post.isDraft : undefined 
+            'id': post._id
         };
     }
 }

@@ -118,21 +118,6 @@ export class BlogDao {
             return { error: err.message };
         });
     }
-    getNDraftPosts(num, start) {
-        return this.findNDraftPosts("", num, start);
-    }
-    findNDraftPosts(query = "", num = 0, start = 0) {
-        return this.http.fetch('findNDraftPosts?query=' + query + "&start=" + start + "&num=" + num)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                return data.resp;
-            })
-            .catch(ex => {
-                console.log(ex);
-            });
-    }
     getAvailableTags() {
         return this.http.fetch('getAvailableTags')
             .then(response => {
@@ -159,21 +144,14 @@ export class BlogDao {
             'images': post.images,
             'tags': Array.from(post.tags)
         };
-        if (post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
-            postData['location'] = post.locationInfo.name;
-        return this.http
-            .fetch('savePost', {
-                method: 'post',
-                body: json(postData),
-            })
-            .then(response => {
-                if (response.status > 400)
-                    throw response;
-                return response.json();
-            })
-            .then((submittedPost) => {
-                return submittedPost.id
-            });
+        // if (post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
+        //     postData['location'] = post.locationInfo.name;
+        var savePost = firebase.functions().httpsCallable('savePost');
+        return savePost({ post: postData }).then((resp) => {
+            return resp.data.id;
+        }).catch((err) => {
+            return { error: err.message };
+        });
     }
 
     publishPost(post) {
