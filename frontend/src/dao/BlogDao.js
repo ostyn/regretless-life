@@ -53,7 +53,6 @@ export class BlogDao {
         );
     }
     getPost(id) {
-        this.backfill(id);
         var ref = this.db.collection("posts");
         return ref.doc(id).get().then((doc) => {
             return {
@@ -63,72 +62,6 @@ export class BlogDao {
         }
         );
     }
-    cache = new Map();
-    promises = [];
-    populateUrlCache = (storage, prefix, path, name) => {
-        if (path === "kenting" || path === "kalaw" || path === "decemberinthenorthwest")
-            name = name.replace("(1", "X")
-        if (!this.cache.has(name)) {
-            var pathReference = storage.ref(`/${prefix}/${path}/${name}`);
-            const promise = pathReference.getDownloadURL().then((url) => {
-                this.cache.set(name, url);
-            });
-            this.promises.push(promise);
-            return promise;
-        }
-    }
-    getUrl = (name) => {
-        return this.cache.get(name);
-    }
-    backfill = (id) => {
-        let toBackfill = "57ee96a3cf1e8c10061b6a73";
-        if(id != toBackfill)
-            return;
-        var storage = firebase.storage();
-        this.postsJSON.forEach((post)=>{
-            let id = post._id;
-            delete post._id;
-            var ref = this.db.collection("posts");
-            ref.doc(id).set(post);
-        })
-        return;
-        fetch("https://regretless.life/data/getPost?id=" + toBackfill).then((data) => {
-            data.json().then((real) => {
-                let post = real.resp;
-                let parts = post.heroPhotoUrl.split("/");
-                var pathReference = storage.ref(`/blogphotos/${parts[2]}/${parts[3]}`);
-                const heroPromise = pathReference.getDownloadURL();
-                heroPromise.then((url)=>{
-                    post.heroPhotoUrl = url;
-                });
-                this.promises.push(heroPromise);
-                let m;
-                let regex = /\(\.\/blogphotos\/(\w+)\/(.*?)\)/g;
-                do {
-                    m = regex.exec(post.content);
-                    if (m) {
-                        this.populateUrlCache(storage, "blogphotos", m[1], m[2]);
-                    }
-                } while (m);
-                Promise.all(this.promises).then(() => {
-                    let regex2 = /\(\.\/blogphotos\/(\w+)\/(.*?)\)/g;
-                    post.content = post.content.replace(regex2, (fullMatch, path, name) => {
-                        return "(" + this.getUrl(name) + ")";
-                    });
-                    post.content = post.content.replace("![](https://regretless.life/data/oneDriveImageProxy?url=https%3A%2F%2Fregretless.life%2Fblogphotos%2Frome%2Fdata%2FoneDriveImageProxy%3Furl%3Dfile%253A%252F%252F%252FC%253A%252FUsers%252Fsaite%252FDesktop%252FItaly%252520Part%2525201_%252520Rome%252520_%252520regretless.life_files%252FoneDriveImageProxy)", "")
-                    post.content = post.content.replace("![](https://regretless.life/data/oneDriveImageProxy?url=https%3A%2F%2Fregretless.life%2Fblogphotos%2Frome%2Fdata%2FoneDriveImageProxy%3Furl%3Dfile%253A%252F%252F%252FC%253A%252FUsers%252Fsaite%252FDesktop%252FItaly%252520Part%2525201_%252520Rome%252520_%252520regretless.life_files%252FoneDriveImageProxy(1))", "")
-                    post.content = post.content.replace("![](https://regretless.life/data/oneDriveImageProxy?url=https%3A%2F%2Fregretless.life%2Fblogphotos%2Frome%2Fdata%2FoneDriveImageProxy%3Furl%3Dfile%253A%252F%252F%252FC%253A%252FUsers%252Fsaite%252FDesktop%252FItaly%252520Part%2525201_%252520Rome%252520_%252520regretless.life_files%252FoneDriveImageProxy(2))", "")
-                    post.content = post.content.replace("![](https://regretless.life/data/oneDriveImageProxy?url=https%3A%2F%2Fregretless.life%2Fblogphotos%2Frome%2Fdata%2FoneDriveImageProxy%3Furl%3Dfile%253A%252F%252F%252FC%253A%252FUsers%252Fsaite%252FDesktop%252FItaly%252520Part%2525201_%252520Rome%252520_%252520regretless.life_files%252FoneDriveImageProxy(3))", "")
-
-                    let id = post._id;
-                    delete post._id;
-                    var ref = this.db.collection("posts");
-                    ref.doc(id).set(post);
-                });
-            });
-        });
-    }
-
     getNextPost(date) {
         var ref = this.db.collection("posts");
         return ref.where("isDraft", "==", false).orderBy("date", "desc").startAfter(date).limit(1).get().then((snapshot) => {
@@ -183,7 +116,7 @@ export class BlogDao {
         return subscribeEmail({ email: email }).then((resp) => {
             return resp.data;
         }).catch((err) => {
-            return {error: err.message};
+            return { error: err.message };
         });
     }
     unsubscribe(id) {
@@ -191,7 +124,7 @@ export class BlogDao {
         return unsubscribeEmail({ id: id }).then((resp) => {
             return resp.data;
         }).catch((err) => {
-            return {error: err.message};
+            return { error: err.message };
         });
     }
     // findNPosts(query = "", start = 0, num = 0) {
