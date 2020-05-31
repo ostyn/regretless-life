@@ -54,7 +54,7 @@ exports.submitComment = functions.https.onCall(async (data, context) => {
             to: ADMIN_EMAIL_LIST,
             message: {
                 subject: "New Comment on regretless.life",
-                html: `name: ${formedComment.name}<br><br>email: ${formedComment.email}<br><br>Post: <a href="https://regretless.life/#/post/${postId}">Post here</a><br><br><i>${formedComment.content}</i>`
+                html: `name: ${formedComment.name}<br><br>email: ${formedComment.email||"<none given>"}<br><br>Post: <a href="https://regretless.life/#/post/${postId}">Post here</a><br><br><i>${formedComment.content}</i>`
             }
         });
     return { resp: postId };
