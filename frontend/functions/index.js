@@ -3,6 +3,7 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 const Firestore = require('@google-cloud/firestore');
 const PROJECTID = 'regretless-life-test';
+let nodeGeocoder = require('node-geocoder');
 const POSTS_COLLECTION = 'posts';
 const MAIL_COLLECTION = 'mail';
 const ADMIN_EMAIL_LIST = [];
@@ -10,6 +11,12 @@ const firestore = new Firestore({
     projectId: PROJECTID,
     timestampsInSnapshots: true,
 });
+let options = {
+    provider: 'google',
+    apiKey: 'YOUR_API_KEY_HERE'
+  };
+   
+  let geoCoder = nodeGeocoder(options);
 
 //This method adds the claim to the token, but it won't take effect during the first login
 //The user will need to create, logout, and then login for the claim to apply
@@ -32,6 +39,39 @@ exports.getAllUsers = functions.https.onCall(async (data, context) => {
         return { users: enabledUsers };
     }
     throw new functions.https.HttpsError('unauthenticated', 'Auth required');
+});
+exports.savePost = functions.https.onCall(async (data, context) => {
+    let timestamp = new Date().getTime()
+    let {post} = data;
+    let formedPost = {
+		'title': post.title,
+		'author': post.author,
+		'date': post.date || timestamp,
+		'heroPhotoUrl': post.heroPhotoUrl,
+		'content': post.content,
+		'comments': post.comments || [],
+		'isDraft': true,
+		'images': post.images || [],
+		'tags': post.tags || [],
+		'locationInfo': {}
+	}
+    if(post.location && post.location !== undefined) {
+        let geocoded = await geoCoder.geocode(post.location);
+        console.log(geocoded);
+        let geocodedLocation = geocoded[0];
+        formedPost.locationInfo = {
+            "latitude": geocodedLocation.latitude,
+            "longitude": geocodedLocation.longitude,
+            "country": geocodedLocation.country,
+            "countryCode": geocodedLocation.countryCode,
+            "name": post.location
+        }
+    }
+    if(post.id !== undefined) {
+        formedPost.dateLastEdited = timestamp;
+    }
+    console.log(formedPost);
+    return { resp: post.id };
 });
 exports.submitComment = functions.https.onCall(async (data, context) => {
     const { postId, comment } = (data) || {};

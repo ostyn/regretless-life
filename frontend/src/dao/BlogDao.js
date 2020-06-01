@@ -144,8 +144,8 @@ export class BlogDao {
             'images': post.images,
             'tags': Array.from(post.tags)
         };
-        // if (post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
-        //     postData['location'] = post.locationInfo.name;
+        if (post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
+            postData['location'] = post.location;
         var savePost = firebase.functions().httpsCallable('savePost');
         return savePost({ post: postData }).then((resp) => {
             return resp.data.id;
