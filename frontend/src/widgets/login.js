@@ -9,12 +9,12 @@ export class Login {
         this.userService = userService;
     }
     attached(){
+        this.ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth());
         firebase.auth().onAuthStateChanged((user) => {
             if (!user) {
                 this.ui.start('#firebaseui-auth-container', uiConfig);
             }
         });
-        this.ui = new firebaseui.auth.AuthUI(firebase.auth());
         var uiConfig = {
             signInFlow: 'popup',
             signInOptions: [
