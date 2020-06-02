@@ -46,7 +46,8 @@ exports.savePost = functions.https.onCall(async (data, context) => {
     let formedPost = {
 		'title': post.title,
 		'author': post.author,
-		'date': post.date || timestamp,
+        'date': post.date || timestamp,
+        'dateLastEdited': timestamp,
 		'heroPhotoUrl': post.heroPhotoUrl,
 		'content': post.content,
 		'comments': post.comments || [],
@@ -67,11 +68,8 @@ exports.savePost = functions.https.onCall(async (data, context) => {
             "name": post.location
         }
     }
-    if(post.id !== undefined) {
-        formedPost.dateLastEdited = timestamp;
-    }
     console.log(formedPost);
-    return { resp: post.id };
+    return { id: post.id };
 });
 exports.submitComment = functions.https.onCall(async (data, context) => {
     const { postId, comment } = (data) || {};
@@ -97,7 +95,7 @@ exports.submitComment = functions.https.onCall(async (data, context) => {
                 html: `name: ${formedComment.name}<br><br>email: ${formedComment.email||"<none given>"}<br><br>Post: <a href="https://regretless.life/#/post/${postId}">Post here</a><br><br><i>${formedComment.content}</i>`
             }
         });
-    return { resp: postId };
+    return { id: postId };
 });
 exports.deleteComment = functions.https.onCall(async (data, context) => {
     if (isAdmin(context)) {
@@ -107,7 +105,7 @@ exports.deleteComment = functions.https.onCall(async (data, context) => {
             .update({
                 comments: Firestore.FieldValue.arrayRemove(comment)
             });
-        return { resp: postId };
+        return { id: postId };
     }
     throw new functions.https.HttpsError('unauthenticated', 'Auth required');
 });

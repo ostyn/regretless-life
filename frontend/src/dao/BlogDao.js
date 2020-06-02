@@ -146,6 +146,8 @@ export class BlogDao {
         };
         if (post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
             postData['location'] = post.location;
+        if(post.date)
+            postData['date'] = post.date;
         var savePost = firebase.functions().httpsCallable('savePost');
         return savePost({ post: postData }).then((resp) => {
             return resp.data.id;
