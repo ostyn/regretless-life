@@ -145,7 +145,7 @@ export class BlogDao {
             'tags': Array.from(post.tags)
         };
         if (post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
-            postData['location'] = post.location;
+            postData['location'] = post.locationInfo.name;
         if(post.date)
             postData['date'] = post.date;
         var savePost = firebase.functions().httpsCallable('savePost');
