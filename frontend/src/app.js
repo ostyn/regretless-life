@@ -3,8 +3,8 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { PageChanged } from 'messages/messages';
 import { HttpClient } from 'aurelia-fetch-client';
 import {PLATFORM} from 'aurelia-pal';
-import { UserService } from './services/userService';
 import {Redirect} from 'aurelia-router';
+import firebase from "firebase";
 @inject(HttpClient)
 export class App {
   configureRouter(config, router) {
@@ -48,16 +48,17 @@ class PostCompleteStep {
     return next();
   }
 }
-
-@inject(EventAggregator, UserService)
 class CheckAuth {
-  constructor(eventAggregator, userService) {
-    this.eventAggregator = eventAggregator;
-    this.userService = userService;
-  }
-  run(routingContext, next) {
-    if(!routingContext.config.auth || this.userService.isAuthorized)
-      return next();
-    return next.cancel(new Redirect('/'));
-  }
+  run(navigationInstruction, next) {
+    return new Promise((resolve, reject) => {
+        firebase.auth().onAuthStateChanged(user => {
+            let currentRoute = navigationInstruction.config;
+            let loginRequired = currentRoute.auth && currentRoute.auth === true;
+            if (!user && loginRequired) {
+                return resolve(next.cancel(new Redirect('')));
+            }
+            return resolve(next());
+        });
+    });
+}
 }
