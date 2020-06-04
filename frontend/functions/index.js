@@ -43,6 +43,7 @@ exports.getAllUsers = functions.https.onCall(async (data, context) => {
 exports.savePost = functions.https.onCall(async (data, context) => {
     let timestamp = new Date().getTime()
     let {post} = data;
+    let id = post.id;
     let formedPost = {
 		'title': post.title,
 		'author': post.author,
@@ -50,7 +51,6 @@ exports.savePost = functions.https.onCall(async (data, context) => {
         'dateLastEdited': timestamp,
 		'heroPhotoUrl': post.heroPhotoUrl,
 		'content': post.content,
-		'comments': post.comments || [],
 		'isDraft': true,
 		'images': post.images || [],
 		'tags': post.tags || [],
@@ -58,7 +58,6 @@ exports.savePost = functions.https.onCall(async (data, context) => {
 	}
     if(post.location && post.location !== undefined) {
         let geocoded = await geoCoder.geocode(post.location);
-        console.log(geocoded);
         let geocodedLocation = geocoded[0];
         formedPost.locationInfo = {
             "latitude": geocodedLocation.latitude,
@@ -68,8 +67,10 @@ exports.savePost = functions.https.onCall(async (data, context) => {
             "name": post.location
         }
     }
-    console.log(formedPost);
-    return { id: post.id };
+    await firestore.collection(POSTS_COLLECTION)
+        .doc(id)
+        .set(formedPost, { merge: true });
+    return { id: id };
 });
 exports.submitComment = functions.https.onCall(async (data, context) => {
     const { postId, comment } = (data) || {};
