@@ -79,8 +79,8 @@ let savePostMethod = async (data, context) => {
     return { id: id };
 };
 exports.publishPost = functions.https.onCall(async (data, context) => {
-    data.post.date = new Date().getTime();
     data.post.isDraft = false;
+    delete data.post.date;
     delete data.post.dateLastEdited;
     return savePostMethod(data, context)
 });
