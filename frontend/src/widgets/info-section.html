@@ -23,6 +23,6 @@
         <div class="infoSectionTitle">how are you${(userService.isLoggedIn && userService.usersName) ? ', ' + userService.usersName +'?' : '?'}</div>
     </div>
     <new-post-button if.bind="userService.isAuthorized"></new-post-button>
-    <button click.trigger="viewDrafts()">view drafts</button>
+    <button if.bind="userService.isLoggedIn" click.trigger="viewDrafts()">view drafts</button>
     <button if.bind="userService.isLoggedIn" click.trigger="userService.logout()">logout</button>
 </template>
