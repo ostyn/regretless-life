@@ -37,4 +37,8 @@ export class PostWidget {
             'id': post._id
         };
     }
+    get commentNumberText () {
+        const numberOfComments = (this.post.comments) ? this.post.comments.length : 0;
+        return `${numberOfComments} comment${numberOfComments == 1 ? "" : "s"}`;
+    }
 }

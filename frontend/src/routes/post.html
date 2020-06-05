@@ -19,7 +19,7 @@
     <section class="comments">
         <div>
             <p class="small">Talk in the boxes down there. We'll talk back!</p>
-            <h3>${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</h3>
+            <h3>${commentNumberText}</h3>
             <div class="comment" repeat.for="comment of post.comments">
                 <div class="commentHeader">
                     <span class="grey">#${$index+1} ${comment.name}</span>

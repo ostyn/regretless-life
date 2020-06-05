@@ -29,7 +29,7 @@
             <p class="grey">Updated on ${formatLib.secondsToDate(post.dateLastEdited)} at ${formatLib.secondsToTime(post.dateLastEdited)}</p>
         </div>
         <p if.bind="(showCommentsLink === 'true' || showCommentsLink === true)" class="grey small">
-            <a route-href="route: post; params.bind: { id: post._id }">${post.comments.length} comment${post.comments.length == 1 ? "" : "s"}</a>
+            <a route-href="route: post; params.bind: { id: post._id }">${commentNumberText}</a>
         </p>
         <slot name="optionalControls"></slot>
         <div if.bind="(showTagLinks === 'true' || showTagLinks === true)">
