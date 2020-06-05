@@ -51,7 +51,7 @@ exports.savePost = functions.https.onCall(async (data, context) => {
         'dateLastEdited': timestamp,
         'heroPhotoUrl': post.heroPhotoUrl,
         'content': post.content,
-        'isDraft': true,//TODO this is wrong
+        'isDraft': post.isDraft,
         'images': post.images || [],
         'tags': post.tags || [],
         'locationInfo': {}
