@@ -236,18 +236,7 @@ export class BlogDao {
     }
 
     getAuthkey(url) {
-        return this.http
-            .fetch('getAuthkey?url=' + encodeURIComponent(url), {
-                'method': 'get'
-            })
-            .then(response => {
-                if (response.status > 400)
-                    throw response;
-                return response.json();
-            })
-            .then((resp) => {
-                return resp.authkey;
-            });;
+        return Promise.resolve(new URLSearchParams(url.split("?")[1]).get("authkey"));
     }
     getOneDriveLink(url) {
         return this.http
