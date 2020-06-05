@@ -139,7 +139,7 @@ export class Editor {
         this.blogDao.unpublishPost(this.post).then(id => {
             window.localStorage.removeItem(this.unsavedContentKey);
             this.activelyContactingServer = false;
-            this.router.navigateToRoute('post', {'id':id, 'isDraft':true});
+            this.router.navigateToRoute('post', {'id':id});
         })
         .catch(response => {
             this.activelyContactingServer = false;
