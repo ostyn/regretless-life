@@ -211,21 +211,12 @@ export class BlogDao {
     }
 
     deletePost(id) {
-        return this.http
-            .fetch('deletePost', {
-                method: 'delete',
-                body: json({
-                    'id': id,
-                }),
-            })
-            .then(response => {
-                if (response.status > 400)
-                    throw response;
-                return response.json();
-            })
-            .then((resp) => {
-                return resp;
-            });
+        var ref = this.db.collection("posts");
+        return ref.doc(id).delete().then(() => {
+            return true;
+        }).catch((err)=>{
+            console.log(err);
+        });
     }
     deleteComment(postId, comment) {
         this.removeUndefinedFields(comment);

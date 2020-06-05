@@ -1,6 +1,6 @@
 import {inject, observable} from 'aurelia-framework';
 import {BlogDao} from 'dao/BlogDao';
-import {Router} from 'aurelia-router';
+import {Router, Redirect} from 'aurelia-router';
 import {activationStrategy} from 'aurelia-router';
 import {UserService} from 'services/userService';
 @inject(BlogDao, Router, UserService)
@@ -151,10 +151,13 @@ export class Editor {
     delete(){
         if(!confirm('Delete post?'))
             return;
-        this.blogDao.deletePost(this.post._id).then(id => {
+        this.blogDao.deletePost(this.post._id).then(() => {
             window.localStorage.removeItem(this.unsavedContentKey);
             this.activelyContactingServer = false;
-            this.router.navigateToRoute('');
+            if(this.post.isDraft)
+                this.router.navigateToRoute('drafts');
+            else
+                new Redirect('');
         })
         .catch(response => {
             this.activelyContactingServer = false;
