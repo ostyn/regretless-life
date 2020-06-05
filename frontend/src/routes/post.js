@@ -41,12 +41,14 @@ export class Post {
                 return this.blogDao.getPost(params.id).then((post) => {
                     this.post = post;
                     routeConfig.navModel.title = post.title;
-                    this.blogDao.getPrevPost(this.post.date).then((prevPost) => {
-                        this.prevPost = prevPost;
-                    })
-                    this.blogDao.getNextPost(this.post.date).then((nextPost) => {
-                        this.nextPost = nextPost;
-                    })
+                    if(!this.post.isDraft) {
+                        this.blogDao.getPrevPost(this.post.date).then((prevPost) => {
+                            this.prevPost = prevPost;
+                        })
+                        this.blogDao.getNextPost(this.post.date).then((nextPost) => {
+                            this.nextPost = nextPost;
+                        })
+                    }
                 });
             }
         }
