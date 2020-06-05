@@ -420,9 +420,6 @@ multi-select-box form {
     text-decoration: none !important;
     background-color: lightgray;
 }
-button:first-child {
-    margin-left: 0px;
-}
 .jvectormap-container {
     width: auto !important;
 }
@@ -467,4 +464,12 @@ button:first-child {
 }
 .firebaseui-title {
     display: none;
+}
+.newPostPrompt {
+    border: 1px dashed black;
+    padding: 10px;
+}
+.newPostPromptTextbox {
+    margin-left: 5px;
+    width:calc(100% - 15px - 15px - 5px);
 }

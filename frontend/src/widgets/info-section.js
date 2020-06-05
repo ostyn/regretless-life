@@ -18,8 +18,8 @@ export class InfoSection {
             this.email = undefined;
         });
     }
-    newPost() {
-        this.router.navigateToRoute('editor');
+    viewDrafts() {
+        this.router.navigateToRoute('drafts');
     }
     subscribe() {
         if (this.email !== undefined && this.email !== "") {
