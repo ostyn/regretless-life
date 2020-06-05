@@ -45,6 +45,8 @@ exports.savePost = functions.https.onCall(async (data, context) => {
     let { post } = data;
     let id = post.id;
     let formedPost = {
+        'title': post.title,
+        'author': post.author,
         'date': post.date || timestamp,
         'dateLastEdited': timestamp,
         'heroPhotoUrl': post.heroPhotoUrl,
