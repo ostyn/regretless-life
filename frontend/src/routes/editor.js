@@ -81,6 +81,7 @@ export class Editor {
                         this.post.tags = new Set();
                     else
                         this.post.tags = new Set(this.post.tags);
+                    routeConfig.navModel.title = "Editing: " + post.title;
                 });
             else
                 return this.blogDao.getPost(params.id).then((post) => {
@@ -95,6 +96,7 @@ export class Editor {
                         this.post.tags = new Set();
                     else
                         this.post.tags = new Set(this.post.tags);
+                    routeConfig.navModel.title = "Editing: " + post.title;
                 });
         }
         else {
@@ -105,6 +107,7 @@ export class Editor {
                 'tags':new Set()
         };
         }
+        routeConfig.navModel.title = "Editing: New Post";
     }
     save(){
         if(!confirm('Save post?'))
