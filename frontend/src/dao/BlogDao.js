@@ -140,13 +140,13 @@ export class BlogDao {
             'author': post.author,
             'content': post.content,
             'heroPhotoUrl': post.heroPhotoUrl,
-            'isDraft': post.isDraft,
+            'isDraft': post.isDraft === true,
             'images': post.images,
-            'tags': Array.from(post.tags)
+            'tags': (post.tags) ? Array.from(post.tags) : []
         };
         if (post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
             postData['location'] = post.locationInfo.name;
-        if(post.date)
+        if (post.date)
             postData['date'] = post.date;
         var savePost = firebase.functions().httpsCallable('savePost');
         return savePost({ post: postData }).then((resp) => {
