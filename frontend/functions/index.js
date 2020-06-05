@@ -14,9 +14,9 @@ const firestore = new Firestore({
 let options = {
     provider: 'google',
     apiKey: 'YOUR_API_KEY_HERE'
-  };
-   
-  let geoCoder = nodeGeocoder(options);
+};
+
+let geoCoder = nodeGeocoder(options);
 
 //This method adds the claim to the token, but it won't take effect during the first login
 //The user will need to create, logout, and then login for the claim to apply
@@ -42,21 +42,19 @@ exports.getAllUsers = functions.https.onCall(async (data, context) => {
 });
 exports.savePost = functions.https.onCall(async (data, context) => {
     let timestamp = new Date().getTime()
-    let {post} = data;
+    let { post } = data;
     let id = post.id;
     let formedPost = {
-		'title': post.title,
-		'author': post.author,
         'date': post.date || timestamp,
         'dateLastEdited': timestamp,
-		'heroPhotoUrl': post.heroPhotoUrl,
-		'content': post.content,
-		'isDraft': true,
-		'images': post.images || [],
-		'tags': post.tags || [],
-		'locationInfo': {}
-	}
-    if(post.location && post.location !== undefined) {
+        'heroPhotoUrl': post.heroPhotoUrl,
+        'content': post.content,
+        'isDraft': true,//TODO this is wrong
+        'images': post.images || [],
+        'tags': post.tags || [],
+        'locationInfo': {}
+    }
+    if (post.location && post.location !== undefined) {
         let geocoded = await geoCoder.geocode(post.location);
         let geocodedLocation = geocoded[0];
         formedPost.locationInfo = {
@@ -67,9 +65,15 @@ exports.savePost = functions.https.onCall(async (data, context) => {
             "name": post.location
         }
     }
-    await firestore.collection(POSTS_COLLECTION)
-        .doc(id)
-        .set(formedPost, { merge: true });
+    if (id)
+        await firestore.collection(POSTS_COLLECTION)
+            .doc(id)
+            .set(formedPost, { merge: true });
+    else {
+        let docRef = await firestore.collection(POSTS_COLLECTION)
+            .add(formedPost);
+        id = docRef.id;
+    }
     return { id: id };
 });
 exports.submitComment = functions.https.onCall(async (data, context) => {
@@ -93,7 +97,7 @@ exports.submitComment = functions.https.onCall(async (data, context) => {
             to: ADMIN_EMAIL_LIST,
             message: {
                 subject: "New Comment on regretless.life",
-                html: `name: ${formedComment.name}<br><br>email: ${formedComment.email||"<none given>"}<br><br>Post: <a href="https://regretless.life/#/post/${postId}">Post here</a><br><br><i>${formedComment.content}</i>`
+                html: `name: ${formedComment.name}<br><br>email: ${formedComment.email || "<none given>"}<br><br>Post: <a href="https://regretless.life/#/post/${postId}">Post here</a><br><br><i>${formedComment.content}</i>`
             }
         });
     return { id: postId };
