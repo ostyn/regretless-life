@@ -4,7 +4,6 @@ import {AuthService} from 'aurelia-auth';
 import firebase from "firebase";
 @inject(AuthService, HttpClient)
 export class UserService {
-    currentUsersName = "";
     availableUsers = [];
     authenticated = false;
     isAdmin = false;
