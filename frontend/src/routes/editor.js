@@ -62,10 +62,6 @@ export class Editor {
             // For Safari
             return this.message;
         };
-        this.blogDao.getAvailableTags()
-            .then((tags)=>{
-                this.availableTags = new Set(tags);
-            });
         if(params.id) {
             this.editing = true;
             if(params.isDraft === 'true')
