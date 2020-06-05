@@ -119,6 +119,45 @@ export class BlogDao {
         });
     }
     savePost(post) {
+        let postData = this.normalizePost(post);
+        var savePost = firebase.functions().httpsCallable('savePost');
+        return savePost({ post: postData }).then((resp) => {
+            return resp.data.id;
+        }).catch((err) => {
+            return { error: err.message };
+        });
+    }
+
+    publishPost(post) {
+        let postData = this.normalizePost(post);
+        var savePost = firebase.functions().httpsCallable('publishPost');
+        return savePost({ post: postData }).then((resp) => {
+            return resp.data.id;
+        }).catch((err) => {
+            return { error: err.message };
+        });
+    }
+
+    unpublishPost(post) {
+        let postData = this.normalizePost(post);
+        var savePost = firebase.functions().httpsCallable('unpublishPost');
+        return savePost({ post: postData }).then((resp) => {
+            return resp.data.id;
+        }).catch((err) => {
+            return { error: err.message };
+        });
+    }
+
+    deletePost(id) {
+        var ref = this.db.collection("posts");
+        return ref.doc(id).delete().then(() => {
+            return true;
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
+
+    normalizePost(post) {
         let postData = {
             'id': post._id,
             'title': post.title,
@@ -133,76 +172,9 @@ export class BlogDao {
             postData['location'] = post.locationInfo.name;
         if (post.date)
             postData['date'] = post.date;
-        var savePost = firebase.functions().httpsCallable('savePost');
-        return savePost({ post: postData }).then((resp) => {
-            return resp.data.id;
-        }).catch((err) => {
-            return { error: err.message };
-        });
+        return postData;
     }
 
-    publishPost(post) {
-        let postData = {
-            'id': post._id,
-            'title': post.title,
-            'author': post.author,
-            'content': post.content,
-            'heroPhotoUrl': post.heroPhotoUrl,
-            'isDraft': post.isDraft,
-            'images': post.images,
-            'tags': Array.from(post.tags)
-        };
-        if (post.locationInfo && post.locationInfo.name && post.locationInfo.name !== "")
-            postData['location'] = post.locationInfo.name;
-        return this.http
-            .fetch('publishPost', {
-                method: 'post',
-                body: json(postData),
-            })
-            .then(response => {
-                if (response.status > 400)
-                    throw response;
-                return response.json();
-            })
-            .then((submittedPost) => {
-                return submittedPost.id
-            });
-    }
-
-    unpublishPost(post) {
-        return this.http
-            .fetch('unpublishPost', {
-                method: 'post',
-                body: json({
-                    'id': post._id,
-                    'title': post.title,
-                    'author': post.author,
-                    'location': post.location,
-                    'content': post.content,
-                    'heroPhotoUrl': post.heroPhotoUrl,
-                    'isDraft': post.isDraft,
-                    'images': post.images,
-                    'tags': Array.from(post.tags)
-                }),
-            })
-            .then(response => {
-                if (response.status > 400)
-                    throw response;
-                return response.json();
-            })
-            .then((submittedPost) => {
-                return submittedPost.id
-            });
-    }
-
-    deletePost(id) {
-        var ref = this.db.collection("posts");
-        return ref.doc(id).delete().then(() => {
-            return true;
-        }).catch((err)=>{
-            console.log(err);
-        });
-    }
     deleteComment(postId, comment) {
         this.removeUndefinedFields(comment);
         var deleteComment = firebase.functions().httpsCallable('deleteComment');

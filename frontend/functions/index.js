@@ -40,8 +40,8 @@ exports.getAllUsers = functions.https.onCall(async (data, context) => {
     }
     throw new functions.https.HttpsError('unauthenticated', 'Auth required');
 });
-exports.savePost = functions.https.onCall(async (data, context) => {
-    let timestamp = new Date().getTime()
+let savePostMethod = async (data, context) => {
+    let timestamp = new Date().getTime();
     let { post } = data;
     let id = post.id;
     let formedPost = {
@@ -77,7 +77,18 @@ exports.savePost = functions.https.onCall(async (data, context) => {
         id = docRef.id;
     }
     return { id: id };
+};
+exports.publishPost = functions.https.onCall(async (data, context) => {
+    data.post.date = new Date().getTime();
+    data.post.isDraft = false;
+    delete data.post.dateLastEdited;
+    return savePostMethod(data, context)
 });
+exports.unpublishPost = functions.https.onCall(async (data, context) => {
+    data.post.isDraft = true;
+    return savePostMethod(data, context)
+});
+exports.savePost = functions.https.onCall(savePostMethod);
 exports.submitComment = functions.https.onCall(async (data, context) => {
     const { postId, comment } = (data) || {};
     const formedComment = {
