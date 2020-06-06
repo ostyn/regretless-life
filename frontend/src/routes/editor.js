@@ -1,6 +1,6 @@
 import {inject, observable} from 'aurelia-framework';
 import {BlogDao} from 'dao/BlogDao';
-import {Router, Redirect} from 'aurelia-router';
+import {Router} from 'aurelia-router';
 import {activationStrategy} from 'aurelia-router';
 import {UserService} from 'services/userService';
 @inject(BlogDao, Router, UserService)
