@@ -1,5 +1,0 @@
-SECRET = "super sercret placeholder"
-SMTP_USER = 'USERNAME'
-SMTP_PASSWORD = 'PASSWORD'
-GOOGLE_MAPS_KEY="THIS IS YOUR KEY"
-IS_PROD = True

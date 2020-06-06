@@ -1,5 +1,5 @@
 import { inject } from 'aurelia-framework';
-import { HttpClient, json } from 'aurelia-fetch-client';
+import { HttpClient } from 'aurelia-fetch-client';
 import firebase from "firebase";
 @inject(HttpClient)
 export class BlogDao {
