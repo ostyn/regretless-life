@@ -7,6 +7,7 @@ import 'firebase/auth';
 // Pass in your own configuration options
 const config = {
   projectId: "regretless-life-test",
+  apiKey: 'YOUR_API_KEY_HERE',
   storageBucket: "regretless-life-test.appspot.com",
   signInOptions: [
     {
