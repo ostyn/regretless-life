@@ -83,7 +83,8 @@
     "start": "webpack-dev-server --extractCss",
     "build:dev": "webpack --extractCss",
     "analyze": "webpack --env.production --analyze",
-    "test": "au test"
+    "test": "au test",
+    "postinstall": "cd functions && npm install"
   },
   "engines": {
     "node": ">=8.9.0"
