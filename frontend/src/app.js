@@ -1,11 +1,9 @@
 import { inject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PageChanged } from 'messages/messages';
-import { HttpClient } from 'aurelia-fetch-client';
 import {PLATFORM} from 'aurelia-pal';
 import {Redirect} from 'aurelia-router';
 import firebase from "firebase";
-@inject(HttpClient)
 export class App {
   configureRouter(config, router) {
     config.title = 'regretless.life';
@@ -23,18 +21,6 @@ export class App {
      ]);
 
     this.router = router;
-  }
-  constructor(http) {
-    http.configure(config => {
-      config
-        .withBaseUrl(window.location.protocol + '//' + window.location.hostname + '/data/')
-        .withDefaults({
-          headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json'
-          }
-        });
-    });
   }
 }
 @inject(EventAggregator)
