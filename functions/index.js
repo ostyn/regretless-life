@@ -193,7 +193,7 @@ exports.onPostPublishedTrigger = functions.firestore.document('posts/{docId}')
     .onWrite(async (change, context) => {
         const before = change.before.data();
         const after = change.after.data();
-        if ((before.isDraft === undefined || before.isDraft === true) && after.isDraft === false) {
+        if (before && after && (before.isDraft === undefined || before.isDraft === true) && after.isDraft === false) {
             var ref = firestore.collection("subscriptions");
             let snapshot = await ref.get();
             let subs = [];
