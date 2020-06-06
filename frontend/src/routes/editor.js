@@ -156,7 +156,7 @@ export class Editor {
             if(this.post.isDraft)
                 this.router.navigateToRoute('drafts');
             else
-                new Redirect('');
+                this.router.navigateToRoute('blog');
         })
         .catch(response => {
             this.activelyContactingServer = false;
