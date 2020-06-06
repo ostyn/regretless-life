@@ -1,0 +1,28 @@
+<template class="info">
+    <require from="widgets/login"></require>
+    <require from="widgets/new-post-button"></require>
+    <div>
+        <img class="infoSectionImage" click.trigger="showLogin=!showLogin" width=150 height=150 src="/us.jpg">
+    </div>
+    <div show.bind="!userService.isAuthorized">
+        <div class="infoSectionTitleContainer">
+            <div class="infoSectionTitle">who are we?</div>
+        </div>
+        <login show.bind="showLogin && !userService.isAuthorized"></login>
+        <div class="infoSectionContent">Jared + Erika. AKA, Jerika. AKA, us. Out to see the world and never forget it.</div>
+        <br>
+        <h5>Subscribe</h5>
+        <form submit.trigger="subscribe()">
+            <div><input type="email" class="textbox" value.bind="email" placeholder="my@email.com"></input></div>
+            <br>
+            <div><button disabled.bind="activelySubscribing">subscribe</button></div>
+            <div class="small" if.bind="message">${message}</div>
+        </form>
+    </div>
+    <div show.bind="userService.isLoggedIn" class="infoSectionTitleContainer">
+        <div class="infoSectionTitle">how are you${(userService.isLoggedIn && userService.usersName) ? ', ' + userService.usersName +'?' : '?'}</div>
+    </div>
+    <new-post-button if.bind="userService.isAuthorized"></new-post-button>
+    <button if.bind="userService.isLoggedIn" click.trigger="viewDrafts()">view drafts</button>
+    <button if.bind="userService.isLoggedIn" click.trigger="userService.logout()">logout</button>
+</template>

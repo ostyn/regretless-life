@@ -1,0 +1,24 @@
+<template>
+    <require from="../widgets/vector-map"></require>
+    <section>
+        <span class="routeTitle">Places</span>
+        <div class="mapContainer">
+            <vector-map if.bind="values" values.bind="values" id="myMap" click-callback.call="toggleList($event, name)"></vector-map>
+            <div class="columns">
+                <div repeat.for="[year, countriesInYear] of years" class="columnOfPosts">
+                    <h3>${year}</h3>
+                    <div class="placesList">
+                        <div repeat.for="[countryCode, countryData] of countriesInYear">
+                            <div class="accordion" click.delegate="toggleList(countryCode)">&#xbb;<div class.bind='getCssFlag(countryCode)'></div>${countryData.country}</div>
+                            <ul show.bind="show[countryCode]">
+                                <li repeat.for="blogPost of countryData.posts">
+                                    <a route-href="route: post; params.bind: { id: blogPost.id }">${blogPost.title}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>

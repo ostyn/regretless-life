@@ -1,0 +1,10 @@
+<template>
+    <button if.bind="!promptOpen" click.trigger="openPrompt()">new post</button>
+    <div class="newPostPrompt" if.bind="promptOpen">
+        <strong>New Post</strong>
+        <hr/>
+        <input class="textbox newPostPromptTextbox" type="text" value.bind="postTitle" placeholder="Title">
+        <button click.trigger="createPost()">create</button>
+        <button click.trigger="closePrompt()">cancel</button>
+    </div>
+</template>

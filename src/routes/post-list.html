@@ -1,0 +1,31 @@
+<template>
+    <require from="widgets/post-widget"></require>
+    <section>
+        <div show.bind="query != undefined">
+            <span class="routeTitle">Search Results</span>
+            <p>"${query}"</p>
+        </div>
+        <div show.bind="tag != undefined">
+            <span class="routeTitle">${tag}</span>
+        </div>
+        <post-widget 
+            class.bind="widgetCssRule"
+            repeat.for="post of posts" 
+            post.bind="post" 
+            content-length.bind="previewLength" 
+            show-title-link=true 
+            show-comments-link.bind="showCommentsLink"
+            use-long-author-date=false
+            show-last-edited-date=false
+            show-tag-links.bind='showTagLinks'
+            show-map-button=false
+            show-author-date.bind='showAuthorDate'
+            expand-post-title.bind='expandPostTitle'>
+        </post-widget>
+        <div show.bind="posts.length == 0">
+            Couldn't find any posts. Sorry :(
+        </div>
+        <button if.bind="!requestedLastPage && posts.length > 0" click.trigger="showMore()">${moreText}</button>
+        <button disabled.bind="true" if.bind="requestedLastPage">No more posts</button>
+    </section>
+</template>
