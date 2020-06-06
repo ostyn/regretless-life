@@ -1,3 +1,6 @@
+# regretless-life
+Backend and frontend for our website
+
 # `frontend`
 
 This project is bootstrapped by [aurelia-cli](https://github.com/aurelia/cli).
