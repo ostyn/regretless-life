@@ -9,7 +9,7 @@
   
   <h3 class="cursor" click.trigger="showMoods = !showMoods">Mood Editor</h3>
   <div if.bind="showMoods">
-    <span click.trigger="setCurrentMood(mood)" repeat.for="mood of moods">${mood.emoji}</span>
+    <span click.trigger="setCurrentMood(mood)" repeat.for="mood of moods" class="mood">${mood.emoji}</span>
     <mood-edit mood.two-way="mood"></mood-edit>
   </div>
 

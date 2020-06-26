@@ -7,6 +7,10 @@
     opacity: .6;
     cursor: pointer;
 }
+.mood {
+    font-size: 32px;
+    cursor: pointer;
+}
 .activityEmoji {
     font-size: 32px;
     text-align: center;
