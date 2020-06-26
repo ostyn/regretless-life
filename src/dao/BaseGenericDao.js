@@ -30,22 +30,21 @@ export class BaseGenericDao {
         passedEntry = this.beforeSaveFixup(passedEntry);
         delete passedEntry.id;
         var ref = this.db.collection(this.name);
+        const updatedEntry = {
+            ...passedEntry,
+            updated: firebase.firestore.FieldValue.serverTimestamp(),
+            created: passedEntry.created || firebase.firestore.FieldValue.serverTimestamp()
+        };
         if (id)
-            return ref.doc(id).set({...passedEntry,
-                updated: firebase.firestore.FieldValue.serverTimestamp()
-            })
+            return ref.doc(id).set(updatedEntry)
                 .then(() => {
                     return id;
-                }
-                );
+                });
         else
-            return ref.add({...passedEntry,
-                updated: firebase.firestore.FieldValue.serverTimestamp(),
-                created: firebase.firestore.FieldValue.serverTimestamp()})
-            .then((docRef) => {
-                return docRef.id;
-            }
-            );
+            return ref.add(updatedEntry)
+                .then((docRef) => {
+                    return docRef.id;
+                });
     }
     deleteItem(id) {
         var ref = this.db.collection(this.name);
