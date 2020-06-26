@@ -1,0 +1,12 @@
+<template>
+    <form>
+        <input type="text" value.bind="workingCopy.name" placeholder="name">
+        <input type="text" value.bind="workingCopy.emoji" placeholder="emoji">
+        <label>Archived<input type="checkbox" checked.bind="workingCopy.isArchived"></label>
+        <div>
+            <button type='button' click.trigger="submitActivity()">save</button>
+            <button type='button' click.trigger="cancelEdit()">cancel</button>
+            <button type='button' click.trigger="deleteActivity()">delete</button>
+        </div>
+    </form>
+</template>

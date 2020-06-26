@@ -5,6 +5,15 @@ service cloud.firestore {
         allow write: if request.auth.token.admin == true;
         allow read: if resource.data.isDraft != true || request.auth.token.admin == true;
     }
+    match /entries/{document} {
+        allow write, read: if request.auth.token.admin == true;
+    }
+    match /moods/{document} {
+        allow write, read: if request.auth.token.admin == true;
+    }
+    match /activities/{document} {
+        allow write, read: if request.auth.token.admin == true;
+    }
     match /subscriptions/{document} {
         allow create: if true;
         allow update: if false;

@@ -1,0 +1,38 @@
+<template>
+    <div class="entry">
+        <div if.bind="!editMode">
+            <div>Date: ${entry.date}</div>
+            <div class="activeMood">${currentMood.emoji}</div>
+            <div>Activities:
+                <div if.bind="activities.length">
+                    <div repeat.for="[id, count] of entry.activities" class="activityContainer">
+                        <div class="activityEmoji">${findActivity(id).emoji}</div>
+                        <div class="activityName">
+                            ${findActivity(id).name}
+                            <span class="badge" if.bind="count>1">${count}</span>
+                        </div>
+                    </div>
+                    <div repeat.for="activity of activities" class="activityContainer">
+                        <div if.bind="entry.activities[activity.id]">
+                            <div class="activityEmoji">${activity.emoji}</div>
+                            <div class="activityName">
+                                ${activity.name}
+                                <span class="badge" if.bind="entry.activities[activity.id]>1">${entry.activities[activity.id]}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>Note:
+                <div>${entry.note}</div>
+            </div>
+            <button click.trigger="editMode=!editMode">edit</button>
+        </div>
+        <div if.bind="editMode">
+            <require from="./entry-edit"></require>
+            <entry-edit entry.bind="entry"></entry-edit>
+            <button click.trigger="deleteEntry(entry.id)">delete</button>
+            <button click.trigger="editMode=!editMode">cancel</button>
+        </div>
+    </div>
+</template>

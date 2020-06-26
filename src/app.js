@@ -17,6 +17,7 @@ export class App {
       { route: 'post/:id', moduleId: PLATFORM.moduleName('./routes/post'), name: 'post', nav: false, title: config.title },
       { route: 'about', moduleId: PLATFORM.moduleName('./routes/about'), name: 'about', nav: true, title: 'about us' },
       { route: 'places', moduleId: PLATFORM.moduleName('./routes/places'), nav: true, title: 'places' },
+      { route: 'tracker', moduleId: PLATFORM.moduleName('./routes/tracker'), nav: false, title: 'tracker', name: 'tracker', auth: true },
       { route: 'unsubscribe/:id', moduleId: PLATFORM.moduleName('./routes/unsubscribe'), title: 'unsubscribe', auth: false },
      ]);
 

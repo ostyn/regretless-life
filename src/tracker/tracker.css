@@ -1,0 +1,45 @@
+.activeMood {
+    font-size: 36px;
+    opacity: 1;
+}
+.inactiveMood {
+    font-size: 32px;
+    opacity: .6;
+    cursor: pointer;
+}
+.activityEmoji {
+    font-size: 32px;
+    text-align: center;
+    padding: 5px;
+}
+.activityName {
+    font-size: 12px;
+    text-align: center;
+    padding: 5px;
+}
+.activityContainer {
+    display: inline-block;
+}
+.badge {
+    display: inline-block;
+    background-color: black;
+    border-radius: 16px;
+    width: 16px;
+    text-align: center;
+    color: white;
+    font-size: 10px;
+    margin: 2px;
+}
+.entry {
+    border: black 1px dashed;
+    margin: 20px;
+    padding: 20px;
+}
+.cursor {
+    cursor: pointer;
+}
+.entryNote {
+    width: 75%;
+    height: 200px;
+    padding: 10px;
+}
