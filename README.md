@@ -1,7 +1,14 @@
 # regretless-life
-Backend and frontend for our website
+Blog/website. Aurelia frontend. Firebase functions, database, hosting, storage, auth.
 
-# `frontend`
+# `Setup`
+1. Install Firebase locally and login.
+2. Ctrl-F for `YOUR_API_KEY`_HERE. You should find two instances: one in `regretless-life/functions/index.js` for your Google Maps API key, and one in `regretless-life/src/firebase.js` for your Firebase API key. 
+3. While you're updating your firebase.js be sure to update your `projectId` and `storageBucket` to the appropriate values for your Firebase project.
+4. While in the root of the project, run `npm install`
+5. Run `firebase deploy`
+
+# `Aurelia`
 
 This project is bootstrapped by [aurelia-cli](https://github.com/aurelia/cli).
 
