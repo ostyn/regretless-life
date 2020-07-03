@@ -12,6 +12,7 @@
     </div>
     <div>
         <textarea class="entryNoteEdit" value.bind="entry.note"></textarea>
+        <div>${entry.note.length}/280</div>
     </div>
     <div if.bind="activities.length > 0">
         <div repeat.for="[id, count] of entry.activities" class="activityContainer cursor" click.trigger="removeActivity(id)">
