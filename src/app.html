@@ -3,7 +3,7 @@
   <require from="./widgets/info-section"></require>
   <require from="./widgets/loading-indicator"></require>
 
-  <loading-indicator loading.bind="router.isNavigating"></loading-indicator>
+  <loading-indicator loading.bind="router.isNavigating || blogDao.isRequesting"></loading-indicator>
   <nav-bar class="navbar"></nav-bar>
   <div class="appContainer">
     <div class="appBody">

@@ -4,7 +4,12 @@ import { PageChanged } from 'messages/messages';
 import {PLATFORM} from 'aurelia-pal';
 import {Redirect} from 'aurelia-router';
 import firebase from "firebase";
+import { BlogDao } from './dao/BlogDao';
+@inject(BlogDao)
 export class App {
+  constructor(blogDao) {
+    this.blogDao = blogDao;
+  }
   configureRouter(config, router) {
     config.title = 'regretless.life';
     config.addPipelineStep('authorize', CheckAuth);
