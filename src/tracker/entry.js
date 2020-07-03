@@ -1,9 +1,10 @@
 import { ActivityService } from "./activityService";
-import { inject, bindable } from "aurelia-framework";
+import { inject, bindable, computedFrom } from "aurelia-framework";
 import { MoodService } from "./moodService";
 import { EntryService } from "./entryService";
 import { EventAggregator } from "aurelia-event-aggregator";
-@inject(ActivityService, MoodService, EntryService, EventAggregator)
+import { FormatLib } from "../util/FormatLib";
+@inject(ActivityService, MoodService, EntryService, EventAggregator, FormatLib)
 export class Entry {
     entryService;
     @bindable entry;
@@ -13,11 +14,12 @@ export class Entry {
     currentMood;
     activityService;
     moodService;
-    constructor(activityService, moodService, entryService, eventAggregator) {
+    constructor(activityService, moodService, entryService, eventAggregator, formatLib) {
         this.activityService = activityService;
         this.moodService = moodService;
         this.entryService = entryService;
         this.ea = eventAggregator;
+        this.formatLib = formatLib;
     }
 
     attached() {
@@ -29,6 +31,10 @@ export class Entry {
 
     detached() {
         this.subscribers.forEach(sub => this.subscribers.pop().dispose());
+    }
+    @computedFrom('entry.created', 'entry.updated')
+    get showUpdatedDate(){
+        return this.entry.created.getTime() !== this.entry.updated.getTime();
     }
 
     getActivities = () => {

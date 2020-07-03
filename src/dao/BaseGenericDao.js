@@ -19,6 +19,8 @@ export class BaseGenericDao {
                     ...doc.data(),
                     id: doc.id
                 };
+                item.created = item.created.toDate();
+                item.updated = item.updated.toDate();
                 items.push(this.afterLoadFixup(item));
             });
             return this.sortItems(items);

@@ -26,7 +26,7 @@
                     <img class="commentPicture" if.bind="comment.admin" src="/us.jpg">
                 </div>
                 <div class="grey">${formatLib.secondsToDate(comment.date)} at ${formatLib.secondsToTime(comment.date)}</div>
-                <div>${comment.content}</div>
+                <div class="commentBody">${comment.content}</div>
                 <button if.bind="userService.isAuthorized" click.trigger="deleteComment(comment)">delete</button>
             </div>
         </div>

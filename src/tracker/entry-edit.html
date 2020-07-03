@@ -1,20 +1,17 @@
 <template>
     <require from="tracker/tracker.css"></require>
-    <h4>moods</h4>
+    <h4>how are you feeling?</h4>
     <label class.bind="m.id === entry.mood ? 'activeMood' : 'inactiveMood'" repeat.for="m of moods">
         ${m.emoji}
         <input show.bind="false" type="radio" name="moodSelector" model.bind="m.id" checked.bind="entry.mood">
     </label>
-    <h4>when</h4>
-    <input type="date" value.bind="entry.date" max.bind="date" name="" id="">
-
-    <h4>activities</h4>
+    <h4>what did you do?</h4>
     <div repeat.for="activity of nonArchivedActivities" class="activityContainer cursor" click.trigger="addActivity(activity.id)">
         <div class="activityEmoji">${activity.emoji}</div>
         <div class="activityName">${activity.name}</div>
     </div>
     <div>
-        <textarea class="entryNote" value.bind="entry.note"></textarea>
+        <textarea class="entryNoteEdit" value.bind="entry.note"></textarea>
     </div>
     <div if.bind="activities.length > 0">
         <div repeat.for="[id, count] of entry.activities" class="activityContainer cursor" click.trigger="removeActivity(id)">
@@ -25,5 +22,8 @@
             </div>
         </div>
     </div>
+    <h4>when was this?</h4>
+    <input type="date" value.bind="entry.date" max.bind="date" name="" id="">
+    <br>
     <button disabled.bind="entry.mood === undefined" click.trigger="submitEntry()">submit</button>
 </template>

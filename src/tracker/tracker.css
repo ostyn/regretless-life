@@ -38,11 +38,16 @@
     border: black 1px dashed;
     margin: 20px;
     padding: 20px;
+    display: flex;
+}
+.entryNote{
+    white-space: pre-wrap;
+    padding-bottom: 20px;
 }
 .cursor {
     cursor: pointer;
 }
-.entryNote {
+.entryNoteEdit {
     width: 75%;
     height: 200px;
     padding: 10px;

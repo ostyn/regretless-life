@@ -6,6 +6,9 @@ export class FormatLib {
     secondsToTime(seconds) {
         return moment(seconds).format('h:mm a'); 
     }
+    selectorDateToJsDate(date) {
+        return moment(date).format('dddd - MMMM D, YYYY'); 
+    }
     //Stolen from Stack Overflow
     //http://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value-in-javascript
     dynamicSort(property) {

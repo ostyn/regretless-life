@@ -213,7 +213,9 @@ h2 {
     overflow:hidden;
 }
 .comment {
-    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border: dashed 1px black;
+    padding: 20px;
 }
 .comments {
     max-width: 50%;
@@ -393,6 +395,9 @@ onedrive-browser {
 .commentHeader {
     display: flex;
     align-items:center;
+}
+.commentBody {
+    white-space: pre-wrap;
 }
 multi-select-box form {
     display: inline-block;
