@@ -21,9 +21,6 @@ export class InfoSection {
     viewDrafts() {
         this.router.navigateToRoute('drafts');
     }
-    gotToTracker() {
-        this.router.navigateToRoute('tracker');
-    }
     subscribe() {
         if (this.email !== undefined && this.email !== "") {
             this.blogDao.subscribe(this.email)

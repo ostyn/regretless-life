@@ -24,6 +24,5 @@
     </div>
     <new-post-button if.bind="userService.isAuthorized"></new-post-button>
     <button if.bind="userService.isLoggedIn" click.trigger="viewDrafts()">view drafts</button>
-    <button if.bind="userService.isLoggedIn" click.trigger="gotToTracker()">tracker</button>
     <button if.bind="userService.isLoggedIn" click.trigger="userService.logout()">logout</button>
 </template>
